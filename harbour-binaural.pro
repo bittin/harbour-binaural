@@ -32,6 +32,7 @@ DISTFILES += qml/harbour-binaural.qml \
     qml/cover/CoverPage.qml \
     qml/pages/AboutPage.qml \
     qml/pages/TimerPage.qml \
+    qml/pages/components/AmbienceDrawer.qml \
     qml/pages/components/InfoBinauralPage.qml \
     qml/pages/components/InfoColoredPage.qml \
     qml/pages/components/SoundNames.qml \

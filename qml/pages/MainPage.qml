@@ -36,7 +36,6 @@ Page {
         appWindow.isPlaying = isPlaying
     }
 
-    // effects on timer when activeBand is changed
     onActiveBandChanged: {
         checkSleepTimer()
     }
@@ -120,221 +119,49 @@ Page {
         InfoColoredPage { }
     }
 
-    // Drawer to open Ambience sounds which opens above playbackBar.
+    // Drawer for ambient sounds.
     Drawer {
         id: ambienceDrawer
 
         anchors.fill: parent
-
         dock: Dock.Bottom
         z: 2
 
-        backgroundSize: ambienceBackground.height
+        // Uses extracted ambience component AmbienceDrawer
+        backgroundSize: ambienceSelector.height
 
-        background: SilicaFlickable {
-            id: ambienceBackground
+        background: AmbienceDrawer {
+            id: ambienceSelector
 
-            width: parent.width
-            height: ambienceColumn.height + 2 * Theme.paddingLarge
-            contentHeight: ambienceColumn.height + 2 * Theme.paddingLarge
-            contentWidth: width
+            activeAmbience: page.activeAmbience
+            ambiencePlaying: page.ambiencePlaying
+            pausedMode: page.pausedMode
 
-            Rectangle {
-                anchors.fill: parent
-
-                color: Theme.rgba(
-                    Theme.highlightBackgroundColor,
-                    Theme.highlightBackgroundOpacity * 0.35
-                )
+            onCloseRequested: {
+                ambienceDrawer.open = false
             }
 
-            // Swipe down action to close ambienceDrawer.
-            MouseArea {
-                id: drawerSwipeArea
-
-                anchors.fill: parent
-                z: -1
-
-                property real startY: 0
-
-                onPressed: {
-                    startY = mouse.y
-                }
-
-                onReleased: {
-                    var deltaY = mouse.y - startY
-
-                    if (deltaY > Theme.itemSizeSmall) {
-                        ambienceDrawer.open = false
-                    }
+            onAmbienceSelected: {
+                if (!page.pausedMode) {
+                    page.activeAmbience = ambience
+                    audioEngine.setAmbience(ambience)
+                } else {
+                    audioEngine.stopAmbience()
+                    page.activeAmbience = ambience
                 }
             }
 
-            Column {
-                id: ambienceColumn
-
-                width: parent.width
-                spacing: Theme.paddingMedium
-
-                Item {
-                    width: 1
-                    height: Theme.paddingLarge
-                }
-
-                // Ambience selection grid.
-                SilicaGridView {
-                    id: ambienceDrawerGrid
-
-                    x: Theme.horizontalPageMargin
-                    width: parent.width - 2 * Theme.horizontalPageMargin
-                    height: Math.ceil(model.length / 2) *
-                            Theme.itemSizeMedium
-                    cellWidth: width / 2
-                    cellHeight: Theme.itemSizeMedium
-
-                    model: ["Wind", "Waves", "Crickets", "Stream",
-                            "Rain", "Birds", "Fire", "Chimes"]
-
-                    delegate: Item {
-                        width: ambienceDrawerGrid.cellWidth
-                        height: ambienceDrawerGrid.cellHeight
-
-                        Rectangle {
-                            anchors.fill: ambienceDrawerButton
-                            anchors.margins: -Theme.paddingSmall
-                            radius: Theme.paddingSmall
-
-                            color: ambienceDrawerButton.highlighted
-                                   ? Theme.highlightColor
-                                   : "transparent"
-
-                            opacity: ambienceDrawerButton.highlighted
-                                     ? 0.15
-                                     : 0.0
-
-                            Behavior on opacity {
-                                NumberAnimation {
-                                    duration: 150
-                                }
-                            }
-                        }
-
-                        Button {
-                            id: ambienceDrawerButton
-
-                            anchors.centerIn: parent
-
-                            preferredWidth: ambienceDrawerGrid.cellWidth -
-                                            Theme.paddingMedium
-
-                            text: SoundNames.label(modelData)
-                            highlighted: page.activeAmbience === modelData
-
-                            // Visual hint when nothing is playing.
-                            opacity: highlighted && !page.ambiencePlaying
-                                      ? 0.6 : 1.0
-
-                            onClicked: {
-                                if (ambienceDrawerButton.highlighted) {
-                                    // Deselect.
-                                    page.activeAmbience = ""
-                                    audioEngine.stopAmbience()
-                                } else if (!page.pausedMode) {
-                                    // Playing, or no selection at all
-                                    // (fresh start): switch immediately.
-                                    page.activeAmbience = modelData
-                                    audioEngine.setAmbience(modelData)
-                                } else {
-                                    // Paused mode: selection only.
-                                    audioEngine.stopAmbience()
-                                    page.activeAmbience = modelData
-                                }
-                            }
-
-                            Label {
-                                anchors.centerIn: parent
-                                text: parent.text
-                                color: ambienceDrawerButton.highlighted
-                                       ? (page.ambiencePlaying
-                                          ? Theme.highlightColor
-                                          : Theme.secondaryHighlightColor)
-                                       : Theme.primaryColor
-                            }
-                        }
-                    }
-                }
-
-                Item {
-                    width: parent.width
-                    height: ambienceVolumeSlider.height
-
-                    Slider {
-                        id: ambienceVolumeSlider
-
-                        width: parent.width * 0.9
-                        anchors.horizontalCenter: parent.horizontalCenter
-
-                        minimumValue: 0
-                        maximumValue: 100
-                        value: 50
-
-                        enabled: page.activeAmbience !== ""
-                        opacity: enabled ? 1.0 : 0.5
-
-                        onValueChanged: {
-                            audioEngine.setAmbienceVolume(value)
-                        }
-                    }
-
-                    Item {
-                        id: ambienceVolumeIcon
-
-                        width: Theme.iconSizeSmall * 1.6
-                        height: Theme.iconSizeSmall * 1.6
-
-                        anchors.top: ambienceVolumeSlider.bottom
-                        // moves icon closer to volume slider
-                        anchors.topMargin: -Theme.paddingLarge
-                        anchors.horizontalCenter: ambienceVolumeSlider.horizontalCenter
-
-                        opacity: page.activeAmbience !== "" ? 1.0 : 0.5
-
-                        Image {
-                            id: ambienceVolumeImage
-
-                            anchors.fill: parent
-
-                            source: ambienceVolumeSlider.value === 0
-                                    ? "../images/icon-s-volume-1.svg"
-                                    : ambienceVolumeSlider.value <= 33
-                                      ? "../images/icon-s-volume-2.svg"
-                                      : ambienceVolumeSlider.value <= 66
-                                        ? "../images/icon-s-volume-3.svg"
-                                        : "../images/icon-s-volume-4.svg"
-
-                            sourceSize: Qt.size(
-                                Theme.iconSizeSmall * 1.6 * 2,
-                                Theme.iconSizeSmall * 1.6 * 2
-                            )
-
-                            fillMode: Image.PreserveAspectFit
-
-                            visible: false
-                        }
-
-                        ColorOverlay {
-                            anchors.fill: ambienceVolumeImage
-
-                            source: ambienceVolumeImage
-                            color: Theme.primaryColor
-                        }
-                    }
-                }
+            onAmbienceDeselected: {
+                page.activeAmbience = ""
+                audioEngine.stopAmbience()
             }
 
-            VerticalScrollDecorator {}
+            onAmbienceVolumeChanged: {
+                audioEngine.setAmbienceVolume(volume)
+            }
         }
 
+        // Main page content remains here.
         Item {
             id: foregroundContent
 
@@ -345,8 +172,7 @@ Page {
 
                 anchors.fill: parent
 
-                contentHeight: column.height +
-                               Theme.paddingLarge
+                contentHeight: column.height + Theme.paddingLarge
 
                 PullDownMenu {
                     MenuItem {
@@ -387,7 +213,6 @@ Page {
                             )
                         }
                     }
-
                 }
 
                 MouseArea {
@@ -414,25 +239,25 @@ Page {
                         height: Theme.paddingLarge
                     }
 
-                    // Binaural frequency selection grid.
+                    // Binaural frequency selection.
                     SectionHeader {
                         text: qsTr("Binaural Beats")
                     }
 
-                    // Info text about headphones with image.
+                    // Headphone information.
                     Item {
-                        width: parent.width - 2 * Theme.horizontalPageMargin
+                        width: parent.width -
+                               2 * Theme.horizontalPageMargin
+
                         x: Theme.horizontalPageMargin
                         height: Theme.fontSizeExtraSmall
 
                         Row {
                             anchors.right: parent.right
-
                             spacing: Theme.paddingSmall
 
                             Label {
                                 text: qsTr("To be used with")
-
                                 color: Theme.secondaryHighlightColor
                                 font.pixelSize: Theme.fontSizeExtraSmall
                                 verticalAlignment: Text.AlignVCenter
@@ -442,13 +267,14 @@ Page {
                                 width: Theme.fontSizeExtraSmall
                                 height: Theme.fontSizeExtraSmall
 
+                                anchors.verticalCenter: parent.verticalCenter
+                                anchors.verticalCenterOffset: Theme.paddingSmall / 3
+
                                 Image {
                                     id: headsetImage
 
                                     anchors.fill: parent
-
                                     source: "../images/icon-s-headset.svg"
-
                                     fillMode: Image.PreserveAspectFit
                                     smooth: true
                                     visible: false
@@ -456,14 +282,10 @@ Page {
 
                                 ColorOverlay {
                                     anchors.fill: headsetImage
-
                                     source: headsetImage
                                     color: Theme.secondaryHighlightColor
                                     opacity: 0.8
                                 }
-
-                                anchors.verticalCenter: parent.verticalCenter
-                                anchors.verticalCenterOffset: Theme.paddingSmall / 3
                             }
                         }
                     }
@@ -472,8 +294,10 @@ Page {
                         id: frequencyGrid
 
                         x: Theme.horizontalPageMargin
+
                         width: parent.width -
                                2 * Theme.horizontalPageMargin
+
                         height: contentHeight
                         cellWidth: width / 2
                         cellHeight: Theme.itemSizeMedium
@@ -501,8 +325,7 @@ Page {
                                        : "transparent"
 
                                 opacity: frequencyButton.highlighted
-                                         ? 0.15
-                                         : 0.0
+                                         ? 0.15 : 0.0
 
                                 Behavior on opacity {
                                     NumberAnimation {
@@ -522,36 +345,28 @@ Page {
                                 text: SoundNames.label(modelData)
                                 highlighted: page.activeBand === modelData
 
-                                // Visual hint when nothing is playing.
                                 opacity: highlighted && !page.bandPlaying
-                                          ? 0.6 : 1.0
+                                         ? 0.6 : 1.0
 
                                 onClicked: {
                                     if (frequencyButton.highlighted) {
-                                        // Deselect.
                                         page.activeBand = ""
                                         audioEngine.stop()
                                     } else if (!page.pausedMode) {
-                                        // Playing, or no selection at all
-                                        // (fresh start): start immediately.
                                         page.activeBand = modelData
-                                        audioEngine.setFrequencyBand(
-                                            modelData
-                                        )
+                                        audioEngine.setFrequencyBand(modelData)
                                         audioEngine.start()
                                     } else {
-                                        // Paused mode: selection only.
                                         audioEngine.stop()
                                         page.activeBand = modelData
-                                        audioEngine.setFrequencyBand(
-                                            modelData
-                                        )
+                                        audioEngine.setFrequencyBand(modelData)
                                     }
                                 }
 
                                 Label {
                                     anchors.centerIn: parent
                                     text: parent.text
+
                                     color: frequencyButton.highlighted
                                            ? (page.bandPlaying
                                               ? Theme.highlightColor
@@ -562,6 +377,7 @@ Page {
                         }
                     }
 
+                    // Binaural volume slider and information button.
                     Item {
                         width: parent.width
                         height: binauralVolumeSlider.height
@@ -593,7 +409,6 @@ Page {
                             height: Theme.iconSizeSmall * 1.6
 
                             anchors.top: binauralVolumeSlider.bottom
-                            // Moves icon closer to volume slider.
                             anchors.topMargin: -Theme.paddingLarge
                             anchors.horizontalCenter: binauralVolumeSlider.horizontalCenter
                             anchors.horizontalCenterOffset: Theme.paddingSmall
@@ -619,13 +434,11 @@ Page {
                                 )
 
                                 fillMode: Image.PreserveAspectFit
-
                                 visible: false
                             }
 
                             ColorOverlay {
                                 anchors.fill: binauralVolumeImage
-
                                 source: binauralVolumeImage
                                 color: Theme.primaryColor
                             }
@@ -645,14 +458,12 @@ Page {
                                           : Theme.primaryColor)
 
                             onClicked: {
-                                pageStack.push(
-                                    infoBinauralPageComponent
-                                )
+                                pageStack.push(infoBinauralPageComponent)
                             }
                         }
                     }
 
-                    // Colored Noise selection grid.
+                    // Colored noise selection.
                     SectionHeader {
                         text: qsTr("Colored Noise")
                     }
@@ -661,8 +472,10 @@ Page {
                         id: coloredNoiseGrid
 
                         x: Theme.horizontalPageMargin
+
                         width: parent.width -
                                2 * Theme.horizontalPageMargin
+
                         height: contentHeight
                         cellWidth: width / 2
                         cellHeight: Theme.itemSizeMedium
@@ -683,8 +496,7 @@ Page {
                                        : "transparent"
 
                                 opacity: coloredNoiseButton.highlighted
-                                         ? 0.15
-                                         : 0.0
+                                         ? 0.15 : 0.0
 
                                 Behavior on opacity {
                                     NumberAnimation {
@@ -704,22 +516,17 @@ Page {
                                 text: SoundNames.label(modelData)
                                 highlighted: page.activeNoise === modelData
 
-                                // Visual hint when nothing is playing.
                                 opacity: highlighted && !page.noisePlaying
-                                          ? 0.6 : 1.0
+                                         ? 0.6 : 1.0
 
                                 onClicked: {
                                     if (coloredNoiseButton.highlighted) {
-                                        // Deselect.
                                         page.activeNoise = ""
                                         audioEngine.stopColoredNoise()
                                     } else if (!page.pausedMode) {
-                                        // Playing, or no selection at all
-                                        // (fresh start): start immediately.
                                         page.activeNoise = modelData
                                         audioEngine.setColoredNoise(modelData)
                                     } else {
-                                        // Paused mode: selection only.
                                         audioEngine.stopColoredNoise()
                                         page.activeNoise = modelData
                                     }
@@ -728,6 +535,7 @@ Page {
                                 Label {
                                     anchors.centerIn: parent
                                     text: parent.text
+
                                     color: coloredNoiseButton.highlighted
                                            ? (page.noisePlaying
                                               ? Theme.highlightColor
@@ -738,6 +546,7 @@ Page {
                         }
                     }
 
+                    // Colored noise volume slider and information button.
                     Item {
                         width: parent.width
                         height: coloredNoiseVolumeSlider.height
@@ -769,7 +578,6 @@ Page {
                             height: Theme.iconSizeSmall * 1.6
 
                             anchors.top: coloredNoiseVolumeSlider.bottom
-                            // Moves icon closer to volume slider.
                             anchors.topMargin: -Theme.paddingLarge
                             anchors.horizontalCenter: coloredNoiseVolumeSlider.horizontalCenter
                             anchors.horizontalCenterOffset: Theme.paddingSmall
@@ -795,13 +603,11 @@ Page {
                                 )
 
                                 fillMode: Image.PreserveAspectFit
-
                                 visible: false
                             }
 
                             ColorOverlay {
                                 anchors.fill: coloredNoiseVolumeImage
-
                                 source: coloredNoiseVolumeImage
                                 color: Theme.primaryColor
                             }
@@ -821,14 +627,12 @@ Page {
                                           : Theme.primaryColor)
 
                             onClicked: {
-                                pageStack.push(
-                                    infoColoredPageComponent
-                                )
+                                pageStack.push(infoColoredPageComponent)
                             }
                         }
                     }
 
-                    // Ambience selection with button that opens drawer.
+                    // Ambient sound button opens the drawer.
                     SectionHeader {
                         text: qsTr("Ambient Sound")
                     }
@@ -847,8 +651,7 @@ Page {
                                    : "transparent"
 
                             opacity: ambienceButton.highlighted
-                                     ? 0.15
-                                     : 0.0
+                                     ? 0.15 : 0.0
 
                             Behavior on opacity {
                                 NumberAnimation {
@@ -861,14 +664,11 @@ Page {
                             id: ambienceButton
 
                             anchors.centerIn: parent
-
                             preferredWidth: Theme.buttonWidthMedium
 
                             text: page.activeAmbience === ""
                                   ? qsTr("Choose an ambient sound")
-                                  : SoundNames.label(
-                                        page.activeAmbience
-                                    )
+                                  : SoundNames.label(page.activeAmbience)
 
                             highlighted: page.activeAmbience !== ""
 
@@ -883,6 +683,7 @@ Page {
                             Label {
                                 anchors.centerIn: parent
                                 text: parent.text
+
                                 color: ambienceButton.highlighted
                                        ? (page.ambiencePlaying
                                           ? Theme.highlightColor
@@ -905,7 +706,6 @@ Page {
                 id: drawerDimmer
 
                 anchors.fill: foregroundContent
-
                 z: 1
 
                 color: Theme.overlayBackgroundColor
