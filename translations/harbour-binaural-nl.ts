@@ -126,7 +126,8 @@
         <translation>Oorspronkelijke bron</translation>
     </message>
     <message>
-        <source>Files have been manually edited for use in this app under</source>
+        <source>Files have been manually edited for use in this app under the</source>
+        <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
         <translation type="unfinished"></translation>
     </message>
 </context>

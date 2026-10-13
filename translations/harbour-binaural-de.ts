@@ -110,52 +110,53 @@
         <translation>Audiodateien</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="81"/>
-        <source>Files have been manually edited for use in this app under</source>
+        <location filename="../qml/pages/CreditPage.qml" line="83"/>
+        <source>Files have been manually edited for use in this app under the</source>
+        <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="84"/>
+        <location filename="../qml/pages/CreditPage.qml" line="86"/>
         <source>Pixabay Content License</source>
         <translation>Pixabay-Inhaltslizenz</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="137"/>
+        <location filename="../qml/pages/CreditPage.qml" line="139"/>
         <source>sound by</source>
         <translation>Ton von</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="143"/>
+        <location filename="../qml/pages/CreditPage.qml" line="145"/>
         <source>from</source>
         <translation>von</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="168"/>
+        <location filename="../qml/pages/CreditPage.qml" line="170"/>
         <source>Images</source>
         <translation>Bilder</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="175"/>
+        <location filename="../qml/pages/CreditPage.qml" line="177"/>
         <source>Binaural graph image modified for use in</source>
         <translation>Binaural-Diagramm, angepasst für die Verwendung in</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="200"/>
+        <location filename="../qml/pages/CreditPage.qml" line="202"/>
         <source>Based on</source>
         <translation>Basierend auf</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="204"/>
+        <location filename="../qml/pages/CreditPage.qml" line="206"/>
         <source>by</source>
         <translation>von</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="208"/>
+        <location filename="../qml/pages/CreditPage.qml" line="210"/>
         <source>Licensed under</source>
         <translation>Lizenziert unter</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="215"/>
+        <location filename="../qml/pages/CreditPage.qml" line="217"/>
         <source>Original source</source>
         <translation>Originalquelle</translation>
     </message>
