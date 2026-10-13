@@ -82,48 +82,12 @@
 <context>
     <name>CreditPage</name>
     <message>
-        <source>Wind</source>
-        <translation>Vent</translation>
-    </message>
-    <message>
-        <source>Rain</source>
-        <translation>Pluie</translation>
-    </message>
-    <message>
-        <source>Crickets</source>
-        <translation>Grillons</translation>
-    </message>
-    <message>
-        <source>Waves</source>
-        <translation>Vagues</translation>
-    </message>
-    <message>
-        <source>Birds</source>
-        <translation>Oiseaux</translation>
-    </message>
-    <message>
-        <source>Fire</source>
-        <translation>Feu</translation>
-    </message>
-    <message>
-        <source>Chimes</source>
-        <translation>Carillon</translation>
-    </message>
-    <message>
-        <source>Stream</source>
-        <translation>Ruisseau</translation>
-    </message>
-    <message>
         <source>Asset credits</source>
         <translation>Crédits des ressources</translation>
     </message>
     <message>
         <source>Audio files</source>
         <translation>Fichiers audio</translation>
-    </message>
-    <message>
-        <source>Files have been manually edited for use in this app under the</source>
-        <translation>Les fichiers ont été modifiés manuellement pour être utilisés dans cette application conformément à la</translation>
     </message>
     <message>
         <source>Pixabay Content License</source>
@@ -161,6 +125,10 @@
         <source>Original source</source>
         <translation>Source originale</translation>
     </message>
+    <message>
+        <source>Files have been manually edited for use in this app under</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InfoBinauralPage</name>
@@ -179,30 +147,6 @@
     <message>
         <source>Individual experiences may vary.</source>
         <translation>Les effets peuvent varier d’une personne à l’autre.</translation>
-    </message>
-    <message>
-        <source>Delta 2 Hz</source>
-        <translation>Delta 2 Hz</translation>
-    </message>
-    <message>
-        <source>Delta/Theta 4 Hz</source>
-        <translation>Delta/Thêta 4 Hz</translation>
-    </message>
-    <message>
-        <source>Theta 6 Hz</source>
-        <translation>Thêta 6 Hz</translation>
-    </message>
-    <message>
-        <source>Alpha 10 Hz</source>
-        <translation>Alpha 10 Hz</translation>
-    </message>
-    <message>
-        <source>Beta 20 Hz</source>
-        <translation>Bêta 20 Hz</translation>
-    </message>
-    <message>
-        <source>Gamma 40 Hz</source>
-        <translation>Gamma 40 Hz</translation>
     </message>
     <message>
         <source>Deep sleep, rest</source>
@@ -238,22 +182,6 @@
     <message>
         <source>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</source>
         <translation>Son dont la répartition de l’énergie varie selon les fréquences. Chaque couleur possède un caractère différent et est couramment utilisée à des fins différentes.</translation>
-    </message>
-    <message>
-        <source>White</source>
-        <translation>Blanc</translation>
-    </message>
-    <message>
-        <source>Pink</source>
-        <translation>Rose</translation>
-    </message>
-    <message>
-        <source>Brown</source>
-        <translation>Brun</translation>
-    </message>
-    <message>
-        <source>Grey</source>
-        <translation>Gris</translation>
     </message>
     <message>
         <source>Individual experiences may vary.</source>

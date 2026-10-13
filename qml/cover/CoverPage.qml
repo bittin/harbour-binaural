@@ -140,7 +140,8 @@ CoverBackground {
 
                 visible: !sleepTimerRunning
 
-                width: parent.width
+                x: Theme.horizontalPageMargin
+                width: parent.width - x * 2
 
                 horizontalAlignment: Text.AlignHCenter
 

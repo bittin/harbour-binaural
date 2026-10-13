@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import Binaural 1.0
 
 Page {
     id: page
@@ -8,49 +9,49 @@ Page {
 
     property var soundCredits: [
         {
-            name: qsTr("Wind"),
+            name: SoundNames.label("Wind"),
             author: "Jurij",
             authorUrl: "https://pixabay.com/users/soundreality-31074404/",
             sourceUrl: "https://pixabay.com/"
         },
         {
-            name: qsTr("Rain"),
+            name: SoundNames.label("Rain"),
             author: "Pig Bank - Mood",
             authorUrl: "https://pixabay.com/users/boons_freak-39857343/",
             sourceUrl: "https://pixabay.com/"
         },
         {
-            name: qsTr("Crickets"),
+            name: SoundNames.label("Crickets"),
             author: "freesound_community",
             authorUrl: "https://pixabay.com/users/freesound_community-46691455/",
             sourceUrl: "https://pixabay.com/"
         },
         {
-            name: qsTr("Waves"),
-            author: "freesound_community",
-            authorUrl: "https://pixabay.com/users/freesound_community-46691455/",
-            sourceUrl: "https://pixabay.com/sound-effects/"
-        },
-        {
-            name: qsTr("Birds"),
-            author: "Jurij",
-            authorUrl: "https://pixabay.com/users/soundreality-31074404/",
-            sourceUrl: "https://pixabay.com/"
-        },
-        {
-            name: qsTr("Fire"),
-            author: "Jurij",
-            authorUrl: "https://pixabay.com/users/soundreality-31074404/",
-            sourceUrl: "https://pixabay.com/"
-        },
-        {
-            name: qsTr("Chimes"),
+            name: SoundNames.label("Waves"),
             author: "freesound_community",
             authorUrl: "https://pixabay.com/users/freesound_community-46691455/",
             sourceUrl: "https://pixabay.com/sound-effects/"
         },
         {
-            name: qsTr("Stream"),
+            name: SoundNames.label("Birds"),
+            author: "Jurij",
+            authorUrl: "https://pixabay.com/users/soundreality-31074404/",
+            sourceUrl: "https://pixabay.com/"
+        },
+        {
+            name: SoundNames.label("Fire"),
+            author: "Jurij",
+            authorUrl: "https://pixabay.com/users/soundreality-31074404/",
+            sourceUrl: "https://pixabay.com/"
+        },
+        {
+            name: SoundNames.label("Chimes"),
+            author: "freesound_community",
+            authorUrl: "https://pixabay.com/users/freesound_community-46691455/",
+            sourceUrl: "https://pixabay.com/sound-effects/"
+        },
+        {
+            name: SoundNames.label("Stream"),
             author: "loswin23",
             authorUrl: "https://pixabay.com/users/loswin23-15879800/",
             sourceUrl: "https://pixabay.com/"
@@ -77,7 +78,7 @@ Page {
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 x: Theme.horizontalPageMargin
 
-                text: qsTr("Files have been manually edited for use in this app under the") +
+                text: qsTr("Files have been manually edited for use in this app under") +
                       " " +
                       "<a href=\"https://pixabay.com/service/license-summary/\">" +
                       qsTr("Pixabay Content License") +

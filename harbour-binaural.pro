@@ -72,6 +72,8 @@ TRANSLATIONS += translations/harbour-binaural-de.ts
 TRANSLATIONS += translations/harbour-binaural-fr.ts
 TRANSLATIONS += translations/harbour-binaural-it.ts
 TRANSLATIONS += translations/harbour-binaural-sv.ts
+TRANSLATIONS += translations/harbour-binaural-nb.ts
+TRANSLATIONS += translations/harbour-binaural-nl.ts
 
 
 HEADERS += \

@@ -52,10 +52,6 @@
         <translation>Binaural er inspirert av</translation>
     </message>
     <message>
-        <source>Color noise sound files were generated using the</source>
-        <translation>Fargestøyfiler ble generert ved hjelp av</translation>
-    </message>
-    <message>
         <source>Asset credits</source>
         <translation>Rettigheter for mediefiler</translation>
     </message>
@@ -86,48 +82,12 @@
 <context>
     <name>CreditPage</name>
     <message>
-        <source>Wind</source>
-        <translation>Vind</translation>
-    </message>
-    <message>
-        <source>Rain</source>
-        <translation>Regn</translation>
-    </message>
-    <message>
-        <source>Crickets</source>
-        <translation>Sirisser</translation>
-    </message>
-    <message>
-        <source>Waves</source>
-        <translation>Bølger</translation>
-    </message>
-    <message>
-        <source>Birds</source>
-        <translation>Fugler</translation>
-    </message>
-    <message>
-        <source>Fire</source>
-        <translation>Ild</translation>
-    </message>
-    <message>
-        <source>Chimes</source>
-        <translation>Vindspill</translation>
-    </message>
-    <message>
-        <source>Stream</source>
-        <translation>Bekk</translation>
-    </message>
-    <message>
         <source>Asset credits</source>
         <translation>Rettigheter for mediefiler</translation>
     </message>
     <message>
         <source>Audio files</source>
         <translation>Lydfiler</translation>
-    </message>
-    <message>
-        <source>Files have been manually edited for use in this app under the</source>
-        <translation>Filene har blitt manuelt redigert for bruk i denne appen under</translation>
     </message>
     <message>
         <source>Pixabay Content License</source>
@@ -165,6 +125,10 @@
         <source>Original source</source>
         <translation>Opprinnelig kilde</translation>
     </message>
+    <message>
+        <source>Files have been manually edited for use in this app under</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InfoBinauralPage</name>
@@ -183,30 +147,6 @@
     <message>
         <source>Individual experiences may vary.</source>
         <translation>Individuelle opplevelser kan variere.</translation>
-    </message>
-    <message>
-        <source>Delta 2 Hz</source>
-        <translation>Delta 2 Hz</translation>
-    </message>
-    <message>
-        <source>Delta/Theta 4 Hz</source>
-        <translation>Delta/Theta 4 Hz</translation>
-    </message>
-    <message>
-        <source>Theta 6 Hz</source>
-        <translation>Theta 6 Hz</translation>
-    </message>
-    <message>
-        <source>Alpha 10 Hz</source>
-        <translation>Alpha 10 Hz</translation>
-    </message>
-    <message>
-        <source>Beta 20 Hz</source>
-        <translation>Beta 20 Hz</translation>
-    </message>
-    <message>
-        <source>Gamma 40 Hz</source>
-        <translation>Gamma 40 Hz</translation>
     </message>
     <message>
         <source>Deep sleep, rest</source>
@@ -244,22 +184,6 @@
         <translation>Lyd med ulik mengde energi ved forskjellige frekvenser. Hver farge har sine egne kjennetegn og brukes vanligvis til ulike formål.</translation>
     </message>
     <message>
-        <source>White</source>
-        <translation>Hvit</translation>
-    </message>
-    <message>
-        <source>Pink</source>
-        <translation>Rosa</translation>
-    </message>
-    <message>
-        <source>Brown</source>
-        <translation>Brun</translation>
-    </message>
-    <message>
-        <source>Grey</source>
-        <translation>Grå</translation>
-    </message>
-    <message>
         <source>Individual experiences may vary.</source>
         <translation>Individuelle opplevelser kan variere.</translation>
     </message>
@@ -287,44 +211,8 @@
 <context>
     <name>MainPage</name>
     <message>
-        <source>Wind</source>
-        <translation>Vind</translation>
-    </message>
-    <message>
-        <source>Crickets</source>
-        <translation>Sirisser</translation>
-    </message>
-    <message>
-        <source>Stream</source>
-        <translation>Strøm</translation>
-    </message>
-    <message>
-        <source>Rain</source>
-        <translation>Regn</translation>
-    </message>
-    <message>
-        <source>Birds</source>
-        <translation>Fugler</translation>
-    </message>
-    <message>
         <source>About</source>
         <translation>Om</translation>
-    </message>
-    <message>
-        <source>White</source>
-        <translation>Hvit</translation>
-    </message>
-    <message>
-        <source>Pink</source>
-        <translation>Rosa</translation>
-    </message>
-    <message>
-        <source>Brown</source>
-        <translation>Brun</translation>
-    </message>
-    <message>
-        <source>Grey</source>
-        <translation>Grå</translation>
     </message>
     <message>
         <source>Choose an ambient sound</source>
@@ -343,24 +231,98 @@
         <translation>Farget støy</translation>
     </message>
     <message>
-        <source>Fire</source>
-        <translation>Ild</translation>
-    </message>
-    <message>
-        <source>Chimes</source>
-        <translation>Vindspill</translation>
-    </message>
-    <message>
-        <source>Waves</source>
-        <translation>Bølger</translation>
-    </message>
-    <message>
         <source>Deselect all sounds</source>
         <translation>Fjern markering for alle lyder</translation>
     </message>
     <message>
         <source>To be used with</source>
         <translation>Bruk med</translation>
+    </message>
+    <message>
+        <source>Timer</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SoundNames</name>
+    <message>
+        <source>Delta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delta/Theta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Theta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alpha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Beta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gamma</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>White</source>
+        <translation type="unfinished">Hvit</translation>
+    </message>
+    <message>
+        <source>Pink</source>
+        <translation type="unfinished">Rosa</translation>
+    </message>
+    <message>
+        <source>Brown</source>
+        <translation type="unfinished">Brun</translation>
+    </message>
+    <message>
+        <source>Grey</source>
+        <translation type="unfinished">Grå</translation>
+    </message>
+    <message>
+        <source>Wind</source>
+        <translation type="unfinished">Vind</translation>
+    </message>
+    <message>
+        <source>Waves</source>
+        <translation type="unfinished">Bølger</translation>
+    </message>
+    <message>
+        <source>Crickets</source>
+        <translation type="unfinished">Sirisser</translation>
+    </message>
+    <message>
+        <source>Stream</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rain</source>
+        <translation type="unfinished">Regn</translation>
+    </message>
+    <message>
+        <source>Birds</source>
+        <translation type="unfinished">Fugler</translation>
+    </message>
+    <message>
+        <source>Fire</source>
+        <translation type="unfinished">Ild</translation>
+    </message>
+    <message>
+        <source>Chimes</source>
+        <translation type="unfinished">Vindspill</translation>
+    </message>
+</context>
+<context>
+    <name>TimerPage</name>
+    <message>
+        <source>Timer</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

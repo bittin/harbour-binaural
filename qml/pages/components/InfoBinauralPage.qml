@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtGraphicalEffects 1.0
+import Binaural 1.0
 
 FullscreenContentPage {
     id: page
@@ -86,13 +87,11 @@ FullscreenContentPage {
                     )
 
                     fillMode: Image.PreserveAspectFit
-
                     visible: false
                 }
 
                 ColorOverlay {
                     anchors.fill: binauralGraphImage
-
                     source: binauralGraphImage
                     color: Theme.primaryColor
                 }
@@ -131,7 +130,7 @@ FullscreenContentPage {
                 Label {
                     id: deltaLabel
                     width: frequencyGrid.labelWidth
-                    text: qsTr("Delta 2 Hz")
+                    text: SoundNames.label("Delta") + " 2 Hz"
                     color: Theme.secondaryHighlightColor
                     font.pixelSize: Theme.fontSizeSmall
                     wrapMode: Text.NoWrap
@@ -148,7 +147,7 @@ FullscreenContentPage {
                 Label {
                     id: deltaThetaLabel
                     width: frequencyGrid.labelWidth
-                    text: qsTr("Delta/Theta 4 Hz")
+                    text: SoundNames.label("Delta/Theta") + " 4 Hz"
                     color: Theme.secondaryHighlightColor
                     font.pixelSize: Theme.fontSizeSmall
                     wrapMode: Text.NoWrap
@@ -165,7 +164,7 @@ FullscreenContentPage {
                 Label {
                     id: thetaLabel
                     width: frequencyGrid.labelWidth
-                    text: qsTr("Theta 6 Hz")
+                    text: SoundNames.label("Theta") + " 6 Hz"
                     color: Theme.secondaryHighlightColor
                     font.pixelSize: Theme.fontSizeSmall
                     wrapMode: Text.NoWrap
@@ -182,7 +181,7 @@ FullscreenContentPage {
                 Label {
                     id: alphaLabel
                     width: frequencyGrid.labelWidth
-                    text: qsTr("Alpha 10 Hz")
+                    text: SoundNames.label("Alpha") + " 10 Hz"
                     color: Theme.secondaryHighlightColor
                     font.pixelSize: Theme.fontSizeSmall
                     wrapMode: Text.NoWrap
@@ -199,7 +198,7 @@ FullscreenContentPage {
                 Label {
                     id: betaLabel
                     width: frequencyGrid.labelWidth
-                    text: qsTr("Beta 20 Hz")
+                    text: SoundNames.label("Beta") + " 20 Hz"
                     color: Theme.secondaryHighlightColor
                     font.pixelSize: Theme.fontSizeSmall
                     wrapMode: Text.NoWrap
@@ -216,7 +215,7 @@ FullscreenContentPage {
                 Label {
                     id: gammaLabel
                     width: frequencyGrid.labelWidth
-                    text: qsTr("Gamma 40 Hz")
+                    text: SoundNames.label("Gamma") + " 40 Hz"
                     color: Theme.secondaryHighlightColor
                     font.pixelSize: Theme.fontSizeSmall
                     wrapMode: Text.NoWrap
@@ -249,3 +248,4 @@ FullscreenContentPage {
         }
     }
 }
+

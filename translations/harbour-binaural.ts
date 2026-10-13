@@ -82,47 +82,11 @@
 <context>
     <name>CreditPage</name>
     <message>
-        <source>Wind</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rain</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Crickets</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Waves</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Birds</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Fire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chimes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stream</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Asset credits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Audio files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Files have been manually edited for use in this app under the</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -161,6 +125,10 @@
         <source>Original source</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Files have been manually edited for use in this app under</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InfoBinauralPage</name>
@@ -178,30 +146,6 @@
     </message>
     <message>
         <source>Individual experiences may vary.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delta 2 Hz</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delta/Theta 4 Hz</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Theta 6 Hz</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Alpha 10 Hz</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Beta 20 Hz</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Gamma 40 Hz</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -237,22 +181,6 @@
     </message>
     <message>
         <source>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>White</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pink</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Brown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grey</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

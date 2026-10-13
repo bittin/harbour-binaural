@@ -82,48 +82,12 @@
 <context>
     <name>CreditPage</name>
     <message>
-        <source>Wind</source>
-        <translation>Wind</translation>
-    </message>
-    <message>
-        <source>Rain</source>
-        <translation>Regen</translation>
-    </message>
-    <message>
-        <source>Crickets</source>
-        <translation>Krekels</translation>
-    </message>
-    <message>
-        <source>Waves</source>
-        <translation>Golven</translation>
-    </message>
-    <message>
-        <source>Birds</source>
-        <translation>Vogels</translation>
-    </message>
-    <message>
-        <source>Fire</source>
-        <translation>Vuur</translation>
-    </message>
-    <message>
-        <source>Chimes</source>
-        <translation>Gongen</translation>
-    </message>
-    <message>
-        <source>Stream</source>
-        <translation>Beek</translation>
-    </message>
-    <message>
         <source>Asset credits</source>
         <translation>Dank voor de mediabestanden aan</translation>
     </message>
     <message>
         <source>Audio files</source>
         <translation>Audiobestanden</translation>
-    </message>
-    <message>
-        <source>Files have been manually edited for use in this app under the</source>
-        <translation>De bestanden in deze app zijn handmatig bewerkt onder de</translation>
     </message>
     <message>
         <source>Pixabay Content License</source>
@@ -161,6 +125,10 @@
         <source>Original source</source>
         <translation>Oorspronkelijke bron</translation>
     </message>
+    <message>
+        <source>Files have been manually edited for use in this app under</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InfoBinauralPage</name>
@@ -179,30 +147,6 @@
     <message>
         <source>Individual experiences may vary.</source>
         <translation>De ervaring kan verschillen van persoon tot persoon.</translation>
-    </message>
-    <message>
-        <source>Delta 2 Hz</source>
-        <translation>Delta 2 Hz</translation>
-    </message>
-    <message>
-        <source>Delta/Theta 4 Hz</source>
-        <translation>Delta/Theta 4 Hz</translation>
-    </message>
-    <message>
-        <source>Theta 6 Hz</source>
-        <translation>Theta 6 Hz</translation>
-    </message>
-    <message>
-        <source>Alpha 10 Hz</source>
-        <translation>Alfa 10 Hz</translation>
-    </message>
-    <message>
-        <source>Beta 20 Hz</source>
-        <translation>Bèta 20 Hz</translation>
-    </message>
-    <message>
-        <source>Gamma 40 Hz</source>
-        <translation>Gamma 40 Hz</translation>
     </message>
     <message>
         <source>Deep sleep, rest</source>
@@ -240,22 +184,6 @@
         <translation>Geluid met verschillende hoeveelheden energie op verschillende frequenties. Elke kleur heeft een ander karakter, en wordt doorgaans gebruikt voor verschillende doeleinden.</translation>
     </message>
     <message>
-        <source>White</source>
-        <translation>Wit</translation>
-    </message>
-    <message>
-        <source>Pink</source>
-        <translation>Roze</translation>
-    </message>
-    <message>
-        <source>Brown</source>
-        <translation>Bruin</translation>
-    </message>
-    <message>
-        <source>Grey</source>
-        <translation>Grijs</translation>
-    </message>
-    <message>
         <source>Individual experiences may vary.</source>
         <translation>De ervaring kan verschillen van persoon tot persoon.</translation>
     </message>
@@ -283,44 +211,8 @@
 <context>
     <name>MainPage</name>
     <message>
-        <source>Wind</source>
-        <translation>Wind</translation>
-    </message>
-    <message>
-        <source>Crickets</source>
-        <translation>Krekels</translation>
-    </message>
-    <message>
-        <source>Stream</source>
-        <translation>Beek</translation>
-    </message>
-    <message>
-        <source>Rain</source>
-        <translation>Regen</translation>
-    </message>
-    <message>
-        <source>Birds</source>
-        <translation>Vogels</translation>
-    </message>
-    <message>
         <source>About</source>
         <translation>Over</translation>
-    </message>
-    <message>
-        <source>White</source>
-        <translation>Wit</translation>
-    </message>
-    <message>
-        <source>Pink</source>
-        <translation>Roze</translation>
-    </message>
-    <message>
-        <source>Brown</source>
-        <translation>Bruin</translation>
-    </message>
-    <message>
-        <source>Grey</source>
-        <translation>Grijs</translation>
     </message>
     <message>
         <source>Choose an ambient sound</source>
@@ -339,24 +231,98 @@
         <translation>Gekleurde ruis</translation>
     </message>
     <message>
-        <source>Fire</source>
-        <translation>Vuur</translation>
-    </message>
-    <message>
-        <source>Chimes</source>
-        <translation>Gongen</translation>
-    </message>
-    <message>
-        <source>Waves</source>
-        <translation>Golven</translation>
-    </message>
-    <message>
         <source>Deselect all sounds</source>
         <translation>Selectie opheffen</translation>
     </message>
     <message>
         <source>To be used with</source>
         <translation>Te gebruiken met</translation>
+    </message>
+    <message>
+        <source>Timer</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SoundNames</name>
+    <message>
+        <source>Delta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delta/Theta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Theta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alpha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Beta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gamma</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>White</source>
+        <translation type="unfinished">Wit</translation>
+    </message>
+    <message>
+        <source>Pink</source>
+        <translation type="unfinished">Roze</translation>
+    </message>
+    <message>
+        <source>Brown</source>
+        <translation type="unfinished">Bruin</translation>
+    </message>
+    <message>
+        <source>Grey</source>
+        <translation type="unfinished">Grijs</translation>
+    </message>
+    <message>
+        <source>Wind</source>
+        <translation type="unfinished">Wind</translation>
+    </message>
+    <message>
+        <source>Waves</source>
+        <translation type="unfinished">Golven</translation>
+    </message>
+    <message>
+        <source>Crickets</source>
+        <translation type="unfinished">Krekels</translation>
+    </message>
+    <message>
+        <source>Stream</source>
+        <translation type="unfinished">Beek</translation>
+    </message>
+    <message>
+        <source>Rain</source>
+        <translation type="unfinished">Regen</translation>
+    </message>
+    <message>
+        <source>Birds</source>
+        <translation type="unfinished">Vogels</translation>
+    </message>
+    <message>
+        <source>Fire</source>
+        <translation type="unfinished">Vuur</translation>
+    </message>
+    <message>
+        <source>Chimes</source>
+        <translation type="unfinished">Gongen</translation>
+    </message>
+</context>
+<context>
+    <name>TimerPage</name>
+    <message>
+        <source>Timer</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

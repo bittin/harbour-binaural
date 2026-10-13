@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtGraphicalEffects 1.0
+import Binaural 1.0
 
 FullscreenContentPage {
     id: page
@@ -86,13 +87,11 @@ FullscreenContentPage {
                     )
 
                     fillMode: Image.PreserveAspectFit
-
                     visible: false
                 }
 
                 ColorOverlay {
                     anchors.fill: binauralGraphImage
-
                     source: binauralGraphImage
                     color: Theme.primaryColor
                 }
@@ -128,11 +127,8 @@ FullscreenContentPage {
 
                 Label {
                     id: whiteLabel
-
                     width: noiseGrid.labelWidth
-
-                    text: qsTr("White")
-
+                    text: SoundNames.label("White")
                     color: Theme.secondaryHighlightColor
                     font.pixelSize: Theme.fontSizeSmall
                     wrapMode: Text.NoWrap
@@ -152,11 +148,8 @@ FullscreenContentPage {
 
                 Label {
                     id: pinkLabel
-
                     width: noiseGrid.labelWidth
-
-                    text: qsTr("Pink")
-
+                    text: SoundNames.label("Pink")
                     color: Theme.secondaryHighlightColor
                     font.pixelSize: Theme.fontSizeSmall
                     wrapMode: Text.NoWrap
@@ -176,11 +169,8 @@ FullscreenContentPage {
 
                 Label {
                     id: brownLabel
-
                     width: noiseGrid.labelWidth
-
-                    text: qsTr("Brown")
-
+                    text: SoundNames.label("Brown")
                     color: Theme.secondaryHighlightColor
                     font.pixelSize: Theme.fontSizeSmall
                     wrapMode: Text.NoWrap
@@ -200,11 +190,8 @@ FullscreenContentPage {
 
                 Label {
                     id: greyLabel
-
                     width: noiseGrid.labelWidth
-
-                    text: qsTr("Grey")
-
+                    text: SoundNames.label("Grey")
                     color: Theme.secondaryHighlightColor
                     font.pixelSize: Theme.fontSizeSmall
                     wrapMode: Text.NoWrap
@@ -241,4 +228,3 @@ FullscreenContentPage {
         }
     }
 }
-

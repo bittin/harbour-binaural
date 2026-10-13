@@ -82,17 +82,17 @@
 <context>
     <name>CoverPage</name>
     <message>
-        <location filename="../qml/cover/CoverPage.qml" line="154"/>
+        <location filename="../qml/cover/CoverPage.qml" line="155"/>
         <source>Start your sound mix</source>
         <translation>Starte deinen Klangmix</translation>
     </message>
     <message>
-        <location filename="../qml/cover/CoverPage.qml" line="156"/>
+        <location filename="../qml/cover/CoverPage.qml" line="157"/>
         <source>Playing:</source>
         <translation>Wiedergabe:</translation>
     </message>
     <message>
-        <location filename="../qml/cover/CoverPage.qml" line="157"/>
+        <location filename="../qml/cover/CoverPage.qml" line="158"/>
         <source>Paused:</source>
         <translation>Pausiert:</translation>
     </message>
@@ -100,102 +100,62 @@
 <context>
     <name>CreditPage</name>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="11"/>
-        <source>Wind</source>
-        <translation>Wind</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="17"/>
-        <source>Rain</source>
-        <translation>Regen</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="23"/>
-        <source>Crickets</source>
-        <translation>Grillen</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="29"/>
-        <source>Waves</source>
-        <translation>Wellen</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="35"/>
-        <source>Birds</source>
-        <translation>Vögel</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="41"/>
-        <source>Fire</source>
-        <translation>Feuer</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="47"/>
-        <source>Chimes</source>
-        <translation>Windspiel</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="53"/>
-        <source>Stream</source>
-        <translation>Bach</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="69"/>
+        <location filename="../qml/pages/CreditPage.qml" line="70"/>
         <source>Asset credits</source>
         <translation>Quellenangaben</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="73"/>
+        <location filename="../qml/pages/CreditPage.qml" line="74"/>
         <source>Audio files</source>
         <translation>Audiodateien</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="80"/>
-        <source>Files have been manually edited for use in this app under the</source>
-        <translation>Die Dateien wurden für die Verwendung in dieser App manuell bearbeitet unter der</translation>
+        <location filename="../qml/pages/CreditPage.qml" line="81"/>
+        <source>Files have been manually edited for use in this app under</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="83"/>
+        <location filename="../qml/pages/CreditPage.qml" line="84"/>
         <source>Pixabay Content License</source>
         <translation>Pixabay-Inhaltslizenz</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="136"/>
+        <location filename="../qml/pages/CreditPage.qml" line="137"/>
         <source>sound by</source>
         <translation>Ton von</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="142"/>
+        <location filename="../qml/pages/CreditPage.qml" line="143"/>
         <source>from</source>
         <translation>von</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="167"/>
+        <location filename="../qml/pages/CreditPage.qml" line="168"/>
         <source>Images</source>
         <translation>Bilder</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="174"/>
+        <location filename="../qml/pages/CreditPage.qml" line="175"/>
         <source>Binaural graph image modified for use in</source>
         <translation>Binaural-Diagramm, angepasst für die Verwendung in</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="199"/>
+        <location filename="../qml/pages/CreditPage.qml" line="200"/>
         <source>Based on</source>
         <translation>Basierend auf</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="203"/>
+        <location filename="../qml/pages/CreditPage.qml" line="204"/>
         <source>by</source>
         <translation>von</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="207"/>
+        <location filename="../qml/pages/CreditPage.qml" line="208"/>
         <source>Licensed under</source>
         <translation>Lizenziert unter</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="214"/>
+        <location filename="../qml/pages/CreditPage.qml" line="215"/>
         <source>Original source</source>
         <translation>Originalquelle</translation>
     </message>
@@ -203,82 +163,52 @@
 <context>
     <name>InfoBinauralPage</name>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="52"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="53"/>
         <source>Binaural Beats</source>
         <translation>Binaurale Beats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="63"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="64"/>
         <source>Are created by playing two slightly different tones, one in each ear. The brain processes the difference as a rhythmic beat. Different beat frequencies can be used to support focus, relaxation, meditation, or sleep.</source>
         <translation>Sie entstehen, indem zwei leicht unterschiedliche Töne abgespielt werden, einer in jedem Ohr. Das Gehirn verarbeitet den Unterschied als rhythmischen Beat. Verschiedene Beat-Frequenzen können Konzentration, Entspannung, Meditation oder Schlaf unterstützen.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="105"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="104"/>
         <source>Choose from:</source>
         <translation>Wähle aus:</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="134"/>
-        <source>Delta 2 Hz</source>
-        <translation>Delta 2 Hz</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="142"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="141"/>
         <source>Deep sleep, rest</source>
         <translation>Tiefschlaf, Ruhe</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="151"/>
-        <source>Delta/Theta 4 Hz</source>
-        <translation>Delta/Theta 4 Hz</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="159"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="158"/>
         <source>Deep relaxation, sleep</source>
         <translation>Tiefe Entspannung, Schlaf</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="168"/>
-        <source>Theta 6 Hz</source>
-        <translation>Theta 6 Hz</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="176"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="175"/>
         <source>Meditation and relaxation</source>
         <translation>Meditation und Entspannung</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="185"/>
-        <source>Alpha 10 Hz</source>
-        <translation>Alpha 10 Hz</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="193"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="192"/>
         <source>Calm and relaxed wakefulness</source>
         <translation>Ruhiges und entspanntes Wachsein</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="202"/>
-        <source>Beta 20 Hz</source>
-        <translation>Beta 20 Hz</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="210"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="209"/>
         <source>Alertness and focus</source>
         <translation>Wachheit und Konzentration</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="219"/>
-        <source>Gamma 40 Hz</source>
-        <translation>Gamma 40 Hz</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="227"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="226"/>
         <source>Complex thinking and information processing</source>
         <translation>Komplexes Denken und Informationsverarbeitung</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="243"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="242"/>
         <source>Individual experiences may vary.</source>
         <translation>Individuelle Erfahrungen können variieren.</translation>
     </message>
@@ -286,62 +216,42 @@
 <context>
     <name>InfoColoredPage</name>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="52"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="53"/>
         <source>Colored Noise</source>
         <translation>Farbiges Rauschen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="63"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="64"/>
         <source>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</source>
         <translation>Geräusch mit unterschiedlichen Energiemengen bei verschiedenen Frequenzen. Jede Farbe hat einen eigenen Charakter und wird für unterschiedliche Zwecke verwendet.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="105"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="104"/>
         <source>Choose from:</source>
         <translation>Wähle aus:</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="134"/>
-        <source>White</source>
-        <translation>Weiß</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="146"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="142"/>
         <source>Focus, sleep and background noise masking</source>
         <translation>Konzentration, Schlaf und Maskierung von Hintergrundgeräuschen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="158"/>
-        <source>Pink</source>
-        <translation>Rosa</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="170"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="163"/>
         <source>Relaxation, sleep and concentration</source>
         <translation>Entspannung, Schlaf und Konzentration</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="182"/>
-        <source>Brown</source>
-        <translation>Braun</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="194"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="184"/>
         <source>Relaxation, sleep and reducing distracting sounds</source>
         <translation>Entspannung, Schlaf und Reduzierung störender Geräusche</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="206"/>
-        <source>Grey</source>
-        <translation>Grau</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="218"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="205"/>
         <source>Sound masking and general listening</source>
         <translation>Geräuschmaskierung und allgemeines Hören</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="235"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="222"/>
         <source>Individual experiences may vary.</source>
         <translation>Individuellen Erfahrungen können variieren.</translation>
     </message>
