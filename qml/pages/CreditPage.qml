@@ -78,7 +78,9 @@ Page {
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 x: Theme.horizontalPageMargin
 
-                text: qsTr("Files have been manually edited for use in this app under") +
+                //: Full sentence: "Files have been manually edited for use in this app under the Pixabay Content License:"
+                //: Keep the sentence natural when translating; "Pixabay Content License" is a clickable link.
+                text: qsTr("Files have been manually edited for use in this app under the") +
                       " " +
                       "<a href=\"https://pixabay.com/service/license-summary/\">" +
                       qsTr("Pixabay Content License") +
