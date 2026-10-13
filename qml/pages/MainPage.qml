@@ -110,29 +110,6 @@ Page {
         ambienceDrawer.open = false
     }
 
-    function ambienceLabel(key) {
-        switch (key) {
-        case "Wind":
-            return qsTr("Wind")
-        case "Waves":
-            return qsTr("Waves")
-        case "Crickets":
-            return qsTr("Crickets")
-        case "Stream":
-            return qsTr("Stream")
-        case "Rain":
-            return qsTr("Rain")
-        case "Birds":
-            return qsTr("Birds")
-        case "Fire":
-            return qsTr("Fire")
-        case "Chimes":
-            return qsTr("Chimes")
-        default:
-            return ""
-        }
-    }
-
     Component {
         id: infoBinauralPageComponent
         InfoBinauralPage { }
@@ -215,16 +192,8 @@ Page {
                     cellWidth: width / 2
                     cellHeight: Theme.itemSizeMedium
 
-                    model: [
-                        { key: "Wind",      label: qsTr("Wind") },
-                        { key: "Waves",     label: qsTr("Waves") },
-                        { key: "Crickets",  label: qsTr("Crickets") },
-                        { key: "Stream",    label: qsTr("Stream") },
-                        { key: "Rain",      label: qsTr("Rain") },
-                        { key: "Birds",     label: qsTr("Birds") },
-                        { key: "Fire",      label: qsTr("Fire") },
-                        { key: "Chimes",    label: qsTr("Chimes") }
-                    ]
+                    model: ["Wind", "Waves", "Crickets", "Stream",
+                            "Rain", "Birds", "Fire", "Chimes"]
 
                     delegate: Item {
                         width: ambienceDrawerGrid.cellWidth
@@ -258,8 +227,8 @@ Page {
                             preferredWidth: ambienceDrawerGrid.cellWidth -
                                             Theme.paddingMedium
 
-                            text: modelData.label
-                            highlighted: page.activeAmbience === modelData.key
+                            text: SoundNames.label(modelData)
+                            highlighted: page.activeAmbience === modelData
 
                             // Visual hint when nothing is playing.
                             opacity: highlighted && !page.ambiencePlaying
@@ -273,12 +242,12 @@ Page {
                                 } else if (!page.pausedMode) {
                                     // Playing, or no selection at all
                                     // (fresh start): switch immediately.
-                                    page.activeAmbience = modelData.key
-                                    audioEngine.setAmbience(modelData.key)
+                                    page.activeAmbience = modelData
+                                    audioEngine.setAmbience(modelData)
                                 } else {
                                     // Paused mode: selection only.
                                     audioEngine.stopAmbience()
-                                    page.activeAmbience = modelData.key
+                                    page.activeAmbience = modelData
                                 }
                             }
 
@@ -550,7 +519,7 @@ Page {
                                 preferredWidth: frequencyGrid.cellWidth -
                                                 Theme.paddingMedium
 
-                                text: modelData
+                                text: SoundNames.label(modelData)
                                 highlighted: page.activeBand === modelData
 
                                 // Visual hint when nothing is playing.
@@ -698,12 +667,7 @@ Page {
                         cellWidth: width / 2
                         cellHeight: Theme.itemSizeMedium
 
-                        model: [
-                            { key: "White", label: qsTr("White") },
-                            { key: "Pink",  label: qsTr("Pink") },
-                            { key: "Brown", label: qsTr("Brown") },
-                            { key: "Grey",  label: qsTr("Grey") }
-                        ]
+                        model: ["White", "Pink", "Brown", "Grey"]
 
                         delegate: Item {
                             width: coloredNoiseGrid.cellWidth
@@ -737,8 +701,8 @@ Page {
                                 preferredWidth: coloredNoiseGrid.cellWidth -
                                                 Theme.paddingMedium
 
-                                text: modelData.label
-                                highlighted: page.activeNoise === modelData.key
+                                text: SoundNames.label(modelData)
+                                highlighted: page.activeNoise === modelData
 
                                 // Visual hint when nothing is playing.
                                 opacity: highlighted && !page.noisePlaying
@@ -752,14 +716,12 @@ Page {
                                     } else if (!page.pausedMode) {
                                         // Playing, or no selection at all
                                         // (fresh start): start immediately.
-                                        page.activeNoise = modelData.key
-                                        audioEngine.setColoredNoise(
-                                            modelData.key
-                                        )
+                                        page.activeNoise = modelData
+                                        audioEngine.setColoredNoise(modelData)
                                     } else {
                                         // Paused mode: selection only.
                                         audioEngine.stopColoredNoise()
-                                        page.activeNoise = modelData.key
+                                        page.activeNoise = modelData
                                     }
                                 }
 
@@ -904,7 +866,7 @@ Page {
 
                             text: page.activeAmbience === ""
                                   ? qsTr("Choose an ambient sound")
-                                  : page.ambienceLabel(
+                                  : SoundNames.label(
                                         page.activeAmbience
                                     )
 

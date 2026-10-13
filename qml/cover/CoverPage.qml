@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtGraphicalEffects 1.0
+import Binaural 1.0
 
 CoverBackground {
     id: cover
@@ -171,14 +172,17 @@ CoverBackground {
             font.pixelSize: Theme.fontSizeMedium
             wrapMode: Text.WordWrap
 
-            text: (activeBand !== "" ? activeBand : "") +
-                  (activeBand !== "" &&
-                   (activeNoise !== "" || activeAmbience !== "")
-                   ? "\n" : "") +
-                  (activeNoise !== "" ? activeNoise : "") +
-                  (activeNoise !== "" && activeAmbience !== ""
-                   ? "\n" : "") +
-                  (activeAmbience !== "" ? activeAmbience : "")
+            text: {
+                var parts = []
+                if (activeBand !== "")
+                    parts.push(SoundNames.label(activeBand))
+                if (activeNoise !== "")
+                    parts.push(SoundNames.label(activeNoise))
+                if (activeAmbience !== "")
+                    parts.push(SoundNames.label(activeAmbience))
+
+                return parts.join("\n")
+            }
         }
     }
 

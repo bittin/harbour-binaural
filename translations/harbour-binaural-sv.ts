@@ -283,44 +283,8 @@
 <context>
     <name>MainPage</name>
     <message>
-        <source>Wind</source>
-        <translation>Vind</translation>
-    </message>
-    <message>
-        <source>Crickets</source>
-        <translation>Syrsor</translation>
-    </message>
-    <message>
-        <source>Stream</source>
-        <translation>Strömmar</translation>
-    </message>
-    <message>
-        <source>Rain</source>
-        <translation>Regn</translation>
-    </message>
-    <message>
-        <source>Birds</source>
-        <translation>Fåglar</translation>
-    </message>
-    <message>
         <source>About</source>
         <translation>Om</translation>
-    </message>
-    <message>
-        <source>White</source>
-        <translation>Vitt</translation>
-    </message>
-    <message>
-        <source>Pink</source>
-        <translation>Rosa</translation>
-    </message>
-    <message>
-        <source>Brown</source>
-        <translation>Brunt</translation>
-    </message>
-    <message>
-        <source>Grey</source>
-        <translation>Grått</translation>
     </message>
     <message>
         <source>Choose an ambient sound</source>
@@ -339,18 +303,6 @@
         <translation>Färgat brus</translation>
     </message>
     <message>
-        <source>Fire</source>
-        <translation>Eld</translation>
-    </message>
-    <message>
-        <source>Chimes</source>
-        <translation>Klockspel</translation>
-    </message>
-    <message>
-        <source>Waves</source>
-        <translation>Vågor</translation>
-    </message>
-    <message>
         <source>Deselect all sounds</source>
         <translation>Ta bort alla valda ljud</translation>
     </message>
@@ -361,6 +313,81 @@
     <message>
         <source>Timer</source>
         <translation>Timer</translation>
+    </message>
+</context>
+<context>
+    <name>SoundNames</name>
+    <message>
+        <source>Delta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delta/Theta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Theta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alpha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Beta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gamma</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>White</source>
+        <translation type="unfinished">Vitt</translation>
+    </message>
+    <message>
+        <source>Pink</source>
+        <translation type="unfinished">Rosa</translation>
+    </message>
+    <message>
+        <source>Brown</source>
+        <translation type="unfinished">Brunt</translation>
+    </message>
+    <message>
+        <source>Grey</source>
+        <translation type="unfinished">Grått</translation>
+    </message>
+    <message>
+        <source>Wind</source>
+        <translation type="unfinished">Vind</translation>
+    </message>
+    <message>
+        <source>Waves</source>
+        <translation type="unfinished">Vågor</translation>
+    </message>
+    <message>
+        <source>Crickets</source>
+        <translation type="unfinished">Syrsor</translation>
+    </message>
+    <message>
+        <source>Stream</source>
+        <translation type="unfinished">Strömmar</translation>
+    </message>
+    <message>
+        <source>Rain</source>
+        <translation type="unfinished">Regn</translation>
+    </message>
+    <message>
+        <source>Birds</source>
+        <translation type="unfinished">Fåglar</translation>
+    </message>
+    <message>
+        <source>Fire</source>
+        <translation type="unfinished">Eld</translation>
+    </message>
+    <message>
+        <source>Chimes</source>
+        <translation type="unfinished">Klockspel</translation>
     </message>
 </context>
 <context>

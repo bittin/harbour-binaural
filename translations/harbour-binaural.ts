@@ -283,43 +283,7 @@
 <context>
     <name>MainPage</name>
     <message>
-        <source>Wind</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Crickets</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stream</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rain</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Birds</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>White</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pink</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Brown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grey</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -339,18 +303,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Fire</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Chimes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Waves</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Deselect all sounds</source>
         <translation type="unfinished"></translation>
     </message>
@@ -360,6 +312,81 @@
     </message>
     <message>
         <source>Timer</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SoundNames</name>
+    <message>
+        <source>Delta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delta/Theta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Theta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alpha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Beta</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gamma</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>White</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pink</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Brown</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grey</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wind</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Waves</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Crickets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stream</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Birds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fire</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chimes</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

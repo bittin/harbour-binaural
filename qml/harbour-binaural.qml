@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import Binaural 1.0
 import "pages"
 import "cover"
 
@@ -219,26 +220,19 @@ ApplicationWindow {
             font.pixelSize: Theme.fontSizeMedium
             elide: Text.ElideRight
 
-            text: (appWindow.activeBand === "" &&
-                   appWindow.activeNoise === "" &&
-                   appWindow.activeAmbience === "")
-                  ? qsTr("Start your sound mix")
-                  : ((appWindow.activeBand !== ""
-                      ? appWindow.activeBand
-                      : "") +
-                     (appWindow.activeBand !== "" &&
-                      (appWindow.activeNoise !== "" ||
-                       appWindow.activeAmbience !== "")
-                      ? " & " : "") +
-                     (appWindow.activeNoise !== ""
-                      ? appWindow.activeNoise
-                      : "") +
-                     (appWindow.activeNoise !== "" &&
-                      appWindow.activeAmbience !== ""
-                      ? " & " : "") +
-                     (appWindow.activeAmbience !== ""
-                      ? appWindow.activeAmbience
-                      : ""))
+            text: {
+                var parts = []
+                if (appWindow.activeBand !== "")
+                    parts.push(SoundNames.label(appWindow.activeBand))
+                if (appWindow.activeNoise !== "")
+                    parts.push(SoundNames.label(appWindow.activeNoise))
+                if (appWindow.activeAmbience !== "")
+                    parts.push(SoundNames.label(appWindow.activeAmbience))
+
+                return parts.length > 0
+                       ? parts.join(" & ")
+                       : qsTr("Start your sound mix")
+            }
         }
 
         Item {

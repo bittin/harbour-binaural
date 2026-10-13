@@ -21,7 +21,7 @@ CONFIG += sailfishapp
 QT += multimedia
 
 
-SOURCES += src/binaural.cpp \
+SOURCES += src/harbour-binaural.cpp \
     src/audioengine.cpp
 
 
@@ -34,6 +34,7 @@ DISTFILES += qml/harbour-binaural.qml \
     qml/pages/TimerPage.qml \
     qml/pages/components/InfoBinauralPage.qml \
     qml/pages/components/InfoColoredPage.qml \
+    qml/pages/components/SoundNames.qml \
     rpm/harbour-binaural.changes \
     rpm/harbour-binaural.changes.run.in \
     rpm/harbour-binaural.spec \

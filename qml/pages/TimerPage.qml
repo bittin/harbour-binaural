@@ -74,6 +74,7 @@ Page {
 
         color: Theme.primaryColor
         font.pixelSize: Theme.fontSizeLarge
+        font.weight: Font.DemiBold
 
         z: 1
     }
@@ -165,6 +166,7 @@ Page {
 
             color: Theme.highlightColor
             font.pixelSize: Theme.fontSizeLarge
+            font.weight: Font.DemiBold
         }
     }
 
