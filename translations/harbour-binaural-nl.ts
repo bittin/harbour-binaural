@@ -128,7 +128,7 @@
     <message>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>De bestanden in deze app zijn handmatig bewerkt onder de</translation>
     </message>
 </context>
 <context>
@@ -241,89 +241,89 @@
     </message>
     <message>
         <source>Timer</source>
-        <translation type="unfinished"></translation>
+        <translation>Timer</translation>
     </message>
 </context>
 <context>
     <name>SoundNames</name>
     <message>
         <source>Delta</source>
-        <translation type="unfinished"></translation>
+        <translation>Delta</translation>
     </message>
     <message>
         <source>Delta/Theta</source>
-        <translation type="unfinished"></translation>
+        <translation>Delta/Theta</translation>
     </message>
     <message>
         <source>Theta</source>
-        <translation type="unfinished"></translation>
+        <translation>Theta</translation>
     </message>
     <message>
         <source>Alpha</source>
-        <translation type="unfinished"></translation>
+        <translation>Alfa</translation>
     </message>
     <message>
         <source>Beta</source>
-        <translation type="unfinished"></translation>
+        <translation>Bèta</translation>
     </message>
     <message>
         <source>Gamma</source>
-        <translation type="unfinished"></translation>
+        <translation>Gamma</translation>
     </message>
     <message>
         <source>White</source>
-        <translation type="unfinished">Wit</translation>
+        <translation>Wit</translation>
     </message>
     <message>
         <source>Pink</source>
-        <translation type="unfinished">Roze</translation>
+        <translation>Roze</translation>
     </message>
     <message>
         <source>Brown</source>
-        <translation type="unfinished">Bruin</translation>
+        <translation>Bruin</translation>
     </message>
     <message>
         <source>Grey</source>
-        <translation type="unfinished">Grijs</translation>
+        <translation>Grijs</translation>
     </message>
     <message>
         <source>Wind</source>
-        <translation type="unfinished">Wind</translation>
+        <translation>Wind</translation>
     </message>
     <message>
         <source>Waves</source>
-        <translation type="unfinished">Golven</translation>
+        <translation>Golven</translation>
     </message>
     <message>
         <source>Crickets</source>
-        <translation type="unfinished">Krekels</translation>
+        <translation>Krekels</translation>
     </message>
     <message>
         <source>Stream</source>
-        <translation type="unfinished">Beek</translation>
+        <translation>Beek</translation>
     </message>
     <message>
         <source>Rain</source>
-        <translation type="unfinished">Regen</translation>
+        <translation>Regen</translation>
     </message>
     <message>
         <source>Birds</source>
-        <translation type="unfinished">Vogels</translation>
+        <translation>Vogels</translation>
     </message>
     <message>
         <source>Fire</source>
-        <translation type="unfinished">Vuur</translation>
+        <translation>Vuur</translation>
     </message>
     <message>
         <source>Chimes</source>
-        <translation type="unfinished">Gongen</translation>
+        <translation>Gongen</translation>
     </message>
 </context>
 <context>
     <name>TimerPage</name>
     <message>
         <source>Timer</source>
-        <translation type="unfinished"></translation>
+        <translation>Timer</translation>
     </message>
 </context>
 <context>

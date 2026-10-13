@@ -128,7 +128,7 @@
     <message>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>I file sono stati modificati manualmente per essere utilizzati in questa app in conformità con la</translation>
     </message>
 </context>
 <context>
@@ -248,75 +248,75 @@
     <name>SoundNames</name>
     <message>
         <source>Delta</source>
-        <translation type="unfinished"></translation>
+        <translation>Delta</translation>
     </message>
     <message>
         <source>Delta/Theta</source>
-        <translation type="unfinished"></translation>
+        <translation>Delta/Theta</translation>
     </message>
     <message>
         <source>Theta</source>
-        <translation type="unfinished"></translation>
+        <translation>Theta</translation>
     </message>
     <message>
         <source>Alpha</source>
-        <translation type="unfinished"></translation>
+        <translation>Alfa</translation>
     </message>
     <message>
         <source>Beta</source>
-        <translation type="unfinished"></translation>
+        <translation>Beta</translation>
     </message>
     <message>
         <source>Gamma</source>
-        <translation type="unfinished"></translation>
+        <translation>Gamma</translation>
     </message>
     <message>
         <source>White</source>
-        <translation type="unfinished">Bianco</translation>
+        <translation>Bianco</translation>
     </message>
     <message>
         <source>Pink</source>
-        <translation type="unfinished">Rosa</translation>
+        <translation>Rosa</translation>
     </message>
     <message>
         <source>Brown</source>
-        <translation type="unfinished">Marrone</translation>
+        <translation>Marrone</translation>
     </message>
     <message>
         <source>Grey</source>
-        <translation type="unfinished">Grigio</translation>
+        <translation>Grigio</translation>
     </message>
     <message>
         <source>Wind</source>
-        <translation type="unfinished">Vento</translation>
+        <translation>Vento</translation>
     </message>
     <message>
         <source>Waves</source>
-        <translation type="unfinished">Onde</translation>
+        <translation>Onde</translation>
     </message>
     <message>
         <source>Crickets</source>
-        <translation type="unfinished">Grilli</translation>
+        <translation>Grilli</translation>
     </message>
     <message>
         <source>Stream</source>
-        <translation type="unfinished">Ruscello</translation>
+        <translation>Ruscello</translation>
     </message>
     <message>
         <source>Rain</source>
-        <translation type="unfinished">Pioggia</translation>
+        <translation>Pioggia</translation>
     </message>
     <message>
         <source>Birds</source>
-        <translation type="unfinished">Uccelli</translation>
+        <translation>Uccelli</translation>
     </message>
     <message>
         <source>Fire</source>
-        <translation type="unfinished">Fuoco</translation>
+        <translation>Fuoco</translation>
     </message>
     <message>
         <source>Chimes</source>
-        <translation type="unfinished">Campanelli</translation>
+        <translation>Campanelli</translation>
     </message>
 </context>
 <context>

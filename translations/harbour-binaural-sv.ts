@@ -128,7 +128,7 @@
     <message>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Filer har redigerats manuellt för användning i den här appen under</translation>
     </message>
 </context>
 <context>
@@ -248,75 +248,75 @@
     <name>SoundNames</name>
     <message>
         <source>Delta</source>
-        <translation type="unfinished"></translation>
+        <translation>Delta</translation>
     </message>
     <message>
         <source>Delta/Theta</source>
-        <translation type="unfinished"></translation>
+        <translation>Delta/Theta</translation>
     </message>
     <message>
         <source>Theta</source>
-        <translation type="unfinished"></translation>
+        <translation>Theta</translation>
     </message>
     <message>
         <source>Alpha</source>
-        <translation type="unfinished"></translation>
+        <translation>Alfa</translation>
     </message>
     <message>
         <source>Beta</source>
-        <translation type="unfinished"></translation>
+        <translation>Beta</translation>
     </message>
     <message>
         <source>Gamma</source>
-        <translation type="unfinished"></translation>
+        <translation>Gamma</translation>
     </message>
     <message>
         <source>White</source>
-        <translation type="unfinished">Vitt</translation>
+        <translation>Vitt</translation>
     </message>
     <message>
         <source>Pink</source>
-        <translation type="unfinished">Rosa</translation>
+        <translation>Rosa</translation>
     </message>
     <message>
         <source>Brown</source>
-        <translation type="unfinished">Brunt</translation>
+        <translation>Brunt</translation>
     </message>
     <message>
         <source>Grey</source>
-        <translation type="unfinished">Grått</translation>
+        <translation>Grått</translation>
     </message>
     <message>
         <source>Wind</source>
-        <translation type="unfinished">Vind</translation>
+        <translation>Vind</translation>
     </message>
     <message>
         <source>Waves</source>
-        <translation type="unfinished">Vågor</translation>
+        <translation>Vågor</translation>
     </message>
     <message>
         <source>Crickets</source>
-        <translation type="unfinished">Syrsor</translation>
+        <translation>Syrsor</translation>
     </message>
     <message>
         <source>Stream</source>
-        <translation type="unfinished">Strömmar</translation>
+        <translation>Strömmar</translation>
     </message>
     <message>
         <source>Rain</source>
-        <translation type="unfinished">Regn</translation>
+        <translation>Regn</translation>
     </message>
     <message>
         <source>Birds</source>
-        <translation type="unfinished">Fåglar</translation>
+        <translation>Fåglar</translation>
     </message>
     <message>
         <source>Fire</source>
-        <translation type="unfinished">Eld</translation>
+        <translation>Eld</translation>
     </message>
     <message>
         <source>Chimes</source>
-        <translation type="unfinished">Klockspel</translation>
+        <translation>Klockspel</translation>
     </message>
 </context>
 <context>

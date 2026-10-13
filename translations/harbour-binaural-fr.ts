@@ -68,7 +68,7 @@
     <name>CoverPage</name>
     <message>
         <source>Playing:</source>
-        <translation>Lecture :</translation>
+        <translation>Lecture&#xa0;:</translation>
     </message>
     <message>
         <source>Start your sound mix</source>
@@ -76,7 +76,7 @@
     </message>
     <message>
         <source>Paused:</source>
-        <translation>En pause :</translation>
+        <translation>En pause&#xa0;:</translation>
     </message>
 </context>
 <context>
@@ -128,7 +128,7 @@
     <message>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Les fichiers ont été modifiés manuellement pour être utilisés dans cette application sous la</translation>
     </message>
 </context>
 <context>
@@ -139,7 +139,7 @@
     </message>
     <message>
         <source>Choose from:</source>
-        <translation>Choisissez parmi :</translation>
+        <translation>Choisissez parmi&#xa0;:</translation>
     </message>
     <message>
         <source>Are created by playing two slightly different tones, one in each ear. The brain processes the difference as a rhythmic beat. Different beat frequencies can be used to support focus, relaxation, meditation, or sleep.</source>
@@ -178,7 +178,7 @@
     <name>InfoColoredPage</name>
     <message>
         <source>Choose from:</source>
-        <translation>Choisissez parmi :</translation>
+        <translation>Choisissez parmi&#xa0;:</translation>
     </message>
     <message>
         <source>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</source>
@@ -248,75 +248,75 @@
     <name>SoundNames</name>
     <message>
         <source>Delta</source>
-        <translation type="unfinished"></translation>
+        <translation>Delta</translation>
     </message>
     <message>
         <source>Delta/Theta</source>
-        <translation type="unfinished"></translation>
+        <translation>Delta/Theta</translation>
     </message>
     <message>
         <source>Theta</source>
-        <translation type="unfinished"></translation>
+        <translation>Theta</translation>
     </message>
     <message>
         <source>Alpha</source>
-        <translation type="unfinished"></translation>
+        <translation>Alpha</translation>
     </message>
     <message>
         <source>Beta</source>
-        <translation type="unfinished"></translation>
+        <translation>Beta</translation>
     </message>
     <message>
         <source>Gamma</source>
-        <translation type="unfinished"></translation>
+        <translation>Gamma</translation>
     </message>
     <message>
         <source>White</source>
-        <translation type="unfinished">Blanc</translation>
+        <translation>Blanc</translation>
     </message>
     <message>
         <source>Pink</source>
-        <translation type="unfinished">Rose</translation>
+        <translation>Rose</translation>
     </message>
     <message>
         <source>Brown</source>
-        <translation type="unfinished">Brun</translation>
+        <translation>Brun</translation>
     </message>
     <message>
         <source>Grey</source>
-        <translation type="unfinished">Gris</translation>
+        <translation>Gris</translation>
     </message>
     <message>
         <source>Wind</source>
-        <translation type="unfinished">Vent</translation>
+        <translation>Vent</translation>
     </message>
     <message>
         <source>Waves</source>
-        <translation type="unfinished">Vagues</translation>
+        <translation>Vagues</translation>
     </message>
     <message>
         <source>Crickets</source>
-        <translation type="unfinished">Grillons</translation>
+        <translation>Grillons</translation>
     </message>
     <message>
         <source>Stream</source>
-        <translation type="unfinished">Ruisseau</translation>
+        <translation>Ruisseau</translation>
     </message>
     <message>
         <source>Rain</source>
-        <translation type="unfinished">Pluie</translation>
+        <translation>Pluie</translation>
     </message>
     <message>
         <source>Birds</source>
-        <translation type="unfinished">Oiseaux</translation>
+        <translation>Oiseaux</translation>
     </message>
     <message>
         <source>Fire</source>
-        <translation type="unfinished">Feu</translation>
+        <translation>Feu</translation>
     </message>
     <message>
         <source>Chimes</source>
-        <translation type="unfinished">Carillon</translation>
+        <translation>Carillon</translation>
     </message>
 </context>
 <context>
