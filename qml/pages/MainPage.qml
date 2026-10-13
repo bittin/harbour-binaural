@@ -89,11 +89,15 @@ Page {
 
     function togglePlayback() {
         if (isPlaying) {
-            audioEngine.stop()
-            audioEngine.stopAmbience()
-            audioEngine.stopColoredNoise()
+            audioEngine.pauseBinaural()
+            audioEngine.pauseAmbience()
+            audioEngine.pauseColoredNoise()
+
+            appWindow.pauseSleepTimer()
         } else {
             resumeAll()
+
+            appWindow.resumeSleepTimer()
         }
     }
 

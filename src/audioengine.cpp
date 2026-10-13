@@ -17,7 +17,6 @@ namespace
 
     const double CarrierFrequency = 200.0;
     const double BinauralAmplitude = 16000.0;
-    const double ColoredNoiseAmplitude = 15000.0;
 
     const int BinauralFadeInDuration = 0;
     const int BinauralFadeOutDuration = 0;
@@ -1125,6 +1124,25 @@ void AudioEngine::setAmbience(
     m_ambienceFadeInTimer->start();
 }
 
+void AudioEngine::pauseAmbience()
+{
+    if (!m_activeAmbiencePlayer ||
+        m_activeAmbiencePlayer->state()
+            != QMediaPlayer::PlayingState)
+        return;
+
+    m_ambienceFadeInTimer->stop();
+    m_ambienceCrossfadeTimer->stop();
+    m_ambienceFadeOutTimer->stop();
+
+    m_activeAmbiencePlayer->pause();
+
+    if (m_fadingAmbiencePlayer)
+        m_fadingAmbiencePlayer->pause();
+
+    updatePlayingState();
+}
+
 void AudioEngine::stopAmbience()
 {
     if (!m_activeAmbiencePlayer)
@@ -1526,6 +1544,20 @@ void AudioEngine::setColoredNoise(
     updatePlayingState();
 }
 
+void AudioEngine::pauseColoredNoise()
+{
+    if (!m_coloredNoiseOutput ||
+        m_coloredNoiseOutput->state()
+            != QAudio::ActiveState)
+        return;
+
+    m_coloredNoiseFadeOutTimer->stop();
+
+    m_coloredNoiseOutput->suspend();
+
+    updatePlayingState();
+}
+
 void AudioEngine::stopColoredNoise()
 {
     if (!m_coloredNoiseOutput)
@@ -1688,6 +1720,20 @@ void AudioEngine::start()
         });
 
     m_audioOutput->start(m_generator);
+
+    updatePlayingState();
+}
+
+void AudioEngine::pauseBinaural()
+{
+    if (!m_audioOutput ||
+        m_audioOutput->state() != QAudio::ActiveState)
+        return;
+
+    m_binauralFadeTimer->stop();
+    m_binauralFadeOutTimer->stop();
+
+    m_audioOutput->suspend();
 
     updatePlayingState();
 }

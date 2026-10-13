@@ -82,17 +82,17 @@
 <context>
     <name>CoverPage</name>
     <message>
-        <location filename="../qml/cover/CoverPage.qml" line="155"/>
+        <location filename="../qml/cover/CoverPage.qml" line="161"/>
         <source>Start your sound mix</source>
         <translation>Starte deinen Klangmix</translation>
     </message>
     <message>
-        <location filename="../qml/cover/CoverPage.qml" line="157"/>
+        <location filename="../qml/cover/CoverPage.qml" line="163"/>
         <source>Playing:</source>
         <translation>Wiedergabe:</translation>
     </message>
     <message>
-        <location filename="../qml/cover/CoverPage.qml" line="158"/>
+        <location filename="../qml/cover/CoverPage.qml" line="164"/>
         <source>Paused:</source>
         <translation>Pausiert:</translation>
     </message>
@@ -260,42 +260,42 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="179"/>
+        <location filename="../qml/pages/MainPage.qml" line="183"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="189"/>
+        <location filename="../qml/pages/MainPage.qml" line="193"/>
         <source>Deselect all sounds</source>
         <translation>Alle Klänge deaktivieren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="201"/>
+        <location filename="../qml/pages/MainPage.qml" line="205"/>
         <source>Timer</source>
         <translation>Timer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="244"/>
+        <location filename="../qml/pages/MainPage.qml" line="248"/>
         <source>Binaural Beats</source>
         <translation>Binaurale Beats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="260"/>
+        <location filename="../qml/pages/MainPage.qml" line="264"/>
         <source>To be used with</source>
         <translation>Zu verwenden mit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="468"/>
+        <location filename="../qml/pages/MainPage.qml" line="472"/>
         <source>Colored Noise</source>
         <translation>Farbiges Rauschen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="637"/>
+        <location filename="../qml/pages/MainPage.qml" line="641"/>
         <source>Ambient Sound</source>
         <translation>Umgebungsgeräusche</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="670"/>
+        <location filename="../qml/pages/MainPage.qml" line="674"/>
         <source>Choose an ambient sound</source>
         <translation>Wähle ein Umgebungsgeräusch</translation>
     </message>
@@ -404,7 +404,7 @@
 <context>
     <name>harbour-binaural</name>
     <message>
-        <location filename="../qml/harbour-binaural.qml" line="234"/>
+        <location filename="../qml/harbour-binaural.qml" line="267"/>
         <source>Start your sound mix</source>
         <translation>Starte deinen Klangmix</translation>
     </message>

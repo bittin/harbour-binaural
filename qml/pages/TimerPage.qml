@@ -141,7 +141,7 @@ Page {
                         -Math.PI / 2 +
                         (2 * Math.PI * progress),
                         false
-                    )
+                                )
 
                     ctx.lineWidth = 8
                     ctx.strokeStyle = Theme.highlightColor
@@ -164,7 +164,9 @@ Page {
             text: page.formatRemainingTime(
                       page.appWindow.sleepTimerRemainingSeconds)
 
-            color: Theme.highlightColor
+            color: page.appWindow.sleepTimerPaused
+                   ? Theme.secondaryHighlightColor
+                   : Theme.highlightColor
             font.pixelSize: Theme.fontSizeLarge
             font.weight: Font.DemiBold
         }

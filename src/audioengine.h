@@ -56,13 +56,16 @@ public:
     Q_INVOKABLE void start();
     Q_INVOKABLE void stop();
     Q_INVOKABLE void resumeBinaural();
+    Q_INVOKABLE void pauseBinaural();
     Q_INVOKABLE void setFrequencyBand(const QString &band);
 
     Q_INVOKABLE void setAmbience(const QString &ambience);
+    Q_INVOKABLE void pauseAmbience();
     Q_INVOKABLE void stopAmbience();
     Q_INVOKABLE void resumeAmbience();
 
     Q_INVOKABLE void setColoredNoise(const QString &noise);
+    Q_INVOKABLE void pauseColoredNoise();
     Q_INVOKABLE void stopColoredNoise();
     Q_INVOKABLE void resumeColoredNoise();
 

@@ -27,6 +27,7 @@ ApplicationWindow {
 
     // Sleep Timer
     property bool sleepTimerRunning: false
+    property bool sleepTimerPaused: false
     property int sleepTimerRemainingSeconds: 0
     property int sleepTimerDurationSeconds: 0
 
@@ -34,10 +35,36 @@ ApplicationWindow {
         if (seconds <= 0)
             return
 
+        sleepTimer.stop()
+
         appWindow.sleepTimerDurationSeconds = seconds
         appWindow.sleepTimerRemainingSeconds = seconds
+        appWindow.sleepTimerPaused = false
         appWindow.sleepTimerRunning = true
 
+        sleepTimer.start()
+    }
+
+    function pauseSleepTimer() {
+        if (!appWindow.sleepTimerRunning ||
+            appWindow.sleepTimerPaused)
+            return
+
+        sleepTimer.stop()
+        appWindow.sleepTimerPaused = true
+    }
+
+    function resumeSleepTimer() {
+        if (!appWindow.sleepTimerRunning ||
+            !appWindow.sleepTimerPaused)
+            return
+
+        if (appWindow.sleepTimerRemainingSeconds <= 0) {
+            appWindow.cancelSleepTimer()
+            return
+        }
+
+        appWindow.sleepTimerPaused = false
         sleepTimer.start()
     }
 
@@ -45,17 +72,21 @@ ApplicationWindow {
         sleepTimer.stop()
 
         appWindow.sleepTimerRunning = false
+        appWindow.sleepTimerPaused = false
         appWindow.sleepTimerRemainingSeconds = 0
         appWindow.sleepTimerDurationSeconds = 0
     }
 
     Timer {
         id: sleepTimer
-
         interval: 1000
         repeat: true
 
         onTriggered: {
+            if (appWindow.sleepTimerPaused ||
+                !appWindow.sleepTimerRunning)
+                return
+
             if (appWindow.sleepTimerRemainingSeconds > 0)
                 appWindow.sleepTimerRemainingSeconds--
 
@@ -63,6 +94,7 @@ ApplicationWindow {
                 sleepTimer.stop()
 
                 appWindow.sleepTimerRunning = false
+                appWindow.sleepTimerPaused = false
                 appWindow.sleepTimerRemainingSeconds = 0
                 appWindow.sleepTimerDurationSeconds = 0
 
@@ -102,6 +134,7 @@ ApplicationWindow {
             isPaused: appWindow.pausedMode
 
             sleepTimerRunning: appWindow.sleepTimerRunning
+            sleepTimerPaused: appWindow.sleepTimerPaused
             sleepTimerRemainingSeconds: appWindow.sleepTimerRemainingSeconds
 
             onPlayPauseClicked: {
@@ -268,7 +301,10 @@ ApplicationWindow {
                 height: Theme.iconSizeSmall * 0.88
 
                 source: "image://theme/icon-s-timer?" +
-                        Theme.secondaryColor
+                        (appWindow.sleepTimerPaused
+                         ? Theme.secondaryColor
+                         : Theme.primaryColor
+                         )
 
                 sourceSize: Qt.size(
                     width,
@@ -297,7 +333,10 @@ ApplicationWindow {
                            (secs < 10 ? "0" : "") + secs
                 }
 
-                color: Theme.secondaryColor
+                color: appWindow.sleepTimerPaused
+                       ? Theme.secondaryColor
+                       : Theme.primaryColor
+
                 font.pixelSize: Theme.fontSizeSmall
             }
         }

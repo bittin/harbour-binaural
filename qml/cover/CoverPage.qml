@@ -13,6 +13,7 @@ CoverBackground {
     property bool isPaused: false
 
     property bool sleepTimerRunning: false
+    property bool sleepTimerPaused: false
     property int sleepTimerRemainingSeconds: 0
 
     signal playPauseClicked()
@@ -115,7 +116,9 @@ CoverBackground {
                     anchors.verticalCenterOffset: Theme.paddingSmall / 3
 
                     source: "image://theme/icon-s-timer?" +
-                            Theme.secondaryColor
+                            (sleepTimerPaused
+                             ? Theme.secondaryColor
+                             : Theme.primaryColor)
 
                     sourceSize: Qt.size(
                         width,
@@ -126,7 +129,10 @@ CoverBackground {
                 Label {
                     id: coverSleepTimerLabel
 
-                    color: Theme.secondaryColor
+                    color: sleepTimerPaused
+                           ? Theme.secondaryColor
+                           : Theme.primaryColor
+
                     font.pixelSize: Theme.fontSizeSmall
 
                     text: formatRemainingTime(
