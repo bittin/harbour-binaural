@@ -26,4 +26,3 @@ Licensed under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
 ## Other
 
 * Binaural was inspired by [Metiq](https://github.com/metiq-xyz/android-app).
-* Colored noise sound files were generated using the [Metiq colored noise generator](https://github.com/metiq-xyz/colored-noise-generator).
