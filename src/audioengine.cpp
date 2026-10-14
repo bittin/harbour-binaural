@@ -32,6 +32,27 @@ namespace
 
     const int FadeInterval = 15;
     const int VolumeUpdateInterval = 50;
+
+    const QString AmbienceBasePath =
+            QStringLiteral(
+                "file:///usr/share/harbour-binaural/sounds/");
+
+    const QMap<QString, QString> &ambienceFiles()
+        {
+            static const QMap<QString, QString> files = {
+                { QStringLiteral("Wind"),     QStringLiteral("wind.mp3") },
+                { QStringLiteral("Rain"),     QStringLiteral("rain.mp3") },
+                { QStringLiteral("Stream"),   QStringLiteral("stream.mp3") },
+                { QStringLiteral("Waves"),    QStringLiteral("waves.mp3") },
+                { QStringLiteral("Lake"),     QStringLiteral("lake.mp3") },
+                { QStringLiteral("Sailing"),  QStringLiteral("sailing.mp3") },
+                { QStringLiteral("Birds"),    QStringLiteral("birds.mp3") },
+                { QStringLiteral("Crickets"), QStringLiteral("crickets.mp3") },
+                { QStringLiteral("Chimes"),   QStringLiteral("chimes.mp3") },
+                { QStringLiteral("Fire"),     QStringLiteral("fire.mp3") },
+            };
+            return files;
+        }
 }
 
 
@@ -1057,72 +1078,15 @@ void AudioEngine::connectAmbiencePlayer(
 void AudioEngine::setAmbience(
     const QString &ambience)
 {
-    QUrl mediaUrl;
+    const QMap<QString, QString> &files = ambienceFiles();
 
-    if (ambience == "Wind")
-    {
-        mediaUrl = QUrl(
-            "file:///usr/share/harbour-binaural/"
-            "sounds/wind.mp3");
-    }
-    else if (ambience == "Rain")
-    {
-        mediaUrl = QUrl(
-            "file:///usr/share/harbour-binaural/"
-            "sounds/rain.mp3");
-    }
-    else if (ambience == "Stream")
-    {
-        mediaUrl = QUrl(
-            "file:///usr/share/harbour-binaural/"
-            "sounds/stream.mp3");
-    }
-    else if (ambience == "Waves")
-    {
-        mediaUrl = QUrl(
-            "file:///usr/share/harbour-binaural/"
-            "sounds/waves.mp3");
-    }
-    else if (ambience == "Lake")
-    {
-        mediaUrl = QUrl(
-            "file:///usr/share/harbour-binaural/"
-            "sounds/lake.mp3");
-    }
-    else if (ambience == "Sailing")
-    {
-        mediaUrl = QUrl(
-            "file:///usr/share/harbour-binaural/"
-            "sounds/sailing.mp3");
-    }
-    else if (ambience == "Birds")
-    {
-        mediaUrl = QUrl(
-            "file:///usr/share/harbour-binaural/"
-            "sounds/birds.mp3");
-    }
-    else if (ambience == "Crickets")
-    {
-        mediaUrl = QUrl(
-            "file:///usr/share/harbour-binaural/"
-            "sounds/crickets.mp3");
-    }
-    else if (ambience == "Chimes")
-    {
-        mediaUrl = QUrl(
-            "file:///usr/share/harbour-binaural/"
-            "sounds/chimes.mp3");
-    }
-    else if (ambience == "Fire")
-    {
-        mediaUrl = QUrl(
-            "file:///usr/share/harbour-binaural/"
-            "sounds/fire.mp3");
-    }
-    else
-    {
+    const QMap<QString, QString>::const_iterator it =
+        files.constFind(ambience);
+
+    if (it == files.constEnd())
         return;
-    }
+
+    const QUrl mediaUrl = QUrl(AmbienceBasePath + it.value());
 
     stopAmbienceImmediately();
 
