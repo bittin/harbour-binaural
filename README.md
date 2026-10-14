@@ -22,9 +22,15 @@ The latest release is available on [OpenRepos.net](https://openrepos.net/content
 
 The `AudioEngine` generates binaural beats in real time, sample-by-sample, using two sine waves: a fixed 200 Hz tone on the left channel and a slightly higher frequency on the right. The frequency difference creates the perceived binaural beat. The generated stereo 16-bit PCM audio is streamed through `QAudioOutput`, with the sample rate adapted to the audio device.
 
-Colored noise is also generated in real time using a custom `ColoredNoiseGenerator` based on `QIODevice`. It supports White, Pink, Brown, and Grey noise using dedicated DSP algorithms, with per-noise-type gain calibration for a more balanced perceived loudness. The generated 16-bit PCM stream is played through `QAudioOutput`.
+Colored noise is also generated in real time using a custom `ColoredNoiseGenerator` based on `QIODevice`. It supports White, Pink, Brown, and Grey noise using dedicated DSP algorithms, with per-noise-type gain calibration for more balanced perceived loudness. The generated 16-bit PCM stream is played through `QAudioOutput`.
 
-Ambient sounds are provided as audio files and played using `QMediaPlayer`. They can be combined with the binaural and colored-noise signals, with ambient sounds supporting fade-in, fade-out, and crossfading.
+Ambient sounds are played from audio files using `GStreamer` for decoding. The decoded audio is processed as a `PCM` loop, allowing ambient sounds to be combined with binaural beats and colored noise. Ambient playback supports fade-in, fade-out, and crossfading.
+
+**Audio pipeline:**
+
+* **Binaural beats:** DSP generator → PCM → `QAudioOutput`
+* **Colored noise:** DSP generator → PCM → `QAudioOutput`
+* **Ambient sounds:** GStreamer decoding → PCM loop
 
 ## Requirements
 
