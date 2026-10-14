@@ -135,5 +135,6 @@ The project uses `pkg-config` in its qmake configuration to locate GStreamer:
 
 ```qmake
 CONFIG += link_pkgconfig
-PKGCONFIG += gstreamer-1.0 gstreamer-app-1.0
+PKGCONFIG += gstreamer-1.0 gstreamer-app-1.0 glib-2.0
+
 ```
