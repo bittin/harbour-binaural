@@ -69,7 +69,7 @@
     <name>CoverPage</name>
     <message>
         <source>Playing:</source>
-        <translation>Lecture :</translation>
+        <translation>Lecture&#xa0;:</translation>
     </message>
     <message>
         <source>Start your sound mix</source>
@@ -77,7 +77,7 @@
     </message>
     <message>
         <source>Paused:</source>
-        <translation>En pause :</translation>
+        <translation>En pause&#xa0;:</translation>
     </message>
 </context>
 <context>
@@ -125,7 +125,7 @@
     </message>
     <message>
         <source>Choose from:</source>
-        <translation>Choisissez parmi :</translation>
+        <translation>Choisissez parmi&#xa0;:</translation>
     </message>
     <message>
         <source>Are created by playing two slightly different tones, one in each ear. The brain processes the difference as a rhythmic beat. Different beat frequencies can be used to support focus, relaxation, meditation, or sleep.</source>
@@ -164,7 +164,7 @@
     <name>InfoColoredPage</name>
     <message>
         <source>Choose from:</source>
-        <translation>Choisissez parmi :</translation>
+        <translation>Choisissez parmi&#xa0;:</translation>
     </message>
     <message>
         <source>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</source>
@@ -306,11 +306,11 @@
     </message>
     <message>
         <source>Sailing</source>
-        <translation type="unfinished"></translation>
+        <translation>Voile</translation>
     </message>
     <message>
         <source>Lake</source>
-        <translation type="unfinished"></translation>
+        <translation>Lac</translation>
     </message>
 </context>
 <context>
