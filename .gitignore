@@ -1,0 +1,12 @@
+# Sailfish SDK build output
+RPMS/
+.tmp/
+
+# Qt build artifacts
+Makefile
+*.o
+*.moc
+moc_*.cpp
+*.qm
+*.pro.user
+*.autosave
