@@ -4,14 +4,12 @@
 #include <QObject>
 #include <QAudioOutput>
 #include <QElapsedTimer>
+#include <QMediaPlayer>
 #include <QTimer>
 #include <QString>
-#include <QVector>
 
 class AudioGenerator;
 class ColoredNoiseGenerator;
-class AmbienceGenerator;
-class AmbienceDecodeThread;
 
 class AudioEngine : public QObject
 {
@@ -87,14 +85,15 @@ private:
     void stopBinauralImmediately();
 
     // Ambience
+    void connectAmbiencePlayer(QMediaPlayer *player);
     void updateAmbienceFadeIn();
+    void checkAmbienceCrossfade(QMediaPlayer *player);
+    void startAmbienceCrossfade(QMediaPlayer *fadingPlayer);
+    void updateAmbienceCrossfade();
+    void finishAmbienceCrossfade();
+    void handleAmbienceEndOfMedia(QMediaPlayer *player);
     void updateAmbienceFadeOut();
     void stopAmbienceImmediately();
-    void startAmbienceDecoding(const QString &name,
-                               const QString &path);
-    void handleAmbienceDecoded(const QString &name,
-                               const QVector<qint16> &samples);
-    void handleAmbienceDecodeFailed(const QString &name);
 
     // Colored noise
     void updateColoredNoiseFadeOut();
@@ -104,7 +103,7 @@ private:
     void applyPendingAmbienceVolume();
     void applyPendingColoredNoiseVolume();
 
-    double ambienceTargetVolume() const;
+    int ambienceTargetVolume() const;
     int coloredNoiseTargetVolume() const;
 
     // SleepTimer FadeOut
@@ -119,18 +118,15 @@ private:
     QAudioOutput *m_audioOutput;
     AudioGenerator *m_generator;
 
-    QAudioOutput *m_ambienceOutput;
-    AmbienceGenerator *m_ambienceGenerator;
-
-    // Decodes the selected mp3 to PCM on a worker thread. The
-    // current ambience keeps playing until the new PCM is ready.
-    AmbienceDecodeThread *m_ambienceDecoder;
+    QMediaPlayer *m_ambiencePlayerA;
+    QMediaPlayer *m_ambiencePlayerB;
 
     QAudioOutput *m_coloredNoiseOutput;
     ColoredNoiseGenerator *m_coloredNoiseGenerator;
 
     QTimer *m_binauralFadeTimer;
     QTimer *m_ambienceFadeInTimer;
+    QTimer *m_ambienceCrossfadeTimer;
 
     QTimer *m_binauralFadeOutTimer;
     QTimer *m_ambienceFadeOutTimer;
@@ -139,6 +135,10 @@ private:
     QTimer *m_ambienceVolumeTimer;
     QTimer *m_coloredNoiseVolumeTimer;
 
+    QMediaPlayer *m_activeAmbiencePlayer;
+    QMediaPlayer *m_fadingAmbiencePlayer;
+
+    QElapsedTimer m_ambienceCrossfadeElapsed;
     QElapsedTimer m_binauralFadeOutElapsed;
     QElapsedTimer m_ambienceFadeOutElapsed;
     QElapsedTimer m_coloredNoiseFadeOutElapsed;
@@ -151,13 +151,15 @@ private:
 
     int m_binauralFadeInPosition;
     int m_ambienceFadeInPosition;
+    int m_ambienceCrossfadePosition;
+
+    int m_ambienceCrossfadeDuration;
 
     double m_binauralFadeOutStartVolume;
-    double m_ambienceFadeOutStartVolume;
     double m_coloredNoiseFadeOutStartVolume;
 
-    QString m_ambience;
-    QString m_pendingAmbience;
+    int m_ambienceFadeOutActiveVolume;
+    int m_ambienceFadeOutFadingVolume;
 
     QString m_currentColoredNoise;
 };

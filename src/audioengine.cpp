@@ -4,14 +4,8 @@
 #include <QAudioFormat>
 #include <QDebug>
 #include <QMediaContent>
-#include <QThread>
 #include <QUrl>
 #include <QtMath>
-
-#include <gst/gst.h>
-#include <gst/app/gstappsink.h>
-#include <glib.h>
-#include <glib/gerror.h>
 
 #include <cstring>
 
@@ -22,18 +16,14 @@ namespace
     const int SampleSize = 16;
 
     const double CarrierFrequency = 200.0;
-<<<<<<< Updated upstream
     // MASTER VOLUME Binaural
     const double BinauralAmplitude = 13000.0;
-=======
-    const double BinauralAmplitude = 16000.0;
-    const double ColoredNoiseAmplitude = 15000.0;
->>>>>>> Stashed changes
 
     const int BinauralFadeInDuration = 0;
     const int BinauralFadeOutDuration = 0;
 
     const int AmbienceFadeInDuration = 200;
+    const int AmbienceCrossfadeDuration = 8000;
     const int AmbienceFadeOutDuration = 200;
 
     const int ColoredNoiseFadeOutDuration = 200;
@@ -626,382 +616,6 @@ private:
     double m_whiteFiltered[2];
 };
 
-
-// ============================================================================
-// AMBIENCE GENERATOR (RAM loop, gapless)
-// ============================================================================
-
-/*
- * Plays a decoded PCM loop completely gaplessly: the end of the
- * buffer wraps straight back to the beginning inside readData(),
- * with no pipeline, no player and no restart involved.
- *
- * A sound switch while playing is crossfaded inside readData() as
- * well, driven by the audio stream itself: no timer, immune to
- * display-off CPU throttling.
- *
- * The PCM data is always 48 kHz stereo 16 bit. If the device hands
- * back a different sample rate, playback resamples with linear
- * interpolation instead of detuning the loop.
- */
-class AmbienceGenerator : public QIODevice
-{
-public:
-    explicit AmbienceGenerator(QObject *parent = nullptr)
-        : QIODevice(parent),
-          m_deviceSampleRate(DefaultSampleRate),
-          m_position(0.0),
-          m_nextPosition(0.0),
-          m_crossfadeRemaining(0),
-          m_crossfadeTotal(0)
-    {
-    }
-
-    void setDeviceSampleRate(int sampleRate)
-    {
-        if (sampleRate > 0)
-            m_deviceSampleRate = sampleRate;
-    }
-
-    void start()
-    {
-        open(QIODevice::ReadOnly);
-    }
-
-    void stop()
-    {
-        close();
-    }
-
-    // Hard swap (used while suspended / silent).
-    void setSamples(const QVector<qint16> &samples)
-    {
-        m_current = samples;
-        m_next.clear();
-        m_position = 0.0;
-        m_nextPosition = 0.0;
-        m_crossfadeRemaining = 0;
-        m_crossfadeTotal = 0;
-    }
-
-    // Seamless switch while playing.
-    void crossfadeTo(const QVector<qint16> &samples,
-                     int durationMs)
-    {
-        if (durationMs <= 0)
-        {
-            setSamples(samples);
-            return;
-        }
-
-        m_next = samples;
-        m_nextPosition = 0.0;
-
-        m_crossfadeTotal =
-            static_cast<qint64>(durationMs)
-            * m_deviceSampleRate / 1000;
-
-        m_crossfadeRemaining = m_crossfadeTotal;
-    }
-
-protected:
-    qint64 readData(char *data, qint64 maxlen) override
-    {
-        if (!data || maxlen <= 0)
-            return 0;
-
-        const qint64 frameSize = 4; // stereo, 16 bit
-        const qint64 frameCount = maxlen / frameSize;
-
-        if (frameCount <= 0 ||
-            m_current.isEmpty())
-        {
-            std::memset(data, 0,
-                        static_cast<size_t>(maxlen));
-            return maxlen;
-        }
-
-        qint16 *out =
-            reinterpret_cast<qint16 *>(data);
-
-        const double step =
-            static_cast<double>(DefaultSampleRate)
-            / static_cast<double>(m_deviceSampleRate);
-
-        for (qint64 frame = 0;
-             frame < frameCount;
-             ++frame)
-        {
-            double left =
-                readSample(m_current, m_position, 0);
-
-            double right =
-                readSample(m_current, m_position, 1);
-
-            advance(m_current, m_position, step);
-
-            if (!m_next.isEmpty())
-            {
-                const double newLeft =
-                    readSample(m_next, m_nextPosition, 0);
-
-                const double newRight =
-                    readSample(m_next, m_nextPosition, 1);
-
-                advance(m_next, m_nextPosition, step);
-
-                // Equal-power crossfade.
-                const double progress =
-                    1.0
-                    - static_cast<double>(
-                          m_crossfadeRemaining)
-                          / static_cast<double>(
-                              m_crossfadeTotal);
-
-                const double angle =
-                    progress * M_PI_2;
-
-                left =
-                    left * qCos(angle)
-                    + newLeft * qSin(angle);
-
-                right =
-                    right * qCos(angle)
-                    + newRight * qSin(angle);
-
-                --m_crossfadeRemaining;
-
-                if (m_crossfadeRemaining <= 0)
-                {
-                    m_current = m_next;
-                    m_next.clear();
-
-                    m_position = m_nextPosition;
-                    m_nextPosition = 0.0;
-
-                    m_crossfadeTotal = 0;
-                }
-            }
-
-            out[frame * 2] =
-                static_cast<qint16>(
-                    qBound(-32768.0, left, 32767.0));
-
-            out[frame * 2 + 1] =
-                static_cast<qint16>(
-                    qBound(-32768.0, right, 32767.0));
-        }
-
-        const qint64 usedBytes =
-            frameCount * frameSize;
-
-        if (usedBytes < maxlen)
-        {
-            std::memset(
-                data + usedBytes,
-                0,
-                static_cast<size_t>(maxlen - usedBytes));
-        }
-
-        return maxlen;
-    }
-
-    qint64 writeData(const char *, qint64) override
-    {
-        return 0;
-    }
-
-private:
-    static void advance(const QVector<qint16> &buffer,
-                        double &position,
-                        double step)
-    {
-        position += step;
-
-        const int frames = buffer.size() / 2;
-
-        if (frames > 0)
-        {
-            while (position >= frames)
-                position -= frames;
-        }
-    }
-
-    static double readSample(const QVector<qint16> &buffer,
-                             double position,
-                             int channel)
-    {
-        const int frames = buffer.size() / 2;
-
-        double wrapped = position;
-
-        while (wrapped >= frames)
-            wrapped -= frames;
-
-        const int i0 = static_cast<int>(wrapped);
-        const int i1 = (i0 + 1) % frames;
-        const double frac = wrapped - i0;
-
-        const double s0 =
-            buffer[i0 * 2 + channel];
-
-        const double s1 =
-            buffer[i1 * 2 + channel];
-
-        return s0 + (s1 - s0) * frac;
-    }
-
-    QVector<qint16> m_current;
-    QVector<qint16> m_next;
-
-    int m_deviceSampleRate;
-
-    double m_position;
-    double m_nextPosition;
-
-    qint64 m_crossfadeRemaining;
-    qint64 m_crossfadeTotal;
-};
-
-
-// ============================================================================
-// AMBIENCE MP3 DECODER (GStreamer appsink -> PCM)
-// ============================================================================
-
-/*
- * Decodes an mp3 to 48 kHz stereo 16-bit PCM on a worker thread.
- * The UI stays responsive; the previously selected ambience keeps
- * playing until the new PCM arrives.
- */
-class AmbienceDecodeThread : public QThread
-{
-    Q_OBJECT
-
-public:
-    AmbienceDecodeThread(const QString &name,
-                         const QString &path,
-                         QObject *parent = nullptr)
-        : QThread(parent),
-          m_name(name),
-          m_path(path)
-    {
-    }
-
-signals:
-    void decoded(const QString &name,
-                 const QVector<qint16> &samples);
-
-    void failed(const QString &name);
-
-protected:
-    void run() override
-    {
-        const QString launch = QString::fromLatin1(
-            "filesrc location=\"%1\" "
-            "! decodebin ! audioconvert ! audioresample "
-            "! capsfilter caps=\"audio/x-raw,"
-            "format=S16LE,rate=48000,channels=2\" "
-            "! appsink name=sink sync=false")
-            .arg(m_path);
-
-        GError *error = nullptr;
-
-        GstElement *pipeline =
-            gst_parse_launch(
-                launch.toUtf8().constData(),
-                &error);
-
-        if (!pipeline || error)
-        {
-            qWarning()
-                << "AudioEngine: ambience decode "
-                   "pipeline failed:"
-                << (error
-                        ? QString::fromUtf8(error->message)
-                        : QStringLiteral("unknown"));
-
-            if (error)
-                g_error_free(error);
-
-            if (pipeline)
-                gst_object_unref(pipeline);
-
-            emit failed(m_name);
-            return;
-        }
-
-        GstElement *sink =
-            gst_bin_get_by_name_recurse_up(
-                GST_BIN(pipeline), "sink");
-
-        gst_element_set_state(
-            pipeline, GST_STATE_PLAYING);
-
-        QVector<qint16> samples;
-
-        // ~1.5 min stereo at 48 kHz.
-        samples.reserve(48000 * 2 * 90);
-
-        GstSample *sample = nullptr;
-
-        while ((sample =
-                    gst_app_sink_pull_sample(
-                        GST_APP_SINK(sink)))
-               != nullptr)
-        {
-            GstBuffer *buffer =
-                gst_sample_get_buffer(sample);
-
-            GstMapInfo map;
-
-            if (buffer &&
-                gst_buffer_map(
-                    buffer, &map, GST_MAP_READ))
-            {
-                const qint16 *pcm =
-                    reinterpret_cast<const qint16 *>(
-                        map.data);
-
-                const int frames =
-                    static_cast<int>(map.size / 4);
-
-                for (int i = 0;
-                     i < frames * 2;
-                     ++i)
-                    samples.append(pcm[i]);
-
-                gst_buffer_unmap(buffer, &map);
-            }
-
-            gst_sample_unref(sample);
-        }
-
-        gst_element_set_state(
-            pipeline, GST_STATE_NULL);
-
-        gst_object_unref(sink);
-        gst_object_unref(pipeline);
-
-        if (samples.isEmpty())
-        {
-            qWarning()
-                << "AudioEngine: ambience decode "
-                   "produced no PCM:"
-                << m_path;
-
-            emit failed(m_name);
-            return;
-        }
-
-        emit decoded(m_name, samples);
-    }
-
-private:
-    QString m_name;
-    QString m_path;
-};
-
-
 // ============================================================================
 // AUDIO ENGINE
 // ============================================================================
@@ -1010,14 +624,14 @@ AudioEngine::AudioEngine(QObject *parent)
     : QObject(parent),
       m_audioOutput(nullptr),
       m_generator(nullptr),
-      m_ambienceOutput(nullptr),
-      m_ambienceGenerator(nullptr),
-      m_ambienceDecoder(nullptr),
+      m_ambiencePlayerA(new QMediaPlayer(this)),
+      m_ambiencePlayerB(new QMediaPlayer(this)),
       m_coloredNoiseOutput(nullptr),
       m_coloredNoiseGenerator(nullptr),
 
       m_binauralFadeTimer(new QTimer(this)),
       m_ambienceFadeInTimer(new QTimer(this)),
+      m_ambienceCrossfadeTimer(new QTimer(this)),
 
       m_binauralFadeOutTimer(new QTimer(this)),
       m_ambienceFadeOutTimer(new QTimer(this)),
@@ -1027,6 +641,9 @@ AudioEngine::AudioEngine(QObject *parent)
       m_ambienceVolumeTimer(new QTimer(this)),
       m_coloredNoiseVolumeTimer(new QTimer(this)),
 
+      m_activeAmbiencePlayer(nullptr),
+      m_fadingAmbiencePlayer(nullptr),
+
       m_beatFrequency(10.0),
 
       m_binauralVolume(50),
@@ -1035,30 +652,24 @@ AudioEngine::AudioEngine(QObject *parent)
 
       m_binauralFadeInPosition(0),
       m_ambienceFadeInPosition(0),
+      m_ambienceCrossfadePosition(0),
+
+      m_ambienceCrossfadeDuration(
+          AmbienceCrossfadeDuration),
 
       m_binauralFadeOutStartVolume(0.0),
-      m_ambienceFadeOutStartVolume(0.0),
       m_coloredNoiseFadeOutStartVolume(0.0),
 
       m_sleepTimerBinauralStartVolume(0.0),
       m_sleepTimerAmbienceStartVolume(0.0),
-      m_sleepTimerColoredNoiseStartVolume(0.0)
+      m_sleepTimerColoredNoiseStartVolume(0.0),
+
+      m_ambienceFadeOutActiveVolume(0),
+      m_ambienceFadeOutFadingVolume(0)
 {
-    /*
-     * Queued cross-thread delivery of the decoded PCM.
-     */
-    qRegisterMetaType<QVector<qint16>>(
-        "QVector<qint16>");
-
-    /*
-     * GStreamer is already initialized by QtMultimedia;
-     * calling gst_init() again is safe and makes the engine
-     * independent of that.
-     */
-    gst_init(nullptr, nullptr);
-
     m_binauralFadeTimer->setInterval(FadeInterval);
     m_ambienceFadeInTimer->setInterval(FadeInterval);
+    m_ambienceCrossfadeTimer->setInterval(FadeInterval);
 
     m_binauralFadeOutTimer->setInterval(FadeInterval);
     m_ambienceFadeOutTimer->setInterval(FadeInterval);
@@ -1072,6 +683,9 @@ AudioEngine::AudioEngine(QObject *parent)
     m_coloredNoiseVolumeTimer->setInterval(
         VolumeUpdateInterval);
     m_coloredNoiseVolumeTimer->setSingleShot(true);
+
+    connectAmbiencePlayer(m_ambiencePlayerA);
+    connectAmbiencePlayer(m_ambiencePlayerB);
 
     connect(m_binauralFadeTimer,
             &QTimer::timeout,
@@ -1087,6 +701,14 @@ AudioEngine::AudioEngine(QObject *parent)
             [this]()
             {
                 updateAmbienceFadeIn();
+            });
+
+    connect(m_ambienceCrossfadeTimer,
+            &QTimer::timeout,
+            this,
+            [this]()
+            {
+                updateAmbienceCrossfade();
             });
 
     connect(m_binauralFadeOutTimer,
@@ -1120,7 +742,7 @@ AudioEngine::AudioEngine(QObject *parent)
                 1.0,
                 static_cast<double>(
                     m_sleepTimerFadeElapsed.elapsed())
-                / SleepTimerFadeOutDuration);
+                    / SleepTimerFadeOutDuration);
 
         const double factor = 1.0 - progress;
 
@@ -1130,10 +752,16 @@ AudioEngine::AudioEngine(QObject *parent)
                 m_sleepTimerBinauralStartVolume * factor);
         }
 
-        if (m_ambienceOutput)
+        if (m_activeAmbiencePlayer)
         {
-            m_ambienceOutput->setVolume(
-                m_sleepTimerAmbienceStartVolume * factor);
+            m_activeAmbiencePlayer->setVolume(
+                static_cast<int>(
+                    m_sleepTimerAmbienceStartVolume * factor));
+        }
+
+        if (m_fadingAmbiencePlayer)
+        {
+            m_fadingAmbiencePlayer->setVolume(0);
         }
 
         if (m_coloredNoiseOutput)
@@ -1167,17 +795,14 @@ AudioEngine::AudioEngine(QObject *parent)
             {
                 applyPendingColoredNoiseVolume();
             });
+
+    m_ambiencePlayerA->setVolume(0);
+    m_ambiencePlayerB->setVolume(0);
 }
 
 
 AudioEngine::~AudioEngine()
 {
-    if (m_ambienceDecoder &&
-        m_ambienceDecoder->isRunning())
-    {
-        m_ambienceDecoder->wait();
-    }
-
     stopBinauralImmediately();
     stopAmbienceImmediately();
     stopColoredNoiseImmediately();
@@ -1201,16 +826,16 @@ bool AudioEngine::isBinauralPaused() const
 
 bool AudioEngine::isAmbiencePlaying() const
 {
-    return m_ambienceOutput &&
-           m_ambienceOutput->state()
-               == QAudio::ActiveState;
+    return m_activeAmbiencePlayer &&
+           m_activeAmbiencePlayer->state()
+               == QMediaPlayer::PlayingState;
 }
 
 bool AudioEngine::isAmbiencePaused() const
 {
-    return m_ambienceOutput &&
-           m_ambienceOutput->state()
-               == QAudio::SuspendedState;
+    return m_activeAmbiencePlayer &&
+           m_activeAmbiencePlayer->state()
+               == QMediaPlayer::PausedState;
 }
 
 bool AudioEngine::isColoredNoisePlaying() const
@@ -1234,7 +859,7 @@ void AudioEngine::updatePlayingState()
 
 
 // ============================================================================
-// RESUME / PAUSE
+// RESUME
 // ============================================================================
 
 void AudioEngine::resumeBinaural()
@@ -1246,7 +871,7 @@ void AudioEngine::resumeBinaural()
 void AudioEngine::resumeAmbience()
 {
     if (isAmbiencePaused())
-        m_ambienceOutput->resume();
+        m_activeAmbiencePlayer->play();
 }
 
 void AudioEngine::resumeColoredNoise()
@@ -1317,15 +942,11 @@ void AudioEngine::setColoredNoiseVolume(int volume)
     m_coloredNoiseVolumeTimer->start();
 }
 
-double AudioEngine::ambienceTargetVolume() const
+int AudioEngine::ambienceTargetVolume() const
 {
-<<<<<<< Updated upstream
     return qRound(
                 // MASTER VOLUME Adjuster Ambience Noise
         m_ambienceVolume * 0.6);
-=======
-    return (m_ambienceVolume / 100.0) * 0.6;
->>>>>>> Stashed changes
 }
 
 int AudioEngine::coloredNoiseTargetVolume() const
@@ -1337,11 +958,12 @@ int AudioEngine::coloredNoiseTargetVolume() const
 
 void AudioEngine::applyPendingAmbienceVolume()
 {
-    if (m_ambienceOutput &&
+    if (m_activeAmbiencePlayer &&
         !m_ambienceFadeInTimer->isActive() &&
+        !m_ambienceCrossfadeTimer->isActive() &&
         !m_ambienceFadeOutTimer->isActive())
     {
-        m_ambienceOutput->setVolume(
+        m_activeAmbiencePlayer->setVolume(
             ambienceTargetVolume());
     }
 }
@@ -1362,241 +984,172 @@ void AudioEngine::applyPendingColoredNoiseVolume()
 // AMBIENCE
 // ============================================================================
 
+void AudioEngine::connectAmbiencePlayer(
+    QMediaPlayer *player)
+{
+    connect(player,
+            &QMediaPlayer::positionChanged,
+            this,
+            [this, player](qint64)
+            {
+                checkAmbienceCrossfade(player);
+            });
+
+    connect(player,
+            &QMediaPlayer::mediaStatusChanged,
+            this,
+            [this, player](QMediaPlayer::MediaStatus status)
+            {
+                if (status == QMediaPlayer::EndOfMedia)
+                {
+                    handleAmbienceEndOfMedia(player);
+                }
+                else if (status ==
+                         QMediaPlayer::InvalidMedia)
+                {
+                    qWarning()
+                        << "AudioEngine: invalid ambience:"
+                        << player->media()
+                               .canonicalUrl()
+                               .toString();
+                }
+            });
+
+    connect(
+        player,
+        static_cast<void (QMediaPlayer::*)(
+            QMediaPlayer::Error)>(&QMediaPlayer::error),
+        this,
+        [player](QMediaPlayer::Error error)
+        {
+            qWarning()
+                << "AudioEngine: ambience error:"
+                << error
+                << player->errorString();
+        });
+
+    connect(player,
+            &QMediaPlayer::stateChanged,
+            this,
+            [this, player](QMediaPlayer::State state)
+            {
+                Q_UNUSED(state)
+
+                updatePlayingState();
+
+                if (state !=
+                        QMediaPlayer::PlayingState ||
+                    player !=
+                        m_activeAmbiencePlayer ||
+                    m_ambienceCrossfadeTimer->isActive() ||
+                    m_ambienceFadeOutTimer->isActive())
+                {
+                    return;
+                }
+
+                if (!m_ambienceFadeInTimer->isActive())
+                {
+                    player->setVolume(
+                        ambienceTargetVolume());
+                }
+            });
+}
+
 void AudioEngine::setAmbience(
     const QString &ambience)
 {
-    QString path;
+    QUrl mediaUrl;
 
     if (ambience == "Wind")
     {
-        path = QStringLiteral(
-            "/usr/share/harbour-binaural/sounds/wind.mp3");
+        mediaUrl = QUrl(
+            "file:///usr/share/harbour-binaural/"
+            "sounds/wind.mp3");
     }
     else if (ambience == "Waves")
     {
-        path = QStringLiteral(
-            "/usr/share/harbour-binaural/sounds/waves.mp3");
+        mediaUrl = QUrl(
+            "file:///usr/share/harbour-binaural/"
+            "sounds/waves.mp3");
     }
     else if (ambience == "Crickets")
     {
-        path = QStringLiteral(
-            "/usr/share/harbour-binaural/sounds/crickets.mp3");
+        mediaUrl = QUrl(
+            "file:///usr/share/harbour-binaural/"
+            "sounds/crickets.mp3");
     }
     else if (ambience == "Stream")
     {
-        path = QStringLiteral(
-            "/usr/share/harbour-binaural/sounds/stream.mp3");
+        mediaUrl = QUrl(
+            "file:///usr/share/harbour-binaural/"
+            "sounds/stream.mp3");
     }
     else if (ambience == "Rain")
     {
-        path = QStringLiteral(
-            "/usr/share/harbour-binaural/sounds/rain.mp3");
+        mediaUrl = QUrl(
+            "file:///usr/share/harbour-binaural/"
+            "sounds/rain.mp3");
     }
     else if (ambience == "Birds")
     {
-        path = QStringLiteral(
-            "/usr/share/harbour-binaural/sounds/birds.mp3");
+        mediaUrl = QUrl(
+            "file:///usr/share/harbour-binaural/"
+            "sounds/birds.mp3");
     }
     else if (ambience == "Fire")
     {
-        path = QStringLiteral(
-            "/usr/share/harbour-binaural/sounds/fire.mp3");
+        mediaUrl = QUrl(
+            "file:///usr/share/harbour-binaural/"
+            "sounds/fire.mp3");
     }
     else if (ambience == "Chimes")
     {
-        path = QStringLiteral(
-            "/usr/share/harbour-binaural/sounds/chimes.mp3");
+        mediaUrl = QUrl(
+            "file:///usr/share/harbour-binaural/"
+            "sounds/chimes.mp3");
     }
     else
     {
         return;
     }
 
-    // Already active: nothing to do.
-    if (ambience == m_ambience && m_ambienceGenerator)
-        return;
+    stopAmbienceImmediately();
 
-    startAmbienceDecoding(ambience, path);
-}
+    m_activeAmbiencePlayer =
+        m_ambiencePlayerA;
 
-void AudioEngine::startAmbienceDecoding(
-    const QString &name,
-    const QString &path)
-{
-    // A decode is already running: ignore further taps until it
-    // finished. The current ambience keeps playing meanwhile.
-    if (m_ambienceDecoder &&
-        m_ambienceDecoder->isRunning())
-    {
-        return;
-    }
-
-    m_pendingAmbience = name;
-
-    m_ambienceDecoder =
-        new AmbienceDecodeThread(name, path, this);
-
-    connect(
-        m_ambienceDecoder,
-        &AmbienceDecodeThread::decoded,
-        this,
-        &AudioEngine::handleAmbienceDecoded);
-
-    connect(
-        m_ambienceDecoder,
-        &AmbienceDecodeThread::failed,
-        this,
-        &AudioEngine::handleAmbienceDecodeFailed);
-
-    connect(
-        m_ambienceDecoder,
-        &QThread::finished,
-        m_ambienceDecoder,
-        &QObject::deleteLater);
-
-    m_ambienceDecoder->start();
-}
-
-void AudioEngine::handleAmbienceDecoded(
-    const QString &name,
-    const QVector<qint16> &samples)
-{
-    m_ambienceDecoder = nullptr;
-
-    // Stale result: the user switched again or stopped meanwhile.
-    if (name != m_pendingAmbience)
-        return;
-
-    m_pendingAmbience.clear();
-    m_ambience = name;
-
-    // Switch on a running (or suspended) channel.
-    if (m_ambienceGenerator && m_ambienceOutput)
-    {
-        if (m_ambienceFadeOutTimer->isActive())
-            return; // shutting down anyway
-
-        if (m_ambienceOutput->state()
-            == QAudio::SuspendedState)
-        {
-            // Silent: hard swap, resume stays manual (pausedMode).
-            m_ambienceGenerator->setSamples(samples);
-        }
-        else
-        {
-            m_ambienceGenerator->crossfadeTo(
-                samples, AmbienceFadeInDuration);
-        }
-
-        updatePlayingState();
-        return;
-    }
-
-    // First activation: build the channel like colored noise.
-    QAudioFormat format;
-
-    format.setSampleRate(DefaultSampleRate);
-    format.setChannelCount(ChannelCount);
-    format.setSampleSize(SampleSize);
-    format.setCodec("audio/pcm");
-    format.setByteOrder(QAudioFormat::LittleEndian);
-    format.setSampleType(QAudioFormat::SignedInt);
-
-    const QAudioDeviceInfo device =
-        QAudioDeviceInfo::defaultOutputDevice();
-
-    if (device.isNull())
-    {
-        qWarning()
-            << "AudioEngine: no audio output device";
-        return;
-    }
-
-    if (!device.isFormatSupported(format))
-    {
-        QAudioFormat nearest =
-            device.nearestFormat(format);
-
-        if (!nearest.isValid() ||
-            nearest.sampleSize() != SampleSize ||
-            nearest.sampleType()
-                != QAudioFormat::SignedInt ||
-            nearest.byteOrder()
-                != QAudioFormat::LittleEndian)
-        {
-            qWarning()
-                << "AudioEngine: compatible ambience "
-                   "PCM output format not available";
-            return;
-        }
-
-        format = nearest;
-    }
-
-    m_ambienceGenerator =
-        new AmbienceGenerator(this);
-
-    m_ambienceGenerator->setDeviceSampleRate(
-        format.sampleRate());
-
-    m_ambienceGenerator->setSamples(samples);
-    m_ambienceGenerator->start();
-
-    m_ambienceOutput =
-        new QAudioOutput(device, format, this);
-
-    m_ambienceOutput->setVolume(0.0);
-
-    connect(
-        m_ambienceOutput,
-        &QAudioOutput::stateChanged,
-        this,
-        [this](QAudio::State)
-        {
-            updatePlayingState();
-        });
+    m_activeAmbiencePlayer->setMedia(mediaUrl);
+    m_activeAmbiencePlayer->setVolume(0);
 
     m_ambienceFadeInPosition = 0;
 
-    m_ambienceOutput->start(m_ambienceGenerator);
+    m_activeAmbiencePlayer->play();
 
     m_ambienceFadeInTimer->start();
-
-    updatePlayingState();
-}
-
-void AudioEngine::handleAmbienceDecodeFailed(
-    const QString &name)
-{
-    m_ambienceDecoder = nullptr;
-
-    qWarning()
-        << "AudioEngine: ambience decode failed:" << name;
-
-    if (name == m_pendingAmbience)
-        m_pendingAmbience.clear();
-
-    // The previously selected ambience keeps playing unchanged.
 }
 
 void AudioEngine::pauseAmbience()
 {
-    if (!m_ambienceOutput ||
-        m_ambienceOutput->state()
-            != QAudio::ActiveState)
+    if (!m_activeAmbiencePlayer ||
+        m_activeAmbiencePlayer->state()
+            != QMediaPlayer::PlayingState)
         return;
 
     m_ambienceFadeInTimer->stop();
+    m_ambienceCrossfadeTimer->stop();
     m_ambienceFadeOutTimer->stop();
 
-    m_ambienceOutput->suspend();
+    m_activeAmbiencePlayer->pause();
+
+    if (m_fadingAmbiencePlayer)
+        m_fadingAmbiencePlayer->pause();
 
     updatePlayingState();
 }
 
 void AudioEngine::stopAmbience()
 {
-    if (!m_ambienceOutput)
+    if (!m_activeAmbiencePlayer)
     {
         stopAmbienceImmediately();
         return;
@@ -1606,12 +1159,15 @@ void AudioEngine::stopAmbience()
         return;
 
     m_ambienceFadeInTimer->stop();
+    m_ambienceCrossfadeTimer->stop();
 
-    // A decode still in flight is discarded on stop.
-    m_pendingAmbience.clear();
+    m_ambienceFadeOutActiveVolume =
+        m_activeAmbiencePlayer->volume();
 
-    m_ambienceFadeOutStartVolume =
-        m_ambienceOutput->volume();
+    m_ambienceFadeOutFadingVolume =
+        m_fadingAmbiencePlayer
+            ? m_fadingAmbiencePlayer->volume()
+            : 0;
 
     m_ambienceFadeOutElapsed.start();
     m_ambienceFadeOutTimer->start();
@@ -1620,36 +1176,31 @@ void AudioEngine::stopAmbience()
 void AudioEngine::stopAmbienceImmediately()
 {
     m_ambienceFadeInTimer->stop();
+    m_ambienceCrossfadeTimer->stop();
     m_ambienceFadeOutTimer->stop();
     m_ambienceVolumeTimer->stop();
 
-    m_pendingAmbience.clear();
+    m_ambiencePlayerA->stop();
+    m_ambiencePlayerB->stop();
 
-    if (m_ambienceOutput)
-    {
-        m_ambienceOutput->stop();
+    m_ambiencePlayerA->setVolume(0);
+    m_ambiencePlayerB->setVolume(0);
 
-        delete m_ambienceOutput;
-        m_ambienceOutput = nullptr;
-    }
+    m_activeAmbiencePlayer = nullptr;
+    m_fadingAmbiencePlayer = nullptr;
 
-    if (m_ambienceGenerator)
-    {
-        m_ambienceGenerator->stop();
+    m_ambienceFadeInPosition = 0;
+    m_ambienceCrossfadePosition = 0;
 
-        delete m_ambienceGenerator;
-        m_ambienceGenerator = nullptr;
-    }
-
-    m_ambience.clear();
-    m_ambienceFadeOutStartVolume = 0.0;
+    m_ambienceFadeOutActiveVolume = 0;
+    m_ambienceFadeOutFadingVolume = 0;
 
     updatePlayingState();
 }
 
 void AudioEngine::updateAmbienceFadeIn()
 {
-    if (!m_ambienceOutput)
+    if (!m_activeAmbiencePlayer)
     {
         m_ambienceFadeInTimer->stop();
         return;
@@ -1663,16 +1214,19 @@ void AudioEngine::updateAmbienceFadeIn()
                   1.0,
                   static_cast<double>(
                       m_ambienceFadeInPosition)
-                  / AmbienceFadeInDuration)
+                      / AmbienceFadeInDuration)
             : 1.0;
 
-    m_ambienceOutput->setVolume(
-        ambienceTargetVolume() * progress);
+    const int maximumVolume =
+        ambienceTargetVolume();
+
+    m_activeAmbiencePlayer->setVolume(
+        qRound(maximumVolume * progress));
 
     if (progress >= 1.0)
     {
-        m_ambienceOutput->setVolume(
-            ambienceTargetVolume());
+        m_activeAmbiencePlayer->setVolume(
+            maximumVolume);
 
         m_ambienceFadeInTimer->stop();
         m_ambienceFadeInPosition = 0;
@@ -1681,7 +1235,7 @@ void AudioEngine::updateAmbienceFadeIn()
 
 void AudioEngine::updateAmbienceFadeOut()
 {
-    if (!m_ambienceOutput)
+    if (!m_activeAmbiencePlayer)
     {
         m_ambienceFadeOutTimer->stop();
         return;
@@ -1693,15 +1247,171 @@ void AudioEngine::updateAmbienceFadeOut()
                   1.0,
                   static_cast<double>(
                       m_ambienceFadeOutElapsed.elapsed())
-                  / AmbienceFadeOutDuration)
+                      / AmbienceFadeOutDuration)
             : 1.0;
 
-    m_ambienceOutput->setVolume(
-        m_ambienceFadeOutStartVolume
-        * (1.0 - progress));
+    m_activeAmbiencePlayer->setVolume(
+        qRound(
+            m_ambienceFadeOutActiveVolume
+            * (1.0 - progress)));
+
+    if (m_fadingAmbiencePlayer)
+    {
+        m_fadingAmbiencePlayer->setVolume(
+            qRound(
+                m_ambienceFadeOutFadingVolume
+                * (1.0 - progress)));
+    }
 
     if (progress >= 1.0)
         stopAmbienceImmediately();
+}
+
+void AudioEngine::checkAmbienceCrossfade(
+    QMediaPlayer *player)
+{
+    if (!player ||
+        player != m_activeAmbiencePlayer ||
+        m_ambienceFadeOutTimer->isActive() ||
+        m_fadingAmbiencePlayer)
+    {
+        return;
+    }
+
+    const qint64 duration =
+        player->duration();
+
+    if (duration <= 0)
+        return;
+
+    if (duration - player->position()
+        <= m_ambienceCrossfadeDuration)
+    {
+        startAmbienceCrossfade(player);
+    }
+}
+
+void AudioEngine::startAmbienceCrossfade(
+    QMediaPlayer *fadingPlayer)
+{
+    if (!fadingPlayer ||
+        fadingPlayer != m_activeAmbiencePlayer ||
+        m_fadingAmbiencePlayer)
+    {
+        return;
+    }
+
+    QMediaPlayer *nextPlayer =
+        fadingPlayer == m_ambiencePlayerA
+            ? m_ambiencePlayerB
+            : m_ambiencePlayerA;
+
+    nextPlayer->stop();
+    nextPlayer->setMedia(
+        fadingPlayer->currentMedia());
+    nextPlayer->setPosition(0);
+    nextPlayer->setVolume(0);
+
+    m_fadingAmbiencePlayer =
+        fadingPlayer;
+
+    m_activeAmbiencePlayer =
+        nextPlayer;
+
+    m_ambienceCrossfadePosition = 0;
+
+    nextPlayer->play();
+
+    m_ambienceFadeInTimer->stop();
+
+    m_ambienceCrossfadeElapsed.start();
+    m_ambienceCrossfadeTimer->start();
+}
+
+void AudioEngine::updateAmbienceCrossfade()
+{
+    if (!m_activeAmbiencePlayer ||
+        !m_fadingAmbiencePlayer)
+    {
+        m_ambienceCrossfadeTimer->stop();
+        m_ambienceCrossfadePosition = 0;
+        return;
+    }
+
+    m_ambienceCrossfadePosition =
+        static_cast<int>(
+            m_ambienceCrossfadeElapsed.elapsed());
+
+    const double progress =
+        m_ambienceCrossfadeDuration > 0
+            ? qMin(
+                  1.0,
+                  static_cast<double>(
+                      m_ambienceCrossfadePosition)
+                      / m_ambienceCrossfadeDuration)
+            : 1.0;
+
+    const int maximumVolume =
+        ambienceTargetVolume();
+
+    m_fadingAmbiencePlayer->setVolume(
+        qRound(
+            maximumVolume * (1.0 - progress)));
+
+    m_activeAmbiencePlayer->setVolume(
+        qRound(
+            maximumVolume * progress));
+
+    if (progress >= 1.0)
+        finishAmbienceCrossfade();
+}
+
+void AudioEngine::finishAmbienceCrossfade()
+{
+    m_ambienceCrossfadeTimer->stop();
+    m_ambienceCrossfadePosition = 0;
+
+    if (m_fadingAmbiencePlayer)
+    {
+        m_fadingAmbiencePlayer->stop();
+        m_fadingAmbiencePlayer->setVolume(0);
+        m_fadingAmbiencePlayer = nullptr;
+    }
+
+    if (m_activeAmbiencePlayer)
+    {
+        m_activeAmbiencePlayer->setVolume(
+            ambienceTargetVolume());
+    }
+}
+
+void AudioEngine::handleAmbienceEndOfMedia(
+    QMediaPlayer *player)
+{
+    if (player == m_fadingAmbiencePlayer)
+    {
+        if (m_ambienceFadeOutTimer->isActive())
+        {
+            player->setVolume(0);
+            m_fadingAmbiencePlayer = nullptr;
+            return;
+        }
+
+        finishAmbienceCrossfade();
+        return;
+    }
+
+    if (player == m_activeAmbiencePlayer)
+    {
+        if (m_ambienceFadeOutTimer->isActive())
+        {
+            stopAmbienceImmediately();
+            return;
+        }
+
+        player->setPosition(0);
+        player->play();
+    }
 }
 
 
@@ -1885,7 +1595,7 @@ void AudioEngine::updateColoredNoiseFadeOut()
                   1.0,
                   static_cast<double>(
                       m_coloredNoiseFadeOutElapsed.elapsed())
-                  / ColoredNoiseFadeOutDuration)
+                      / ColoredNoiseFadeOutDuration)
             : 1.0;
 
     m_coloredNoiseOutput->setVolume(
@@ -2042,8 +1752,8 @@ void AudioEngine::fadeOutForSleepTimer()
             : 0.0;
 
     m_sleepTimerAmbienceStartVolume =
-        m_ambienceOutput
-            ? m_ambienceOutput->volume()
+        m_activeAmbiencePlayer
+            ? m_activeAmbiencePlayer->volume()
             : 0.0;
 
     m_sleepTimerColoredNoiseStartVolume =
@@ -2090,7 +1800,7 @@ void AudioEngine::updateBinauralFadeIn()
                   1.0,
                   static_cast<double>(
                       m_binauralFadeInPosition)
-                  / BinauralFadeInDuration)
+                      / BinauralFadeInDuration)
             : 1.0;
 
     m_audioOutput->setVolume(
@@ -2121,7 +1831,7 @@ void AudioEngine::updateBinauralFadeOut()
                   1.0,
                   static_cast<double>(
                       m_binauralFadeOutElapsed.elapsed())
-                  / BinauralFadeOutDuration)
+                      / BinauralFadeOutDuration)
             : 1.0;
 
     m_audioOutput->setVolume(
@@ -2158,5 +1868,3 @@ void AudioEngine::stopBinauralImmediately()
 
     updatePlayingState();
 }
-
-#include "audioengine.moc"
