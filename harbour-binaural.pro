@@ -9,25 +9,21 @@
 #   - icon definition filename in desktop file must be changed
 #   - translation filenames have to be changed
 
+
 # The name of your application
 TARGET = harbour-binaural
 
+
 CONFIG += sailfishapp
-CONFIG += link_pkgconfig
+
 
 # QtMultimedia for access to Sailfish's multimedia/audio APIs.
 QT += multimedia
 
-# GStreamer for the in-app mp3 decoder (AmbienceDecodeThread):
-# decodes the selected ambience mp3 to PCM on a worker thread.
-CONFIG += link_pkgconfig
-PKGCONFIG += gstreamer-1.0 gstreamer-app-1.0 glib-2.0
 
 SOURCES += src/harbour-binaural.cpp \
     src/audioengine.cpp
 
-HEADERS += \
-    src/audioengine.h
 
 DISTFILES += qml/harbour-binaural.qml \
     icons/216x216/harbour-binaural.png \
@@ -62,11 +58,15 @@ DISTFILES += qml/harbour-binaural.qml \
     sounds/waves.mp3 \
     sounds/chimes.mp3
 
+
+
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
+
 
 # To disable building translations every time, comment out the
 # following CONFIG line.
 CONFIG += sailfishapp_i18n
+
 
 TRANSLATIONS += translations/harbour-binaural-de.ts
 TRANSLATIONS += translations/harbour-binaural-fr.ts
@@ -74,6 +74,11 @@ TRANSLATIONS += translations/harbour-binaural-it.ts
 TRANSLATIONS += translations/harbour-binaural-sv.ts
 TRANSLATIONS += translations/harbour-binaural-nb.ts
 TRANSLATIONS += translations/harbour-binaural-nl.ts
+
+
+HEADERS += \
+    src/audioengine.h
+
 
 # Install the audio files as application data.
 #
@@ -93,5 +98,6 @@ ambient.files = sounds/wind.mp3 \
                 sounds/grey.wav
 
 ambient.path = /usr/share/harbour-binaural/sounds
+
 
 INSTALLS += ambient
