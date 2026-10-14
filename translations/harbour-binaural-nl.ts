@@ -94,14 +94,6 @@
         <translation>Pixabay-inhoudlicentie</translation>
     </message>
     <message>
-        <source>sound by</source>
-        <translation>geluid door</translation>
-    </message>
-    <message>
-        <source>from</source>
-        <translation>van</translation>
-    </message>
-    <message>
         <source>Images</source>
         <translation>Afbeeldingen</translation>
     </message>
@@ -317,6 +309,14 @@
     <message>
         <source>Chimes</source>
         <translation>Gongen</translation>
+    </message>
+    <message>
+        <source>Sailing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lake</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

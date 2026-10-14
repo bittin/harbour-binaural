@@ -94,14 +94,6 @@
         <translation>Licence de contenu Pixabay</translation>
     </message>
     <message>
-        <source>sound by</source>
-        <translation>son par</translation>
-    </message>
-    <message>
-        <source>from</source>
-        <translation>de</translation>
-    </message>
-    <message>
         <source>Images</source>
         <translation>Images</translation>
     </message>
@@ -317,6 +309,14 @@
     <message>
         <source>Chimes</source>
         <translation>Carillon</translation>
+    </message>
+    <message>
+        <source>Sailing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lake</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

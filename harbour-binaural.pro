@@ -56,6 +56,8 @@ DISTFILES += qml/harbour-binaural.qml \
     sounds/birds.mp3 \
     sounds/fire.mp3 \
     sounds/waves.mp3 \
+    sounds/sailing.mp3 \
+    sounds/lake.mp3 \
     sounds/chimes.mp3
 
 
@@ -91,6 +93,8 @@ ambient.files = sounds/wind.mp3 \
                 sounds/rain.mp3 \
                 sounds/birds.mp3 \
                 sounds/fire.mp3 \
+                sounds/sailing.mp3 \
+                sounds/lake.mp3 \
                 sounds/chimes.mp3
 
 ambient.path = /usr/share/harbour-binaural/sounds

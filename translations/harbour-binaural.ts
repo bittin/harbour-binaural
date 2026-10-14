@@ -94,14 +94,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>sound by</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>from</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
@@ -316,6 +308,14 @@
     </message>
     <message>
         <source>Chimes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sailing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lake</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

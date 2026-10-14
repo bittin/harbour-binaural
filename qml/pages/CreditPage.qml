@@ -27,7 +27,7 @@ Page {
             sourceUrl: "https://pixabay.com/"
         },
         {
-            name: SoundNames.label("Waves"),
+            name: SoundNames.label("Lake"),
             author: "freesound_community",
             authorUrl: "https://pixabay.com/users/freesound_community-46691455/",
             sourceUrl: "https://pixabay.com/sound-effects/"
@@ -54,6 +54,18 @@ Page {
             name: SoundNames.label("Stream"),
             author: "loswin23",
             authorUrl: "https://pixabay.com/users/loswin23-15879800/",
+            sourceUrl: "https://pixabay.com/"
+        },
+        {
+            name: SoundNames.label("Sailing"),
+            author: "dammafra",
+            authorUrl: "https://pixabay.com/de/users/dammafra-53190480/",
+            sourceUrl: "https://pixabay.com/"
+        },
+        {
+            name: SoundNames.label("Waves"),
+            author: "kokoreli777",
+            authorUrl: "https://pixabay.com/de/users/kokoreli777-39793239/",
             sourceUrl: "https://pixabay.com/"
         }
     ]
@@ -135,15 +147,11 @@ Page {
                     font.pixelSize: Theme.fontSizeSmall
 
                     text: modelData.name +
-                          " " +
-                          qsTr("sound by") +
-                          " " +
+                          ": " +
                           "<a href=\"" + modelData.authorUrl + "\">" +
                           modelData.author +
                           "</a>" +
-                          " " +
-                          qsTr("from") +
-                          " " +
+                          " - " +
                           "<a href=\"" + modelData.sourceUrl + "\">" +
                           "Pixabay" +
                           "</a>"

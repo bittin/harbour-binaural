@@ -1066,17 +1066,11 @@ void AudioEngine::setAmbience(
             "file:///usr/share/harbour-binaural/"
             "sounds/wind.mp3");
     }
-    else if (ambience == "Waves")
+    else if (ambience == "Rain")
     {
         mediaUrl = QUrl(
             "file:///usr/share/harbour-binaural/"
-            "sounds/waves.mp3");
-    }
-    else if (ambience == "Crickets")
-    {
-        mediaUrl = QUrl(
-            "file:///usr/share/harbour-binaural/"
-            "sounds/crickets.mp3");
+            "sounds/rain.mp3");
     }
     else if (ambience == "Stream")
     {
@@ -1084,11 +1078,23 @@ void AudioEngine::setAmbience(
             "file:///usr/share/harbour-binaural/"
             "sounds/stream.mp3");
     }
-    else if (ambience == "Rain")
+    else if (ambience == "Waves")
     {
         mediaUrl = QUrl(
             "file:///usr/share/harbour-binaural/"
-            "sounds/rain.mp3");
+            "sounds/waves.mp3");
+    }
+    else if (ambience == "Lake")
+    {
+        mediaUrl = QUrl(
+            "file:///usr/share/harbour-binaural/"
+            "sounds/lake.mp3");
+    }
+    else if (ambience == "Sailing")
+    {
+        mediaUrl = QUrl(
+            "file:///usr/share/harbour-binaural/"
+            "sounds/sailing.mp3");
     }
     else if (ambience == "Birds")
     {
@@ -1096,17 +1102,23 @@ void AudioEngine::setAmbience(
             "file:///usr/share/harbour-binaural/"
             "sounds/birds.mp3");
     }
-    else if (ambience == "Fire")
+    else if (ambience == "Crickets")
     {
         mediaUrl = QUrl(
             "file:///usr/share/harbour-binaural/"
-            "sounds/fire.mp3");
+            "sounds/crickets.mp3");
     }
     else if (ambience == "Chimes")
     {
         mediaUrl = QUrl(
             "file:///usr/share/harbour-binaural/"
             "sounds/chimes.mp3");
+    }
+    else if (ambience == "Fire")
+    {
+        mediaUrl = QUrl(
+            "file:///usr/share/harbour-binaural/"
+            "sounds/fire.mp3");
     }
     else
     {

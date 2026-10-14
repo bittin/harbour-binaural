@@ -13,7 +13,7 @@ import QtQuick 2.0
 QtObject {
     function label(key) {
         switch (key) {
-        // Brainwave bands
+            // Brainwave bands
         case "Delta":       return qsTr("Delta")
         case "Delta/Theta": return qsTr("Delta/Theta")
         case "Theta":       return qsTr("Theta")
@@ -21,13 +21,13 @@ QtObject {
         case "Beta":        return qsTr("Beta")
         case "Gamma":       return qsTr("Gamma")
 
-        // Colored noise
+            // Colored noise
         case "White":       return qsTr("White")
         case "Pink":        return qsTr("Pink")
         case "Brown":       return qsTr("Brown")
         case "Grey":        return qsTr("Grey")
 
-        // Ambience
+            // Ambience
         case "Wind":        return qsTr("Wind")
         case "Waves":       return qsTr("Waves")
         case "Crickets":    return qsTr("Crickets")
@@ -36,6 +36,8 @@ QtObject {
         case "Birds":       return qsTr("Birds")
         case "Fire":        return qsTr("Fire")
         case "Chimes":      return qsTr("Chimes")
+        case "Sailing":      return qsTr("Sailing")
+        case "Lake":      return qsTr("Lake")
 
         default:            return key
         }

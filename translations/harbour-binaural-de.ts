@@ -100,63 +100,53 @@
 <context>
     <name>CreditPage</name>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="70"/>
+        <location filename="../qml/pages/CreditPage.qml" line="82"/>
         <source>Asset credits</source>
         <translation>Quellenangaben</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="74"/>
+        <location filename="../qml/pages/CreditPage.qml" line="86"/>
         <source>Audio files</source>
         <translation>Audiodateien</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="83"/>
+        <location filename="../qml/pages/CreditPage.qml" line="95"/>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
         <translation>Die Dateien wurden für die Verwendung in dieser Anwendung manuell angepasst unter der</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="86"/>
+        <location filename="../qml/pages/CreditPage.qml" line="98"/>
         <source>Pixabay Content License</source>
         <translation>Pixabay-Inhaltslizenz</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="139"/>
-        <source>sound by</source>
-        <translation>Ton von</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="145"/>
-        <source>from</source>
-        <translation>von</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="170"/>
+        <location filename="../qml/pages/CreditPage.qml" line="178"/>
         <source>Images</source>
         <translation>Bilder</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="177"/>
+        <location filename="../qml/pages/CreditPage.qml" line="185"/>
         <source>Binaural graph image modified for use in</source>
         <translation>Binaural-Diagramm, angepasst für die Verwendung in</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="202"/>
+        <location filename="../qml/pages/CreditPage.qml" line="210"/>
         <source>Based on</source>
         <translation>Basierend auf</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="206"/>
+        <location filename="../qml/pages/CreditPage.qml" line="214"/>
         <source>by</source>
         <translation>von</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="210"/>
+        <location filename="../qml/pages/CreditPage.qml" line="218"/>
         <source>Licensed under</source>
         <translation>Lizenziert unter</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="217"/>
+        <location filename="../qml/pages/CreditPage.qml" line="225"/>
         <source>Original source</source>
         <translation>Originalquelle</translation>
     </message>
@@ -391,6 +381,16 @@
         <location filename="../qml/pages/components/SoundNames.qml" line="38"/>
         <source>Chimes</source>
         <translation>Windspiel</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/components/SoundNames.qml" line="39"/>
+        <source>Sailing</source>
+        <translation>Segeln</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/components/SoundNames.qml" line="40"/>
+        <source>Lake</source>
+        <translation>See</translation>
     </message>
 </context>
 <context>

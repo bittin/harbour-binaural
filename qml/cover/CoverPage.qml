@@ -176,7 +176,7 @@ CoverBackground {
                    ? Theme.highlightColor
                    : Theme.secondaryHighlightColor
 
-            font.pixelSize: Theme.fontSizeMedium
+            font.pixelSize: Theme.fontSizeSmall
             wrapMode: Text.WordWrap
 
             text: {

@@ -94,14 +94,6 @@
         <translation>Pixabays innholdslisens</translation>
     </message>
     <message>
-        <source>sound by</source>
-        <translation>lyd av</translation>
-    </message>
-    <message>
-        <source>from</source>
-        <translation>fra</translation>
-    </message>
-    <message>
         <source>Images</source>
         <translation>bilder</translation>
     </message>
@@ -317,6 +309,14 @@
     <message>
         <source>Chimes</source>
         <translation>Vindspill</translation>
+    </message>
+    <message>
+        <source>Sailing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lake</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

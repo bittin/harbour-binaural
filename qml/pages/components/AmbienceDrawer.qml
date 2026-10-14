@@ -89,13 +89,15 @@ SilicaFlickable {
 
             model: [
                 "Wind",
-                "Waves",
-                "Crickets",
-                "Stream",
                 "Rain",
+                "Stream",
+                "Waves",
+                "Lake",
+                "Sailing",
                 "Birds",
-                "Fire",
-                "Chimes"
+                "Crickets",              
+                "Chimes",
+                "Fire"
             ]
 
             delegate: Item {
