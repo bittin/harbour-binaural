@@ -139,6 +139,7 @@ Page {
 
                 textFormat: Text.StyledText
 
+                //: Full sentence: "Binaural was inspired by Metiq."
                 text: qsTr("Binaural was inspired by") +
                       " " +
                       "<a href=\"" + metiqUrl + "\">" +

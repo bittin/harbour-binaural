@@ -54,27 +54,28 @@
         <translation>Danksagungen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="142"/>
+        <location filename="../qml/pages/AboutPage.qml" line="143"/>
         <source>Binaural was inspired by</source>
+        <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
         <translation>Binaural wurde inspiriert durch</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="161"/>
+        <location filename="../qml/pages/AboutPage.qml" line="162"/>
         <source>Asset credits</source>
         <translation>Quellenangaben</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="169"/>
+        <location filename="../qml/pages/AboutPage.qml" line="170"/>
         <source>Data protection</source>
         <translation>Datenschutz</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="176"/>
+        <location filename="../qml/pages/AboutPage.qml" line="177"/>
         <source>This application works exclusively offline and requires permission to output audio. No data is collected.</source>
         <translation>Diese Anwendung funktioniert ausschließlich offline und benötigt die Berechtigung zur Audioausgabe. Es werden keine Daten gesammelt.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="184"/>
+        <location filename="../qml/pages/AboutPage.qml" line="185"/>
         <source>License</source>
         <translation>Lizenz</translation>
     </message>
@@ -131,22 +132,13 @@
         <translation>Binaural-Diagramm, angepasst für die Verwendung in</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="210"/>
+        <location filename="../qml/pages/CreditPage.qml" line="211"/>
         <source>Based on</source>
+        <extracomment>Full sentence: &quot;Based on Beating_Frequency.svg - Ansgar Hellwig (Ahellwig). CC BY-SA 3.0 - Original source</extracomment>
         <translation>Basierend auf</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="214"/>
-        <source>by</source>
-        <translation>von</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="218"/>
-        <source>Licensed under</source>
-        <translation>Lizenziert unter</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="225"/>
+        <location filename="../qml/pages/CreditPage.qml" line="222"/>
         <source>Original source</source>
         <translation>Originalquelle</translation>
     </message>

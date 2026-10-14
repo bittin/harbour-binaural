@@ -49,6 +49,7 @@
     </message>
     <message>
         <source>Binaural was inspired by</source>
+        <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -103,14 +104,7 @@
     </message>
     <message>
         <source>Based on</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>by</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Licensed under</source>
+        <extracomment>Full sentence: &quot;Based on Beating_Frequency.svg - Ansgar Hellwig (Ahellwig). CC BY-SA 3.0 - Original source</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
