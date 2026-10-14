@@ -1,10 +1,9 @@
-# Sailfish OS SDK Setup
+> [!IMPORTANT]
+> **GStreamer setup (only needed for the experimental DSP ambience branch) - not used in release version**
+
+# Sailfish OS SDK Setup for experimental DSP ambience branch
 
 This guide explains how to set up the Sailfish OS SDK to build **harbour-binaural**, including the required GStreamer development packages for ARM, aarch64, and i486 build targets.
-
-
-> [!IMPORTANT]
-> GStreamer setup (only needed for the experimental DSP ambience branch)
 
 ## 1. Requirements
 
