@@ -30,7 +30,7 @@ Ambient sounds are played from audio files using `GStreamer` for decoding. The d
 
 * **Binaural beats:** DSP generator → PCM → `QAudioOutput`
 * **Colored noise:** DSP generator → PCM → `QAudioOutput`
-* **Ambient sounds:** GStreamer decoding → PCM loop
+* **Ambient sounds:** GStreamer decoding → `PCM` loop
 
 ## Requirements
 
