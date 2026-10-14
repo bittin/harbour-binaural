@@ -13,10 +13,12 @@ BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(Qt5Multimedia)
 BuildRequires:  desktop-file-utils
 
 %description
-Short description of my Sailfish OS Application
+Binaural is a sound app for relaxation, focus, sleep, and meditation,
+combining binaural beats, colored noise, and ambient sounds.
 
 %prep
 %setup -q -n %{name}-%{version}

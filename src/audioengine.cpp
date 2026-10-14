@@ -622,6 +622,10 @@ private:
 
 AudioEngine::AudioEngine(QObject *parent)
     : QObject(parent),
+      m_sleepTimerFadeTimer(new QTimer(this)),
+      m_sleepTimerBinauralStartVolume(0.0),
+      m_sleepTimerAmbienceStartVolume(0.0),
+      m_sleepTimerColoredNoiseStartVolume(0.0),
       m_audioOutput(nullptr),
       m_generator(nullptr),
       m_ambiencePlayerA(new QMediaPlayer(this)),
@@ -636,7 +640,6 @@ AudioEngine::AudioEngine(QObject *parent)
       m_binauralFadeOutTimer(new QTimer(this)),
       m_ambienceFadeOutTimer(new QTimer(this)),
       m_coloredNoiseFadeOutTimer(new QTimer(this)),
-      m_sleepTimerFadeTimer(new QTimer(this)),
 
       m_ambienceVolumeTimer(new QTimer(this)),
       m_coloredNoiseVolumeTimer(new QTimer(this)),
@@ -659,10 +662,6 @@ AudioEngine::AudioEngine(QObject *parent)
 
       m_binauralFadeOutStartVolume(0.0),
       m_coloredNoiseFadeOutStartVolume(0.0),
-
-      m_sleepTimerBinauralStartVolume(0.0),
-      m_sleepTimerAmbienceStartVolume(0.0),
-      m_sleepTimerColoredNoiseStartVolume(0.0),
 
       m_ambienceFadeOutActiveVolume(0),
       m_ambienceFadeOutFadingVolume(0)

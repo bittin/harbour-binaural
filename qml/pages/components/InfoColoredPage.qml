@@ -13,7 +13,6 @@ FullscreenContentPage {
 
     SilicaFlickable {
         anchors.fill: parent
-
         contentHeight: contentColumn.height + Theme.paddingLarge
 
         VerticalScrollDecorator { }

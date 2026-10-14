@@ -146,52 +146,52 @@
 <context>
     <name>InfoBinauralPage</name>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="53"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="52"/>
         <source>Binaural Beats</source>
         <translation>Binaurale Beats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="64"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="63"/>
         <source>Are created by playing two slightly different tones, one in each ear. The brain processes the difference as a rhythmic beat. Different beat frequencies can be used to support focus, relaxation, meditation, or sleep.</source>
         <translation>Sie entstehen, indem zwei leicht unterschiedliche Töne abgespielt werden, einer in jedem Ohr. Das Gehirn verarbeitet den Unterschied als rhythmischen Beat. Verschiedene Beat-Frequenzen können Konzentration, Entspannung, Meditation oder Schlaf unterstützen.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="104"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="103"/>
         <source>Choose from:</source>
         <translation>Wähle aus:</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="141"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="140"/>
         <source>Deep sleep, rest</source>
         <translation>Tiefschlaf, Ruhe</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="158"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="157"/>
         <source>Deep relaxation, sleep</source>
         <translation>Tiefe Entspannung, Schlaf</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="175"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="174"/>
         <source>Meditation and relaxation</source>
         <translation>Meditation und Entspannung</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="192"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="191"/>
         <source>Calm and relaxed wakefulness</source>
         <translation>Ruhiges und entspanntes Wachsein</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="209"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="208"/>
         <source>Alertness and focus</source>
         <translation>Wachheit und Konzentration</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="226"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="225"/>
         <source>Complex thinking and information processing</source>
         <translation>Komplexes Denken und Informationsverarbeitung</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="242"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="241"/>
         <source>Individual experiences may vary.</source>
         <translation>Individuelle Erfahrungen können variieren.</translation>
     </message>
@@ -199,42 +199,42 @@
 <context>
     <name>InfoColoredPage</name>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="53"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="52"/>
         <source>Colored Noise</source>
         <translation>Farbiges Rauschen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="64"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="63"/>
         <source>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</source>
         <translation>Geräusch mit unterschiedlichen Energiemengen bei verschiedenen Frequenzen. Jede Farbe hat einen eigenen Charakter und wird für unterschiedliche Zwecke verwendet.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="104"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="103"/>
         <source>Choose from:</source>
         <translation>Wähle aus:</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="142"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="141"/>
         <source>Focus, sleep and background noise masking</source>
         <translation>Konzentration, Schlaf und Maskierung von Hintergrundgeräuschen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="163"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="162"/>
         <source>Relaxation, sleep and concentration</source>
         <translation>Entspannung, Schlaf und Konzentration</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="184"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="183"/>
         <source>Relaxation, sleep and reducing distracting sounds</source>
         <translation>Entspannung, Schlaf und Reduzierung störender Geräusche</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="205"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="204"/>
         <source>Sound masking and general listening</source>
         <translation>Geräuschmaskierung und allgemeines Hören</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="222"/>
+        <location filename="../qml/pages/components/InfoColoredPage.qml" line="221"/>
         <source>Individual experiences may vary.</source>
         <translation>Individuellen Erfahrungen können variieren.</translation>
     </message>

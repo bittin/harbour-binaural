@@ -36,8 +36,8 @@ QtObject {
         case "Birds":       return qsTr("Birds")
         case "Fire":        return qsTr("Fire")
         case "Chimes":      return qsTr("Chimes")
-        case "Sailing":      return qsTr("Sailing")
-        case "Lake":      return qsTr("Lake")
+        case "Sailing":     return qsTr("Sailing")
+        case "Lake":        return qsTr("Lake")
 
         default:            return key
         }
