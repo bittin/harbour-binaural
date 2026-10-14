@@ -13,9 +13,9 @@ MAKEFILE      = Makefile
 CC            = gcc
 CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_QUICK_LIB -DQT_GUI_LIB -DQT_QML_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
-CFLAGS        = -pipe -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -fmessage-length=0 -march=armv7-a -mfloat-abi=hard -mfpu=neon -mthumb -Wno-psabi -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-CXXFLAGS      = -pipe -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -fmessage-length=0 -march=armv7-a -mfloat-abi=hard -mfpu=neon -mthumb -Wno-psabi -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -isystem /usr/include/sailfishapp -isystem /usr/include/mdeclarativecache5 -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtMultimedia -isystem /usr/include/qt5/QtQuick -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtQml -isystem /usr/include/qt5/QtNetwork -isystem /usr/include/qt5/QtCore -I. -I/usr/share/qt5/mkspecs/linux-g++
+CFLAGS        = -pipe -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -fmessage-length=0 -march=armv7-a -mfloat-abi=hard -mfpu=neon -mthumb -Wno-psabi -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -pthread -pthread -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -O2 -g -pipe -Wall -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=4 -Wformat -Wformat-security -fmessage-length=0 -march=armv7-a -mfloat-abi=hard -mfpu=neon -mthumb -Wno-psabi -fPIC -fvisibility=hidden -fvisibility-inlines-hidden -pthread -pthread -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+INCPATH       = -I. -isystem /usr/include/sailfishapp -isystem /usr/include/mdeclarativecache5 -isystem /usr/include/gstreamer-1.0 -isystem /usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -isystem /usr/include/sailfishapp -isystem /usr/include/qt5 -isystem /usr/include/qt5/QtMultimedia -isystem /usr/include/qt5/QtQuick -isystem /usr/include/qt5/QtGui -isystem /usr/include/qt5/QtQml -isystem /usr/include/qt5/QtNetwork -isystem /usr/include/qt5/QtCore -I. -I/usr/share/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = harbour-binaural1.0.0
 DISTDIR = /c/Users/U2369/SailfishOS/harbour-binaural/.tmp/harbour-binaural1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/usr/share/harbour-binaural/lib
-LIBS          = $(SUBLIBS) -lsailfishapp -pie -rdynamic -lmdeclarativecache5 -lQt5Multimedia -lQt5Quick -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -lGLESv2 -lpthread 
+LIBS          = $(SUBLIBS) -lsailfishapp -pie -rdynamic -lmdeclarativecache5 -lgstapp-1.0 -lgstbase-1.0 -lgstreamer-1.0 -lgobject-2.0 -lglib-2.0 -lQt5Multimedia -lQt5Quick -lQt5Gui -lQt5Qml -lQt5Network -lQt5Core -lGLESv2 -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -60,6 +60,7 @@ DIST          = qml/harbour-binaural.qml \
 		qml/cover/CoverPage.qml \
 		qml/pages/AboutPage.qml \
 		qml/pages/TimerPage.qml \
+		qml/pages/components/AmbienceDrawer.qml \
 		qml/pages/components/InfoBinauralPage.qml \
 		qml/pages/components/InfoColoredPage.qml \
 		qml/pages/components/SoundNames.qml \
@@ -163,8 +164,8 @@ DIST          = qml/harbour-binaural.qml \
 		/usr/share/qt5/mkspecs/features/resolve_config.prf \
 		/usr/share/qt5/mkspecs/features/default_post.prf \
 		/usr/share/qt5/mkspecs/features/sailfishapp_i18n.prf \
-		/usr/share/qt5/mkspecs/features/sailfishapp.prf \
 		/usr/share/qt5/mkspecs/features/link_pkgconfig.prf \
+		/usr/share/qt5/mkspecs/features/sailfishapp.prf \
 		/usr/share/qt5/mkspecs/features/warn_on.prf \
 		/usr/share/qt5/mkspecs/features/qt.prf \
 		/usr/share/qt5/mkspecs/features/resources.prf \
@@ -268,8 +269,8 @@ Makefile: harbour-binaural.pro /usr/share/qt5/mkspecs/linux-g++/qmake.conf /usr/
 		/usr/share/qt5/mkspecs/features/resolve_config.prf \
 		/usr/share/qt5/mkspecs/features/default_post.prf \
 		/usr/share/qt5/mkspecs/features/sailfishapp_i18n.prf \
-		/usr/share/qt5/mkspecs/features/sailfishapp.prf \
 		/usr/share/qt5/mkspecs/features/link_pkgconfig.prf \
+		/usr/share/qt5/mkspecs/features/sailfishapp.prf \
 		/usr/share/qt5/mkspecs/features/warn_on.prf \
 		/usr/share/qt5/mkspecs/features/qt.prf \
 		/usr/share/qt5/mkspecs/features/resources.prf \
@@ -368,8 +369,8 @@ Makefile: harbour-binaural.pro /usr/share/qt5/mkspecs/linux-g++/qmake.conf /usr/
 /usr/share/qt5/mkspecs/features/resolve_config.prf:
 /usr/share/qt5/mkspecs/features/default_post.prf:
 /usr/share/qt5/mkspecs/features/sailfishapp_i18n.prf:
-/usr/share/qt5/mkspecs/features/sailfishapp.prf:
 /usr/share/qt5/mkspecs/features/link_pkgconfig.prf:
+/usr/share/qt5/mkspecs/features/sailfishapp.prf:
 /usr/share/qt5/mkspecs/features/warn_on.prf:
 /usr/share/qt5/mkspecs/features/qt.prf:
 /usr/share/qt5/mkspecs/features/resources.prf:
@@ -404,7 +405,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents src/audioengine.h $(DISTDIR)/
 	$(COPY_FILE) --parents src/harbour-binaural.cpp src/audioengine.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents translations/harbour-binaural-de.ts translations/harbour-binaural-fr.ts translations/harbour-binaural-it.ts translations/harbour-binaural-sv.ts $(DISTDIR)/
+	$(COPY_FILE) --parents translations/harbour-binaural-de.ts translations/harbour-binaural-fr.ts translations/harbour-binaural-it.ts translations/harbour-binaural-sv.ts translations/harbour-binaural-nb.ts translations/harbour-binaural-nl.ts $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -433,24 +434,30 @@ compiler_moc_header_make_all: moc_audioengine.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_audioengine.cpp
 moc_audioengine.cpp: src/audioengine.h
-	/usr/lib/qt5/bin/moc $(DEFINES) -I/usr/share/qt5/mkspecs/linux-g++ -I/c/Users/U2369/SailfishOS/harbour-binaural -I/usr/include/sailfishapp -I/usr/include/mdeclarativecache5 -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtQuick -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtQml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I/opt/cross/armv7hl-meego-linux-gnueabi/include/c++/10.3.1 -I/opt/cross/armv7hl-meego-linux-gnueabi/include/c++/10.3.1/armv7hl-meego-linux-gnueabi -I/opt/cross/armv7hl-meego-linux-gnueabi/include/c++/10.3.1/backward -I/opt/cross/lib/gcc/armv7hl-meego-linux-gnueabi/10.3.1/include -I/usr/local/include -I/opt/cross/lib/gcc/armv7hl-meego-linux-gnueabi/10.3.1/include-fixed -I/opt/cross/armv7hl-meego-linux-gnueabi/include -I/usr/include src/audioengine.h -o moc_audioengine.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) -I/usr/share/qt5/mkspecs/linux-g++ -I/c/Users/U2369/SailfishOS/harbour-binaural -I/usr/include/sailfishapp -I/usr/include/mdeclarativecache5 -I/usr/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sailfishapp -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtQuick -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtQml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I/opt/cross/armv7hl-meego-linux-gnueabi/include/c++/10.3.1 -I/opt/cross/armv7hl-meego-linux-gnueabi/include/c++/10.3.1/armv7hl-meego-linux-gnueabi -I/opt/cross/armv7hl-meego-linux-gnueabi/include/c++/10.3.1/backward -I/opt/cross/lib/gcc/armv7hl-meego-linux-gnueabi/10.3.1/include -I/usr/local/include -I/opt/cross/lib/gcc/armv7hl-meego-linux-gnueabi/10.3.1/include-fixed -I/opt/cross/armv7hl-meego-linux-gnueabi/include -I/usr/include src/audioengine.h -o moc_audioengine.cpp
 
-compiler_moc_source_make_all:
+compiler_moc_source_make_all: audioengine.moc
 compiler_moc_source_clean:
+	-$(DEL_FILE) audioengine.moc
+audioengine.moc: src/audioengine.h \
+		src/audioengine.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) -I/usr/share/qt5/mkspecs/linux-g++ -I/c/Users/U2369/SailfishOS/harbour-binaural -I/usr/include/sailfishapp -I/usr/include/mdeclarativecache5 -I/usr/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include -I/usr/include/sailfishapp -I/usr/include/qt5 -I/usr/include/qt5/QtMultimedia -I/usr/include/qt5/QtQuick -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtQml -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -I/opt/cross/armv7hl-meego-linux-gnueabi/include/c++/10.3.1 -I/opt/cross/armv7hl-meego-linux-gnueabi/include/c++/10.3.1/armv7hl-meego-linux-gnueabi -I/opt/cross/armv7hl-meego-linux-gnueabi/include/c++/10.3.1/backward -I/opt/cross/lib/gcc/armv7hl-meego-linux-gnueabi/10.3.1/include -I/usr/local/include -I/opt/cross/lib/gcc/armv7hl-meego-linux-gnueabi/10.3.1/include-fixed -I/opt/cross/armv7hl-meego-linux-gnueabi/include -I/usr/include src/audioengine.cpp -o audioengine.moc
+
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
 compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_header_clean 
+compiler_clean: compiler_moc_header_clean compiler_moc_source_clean 
 
 ####### Compile
 
 harbour-binaural.o: src/harbour-binaural.cpp src/audioengine.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o harbour-binaural.o src/harbour-binaural.cpp
 
-audioengine.o: src/audioengine.cpp src/audioengine.h
+audioengine.o: src/audioengine.cpp src/audioengine.h \
+		audioengine.moc
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o audioengine.o src/audioengine.cpp
 
 moc_audioengine.o: moc_audioengine.cpp 
@@ -483,13 +490,17 @@ uninstall_ambient: FORCE
 
 install_qm: first FORCE
 	@test -d $(INSTALL_ROOT)/usr/share/harbour-binaural/translations || mkdir -p $(INSTALL_ROOT)/usr/share/harbour-binaural/translations
-	lupdate -noobsolete /c/Users/U2369/SailfishOS/harbour-binaural/src /c/Users/U2369/SailfishOS/harbour-binaural/qml -ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-de.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-fr.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-it.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-sv.ts && mkdir -p translations && [ "/c/Users/U2369/SailfishOS/harbour-binaural" != "/c/Users/U2369/SailfishOS/harbour-binaural" -a 1 -eq 1 ] && cp -af /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-de.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-fr.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-it.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-sv.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations || : ; [ 1 -eq 1 ] && lrelease -nounfinished /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-de.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-fr.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-it.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-sv.ts || :
+	lupdate -noobsolete /c/Users/U2369/SailfishOS/harbour-binaural/src /c/Users/U2369/SailfishOS/harbour-binaural/qml -ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-de.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-fr.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-it.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-sv.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-nb.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-nl.ts && mkdir -p translations && [ "/c/Users/U2369/SailfishOS/harbour-binaural" != "/c/Users/U2369/SailfishOS/harbour-binaural" -a 1 -eq 1 ] && cp -af /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-de.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-fr.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-it.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-sv.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-nb.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-nl.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations || : ; [ 1 -eq 1 ] && lrelease -nounfinished /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-de.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-fr.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-it.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-sv.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-nb.ts /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-nl.ts || :
 	-$(INSTALL_FILE) /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-de.qm $(INSTALL_ROOT)/usr/share/harbour-binaural/translations/
 	-$(INSTALL_FILE) /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-fr.qm $(INSTALL_ROOT)/usr/share/harbour-binaural/translations/
 	-$(INSTALL_FILE) /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-it.qm $(INSTALL_ROOT)/usr/share/harbour-binaural/translations/
 	-$(INSTALL_FILE) /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-sv.qm $(INSTALL_ROOT)/usr/share/harbour-binaural/translations/
+	-$(INSTALL_FILE) /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-nb.qm $(INSTALL_ROOT)/usr/share/harbour-binaural/translations/
+	-$(INSTALL_FILE) /c/Users/U2369/SailfishOS/harbour-binaural/translations/harbour-binaural-nl.qm $(INSTALL_ROOT)/usr/share/harbour-binaural/translations/
 
 uninstall_qm: FORCE
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-binaural/translations/harbour-binaural-nl.qm
+	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-binaural/translations/harbour-binaural-nb.qm
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-binaural/translations/harbour-binaural-sv.qm
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-binaural/translations/harbour-binaural-it.qm
 	-$(DEL_FILE) -r $(INSTALL_ROOT)/usr/share/harbour-binaural/translations/harbour-binaural-fr.qm
