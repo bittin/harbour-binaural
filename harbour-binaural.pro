@@ -18,8 +18,14 @@ CONFIG += link_pkgconfig
 # QtMultimedia for access to Sailfish's multimedia/audio APIs.
 QT += multimedia
 
+<<<<<<< Updated upstream
 # SailfishApp and GStreamer libraries.
 PKGCONFIG += sailfishapp
+=======
+# GStreamer for the in-app mp3 decoder (AmbienceDecodeThread):
+# decodes the selected ambience mp3 to PCM on a worker thread.
+CONFIG += link_pkgconfig
+>>>>>>> Stashed changes
 PKGCONFIG += gstreamer-1.0 gstreamer-app-1.0 glib-2.0
 
 SOURCES += src/harbour-binaural.cpp \
