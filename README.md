@@ -35,10 +35,6 @@ Ambient sounds are played from audio files using `QMediaPlayer`. Each ambient so
 ## Requirements
 
 * Sailfish OS SDK with a build target for Sailfish OS 4.6 or newer.
-* GStreamer development packages installed in the SDK build target:
-
-  * `gstreamer1.0-devel`
-  * `gstreamer1.0-plugins-base-devel`
 
 ## Build
 
