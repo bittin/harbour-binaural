@@ -4,7 +4,7 @@ This guide explains how to set up the Sailfish OS SDK to build **harbour-binaura
 
 
 > [!IMPORTANT]
-> GStreamer setup (only needed for the experimental DSP ambience branch
+> GStreamer setup (only needed for the experimental DSP ambience branch)
 
 ## 1. Requirements
 
