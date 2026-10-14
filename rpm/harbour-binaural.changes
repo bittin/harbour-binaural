@@ -12,6 +12,13 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Tue Oct 14 2026 0.8.0
+- [translations] Added and updated Norwegian, Swedish, and Dutch translations (thanks for the contributions!)
+- [refactoring] Prepared interface for additional features
+- [fix] Fixed missing translations in playback bar and cover page
+- [enhancement] Pauses the timer during audio playback
+- [improvement] Updated the audio engine
+
 * Tue Oct 06 2026 0.7
 - [add] timer (via pulley menu) to stop all sounds after desired timer
 - [add] new colored noise generator, replaces wav files
