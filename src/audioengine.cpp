@@ -16,7 +16,8 @@ namespace
     const int SampleSize = 16;
 
     const double CarrierFrequency = 200.0;
-    const double BinauralAmplitude = 16000.0;
+    // MASTER VOLUME Binaural
+    const double BinauralAmplitude = 13000.0;
 
     const int BinauralFadeInDuration = 0;
     const int BinauralFadeOutDuration = 0;
@@ -265,10 +266,11 @@ protected:
                 value = qBound(-1.0, value, 1.0);
 
                 samples[
-                    frame * m_channelCount + channel
-                ] =
-                    static_cast<qint16>(
-                        value * 16000.0);
+                        frame * m_channelCount + channel
+                        ] =
+                        static_cast<qint16>(
+                            // MASTER VOLUME Colored Noise
+                            value * 16000.0);
             }
         }
 
@@ -943,13 +945,15 @@ void AudioEngine::setColoredNoiseVolume(int volume)
 int AudioEngine::ambienceTargetVolume() const
 {
     return qRound(
+                // MASTER VOLUME Adjuster Ambience Noise
         m_ambienceVolume * 0.6);
 }
 
 int AudioEngine::coloredNoiseTargetVolume() const
 {
     return qRound(
-        m_coloredNoiseVolume * 0.3);
+                // MASTER VOLUME Adjuster Colored Noise
+        m_coloredNoiseVolume * 0.4);
 }
 
 void AudioEngine::applyPendingAmbienceVolume()

@@ -91,11 +91,7 @@ ambient.files = sounds/wind.mp3 \
                 sounds/rain.mp3 \
                 sounds/birds.mp3 \
                 sounds/fire.mp3 \
-                sounds/chimes.mp3 \
-                sounds/white.wav \
-                sounds/pink.wav \
-                sounds/brown.wav \
-                sounds/grey.wav
+                sounds/chimes.mp3
 
 ambient.path = /usr/share/harbour-binaural/sounds
 
