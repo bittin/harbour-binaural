@@ -306,11 +306,11 @@
     </message>
     <message>
         <source>Sailing</source>
-        <translation type="unfinished"></translation>
+        <translation>Seiling</translation>
     </message>
     <message>
         <source>Lake</source>
-        <translation type="unfinished"></translation>
+        <translation>Innsjø</translation>
     </message>
 </context>
 <context>
