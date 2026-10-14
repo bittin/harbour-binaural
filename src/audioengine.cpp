@@ -33,26 +33,39 @@ namespace
     const int FadeInterval = 15;
     const int VolumeUpdateInterval = 50;
 
+    double frequencyForBand(const QString &band)
+    {
+        static const QMap<QString, double> bands = {
+            { QStringLiteral("Delta"),          2.0 },
+            { QStringLiteral("Delta/Theta"),    4.0 },
+            { QStringLiteral("Theta"),          6.0 },
+            { QStringLiteral("Alpha"),         10.0 },
+            { QStringLiteral("Beta"),          20.0 },
+            { QStringLiteral("Gamma"),         40.0 }
+        };
+        return bands.value(band, -1.0);
+    }
+
     const QString AmbienceBasePath =
             QStringLiteral(
                 "file:///usr/share/harbour-binaural/sounds/");
 
     const QMap<QString, QString> &ambienceFiles()
-        {
-            static const QMap<QString, QString> files = {
-                { QStringLiteral("Wind"),     QStringLiteral("wind.mp3") },
-                { QStringLiteral("Rain"),     QStringLiteral("rain.mp3") },
-                { QStringLiteral("Stream"),   QStringLiteral("stream.mp3") },
-                { QStringLiteral("Waves"),    QStringLiteral("waves.mp3") },
-                { QStringLiteral("Lake"),     QStringLiteral("lake.mp3") },
-                { QStringLiteral("Sailing"),  QStringLiteral("sailing.mp3") },
-                { QStringLiteral("Birds"),    QStringLiteral("birds.mp3") },
-                { QStringLiteral("Crickets"), QStringLiteral("crickets.mp3") },
-                { QStringLiteral("Chimes"),   QStringLiteral("chimes.mp3") },
-                { QStringLiteral("Fire"),     QStringLiteral("fire.mp3") },
-            };
-            return files;
-        }
+    {
+        static const QMap<QString, QString> files = {
+            { QStringLiteral("Wind"),     QStringLiteral("wind.mp3") },
+            { QStringLiteral("Rain"),     QStringLiteral("rain.mp3") },
+            { QStringLiteral("Stream"),   QStringLiteral("stream.mp3") },
+            { QStringLiteral("Waves"),    QStringLiteral("waves.mp3") },
+            { QStringLiteral("Lake"),     QStringLiteral("lake.mp3") },
+            { QStringLiteral("Sailing"),  QStringLiteral("sailing.mp3") },
+            { QStringLiteral("Birds"),    QStringLiteral("birds.mp3") },
+            { QStringLiteral("Crickets"), QStringLiteral("crickets.mp3") },
+            { QStringLiteral("Chimes"),   QStringLiteral("chimes.mp3") },
+            { QStringLiteral("Fire"),     QStringLiteral("fire.mp3") },
+        };
+        return files;
+    }
 }
 
 
@@ -174,7 +187,7 @@ public:
 
     explicit ColoredNoiseGenerator(QObject *parent = nullptr)
         : QIODevice(parent),
-          m_sampleRate(48000),
+          m_sampleRate(DefaultSampleRate),
           m_channelCount(2),
           m_noiseType(WhiteNoise)
     {
@@ -907,24 +920,14 @@ void AudioEngine::resumeColoredNoise()
 
 void AudioEngine::setFrequencyBand(const QString &band)
 {
-    if (band == "Delta")
-        m_beatFrequency = 2.0;
-    else if (band == "Delta/Theta")
-        m_beatFrequency = 4.0;
-    else if (band == "Theta")
-        m_beatFrequency = 6.0;
-    else if (band == "Alpha")
-        m_beatFrequency = 10.0;
-    else if (band == "Beta")
-        m_beatFrequency = 20.0;
-    else if (band == "Gamma")
-        m_beatFrequency = 40.0;
-    else
+    const double frequency = frequencyForBand(band);
+    if (frequency < 0.0)
         return;
 
+    m_beatFrequency = frequency;
+
     if (m_generator)
-        m_generator->setBeatFrequency(
-            m_beatFrequency);
+        m_generator->setBeatFrequency(m_beatFrequency);
 }
 
 
