@@ -35,14 +35,10 @@ Ambient sounds are played from audio files using `QMediaPlayer`. Each ambient so
 ## Requirements
 
 * Sailfish OS SDK with a build target for Sailfish OS 4.6 or newer.
-* GStreamer development packages installed in the SDK build target:
-
-  * `gstreamer1.0-devel`
-  * `gstreamer1.0-plugins-base-devel`
 
 ## Build
 
-Install the required GStreamer development packages in your SDK build target before building the project. Then clone or download this repository and import it into your Sailfish OS IDE using the `harbour-binaural.pro` project file.
+Clone or download this repository and import it into your Sailfish OS IDE using the `harbour-binaural.pro` project file.
 
 ## Repository branches
 
