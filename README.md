@@ -67,7 +67,7 @@ Please include an explanation of the changes or a brief changelog summary. Pull 
 
 Translations are managed with [Hosted Weblate](https://hosted.weblate.org/projects/harbour-binaural/harbour-binaural/). New languages can be added through `Weblate` or directly via `GitHub`. Incomplete translations may not be accepted or included in the app.
 
-[![Translations](https://hosted.weblate.org/widgets/harbour-binaural/-/svg-badge.svg)](https://hosted.weblate.org/engage/harbour-binaural/)
+[![Translations](https://hosted.weblate.org/widgets/harbour-binaural/-/svg-badge.svg)](https://hosted.weblate.org/engage/harbour-binaural/harbour-binaural/)
 
 ## Screenshots
 
