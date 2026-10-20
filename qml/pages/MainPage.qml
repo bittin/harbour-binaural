@@ -261,6 +261,7 @@ Page {
                             spacing: Theme.paddingSmall
 
                             Label {
+                                //: Translate as "To be used with 'headphones' --> but headphones is an icon, no translation needed
                                 text: qsTr("To be used with")
                                 color: Theme.secondaryHighlightColor
                                 font.pixelSize: Theme.fontSizeExtraSmall

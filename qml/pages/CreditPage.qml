@@ -182,6 +182,8 @@ Page {
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 x: Theme.horizontalPageMargin
 
+                //: Full sentence: "Binaural graph image modified for use in Binaural:"
+                //: Second Binaural word means the app names which isn't translated.
                 text: qsTr("Binaural graph image modified for use in") +
                       " Binaural:"
 

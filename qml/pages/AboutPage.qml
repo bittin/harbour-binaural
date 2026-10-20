@@ -98,7 +98,7 @@ Page {
                 text: "Hosted Weblate"
 
                 onClicked: {
-                    Qt.openUrlExternally("https://hosted.weblate.org/projects/harbour-binaural/")
+                    Qt.openUrlExternally("https://hosted.weblate.org/projects/harbour-binaural/harbour-binaural/")
                 }
             }
 
