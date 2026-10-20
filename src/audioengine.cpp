@@ -220,9 +220,8 @@ void AudioEngine::updatePlayingState()
     emit playingChanged();
 }
 
-
 // ============================================================================
-// BINAURAL
+// SLEEP TIMER FADE OUT
 // ============================================================================
 
 void AudioEngine::fadeOutForSleepTimer()
