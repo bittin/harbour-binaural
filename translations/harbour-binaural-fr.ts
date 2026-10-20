@@ -69,7 +69,7 @@
     <name>CoverPage</name>
     <message>
         <source>Playing:</source>
-        <translation>Lecture :</translation>
+        <translation>Lecture&#xa0;:</translation>
     </message>
     <message>
         <source>Start your sound mix</source>
@@ -77,7 +77,7 @@
     </message>
     <message>
         <source>Paused:</source>
-        <translation>En pause :</translation>
+        <translation>En pause&#xa0;:</translation>
     </message>
 </context>
 <context>
@@ -126,7 +126,7 @@
     </message>
     <message>
         <source>Choose from:</source>
-        <translation>Choisissez parmi :</translation>
+        <translation>Choisissez parmi&#xa0;:</translation>
     </message>
     <message>
         <source>Are created by playing two slightly different tones, one in each ear. The brain processes the difference as a rhythmic beat. Different beat frequencies can be used to support focus, relaxation, meditation, or sleep.</source>
@@ -165,7 +165,7 @@
     <name>InfoColoredPage</name>
     <message>
         <source>Choose from:</source>
-        <translation>Choisissez parmi :</translation>
+        <translation>Choisissez parmi&#xa0;:</translation>
     </message>
     <message>
         <source>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</source>
@@ -200,35 +200,35 @@
     <name>MainPage</name>
     <message>
         <source>About</source>
-        <translation type="unfinished">À propos</translation>
+        <translation>À propos</translation>
     </message>
     <message>
         <source>Deselect all sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Désélectionner tous les sons</translation>
     </message>
     <message>
         <source>Timer</source>
-        <translation type="unfinished">Minuterie</translation>
+        <translation>Minuterie</translation>
     </message>
     <message>
         <source>Binaural Beats</source>
-        <translation type="unfinished">Battements binauraux</translation>
+        <translation>Battements binauraux</translation>
     </message>
     <message>
         <source>To be used with</source>
-        <translation type="unfinished"></translation>
+        <translation>À utiliser avec</translation>
     </message>
     <message>
         <source>Colored Noise</source>
-        <translation type="unfinished">Bruit coloré</translation>
+        <translation>Bruit coloré</translation>
     </message>
     <message>
         <source>Ambient Sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Son d’ambiance</translation>
     </message>
     <message>
         <source>Choose an ambient sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisissez un son d’ambiance</translation>
     </message>
 </context>
 <context>
