@@ -20,17 +20,28 @@ The latest release is available on [OpenRepos.net](https://openrepos.net/content
 
 ## Audio Engine
 
-The `AudioEngine` generates binaural beats in real time, sample-by-sample, using two sine waves: a fixed 200 Hz tone on the left channel and a slightly higher frequency on the right. The frequency difference creates the perceived binaural beat. The generated stereo 16-bit PCM audio is streamed through `QAudioOutput`, with the sample rate adapted to the audio device.
+The `AudioEngine` manages three audio sources: binaural beats, colored noise, and ambient sounds.
 
-Colored noise is also generated in real time using a custom `ColoredNoiseGenerator` based on `QIODevice`. It supports White, Pink, Brown, and Grey noise using dedicated DSP algorithms, with per-noise-type gain calibration for more balanced perceived loudness. The generated 16-bit PCM stream is played through `QAudioOutput`.
+* **Binaural beats:** `BinauralGenerator` generates two sine waves: a fixed 200 Hz tone in the left channel and a slightly higher frequency in the right channel. Their frequency difference creates the perceived binaural beat. The resulting stereo 16-bit PCM audio is streamed through `QAudioOutput`, with the sample rate adapted to the audio device.
+* **Colored noise:** `ColoredNoiseGenerator` generates White, Pink, Brown, and Grey noise in real time using dedicated DSP algorithms. Per-type gain calibration helps balance perceived loudness. The resulting 16-bit PCM audio is streamed through `QAudioOutput`.
+* **Ambient sounds:** Audio files are played using `QMediaPlayer`. The `AudioEngine` manages seamless looping, fade-in, fade-out, and crossfading between loop iterations.
 
-Ambient sounds are played from audio files using `QMediaPlayer`. Each ambient sound is played as a seamless loop, with fade-in, fade-out, and crossfading between loop iterations handled by the `AudioEngine`.
+### Source Files
 
-**Audio pipeline:**
+| File                           | Responsibility                                                    |
+| ------------------------------ | ----------------------------------------------------------------- |
+| `audioengine.cpp`              | Initializes the audio engine and provides shared functionality.   |
+| `audioengine_binaural.cpp`     | Manages binaural beat generation and playback.                    |
+| `audioengine_colorednoise.cpp` | Manages colored noise generation and playback.                    |
+| `audioengine_ambience.cpp`     | Manages ambient sound playback, looping, fading, and crossfading. |
+| `binauralgenerator.cpp`        | Generates binaural tones using sine waves.                        |
+| `colorednoisegenerator.cpp`    | Implements DSP algorithms for White, Pink, Brown, and Grey noise. |
 
-* **Binaural beats:** DSP generator → PCM → `QAudioOutput`
-* **Colored noise:** DSP generator → PCM → `QAudioOutput`
-* **Ambient sounds:** `QMediaPlayer` (mp3 files, gapless looping with crossfade)
+### Audio Pipeline
+
+* **Binaural beats:** `BinauralGenerator` → PCM stream → `QAudioOutput`
+* **Colored noise:** `ColoredNoiseGenerator` → PCM stream → `QAudioOutput`
+* **Ambient sounds:** Audio files → `QMediaPlayer` → looping and crossfading
 
 ## Requirements
 
@@ -54,9 +65,9 @@ Please include an explanation of the changes or a brief changelog summary. Pull 
 
 ## Translations
 
-Translations are managed with [Hosted Weblate](https://hosted.weblate.org/projects/harbour-binaural/). New languages can be added through `Weblate` or directly via `GitHub`. Incomplete translations may not be accepted or included in the app.
+Translations are managed with [Hosted Weblate](https://hosted.weblate.org/projects/harbour-binaural/harbour-binaural/). New languages can be added through `Weblate` or directly via `GitHub`. Incomplete translations may not be accepted or included in the app.
 
-[![Translations](https://hosted.weblate.org/widgets/harbour-binaural/-/svg-badge.svg)](https://hosted.weblate.org/engage/harbour-binaural/)
+[![Translations](https://hosted.weblate.org/widgets/harbour-binaural/-/svg-badge.svg)](https://hosted.weblate.org/engage/harbour-binaural/harbour-binaural/)
 
 ## Screenshots
 
