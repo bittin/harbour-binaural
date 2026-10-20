@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtGraphicalEffects 1.0
+import QtQuick.Window 2.0
 import Binaural 1.0
 
 SilicaFlickable {
@@ -15,16 +16,17 @@ SilicaFlickable {
     signal ambienceVolumeChanged(real volume)
     signal closeRequested()
 
-    width: parent ? parent.width : 0
-    height: column.height + Theme.paddingLarge
+    width: parent.width
 
-    contentWidth: width
-    contentHeight: height
+    // Limit drawer height to 80% of the screen and allow scrolling.
+    height: Math.min(column.height + Theme.paddingLarge,
+                     Screen.height * 0.8)
+
+    contentHeight: column.height + Theme.paddingLarge
     clip: true
 
     Rectangle {
         anchors.fill: parent
-
         color: Theme.rgba(
             Theme.highlightBackgroundColor,
             Theme.highlightBackgroundOpacity * 0.35
@@ -54,27 +56,29 @@ SilicaFlickable {
             }
 
             MouseArea {
+                id: handleMouseArea
+
                 anchors.fill: parent
 
-                property real startX: 0
                 property real startY: 0
-                property bool wasSwiped: false
+                property real startX: 0
 
                 onPressed: {
-                    startX = mouse.x
                     startY = mouse.y
-                    wasSwiped = false
+                    startX = mouse.x
+                }
+
+                onClicked: {
+                    ambiencePage.closeRequested()
                 }
 
                 onReleased: {
-                    var deltaX = Math.abs(mouse.x - startX)
                     var deltaY = mouse.y - startY
+                    var deltaX = mouse.x - startX
 
-                    if (deltaY > Theme.itemSizeSmall && deltaY > deltaX) {
-                        wasSwiped = true
-                        ambiencePage.closeRequested()
-                    } else if (deltaX < Theme.paddingSmall &&
-                               Math.abs(deltaY) < Theme.paddingSmall) {
+                    // A deliberate downward swipe closes the drawer.
+                    if (deltaY > Theme.itemSizeSmall
+                            && Math.abs(deltaY) > Math.abs(deltaX)) {
                         ambiencePage.closeRequested()
                     }
                 }
@@ -100,7 +104,7 @@ SilicaFlickable {
                 "Lake",
                 "Sailing",
                 "Birds",
-                "Crickets",              
+                "Crickets",
                 "Chimes",
                 "Fire"
             ]
@@ -166,10 +170,10 @@ SilicaFlickable {
             }
         }
 
-        // Volume control
+        // Volume control.
         Item {
             width: parent.width
-            height: ambienceVolumeSlider.height
+            height: ambienceVolumeSlider.height + Theme.iconSizeSmall
 
             Slider {
                 id: ambienceVolumeSlider

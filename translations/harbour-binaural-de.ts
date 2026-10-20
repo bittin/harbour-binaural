@@ -127,18 +127,19 @@
         <translation>Bilder</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="185"/>
+        <location filename="../qml/pages/CreditPage.qml" line="187"/>
         <source>Binaural graph image modified for use in</source>
+        <extracomment>Full sentence: &quot;Binaural graph image modified for use in Binaural:&quot; Second Binaural word means the app names which isn&apos;t translated.</extracomment>
         <translation>Binaural-Diagramm, angepasst für die Verwendung in</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="211"/>
+        <location filename="../qml/pages/CreditPage.qml" line="213"/>
         <source>Based on</source>
         <extracomment>Full sentence: &quot;Based on Beating_Frequency.svg - Ansgar Hellwig (Ahellwig). CC BY-SA 3.0 - Original source</extracomment>
         <translation>Basierend auf</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="222"/>
+        <location filename="../qml/pages/CreditPage.qml" line="224"/>
         <source>Original source</source>
         <translation>Originalquelle</translation>
     </message>
@@ -242,44 +243,44 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="183"/>
+        <location filename="../qml/pages/MainPage.qml" line="171"/>
         <source>About</source>
-        <translation>Über</translation>
+        <translation type="unfinished">Über</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="181"/>
+        <source>Deselect all sounds</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="193"/>
-        <source>Deselect all sounds</source>
-        <translation>Alle Klänge deaktivieren</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/MainPage.qml" line="205"/>
         <source>Timer</source>
-        <translation>Timer</translation>
+        <translation type="unfinished">Timer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="248"/>
+        <location filename="../qml/pages/MainPage.qml" line="221"/>
         <source>Binaural Beats</source>
-        <translation>Binaurale Beats</translation>
+        <translation type="unfinished">Binaurale Beats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="264"/>
+        <location filename="../qml/pages/MainPage.qml" line="235"/>
         <source>To be used with</source>
-        <translation>Zu verwenden mit</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="472"/>
+        <location filename="../qml/pages/MainPage.qml" line="449"/>
         <source>Colored Noise</source>
-        <translation>Farbiges Rauschen</translation>
+        <translation type="unfinished">Farbiges Rauschen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="641"/>
+        <location filename="../qml/pages/MainPage.qml" line="623"/>
         <source>Ambient Sound</source>
-        <translation>Umgebungsgeräusche</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="674"/>
+        <location filename="../qml/pages/MainPage.qml" line="656"/>
         <source>Choose an ambient sound</source>
-        <translation>Wähle ein Umgebungsgeräusch</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

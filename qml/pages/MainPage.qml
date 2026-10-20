@@ -36,17 +36,9 @@ Page {
         appWindow.isPlaying = isPlaying
     }
 
-    onActiveBandChanged: {
-        checkSleepTimer()
-    }
-
-    onActiveAmbienceChanged: {
-        checkSleepTimer()
-    }
-
-    onActiveNoiseChanged: {
-        checkSleepTimer()
-    }
+    onActiveBandChanged: checkSleepTimer()
+    onActiveAmbienceChanged: checkSleepTimer()
+    onActiveNoiseChanged: checkSleepTimer()
 
     function checkSleepTimer() {
         if (appWindow.sleepTimerRunning &&
@@ -92,11 +84,9 @@ Page {
             audioEngine.pauseBinaural()
             audioEngine.pauseAmbience()
             audioEngine.pauseColoredNoise()
-
             appWindow.pauseSleepTimer()
         } else {
             resumeAll()
-
             appWindow.resumeSleepTimer()
         }
     }
@@ -115,23 +105,19 @@ Page {
 
     Component {
         id: infoBinauralPageComponent
-        InfoBinauralPage { }
+        InfoBinauralPage {}
     }
 
     Component {
         id: infoColoredPageComponent
-        InfoColoredPage { }
+        InfoColoredPage {}
     }
 
-    // Drawer for ambient sounds.
     Drawer {
         id: ambienceDrawer
 
         anchors.fill: parent
         dock: Dock.Bottom
-        z: 2
-
-        // Uses extracted ambience component AmbienceDrawer
         backgroundSize: ambienceSelector.height
 
         background: AmbienceDrawer {
@@ -165,7 +151,9 @@ Page {
             }
         }
 
-        // Main page content remains here.
+        // The container is the Drawer foreground.
+        // The dimmer and click handler move with the foreground,
+        // leaving the exposed drawer background interactive.
         Item {
             id: foregroundContent
 
@@ -175,8 +163,8 @@ Page {
                 id: foregroundPage
 
                 anchors.fill: parent
-
                 contentHeight: column.height + Theme.paddingLarge
+                clip: true
 
                 PullDownMenu {
                     MenuItem {
@@ -211,23 +199,8 @@ Page {
                         onClicked: {
                             pageStack.push(
                                 Qt.resolvedUrl("TimerPage.qml"),
-                                {
-                                    appWindow: appWindow
-                                }
+                                { appWindow: appWindow }
                             )
-                        }
-                    }
-                }
-
-                MouseArea {
-                    id: closeDrawerOnBackgroundTap
-
-                    anchors.fill: parent
-                    z: -1
-
-                    onClicked: {
-                        if (ambienceDrawer.opened) {
-                            ambienceDrawer.open = false
                         }
                     }
                 }
@@ -243,17 +216,15 @@ Page {
                         height: Theme.paddingLarge
                     }
 
-                    // Binaural frequency selection.
+                    // Binaural Beats
                     SectionHeader {
                         text: qsTr("Binaural Beats")
                     }
 
-                    // Headphone information.
                     Item {
+                        x: Theme.horizontalPageMargin
                         width: parent.width -
                                2 * Theme.horizontalPageMargin
-
-                        x: Theme.horizontalPageMargin
                         height: Theme.fontSizeExtraSmall
 
                         Row {
@@ -261,7 +232,6 @@ Page {
                             spacing: Theme.paddingSmall
 
                             Label {
-                                //: Translate as "To be used with 'headphones' --> but headphones is an icon, no translation needed
                                 text: qsTr("To be used with")
                                 color: Theme.secondaryHighlightColor
                                 font.pixelSize: Theme.fontSizeExtraSmall
@@ -273,7 +243,8 @@ Page {
                                 height: Theme.fontSizeExtraSmall
 
                                 anchors.verticalCenter: parent.verticalCenter
-                                anchors.verticalCenterOffset: Theme.paddingSmall / 3
+                                anchors.verticalCenterOffset:
+                                    Theme.paddingSmall / 3
 
                                 Image {
                                     id: headsetImage
@@ -299,11 +270,10 @@ Page {
                         id: frequencyGrid
 
                         x: Theme.horizontalPageMargin
-
                         width: parent.width -
                                2 * Theme.horizontalPageMargin
-
                         height: contentHeight
+
                         cellWidth: width / 2
                         cellHeight: Theme.itemSizeMedium
 
@@ -382,10 +352,13 @@ Page {
                         }
                     }
 
-                    // Binaural volume slider and information button.
+                    // Binaural volume
                     Item {
                         width: parent.width
-                        height: binauralVolumeSlider.height
+
+                        height: binauralVolumeSlider.height +
+                                binauralVolumeIcon.height -
+                                Theme.paddingLarge
 
                         Slider {
                             id: binauralVolumeSlider
@@ -415,8 +388,10 @@ Page {
 
                             anchors.top: binauralVolumeSlider.bottom
                             anchors.topMargin: -Theme.paddingLarge
-                            anchors.horizontalCenter: binauralVolumeSlider.horizontalCenter
-                            anchors.horizontalCenterOffset: Theme.paddingSmall
+                            anchors.horizontalCenter:
+                                binauralVolumeSlider.horizontalCenter
+                            anchors.horizontalCenterOffset:
+                                Theme.paddingSmall
 
                             opacity: page.activeBand !== "" ? 1.0 : 0.5
 
@@ -455,7 +430,8 @@ Page {
                             anchors.right: parent.right
                             anchors.rightMargin: Theme.horizontalPageMargin
                             anchors.verticalCenter: parent.verticalCenter
-                            anchors.verticalCenterOffset: Theme.paddingSmall * 1.7
+                            anchors.verticalCenterOffset:
+                                Theme.paddingSmall * 1.7
 
                             icon.source: "image://theme/icon-m-about?" +
                                          (pressed
@@ -468,7 +444,7 @@ Page {
                         }
                     }
 
-                    // Colored noise selection.
+                    // Colored Noise
                     SectionHeader {
                         text: qsTr("Colored Noise")
                     }
@@ -477,11 +453,10 @@ Page {
                         id: coloredNoiseGrid
 
                         x: Theme.horizontalPageMargin
-
                         width: parent.width -
                                2 * Theme.horizontalPageMargin
-
                         height: contentHeight
+
                         cellWidth: width / 2
                         cellHeight: Theme.itemSizeMedium
 
@@ -551,10 +526,13 @@ Page {
                         }
                     }
 
-                    // Colored noise volume slider and information button.
+                    // Colored noise volume
                     Item {
                         width: parent.width
-                        height: coloredNoiseVolumeSlider.height
+
+                        height: coloredNoiseVolumeSlider.height +
+                                coloredNoiseVolumeIcon.height -
+                                Theme.paddingLarge
 
                         Slider {
                             id: coloredNoiseVolumeSlider
@@ -584,8 +562,10 @@ Page {
 
                             anchors.top: coloredNoiseVolumeSlider.bottom
                             anchors.topMargin: -Theme.paddingLarge
-                            anchors.horizontalCenter: coloredNoiseVolumeSlider.horizontalCenter
-                            anchors.horizontalCenterOffset: Theme.paddingSmall
+                            anchors.horizontalCenter:
+                                coloredNoiseVolumeSlider.horizontalCenter
+                            anchors.horizontalCenterOffset:
+                                Theme.paddingSmall
 
                             opacity: page.activeNoise !== "" ? 1.0 : 0.5
 
@@ -624,7 +604,8 @@ Page {
                             anchors.right: parent.right
                             anchors.rightMargin: Theme.horizontalPageMargin
                             anchors.verticalCenter: parent.verticalCenter
-                            anchors.verticalCenterOffset: Theme.paddingSmall * 1.7
+                            anchors.verticalCenterOffset:
+                                Theme.paddingSmall * 1.7
 
                             icon.source: "image://theme/icon-m-about?" +
                                          (pressed
@@ -637,7 +618,7 @@ Page {
                         }
                     }
 
-                    // Ambient sound button opens the drawer.
+                    // Ambient Sound
                     SectionHeader {
                         text: qsTr("Ambient Sound")
                     }
@@ -707,10 +688,13 @@ Page {
                 VerticalScrollDecorator {}
             }
 
+            // Dim the foreground while the drawer is open.
+            // This rectangle moves with the foreground and does not
+            // cover the exposed drawer background.
             Rectangle {
                 id: drawerDimmer
 
-                anchors.fill: foregroundContent
+                anchors.fill: parent
                 z: 1
 
                 color: Theme.overlayBackgroundColor
@@ -718,17 +702,20 @@ Page {
 
                 Behavior on opacity {
                     NumberAnimation {
-                        duration: 250
+                        duration: 200
                     }
                 }
+            }
 
-                MouseArea {
-                    anchors.fill: parent
-                    enabled: ambienceDrawer.opened
+            // Intercept taps on the visible foreground while open.
+            // Taps close the drawer instead of activating page buttons.
+            MouseArea {
+                anchors.fill: parent
+                z: 2
+                enabled: ambienceDrawer.opened
 
-                    onClicked: {
-                        ambienceDrawer.open = false
-                    }
+                onClicked: {
+                    ambienceDrawer.open = false
                 }
             }
         }

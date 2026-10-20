@@ -100,6 +100,7 @@
     </message>
     <message>
         <source>Binaural graph image modified for use in</source>
+        <extracomment>Full sentence: &quot;Binaural graph image modified for use in Binaural:&quot; Second Binaural word means the app names which isn&apos;t translated.</extracomment>
         <translation>Binaural graph image modified for use in</translation>
     </message>
     <message>
@@ -199,35 +200,35 @@
     <name>MainPage</name>
     <message>
         <source>About</source>
-        <translation>About</translation>
-    </message>
-    <message>
-        <source>Choose an ambient sound</source>
-        <translation>Choose an ambient sound</translation>
-    </message>
-    <message>
-        <source>Binaural Beats</source>
-        <translation>Binaural Beats</translation>
-    </message>
-    <message>
-        <source>Ambient Sound</source>
-        <translation>Ambient Sound</translation>
-    </message>
-    <message>
-        <source>Colored Noise</source>
-        <translation>Colored Noise</translation>
+        <translation type="unfinished">About</translation>
     </message>
     <message>
         <source>Deselect all sounds</source>
-        <translation>Deselect all sounds</translation>
-    </message>
-    <message>
-        <source>To be used with</source>
-        <translation>To be used with</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Timer</source>
-        <translation>Timer</translation>
+        <translation type="unfinished">Timer</translation>
+    </message>
+    <message>
+        <source>Binaural Beats</source>
+        <translation type="unfinished">Binaural Beats</translation>
+    </message>
+    <message>
+        <source>To be used with</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colored Noise</source>
+        <translation type="unfinished">Colored Noise</translation>
+    </message>
+    <message>
+        <source>Ambient Sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose an ambient sound</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
