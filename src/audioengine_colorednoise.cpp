@@ -1,15 +1,10 @@
 #include "audioengine.h"
-#include "binauralgenerator.h"
+#include "colorednoisegenerator.h"
 
 #include <QAudioDeviceInfo>
 #include <QAudioFormat>
 #include <QDebug>
-#include <QMap>
 #include <QtMath>
-
-// ============================================================================
-// BINAURAL CONSTANTS
-// ============================================================================
 
 namespace
 {
@@ -17,110 +12,123 @@ namespace
     const int ChannelCount = 2;
     const int SampleSize = 16;
 
-    const int BinauralFadeInDuration = 0;
-    const int BinauralFadeOutDuration = 0;
-
-    const int FadeInterval = 15;
-
-    double frequencyForBand(const QString &band)
-    {
-        static const QMap<QString, double> bands = {
-            { QStringLiteral("Delta"),          2.0 },
-            { QStringLiteral("Delta/Theta"),    4.0 },
-            { QStringLiteral("Theta"),          6.0 },
-            { QStringLiteral("Alpha"),         10.0 },
-            { QStringLiteral("Beta"),          20.0 },
-            { QStringLiteral("Gamma"),         40.0 }
-        };
-
-        return bands.value(band, -1.0);
-    }
+    const int ColoredNoiseFadeOutDuration = 200;
 }
+
 
 // ============================================================================
 // STATE
 // ============================================================================
 
-bool AudioEngine::isBinauralPlaying() const
+bool AudioEngine::isColoredNoisePlaying() const
 {
-    return m_audioOutput &&
-           m_audioOutput->state() == QAudio::ActiveState;
+    return m_coloredNoiseOutput &&
+           m_coloredNoiseOutput->state()
+               == QAudio::ActiveState;
 }
 
-bool AudioEngine::isBinauralPaused() const
+bool AudioEngine::isColoredNoisePaused() const
 {
-    return m_audioOutput &&
-           m_audioOutput->state() == QAudio::SuspendedState;
+    return m_coloredNoiseOutput &&
+           m_coloredNoiseOutput->state()
+               == QAudio::SuspendedState;
 }
+
 
 // ============================================================================
 // RESUME
 // ============================================================================
 
-void AudioEngine::resumeBinaural()
+void AudioEngine::resumeColoredNoise()
 {
-    if (isBinauralPaused())
-        m_audioOutput->resume();
+    if (isColoredNoisePaused())
+        m_coloredNoiseOutput->resume();
 }
 
-// ============================================================================
-// FREQUENCY
-// ============================================================================
-
-void AudioEngine::setFrequencyBand(const QString &band)
-{
-    const double frequency = frequencyForBand(band);
-    if (frequency < 0.0)
-        return;
-
-    m_beatFrequency = frequency;
-
-    if (m_generator)
-        m_generator->setBeatFrequency(m_beatFrequency);
-}
 
 // ============================================================================
 // VOLUME
 // ============================================================================
 
-void AudioEngine::setBinauralVolume(int volume)
+void AudioEngine::setColoredNoiseVolume(int volume)
 {
-    m_binauralVolume =
+    m_coloredNoiseVolume =
         qBound(0, volume, 100);
 
-    if (m_audioOutput &&
-        !m_binauralFadeTimer->isActive() &&
-        !m_binauralFadeOutTimer->isActive())
+    m_coloredNoiseVolumeTimer->start();
+}
+
+int AudioEngine::coloredNoiseTargetVolume() const
+{
+    return qRound(
+        // MASTER VOLUME Adjuster Colored Noise
+        m_coloredNoiseVolume * 0.4);
+}
+
+void AudioEngine::applyPendingColoredNoiseVolume()
+{
+    if (m_coloredNoiseOutput &&
+        !m_coloredNoiseFadeOutTimer->isActive())
     {
-        m_audioOutput->setVolume(
-            m_binauralVolume / 100.0);
+        m_coloredNoiseOutput->setVolume(
+            static_cast<qreal>(
+                coloredNoiseTargetVolume()) / 100.0);
     }
 }
 
+
 // ============================================================================
-// BINAURAL
+// COLORED NOISE
 // ============================================================================
 
-void AudioEngine::start()
+void AudioEngine::setColoredNoise(
+    const QString &noise)
 {
-    if (m_audioOutput)
+    ColoredNoiseGenerator::NoiseType type;
+
+    if (noise == "White")
     {
-        /*
-         * Starting while a fade-out is running cancels
-         * the fade-out and restores the requested volume.
-         */
-        if (m_binauralFadeOutTimer->isActive())
-        {
-            m_binauralFadeOutTimer->stop();
+        type = ColoredNoiseGenerator::WhiteNoise;
+    }
+    else if (noise == "Pink")
+    {
+        type = ColoredNoiseGenerator::PinkNoise;
+    }
+    else if (noise == "Brown")
+    {
+        type = ColoredNoiseGenerator::BrownNoise;
+    }
+    else if (noise == "Grey")
+    {
+        type = ColoredNoiseGenerator::GreyNoise;
+    }
+    else
+    {
+        return;
+    }
 
-            m_audioOutput->setVolume(
-                m_binauralVolume / 100.0);
-        }
+    /*
+     * If noise is already running, only change the
+     * algorithm. The audio stream itself remains alive.
+     */
+    if (m_coloredNoiseGenerator &&
+        m_coloredNoiseOutput)
+    {
+        m_coloredNoiseFadeOutTimer->stop();
 
+        m_coloredNoiseGenerator->setNoiseType(type);
+
+        m_coloredNoiseOutput->setVolume(
+            static_cast<qreal>(
+                coloredNoiseTargetVolume()) / 100.0);
+
+        m_currentColoredNoise = noise;
+        updatePlayingState();
         return;
     }
 
     QAudioFormat format;
+
     format.setSampleRate(DefaultSampleRate);
     format.setChannelCount(ChannelCount);
     format.setSampleSize(SampleSize);
@@ -138,6 +146,11 @@ void AudioEngine::start()
         return;
     }
 
+    /*
+     * The generator produces signed 16-bit PCM.
+     * Do not silently accept a nearest format with
+     * another sample size/type.
+     */
     if (!device.isFormatSupported(format))
     {
         QAudioFormat nearest =
@@ -151,33 +164,36 @@ void AudioEngine::start()
                 != QAudioFormat::LittleEndian)
         {
             qWarning()
-                << "AudioEngine: compatible binaural "
-                   "PCM output format not available";
+                << "AudioEngine: compatible 16-bit PCM "
+                   "output format not available";
             return;
         }
 
         format = nearest;
     }
 
-    m_generator =
-        new BinauralGenerator(this);
+    m_coloredNoiseGenerator =
+        new ColoredNoiseGenerator(this);
 
-    m_generator->setBeatFrequency(
-        m_beatFrequency);
-
-    m_generator->setSampleRate(
+    m_coloredNoiseGenerator->setSampleRate(
         format.sampleRate());
 
-    m_generator->start();
+    m_coloredNoiseGenerator->setChannelCount(
+        format.channelCount());
 
-    m_audioOutput =
+    m_coloredNoiseGenerator->setNoiseType(type);
+
+    m_coloredNoiseGenerator->start();
+
+    m_coloredNoiseOutput =
         new QAudioOutput(device, format, this);
 
-    m_audioOutput->setVolume(
-        m_binauralVolume / 100.0);
+    m_coloredNoiseOutput->setVolume(
+        static_cast<qreal>(
+            coloredNoiseTargetVolume()) / 100.0);
 
     connect(
-        m_audioOutput,
+        m_coloredNoiseOutput,
         &QAudioOutput::stateChanged,
         this,
         [this](QAudio::State)
@@ -185,122 +201,99 @@ void AudioEngine::start()
             updatePlayingState();
         });
 
-    m_audioOutput->start(m_generator);
-    updatePlayingState();
-}
+    m_currentColoredNoise = noise;
 
-void AudioEngine::pauseBinaural()
-{
-    if (!m_audioOutput ||
-        m_audioOutput->state() != QAudio::ActiveState)
-        return;
-
-    m_binauralFadeTimer->stop();
-    m_binauralFadeOutTimer->stop();
-
-    m_audioOutput->suspend();
+    m_coloredNoiseOutput->start(
+        m_coloredNoiseGenerator);
 
     updatePlayingState();
 }
 
-void AudioEngine::stop()
+
+void AudioEngine::pauseColoredNoise()
 {
-    if (!m_audioOutput ||
-        m_binauralFadeOutTimer->isActive())
+    if (!m_coloredNoiseOutput ||
+        m_coloredNoiseOutput->state()
+            != QAudio::ActiveState)
+        return;
+
+    m_coloredNoiseFadeOutTimer->stop();
+
+    m_coloredNoiseOutput->suspend();
+
+    updatePlayingState();
+}
+
+
+void AudioEngine::stopColoredNoise()
+{
+    if (!m_coloredNoiseOutput)
     {
+        stopColoredNoiseImmediately();
         return;
     }
 
-    m_binauralFadeTimer->stop();
-    m_binauralFadeOutStartVolume =
-        m_audioOutput->volume();
-
-    m_binauralFadeOutElapsed.start();
-
-    m_binauralFadeOutTimer->start();
-}
-
-void AudioEngine::updateBinauralFadeIn()
-{
-    if (!m_audioOutput)
-    {
-        m_binauralFadeTimer->stop();
+    if (m_coloredNoiseFadeOutTimer->isActive())
         return;
-    }
 
-    m_binauralFadeInPosition +=
-        FadeInterval;
+    m_coloredNoiseFadeOutStartVolume =
+        m_coloredNoiseOutput->volume();
 
-    const double progress =
-        BinauralFadeInDuration > 0
-            ? qMin(
-                  1.0,
-                  static_cast<double>(
-                      m_binauralFadeInPosition)
-                      / BinauralFadeInDuration)
-            : 1.0;
+    m_coloredNoiseFadeOutElapsed.start();
 
-    m_audioOutput->setVolume(
-        (m_binauralVolume / 100.0)
-        * progress);
-
-    if (progress >= 1.0)
-    {
-        m_audioOutput->setVolume(
-            m_binauralVolume / 100.0);
-
-        m_binauralFadeTimer->stop();
-        m_binauralFadeInPosition = 0;
-    }
+    m_coloredNoiseFadeOutTimer->start();
 }
 
-void AudioEngine::updateBinauralFadeOut()
+
+void AudioEngine::updateColoredNoiseFadeOut()
 {
-    if (!m_audioOutput)
+    if (!m_coloredNoiseOutput)
     {
-        m_binauralFadeOutTimer->stop();
+        m_coloredNoiseFadeOutTimer->stop();
         return;
     }
 
     const double progress =
-        BinauralFadeOutDuration > 0
+        ColoredNoiseFadeOutDuration > 0
             ? qMin(
                   1.0,
                   static_cast<double>(
-                      m_binauralFadeOutElapsed.elapsed())
-                      / BinauralFadeOutDuration)
+                      m_coloredNoiseFadeOutElapsed.elapsed())
+                      / ColoredNoiseFadeOutDuration)
             : 1.0;
 
-    m_audioOutput->setVolume(
-        m_binauralFadeOutStartVolume
+    m_coloredNoiseOutput->setVolume(
+        m_coloredNoiseFadeOutStartVolume
         * (1.0 - progress));
 
     if (progress >= 1.0)
-        stopBinauralImmediately();
+        stopColoredNoiseImmediately();
 }
 
-void AudioEngine::stopBinauralImmediately()
+
+void AudioEngine::stopColoredNoiseImmediately()
 {
-    m_binauralFadeTimer->stop();
-    m_binauralFadeOutTimer->stop();
+    m_coloredNoiseFadeOutTimer->stop();
+    m_coloredNoiseVolumeTimer->stop();
 
-    if (m_audioOutput)
+    if (m_coloredNoiseOutput)
     {
-        m_audioOutput->stop();
+        m_coloredNoiseOutput->stop();
 
-        delete m_audioOutput;
-        m_audioOutput = nullptr;
+        delete m_coloredNoiseOutput;
+        m_coloredNoiseOutput = nullptr;
     }
 
-    if (m_generator)
+    if (m_coloredNoiseGenerator)
     {
-        m_generator->stop();
-        delete m_generator;
-        m_generator = nullptr;
+        m_coloredNoiseGenerator->stop();
+
+        delete m_coloredNoiseGenerator;
+        m_coloredNoiseGenerator = nullptr;
     }
 
-    m_binauralFadeInPosition = 0;
-    m_binauralFadeOutStartVolume = 0.0;
+    m_currentColoredNoise.clear();
+    m_coloredNoiseFadeOutStartVolume = 0.0;
 
     updatePlayingState();
 }
