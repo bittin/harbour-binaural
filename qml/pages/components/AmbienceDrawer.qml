@@ -58,18 +58,23 @@ SilicaFlickable {
 
                 property real startX: 0
                 property real startY: 0
+                property bool wasSwiped: false
 
                 onPressed: {
                     startX = mouse.x
                     startY = mouse.y
+                    wasSwiped = false
                 }
 
                 onReleased: {
                     var deltaX = Math.abs(mouse.x - startX)
                     var deltaY = mouse.y - startY
 
-                    if (deltaY > Theme.itemSizeSmall
-                            && deltaY > deltaX) {
+                    if (deltaY > Theme.itemSizeSmall && deltaY > deltaX) {
+                        wasSwiped = true
+                        ambiencePage.closeRequested()
+                    } else if (deltaX < Theme.paddingSmall &&
+                               Math.abs(deltaY) < Theme.paddingSmall) {
                         ambiencePage.closeRequested()
                     }
                 }
