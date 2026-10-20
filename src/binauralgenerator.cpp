@@ -6,9 +6,16 @@
 namespace
 {
     const int DefaultSampleRate = 48000;
+
     const double CarrierFrequency = 200.0;
+
+    // MASTER VOLUME Binaural
     const double BinauralAmplitude = 13000.0;
 }
+
+// ============================================================================
+// BINAURAL GENERATOR
+// ============================================================================
 
 BinauralGenerator::BinauralGenerator(QObject *parent)
     : QIODevice(parent),
@@ -44,13 +51,15 @@ void BinauralGenerator::setSampleRate(int sampleRate)
 
 qint64 BinauralGenerator::readData(char *data, qint64 maxlen)
 {
-    const qint64 bytesPerFrame = 4; // Stereo, 16 Bit
+    const qint64 bytesPerFrame = 4; // stereo, 16 bit
     const qint64 frameCount = maxlen / bytesPerFrame;
 
-    qint16 *samples = reinterpret_cast<qint16 *>(data);
+    qint16 *samples =
+        reinterpret_cast<qint16 *>(data);
 
     const double leftFrequency = CarrierFrequency;
-    const double rightFrequency = CarrierFrequency + m_beatFrequency;
+    const double rightFrequency =
+        CarrierFrequency + m_beatFrequency;
 
     for (qint64 frame = 0; frame < frameCount; ++frame)
     {
@@ -74,7 +83,8 @@ qint64 BinauralGenerator::readData(char *data, qint64 maxlen)
             m_rightPhase -= 1.0;
     }
 
-    const qint64 usedBytes = frameCount * bytesPerFrame;
+    const qint64 usedBytes =
+        frameCount * bytesPerFrame;
 
     if (usedBytes < maxlen)
     {

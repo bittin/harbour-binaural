@@ -3,6 +3,10 @@
 
 #include <QIODevice>
 
+// ============================================================================
+// BINAURAL GENERATOR
+// ============================================================================
+
 class BinauralGenerator : public QIODevice
 {
 public:
@@ -16,7 +20,7 @@ public:
 
 protected:
     qint64 readData(char *data, qint64 maxlen) override;
-    qint64 writeData(const char *data, qint64 len) override;
+    qint64 writeData(const char *, qint64) override;
 
 private:
     double m_sampleRate;

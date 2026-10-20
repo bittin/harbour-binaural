@@ -23,7 +23,8 @@ QT += multimedia
 
 SOURCES += src/harbour-binaural.cpp \
     src/audioengine.cpp \
-    src/binauralgenerator.cpp
+    src/binauralgenerator.cpp \
+    src/colorednoisegenerator.cpp
 
 
 DISTFILES += qml/harbour-binaural.qml \
@@ -81,7 +82,8 @@ TRANSLATIONS += translations/harbour-binaural-nl.ts
 
 HEADERS += \
     src/audioengine.h \
-    src/binauralgenerator.h
+    src/binauralgenerator.h \
+    src/colorednoisegenerator.h
 
 
 # Install the audio files as application data.
