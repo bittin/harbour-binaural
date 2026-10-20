@@ -200,35 +200,35 @@
     <name>MainPage</name>
     <message>
         <source>About</source>
-        <translation type="unfinished">About</translation>
+        <translation>About</translation>
     </message>
     <message>
         <source>Deselect all sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Deselect all sound</translation>
     </message>
     <message>
         <source>Timer</source>
-        <translation type="unfinished">Timer</translation>
+        <translation>Timer</translation>
     </message>
     <message>
         <source>Binaural Beats</source>
-        <translation type="unfinished">Binaural Beats</translation>
+        <translation>Binaural Beats</translation>
     </message>
     <message>
         <source>To be used with</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Colored Noise</source>
-        <translation type="unfinished">Colored Noise</translation>
+        <translation>Colored Noise</translation>
     </message>
     <message>
         <source>Ambient Sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Ambient Sound</translation>
     </message>
     <message>
         <source>Choose an ambient sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Choose an ambient sound</translation>
     </message>
 </context>
 <context>
