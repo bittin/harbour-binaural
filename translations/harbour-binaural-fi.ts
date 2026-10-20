@@ -17,7 +17,7 @@
     </message>
     <message>
         <source>Source code on</source>
-        <translation>Lähdekoodi:</translation>
+        <translation>Lähdekoodi osoitteessa</translation>
     </message>
     <message>
         <source>Translations</source>
@@ -73,7 +73,7 @@
     </message>
     <message>
         <source>Start your sound mix</source>
-        <translation>Aloita äänimiksauksesi</translation>
+        <translation>Aloita äänimiksaus</translation>
     </message>
     <message>
         <source>Paused:</source>
@@ -100,7 +100,7 @@
     </message>
     <message>
         <source>Binaural graph image modified for use in</source>
-        <translation>Binauraalisten äänien kaaviokuvaa on muokattu sovellusta varten:</translation>
+        <translation>Binauraalinen kaaviokuva muokattu käytettäväksi</translation>
     </message>
     <message>
         <source>Based on</source>
@@ -114,7 +114,7 @@
     <message>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation>Tiedostoja on muokattu manuaalisesti sovellusta varten seuraavan lisenssin ehtojen mukaisesti:</translation>
+        <translation>Tiedostoja on muokattu manuaalisesti tätä sovellusta varten</translation>
     </message>
 </context>
 <context>
@@ -223,7 +223,7 @@
     </message>
     <message>
         <source>To be used with</source>
-        <translation>Käytettäväksi yhdessä seuraavien kanssa:</translation>
+        <translation>Käytettäväksi yhdessä seuraavien kanssa</translation>
     </message>
     <message>
         <source>Timer</source>
@@ -324,7 +324,7 @@
     <name>harbour-binaural</name>
     <message>
         <source>Start your sound mix</source>
-        <translation>Aloita äänimiksauksesi</translation>
+        <translation>Aloita äänimiksaus</translation>
     </message>
 </context>
 </TS>
