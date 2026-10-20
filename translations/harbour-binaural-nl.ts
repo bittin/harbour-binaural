@@ -200,35 +200,35 @@
     <name>MainPage</name>
     <message>
         <source>About</source>
-        <translation type="unfinished">Over</translation>
+        <translation>Over</translation>
     </message>
     <message>
         <source>Deselect all sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Selectie opheffen</translation>
     </message>
     <message>
         <source>Timer</source>
-        <translation type="unfinished">Timer</translation>
+        <translation>Timer</translation>
     </message>
     <message>
         <source>Binaural Beats</source>
-        <translation type="unfinished">Binaural beats</translation>
+        <translation>Binaural beats</translation>
     </message>
     <message>
         <source>To be used with</source>
-        <translation type="unfinished"></translation>
+        <translation>Te gebruiken met</translation>
     </message>
     <message>
         <source>Colored Noise</source>
-        <translation type="unfinished">Gekleurde ruis</translation>
+        <translation>Gekleurde ruis</translation>
     </message>
     <message>
         <source>Ambient Sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Omgevingsgeluid</translation>
     </message>
     <message>
         <source>Choose an ambient sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Kies een omgevingsgeluid</translation>
     </message>
 </context>
 <context>
