@@ -8,7 +8,7 @@
 #include <QTimer>
 #include <QString>
 
-class AudioGenerator;
+class BinauralGenerator;
 class ColoredNoiseGenerator;
 
 class AudioEngine : public QObject
@@ -116,7 +116,7 @@ private:
 
 private:
     QAudioOutput *m_audioOutput;
-    AudioGenerator *m_generator;
+    BinauralGenerator *m_generator;
 
     QMediaPlayer *m_ambiencePlayerA;
     QMediaPlayer *m_ambiencePlayerB;

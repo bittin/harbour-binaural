@@ -22,7 +22,8 @@ QT += multimedia
 
 
 SOURCES += src/harbour-binaural.cpp \
-    src/audioengine.cpp
+    src/audioengine.cpp \
+    src/binauralgenerator.cpp
 
 
 DISTFILES += qml/harbour-binaural.qml \
@@ -79,7 +80,8 @@ TRANSLATIONS += translations/harbour-binaural-nl.ts
 
 
 HEADERS += \
-    src/audioengine.h
+    src/audioengine.h \
+    src/binauralgenerator.h
 
 
 # Install the audio files as application data.
