@@ -245,42 +245,42 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="171"/>
         <source>About</source>
-        <translation type="unfinished">Über</translation>
+        <translation>Über</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="181"/>
         <source>Deselect all sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Klänge deaktivieren</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="193"/>
         <source>Timer</source>
-        <translation type="unfinished">Timer</translation>
+        <translation>Timer</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="221"/>
         <source>Binaural Beats</source>
-        <translation type="unfinished">Binaurale Beats</translation>
+        <translation>Binaurale Beats</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="235"/>
         <source>To be used with</source>
-        <translation type="unfinished"></translation>
+        <translation>Zu verwenden mit</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="449"/>
         <source>Colored Noise</source>
-        <translation type="unfinished">Farbiges Rauschen</translation>
+        <translation>Farbiges Rauschen</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="623"/>
         <source>Ambient Sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Umgebungsgeräusche</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="656"/>
         <source>Choose an ambient sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Wähle ein Umgebungsgeräusch</translation>
     </message>
 </context>
 <context>

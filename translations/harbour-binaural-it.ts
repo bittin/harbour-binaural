@@ -200,35 +200,35 @@
     <name>MainPage</name>
     <message>
         <source>About</source>
-        <translation type="unfinished">Informazioni</translation>
+        <translation>Informazioni</translation>
     </message>
     <message>
         <source>Deselect all sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Deseleziona tutti i suoni</translation>
     </message>
     <message>
         <source>Timer</source>
-        <translation type="unfinished">Timer</translation>
+        <translation>Timer</translation>
     </message>
     <message>
         <source>Binaural Beats</source>
-        <translation type="unfinished">Battiti binaurali</translation>
+        <translation>Battiti binaurali</translation>
     </message>
     <message>
         <source>To be used with</source>
-        <translation type="unfinished"></translation>
+        <translation>Da utilizzare con</translation>
     </message>
     <message>
         <source>Colored Noise</source>
-        <translation type="unfinished">Rumore colorato</translation>
+        <translation>Rumore colorato</translation>
     </message>
     <message>
         <source>Ambient Sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Suono ambientale</translation>
     </message>
     <message>
         <source>Choose an ambient sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Scegli un suono ambientale</translation>
     </message>
 </context>
 <context>
