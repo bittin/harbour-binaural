@@ -39,7 +39,7 @@ SilicaFlickable {
         width: parent.width
         spacing: Theme.paddingMedium
 
-        // swipeHandle which indicated possibility to swipe down
+        // Swipe handle: tap or swipe down to close the drawer.
         Item {
             id: swipeHandle
 
@@ -51,7 +51,9 @@ SilicaFlickable {
                 width: Theme.itemSizeExtraSmall * 2
                 height: Theme.paddingSmall
                 radius: Theme.paddingSmall
-                color: Theme.secondaryColor
+                color: handleMouseArea.pressed
+                       ? Theme.secondaryHighlightColor
+                       : Theme.secondaryColor
                 opacity: 0.6
             }
 
