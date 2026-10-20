@@ -23,7 +23,9 @@ QT += multimedia
 
 SOURCES += src/harbour-binaural.cpp \
     src/audioengine.cpp \
+    src/audioengine_ambience.cpp \
     src/audioengine_binaural.cpp \
+    src/audioengine_colorednoise.cpp \
     src/binauralgenerator.cpp \
     src/colorednoisegenerator.cpp
 
