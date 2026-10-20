@@ -99,8 +99,8 @@ Page {
                       "</a>" +
                       ":"
 
-                color: Theme.primaryColor
-                linkColor: Theme.secondaryHighlightColor
+                color: Theme.highlightColor
+                linkColor: Theme.primaryColor
                 font.pixelSize: Theme.fontSizeSmall
                 horizontalAlignment: Text.AlignLeft
                 wrapMode: Text.WordWrap
@@ -143,7 +143,7 @@ Page {
                     wrapMode: Text.WordWrap
 
                     color: Theme.highlightColor
-                    linkColor: Theme.secondaryHighlightColor
+                    linkColor: Theme.primaryColor
                     font.pixelSize: Theme.fontSizeSmall
 
                     text: modelData.name +
@@ -185,7 +185,7 @@ Page {
                 text: qsTr("Binaural graph image modified for use in") +
                       " Binaural:"
 
-                color: Theme.primaryColor
+                color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeSmall
                 horizontalAlignment: Text.AlignLeft
                 wrapMode: Text.WordWrap
@@ -204,7 +204,7 @@ Page {
                 wrapMode: Text.WordWrap
 
                 color: Theme.highlightColor
-                linkColor: Theme.secondaryHighlightColor
+                linkColor: Theme.primaryColor
                 font.pixelSize: Theme.fontSizeSmall
 
                 //: Full sentence: "Based on Beating_Frequency.svg - Ansgar Hellwig (Ahellwig). CC BY-SA 3.0 - Original source

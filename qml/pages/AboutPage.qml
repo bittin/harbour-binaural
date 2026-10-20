@@ -36,7 +36,7 @@ Page {
 
                 text: "Binaural"
 
-                color: Theme.primaryColor
+                color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeLarge
             }
 
@@ -47,7 +47,7 @@ Page {
 
                 text: qsTr("Version") + " 0.8.1"
 
-                color: Theme.secondaryColor
+                color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeSmall
             }
 
@@ -57,7 +57,7 @@ Page {
 
                 text: qsTr("Application for playing binaural beats, colored noises and ambient sounds.")
 
-                color: Theme.primaryColor
+                color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeMedium
                 horizontalAlignment: Text.AlignHCenter
                 wrapMode: Text.WordWrap
@@ -87,7 +87,7 @@ Page {
 
                 text: qsTr("Help translate the application into your language.")
 
-                color: Theme.primaryColor
+                color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.WordWrap
             }
@@ -112,7 +112,7 @@ Page {
 
                 text: qsTr("For small tips to support the project.")
 
-                color: Theme.primaryColor
+                color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.WordWrap
             }
@@ -146,8 +146,8 @@ Page {
                       "Metiq" +
                       "</a>."
 
-                color: Theme.primaryColor
-                linkColor: Theme.highlightColor
+                color: Theme.highlightColor
+                linkColor: Theme.primaryColor
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.WordWrap
 
@@ -176,7 +176,7 @@ Page {
 
                 text: qsTr("This application works exclusively offline and requires permission to output audio. No data is collected.")
 
-                color: Theme.primaryColor
+                color: Theme.highlightColor
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.WordWrap
             }
@@ -197,8 +197,8 @@ Page {
                       "GNU General Public License v3.0 or later" +
                       "</a>"
 
-                color: Theme.primaryColor
-                linkColor: Theme.highlightColor
+                color: Theme.highlightColor
+                linkColor: Theme.primaryColor
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.WordWrap
 
