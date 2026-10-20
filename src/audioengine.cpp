@@ -1,17 +1,11 @@
 #include "audioengine.h"
-#include "binauralgenerator.h"
-#include "colorednoisegenerator.h"
 
-#include <QAudioDeviceInfo>
-#include <QAudioFormat>
-#include <QDebug>
-#include <QMediaContent>
-#include <QUrl>
 #include <QtMath>
-#include <cstring>
+#include <QTimer>
 
 namespace
 {
+    // AmbienceCrossfadeDuration needed by constructor
     const int AmbienceCrossfadeDuration = 8000;
 
     const int SleepTimerFadeOutDuration = 5000;
