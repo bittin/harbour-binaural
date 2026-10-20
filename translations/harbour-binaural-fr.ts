@@ -228,7 +228,7 @@
     </message>
     <message>
         <source>Choose an ambient sound</source>
-        <translation>Choisissez un son d’ambiance</translation>
+        <translation>Choisis un son d’ambiance</translation>
     </message>
 </context>
 <context>
