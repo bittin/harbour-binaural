@@ -203,7 +203,7 @@
     </message>
     <message>
         <source>Choose an ambient sound</source>
-        <translation type="unfinished">Valitse ympäristöääni</translation>
+        <translation>Valitse ympäristöääni</translation>
     </message>
     <message>
         <source>Binaural Beats</source>
@@ -211,7 +211,7 @@
     </message>
     <message>
         <source>Ambient Sound</source>
-        <translation type="unfinished">Ympäristöäänet</translation>
+        <translation>Ympäristöäänet</translation>
     </message>
     <message>
         <source>Colored Noise</source>
@@ -219,11 +219,11 @@
     </message>
     <message>
         <source>Deselect all sounds</source>
-        <translation type="unfinished">Poista kaikkien äänien valinta</translation>
+        <translation>Poista kaikkien äänien valinta</translation>
     </message>
     <message>
         <source>To be used with</source>
-        <translation type="unfinished">Käytettäväksi yhdessä seuraavien kanssa</translation>
+        <translation>Käytettäväksi yhdessä seuraavien kanssa</translation>
     </message>
     <message>
         <source>Timer</source>
