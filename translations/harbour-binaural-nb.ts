@@ -68,16 +68,8 @@
 <context>
     <name>CoverPage</name>
     <message>
-        <source>Playing:</source>
-        <translation>Spiller:</translation>
-    </message>
-    <message>
         <source>Start your sound mix</source>
         <translation>Start lydmiksen din</translation>
-    </message>
-    <message>
-        <source>Paused:</source>
-        <translation>Pauset:</translation>
     </message>
 </context>
 <context>
@@ -232,6 +224,13 @@
     </message>
 </context>
 <context>
+    <name>PlaybackBar</name>
+    <message>
+        <source>Start your sound mix</source>
+        <translation type="unfinished">Start lydmiksen din</translation>
+    </message>
+</context>
+<context>
     <name>SoundNames</name>
     <message>
         <source>Delta</source>
@@ -319,13 +318,6 @@
     <message>
         <source>Timer</source>
         <translation>Timer</translation>
-    </message>
-</context>
-<context>
-    <name>harbour-binaural</name>
-    <message>
-        <source>Start your sound mix</source>
-        <translation>Start lydmiksen din</translation>
     </message>
 </context>
 </TS>

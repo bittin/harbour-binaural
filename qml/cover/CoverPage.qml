@@ -34,7 +34,6 @@ CoverBackground {
         id: coverBackgroundIcon
 
         anchors.top: parent.top
-        //anchors.topMargin: Theme.paddingSmall
         anchors.horizontalCenter: parent.horizontalCenter
 
         width: parent.width - 2 * Theme.paddingSmall
@@ -68,7 +67,6 @@ CoverBackground {
             )
 
             fillMode: Image.PreserveAspectFit
-
             visible: false
         }
 
@@ -90,88 +88,77 @@ CoverBackground {
 
         spacing: Theme.paddingSmall
 
-        // Timer status
-        Item {
+        // Status text: only visible when no sounds are selected.
+        Label {
+            id: coverStatusLabel
+
+            visible: !sleepTimerRunning &&
+                     activeBand === "" &&
+                     activeAmbience === "" &&
+                     activeNoise === ""
+
+            x: Theme.horizontalPageMargin
+            width: parent.width - 2 * Theme.horizontalPageMargin
+
+            horizontalAlignment: Text.AlignHCenter
+
+            color: Theme.secondaryColor
+            font.pixelSize: Theme.fontSizeSmall
+            wrapMode: Text.WordWrap
+
+            text: qsTr("Start your sound mix")
+        }
+
+        // Sleep timer status.
+        Row {
+            id: coverSleepTimerRow
+
+            visible: sleepTimerRunning
             width: parent.width
 
-            height: sleepTimerRunning
-                    ? coverSleepTimerLabel.implicitHeight
-                    : coverStatusLabel.implicitHeight
+            spacing: Theme.paddingSmall
 
-            Row {
-                visible: sleepTimerRunning
-
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.verticalCenter: parent.verticalCenter
-
-                spacing: Theme.paddingSmall
+            Item {
+                width: Theme.iconSizeSmall * 0.8
+                height: width
 
                 Image {
-                    id: coverSleepTimerIcon
-
-                    width: Theme.iconSizeSmall * 0.8
-                    height: Theme.iconSizeSmall * 0.8
-
-                    anchors.verticalCenter: coverSleepTimerLabel.verticalCenter
-                    anchors.verticalCenterOffset: Theme.paddingSmall / 3
+                    anchors.fill: parent
 
                     source: "image://theme/icon-s-timer?" +
                             (sleepTimerPaused
                              ? Theme.secondaryColor
                              : Theme.primaryColor)
 
-                    sourceSize: Qt.size(
-                        width,
-                        height
-                    )
-                }
-
-                Label {
-                    id: coverSleepTimerLabel
-
-                    color: sleepTimerPaused
-                           ? Theme.secondaryColor
-                           : Theme.primaryColor
-
-                    font.pixelSize: Theme.fontSizeSmall
-
-                    text: formatRemainingTime(
-                              sleepTimerRemainingSeconds)
+                    sourceSize: Qt.size(width, height)
                 }
             }
 
-            // Normal status text
             Label {
-                id: coverStatusLabel
+                id: coverSleepTimerLabel
 
-                visible: !sleepTimerRunning
+                anchors.verticalCenter: parent.verticalCenter
 
-                x: Theme.horizontalPageMargin
-                width: parent.width - x * 2
+                color: sleepTimerPaused
+                       ? Theme.secondaryColor
+                       : Theme.primaryColor
 
-                horizontalAlignment: Text.AlignHCenter
-
-                color: Theme.secondaryColor
                 font.pixelSize: Theme.fontSizeSmall
-                wrapMode: Text.WordWrap
 
-                text: (activeBand === "" &&
-                       activeAmbience === "" &&
-                       activeNoise === "")
-                      ? qsTr("Start your sound mix")
-                      : isPlaying
-                        ? qsTr("Playing:")
-                        : qsTr("Paused:")
+                text: formatRemainingTime(
+                          sleepTimerRemainingSeconds)
             }
         }
 
+        // Selected sound names.
         Label {
+            id: coverSoundNames
+
             width: parent.width
 
             horizontalAlignment: Text.AlignHCenter
 
-            // Selected but not playing (system suspend): muted color,
-            // full highlight only while actually playing.
+            // Highlight only while playing.
             color: isPlaying
                    ? Theme.highlightColor
                    : Theme.secondaryHighlightColor
@@ -181,10 +168,13 @@ CoverBackground {
 
             text: {
                 var parts = []
+
                 if (activeBand !== "")
                     parts.push(SoundNames.label(activeBand))
+
                 if (activeNoise !== "")
                     parts.push(SoundNames.label(activeNoise))
+
                 if (activeAmbience !== "")
                     parts.push(SoundNames.label(activeAmbience))
 
@@ -193,7 +183,7 @@ CoverBackground {
         }
     }
 
-    // Something selected: show play/pause button
+    // Show the play/pause button whenever at least one sound is selected.
     CoverActionList {
         id: playbackActionList
 

@@ -40,6 +40,7 @@ DISTFILES += qml/harbour-binaural.qml \
     qml/pages/components/AmbienceDrawer.qml \
     qml/pages/components/InfoBinauralPage.qml \
     qml/pages/components/InfoColoredPage.qml \
+    qml/pages/components/PlaybackBar.qml \
     qml/pages/components/SoundNames.qml \
     rpm/harbour-binaural.changes \
     rpm/harbour-binaural.changes.run.in \

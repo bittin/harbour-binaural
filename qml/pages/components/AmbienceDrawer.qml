@@ -28,9 +28,9 @@ SilicaFlickable {
     Rectangle {
         anchors.fill: parent
         color: Theme.rgba(
-            Theme.highlightBackgroundColor,
-            Theme.highlightBackgroundOpacity * 0.35
-        )
+                   Theme.highlightBackgroundColor,
+                   Theme.highlightBackgroundOpacity * 0.35
+                   )
     }
 
     Column {
@@ -221,9 +221,9 @@ SilicaFlickable {
                                 : "../../images/icon-s-volume-4.svg"
 
                     sourceSize: Qt.size(
-                        Theme.iconSizeSmall * 1.6 * 2,
-                        Theme.iconSizeSmall * 1.6 * 2
-                    )
+                                    Theme.iconSizeSmall * 1.6 * 2,
+                                    Theme.iconSizeSmall * 1.6 * 2
+                                    )
 
                     fillMode: Image.PreserveAspectFit
                     visible: false
@@ -235,11 +235,6 @@ SilicaFlickable {
                     color: Theme.primaryColor
                 }
             }
-        }
-
-        Item {
-            width: 1
-            height: Theme.paddingMedium
         }
     }
 

@@ -4,6 +4,7 @@ import Binaural 1.0
 
 Page {
     id: page
+    objectName: "CreditPage"
 
     allowedOrientations: defaultAllowedOrientations
 
@@ -108,7 +109,7 @@ Page {
 
                 onLinkActivated: {
                     if (link.indexOf("https://") === 0 ||
-                        link.indexOf("http://") === 0) {
+                            link.indexOf("http://") === 0) {
                         Qt.openUrlExternally(link)
                     }
                 }
@@ -158,7 +159,7 @@ Page {
 
                     onLinkActivated: {
                         if (link.indexOf("https://") === 0 ||
-                            link.indexOf("http://") === 0) {
+                                link.indexOf("http://") === 0) {
                             Qt.openUrlExternally(link)
                         }
                     }
@@ -226,7 +227,7 @@ Page {
 
                 onLinkActivated: {
                     if (link.indexOf("https://") === 0 ||
-                        link.indexOf("http://") === 0) {
+                            link.indexOf("http://") === 0) {
                         Qt.openUrlExternally(link)
                     }
                 }
