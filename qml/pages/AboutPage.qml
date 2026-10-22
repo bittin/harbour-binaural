@@ -46,7 +46,7 @@ Page {
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
 
-                text: qsTr("Version") + " 0.8.1"
+                text: qsTr("Version") + " 0.8.2"
 
                 color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeSmall

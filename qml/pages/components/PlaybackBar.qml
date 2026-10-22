@@ -7,6 +7,11 @@ DockedPanel {
 
     property var applicationWindow: null
 
+    property bool timerPageActive: applicationWindow &&
+                                   applicationWindow.pageStack &&
+                                   applicationWindow.pageStack.currentPage &&
+                                   applicationWindow.pageStack.currentPage.objectName === "timerPage"
+
     width: parent ? parent.width : 0
     height: Theme.itemSizeExtraLarge
 
@@ -33,6 +38,7 @@ DockedPanel {
         }
     }
 
+    // Playback button.
     IconButton {
         id: playbackButton
 
@@ -63,6 +69,7 @@ DockedPanel {
         }
     }
 
+    // Current sound mix label.
     Label {
         id: soundLabel
 
@@ -127,6 +134,7 @@ DockedPanel {
         }
     }
 
+    // Sleep timer icon and countdown.
     Item {
         id: sleepTimerRow
 
@@ -159,10 +167,14 @@ DockedPanel {
             height: Theme.iconSizeSmall * 0.88
 
             source: "image://theme/icon-s-timer?" +
-                    (playbackBar.applicationWindow &&
-                     playbackBar.applicationWindow.sleepTimerPaused
-                     ? Theme.secondaryColor
-                     : Theme.primaryColor)
+                    (playbackBar.timerPageActive
+                     ? Theme.secondaryHighlightColor
+                     : timerMouseArea.pressed
+                       ? Theme.highlightColor
+                       : playbackBar.applicationWindow &&
+                         playbackBar.applicationWindow.sleepTimerPaused
+                         ? Theme.secondaryColor
+                         : Theme.primaryColor)
 
             sourceSize: Qt.size(width, height)
         }
@@ -180,8 +192,7 @@ DockedPanel {
                     return ""
 
                 var seconds =
-                        playbackBar.applicationWindow
-                .sleepTimerRemainingSeconds
+                        playbackBar.applicationWindow.sleepTimerRemainingSeconds
 
                 var hours = Math.floor(seconds / 3600)
                 var minutes = Math.floor((seconds % 3600) / 60)
@@ -194,15 +205,57 @@ DockedPanel {
                         (secs < 10 ? "0" : "") + secs
             }
 
-            color: playbackBar.applicationWindow &&
-                   playbackBar.applicationWindow.sleepTimerPaused
-                   ? Theme.secondaryColor
-                   : Theme.primaryColor
+            color: playbackBar.timerPageActive
+                   ? Theme.secondaryHighlightColor
+                   : timerMouseArea.pressed
+                     ? Theme.highlightColor
+                     : playbackBar.applicationWindow &&
+                       playbackBar.applicationWindow.sleepTimerPaused
+                       ? Theme.secondaryColor
+                       : Theme.primaryColor
 
             font.pixelSize: Theme.fontSizeSmall
         }
+
+        MouseArea {
+            id: timerMouseArea
+
+            anchors.fill: parent
+            z: 1
+
+            enabled: !playbackBar.timerPageActive
+
+            onClicked: {
+                var window = playbackBar.applicationWindow
+
+                if (!window || !window.pageStack)
+                    return
+
+                var stack = window.pageStack
+
+                // If TimerPage is already open, don't push another copy.
+                var existingPage = stack.find(function(page) {
+                    return page.objectName === "timerPage"
+                })
+
+                if (existingPage) {
+                    // If it isn't the current page, return to the existing one.
+                    if (stack.currentPage !== existingPage)
+                        stack.pop(existingPage)
+
+                    return
+                }
+
+                // No existing TimerPage: open it.
+                stack.push(Qt.resolvedUrl("../TimerPage.qml"), {
+                               "appWindow": window,
+                               "objectName": "timerPage"
+                           })
+            }
+        }
     }
 
+    // Delay showing the timer row to avoid a sudden appearance.
     Timer {
         id: sleepTimerLabelDelay
 
@@ -217,6 +270,7 @@ DockedPanel {
         }
     }
 
+    // Keep the timer row synchronized with the sleep timer state.
     Connections {
         target: playbackBar.applicationWindow
 
@@ -239,4 +293,5 @@ DockedPanel {
             sleepTimerLabelDelay.restart()
         }
     }
+
 }

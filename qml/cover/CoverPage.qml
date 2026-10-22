@@ -62,9 +62,9 @@ CoverBackground {
             source: "../images/binaural-cover.svg"
 
             sourceSize: Qt.size(
-                width * 2,
-                height * 2
-            )
+                            width * 2,
+                            height * 2
+                            )
 
             fillMode: Image.PreserveAspectFit
             visible: false
@@ -109,44 +109,52 @@ CoverBackground {
             text: qsTr("Start your sound mix")
         }
 
-        // Sleep timer status.
-        Row {
+        // Sleep timer status
+        Item {
             id: coverSleepTimerRow
 
             visible: sleepTimerRunning
             width: parent.width
+            height: Math.max(
+                        Theme.iconSizeSmall * 0.8,
+                        coverSleepTimerLabel.implicitHeight)
 
-            spacing: Theme.paddingSmall
-
-            Item {
-                width: Theme.iconSizeSmall * 0.8
-                height: width
+            Row {
+                anchors.centerIn: parent
+                spacing: Theme.paddingSmall
 
                 Image {
-                    anchors.fill: parent
+                    id: coverSleepTimerIcon
+
+                    width: Theme.iconSizeSmall * 0.8
+                    height: Theme.iconSizeSmall * 0.8
+
+                    anchors.verticalCenter: coverSleepTimerLabel.verticalCenter
+                    anchors.verticalCenterOffset: Theme.paddingSmall / 3
 
                     source: "image://theme/icon-s-timer?" +
                             (sleepTimerPaused
                              ? Theme.secondaryColor
                              : Theme.primaryColor)
 
-                    sourceSize: Qt.size(width, height)
+                    sourceSize: Qt.size(
+                                    width,
+                                    height
+                                    )
                 }
-            }
 
-            Label {
-                id: coverSleepTimerLabel
+                Label {
+                    id: coverSleepTimerLabel
 
-                anchors.verticalCenter: parent.verticalCenter
+                    color: sleepTimerPaused
+                           ? Theme.secondaryColor
+                           : Theme.primaryColor
 
-                color: sleepTimerPaused
-                       ? Theme.secondaryColor
-                       : Theme.primaryColor
+                    font.pixelSize: Theme.fontSizeSmall
 
-                font.pixelSize: Theme.fontSizeSmall
-
-                text: formatRemainingTime(
-                          sleepTimerRemainingSeconds)
+                    text: formatRemainingTime(
+                              sleepTimerRemainingSeconds)
+                }
             }
         }
 

@@ -276,8 +276,8 @@
 <context>
     <name>PlaybackBar</name>
     <message>
-        <location filename="../qml/pages/components/PlaybackBar.qml" line="110"/>
-        <location filename="../qml/pages/components/PlaybackBar.qml" line="126"/>
+        <location filename="../qml/pages/components/PlaybackBar.qml" line="117"/>
+        <location filename="../qml/pages/components/PlaybackBar.qml" line="133"/>
         <source>Start your sound mix</source>
         <translation type="unfinished">Starte deinen Klangmix</translation>
     </message>
@@ -388,7 +388,7 @@
 <context>
     <name>TimerPage</name>
     <message>
-        <location filename="../qml/pages/TimerPage.qml" line="32"/>
+        <location filename="../qml/pages/TimerPage.qml" line="33"/>
         <source>Timer</source>
         <translation>Timer</translation>
     </message>
