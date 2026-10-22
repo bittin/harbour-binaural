@@ -184,8 +184,7 @@ Page {
         }
 
         icon.source: page.appWindow.sleepTimerRunning
-                    ? "image://theme/icon-l-clear?" +
-                      Theme.secondaryHighlightColor
+                    ? "image://theme/icon-l-clear?"
                     : "image://theme/icon-l-add"
 
         enabled: page.appWindow.sleepTimerRunning ||
