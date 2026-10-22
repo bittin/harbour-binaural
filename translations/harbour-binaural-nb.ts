@@ -200,35 +200,35 @@
     <name>MainPage</name>
     <message>
         <source>About</source>
-        <translation type="unfinished">Om</translation>
+        <translation>Om</translation>
     </message>
     <message>
         <source>Deselect all sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Fjern markering for alle lyder</translation>
     </message>
     <message>
         <source>Timer</source>
-        <translation type="unfinished">Timer</translation>
+        <translation>Timer</translation>
     </message>
     <message>
         <source>Binaural Beats</source>
-        <translation type="unfinished">Binaurale beats</translation>
+        <translation>Binaurale beats</translation>
     </message>
     <message>
         <source>To be used with</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruk med</translation>
     </message>
     <message>
         <source>Colored Noise</source>
-        <translation type="unfinished">Farget støy</translation>
+        <translation>Farget støy</translation>
     </message>
     <message>
         <source>Ambient Sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Bakgrunnslyd</translation>
     </message>
     <message>
         <source>Choose an ambient sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Velg en bakgrunnslyd</translation>
     </message>
 </context>
 <context>
