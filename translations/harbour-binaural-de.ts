@@ -89,7 +89,7 @@
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="140"/>
         <source>Credits</source>
-        <translation type="unfinished">Danksagungen</translation>
+        <translation>Danksagungen</translation>
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="150"/>
@@ -274,7 +274,7 @@
     <message>
         <location filename="../qml/pages/components/PlaybackBar.qml" line="131"/>
         <source>Start your sound mix</source>
-        <translation type="unfinished">Starte deinen Klangmix</translation>
+        <translation>Starte deinen Klangmix</translation>
     </message>
 </context>
 <context>
@@ -382,17 +382,17 @@
     <message>
         <location filename="../qml/pages/components/SoundNames.qml" line="43"/>
         <source>Ambient mix</source>
-        <translation type="unfinished"></translation>
+        <translation>Ambient-Mix</translation>
     </message>
     <message>
         <location filename="../qml/pages/components/SoundNames.qml" line="44"/>
         <source>Start your sound mix</source>
-        <translation type="unfinished">Starte deinen Klangmix</translation>
+        <translation>Starte deinen Klangmix</translation>
     </message>
     <message>
         <location filename="../qml/pages/components/SoundNames.qml" line="45"/>
         <source>Individual experiences may vary.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die individuellen Erfahrungen können variieren.</translation>
     </message>
 </context>
 <context>
