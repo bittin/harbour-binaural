@@ -97,10 +97,6 @@
         <translation>Pixabay Content License</translation>
     </message>
     <message>
-        <source>Pixabay</source>
-        <translation>Pixabay</translation>
-    </message>
-    <message>
         <source>Images</source>
         <translation>Images</translation>
     </message>

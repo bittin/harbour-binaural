@@ -282,8 +282,7 @@ Page {
 
                     text: page.link(modelData.authorUrl, modelData.author) +
                           " - " +
-                          page.link(modelData.sourceUrl, qsTr("Pixabay"))
-
+                          page.link(modelData.sourceUrl, "Pixabay")
                     onLinkActivated: openLink(link)
                 }
             }
