@@ -14,4 +14,4 @@ Name[de]=Binaural
 [X-Sailjail]
 OrganizationName=org.molan
 ApplicationName=binaural
-Permissions=Audio
+Permissions=Audio;Music;UserDirs;RemovableMedia

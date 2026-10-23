@@ -215,8 +215,10 @@ Page {
                     opacity: enabled ? 1.0 : 0.5
 
                     onValueChanged: {
-                        if (page.appWindow)
+                        if (page.appWindow) {
                             page.appWindow.customSoundVolume = value
+                            console.log("Custom sound volume:", value)
+                        }
                     }
                 }
 

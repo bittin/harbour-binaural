@@ -46,12 +46,16 @@ ApplicationWindow {
     property url customSoundSource: ""
     property string customSoundName: ""
     property bool customSoundLoop: true
+
     property bool customSoundPlaying: customAudio.playbackState
                                       === Audio.PlayingState
+
+    // Slider setting: 0 to 100 percent.
     property real customSoundVolume: 50
 
-    // Actual audio volume, separate from the saved slider value.
-    property real customSoundEffectiveVolume: customSoundVolume / 100.0
+    // Independent gain for the sleep-timer fade.
+    // 1.0 = full slider volume; 0.0 = silent.
+    property real customSoundFadeGain: 1.0
 
     Audio {
         id: customAudio
@@ -63,7 +67,9 @@ ApplicationWindow {
                ? Audio.Infinite
                : 1
 
-        volume: appWindow.customSoundEffectiveVolume
+        // Slider volume multiplied by the fade gain.
+        volume: (appWindow.customSoundVolume / 100.0)
+                * appWindow.customSoundFadeGain
 
         onError: {
             console.log("Custom audio error:", errorString)
@@ -75,14 +81,16 @@ ApplicationWindow {
         id: customSoundFadeOut
 
         target: appWindow
-        property: "customSoundEffectiveVolume"
+        property: "customSoundFadeGain"
         to: 0
         duration: 10000
 
         onStopped: {
-            // Stop only if the fade actually reached silence.
-            if (appWindow.customSoundEffectiveVolume <= 0.001)
+            // Stop only if the fade reached silence.
+            if (appWindow.customSoundFadeGain <= 0.001) {
                 customAudio.stop()
+                appWindow.customSoundFadeGain = 1.0
+            }
         }
     }
 
@@ -90,11 +98,9 @@ ApplicationWindow {
         if (customSoundSource.toString() === "")
             return
 
-        // Cancel a pending fade before resuming playback.
+        // Cancel a pending fade and restore normal gain.
         customSoundFadeOut.stop()
-
-        // Restore the saved volume.
-        customSoundEffectiveVolume = customSoundVolume / 100.0
+        customSoundFadeGain = 1.0
 
         customAudio.play()
     }
@@ -102,8 +108,8 @@ ApplicationWindow {
     function pauseCustomSound() {
         // Cancel the fade before pausing.
         customSoundFadeOut.stop()
+        customSoundFadeGain = 1.0
 
-        customSoundEffectiveVolume = customSoundVolume / 100.0
         customAudio.pause()
     }
 
@@ -111,7 +117,7 @@ ApplicationWindow {
         customSoundFadeOut.stop()
         customAudio.stop()
 
-        customSoundEffectiveVolume = customSoundVolume / 100.0
+        customSoundFadeGain = 1.0
     }
 
     function fadeOutCustomSound() {
@@ -123,7 +129,7 @@ ApplicationWindow {
         if (customSoundFadeOut.running)
             return
 
-        customSoundFadeOut.from = customSoundEffectiveVolume
+        customSoundFadeOut.from = customSoundFadeGain
         customSoundFadeOut.to = 0
         customSoundFadeOut.start()
     }
@@ -238,7 +244,7 @@ ApplicationWindow {
                     appWindow.mainPage.fadeOutForSleepTimer()
                 }
 
-                // Fade out the custom sound at the same time.
+                // Fade the custom sound at the same time.
                 appWindow.fadeOutCustomSound()
             }
         }
