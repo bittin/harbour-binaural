@@ -88,15 +88,15 @@
     </message>
     <message>
         <source>Audio files</source>
-        <translation>Äänitiedostot</translation>
+        <translation type="unfinished">Äänitiedostot</translation>
     </message>
     <message>
         <source>Pixabay Content License</source>
-        <translation>Pixabay-sisältölisenssi</translation>
+        <translation type="unfinished">Pixabay-sisältölisenssi</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation>Kuvat</translation>
+        <translation type="unfinished">Kuvat</translation>
     </message>
     <message>
         <source>Binaural graph image modified for use in</source>
@@ -114,7 +114,7 @@
     <message>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation>Tiedostoja on muokattu manuaalisesti tätä sovellusta varten</translation>
+        <translation type="unfinished">Tiedostoja on muokattu manuaalisesti tätä sovellusta varten</translation>
     </message>
 </context>
 <context>
