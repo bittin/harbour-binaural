@@ -731,7 +731,7 @@ Page {
                                 anchors.centerIn: parent
                                 preferredWidth: Theme.buttonWidthMedium
 
-                                text: qsTr("Choose a sound file")
+                                text: qsTr("Choose custom sound")
 
                                 onClicked: {
                                     pageStack.push(

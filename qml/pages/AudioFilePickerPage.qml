@@ -9,7 +9,8 @@ Page {
     // "folder" selects the currently displayed folder.
     property string selectionMode: "file"
 
-    property url homeFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
+    // Use the Sailfish Silica StandardPaths API.
+    property url homeFolder: StandardPaths.home
 
     signal fileSelected(url fileUrl, string fileName)
     signal folderSelected(url folderUrl, string folderName)
@@ -33,8 +34,8 @@ Page {
         var path = normalizedPath(folderUrl)
         var parts = path.split("/")
         var folderName = parts.length > 0
-                         ? parts[parts.length - 1]
-                         : path
+                ? parts[parts.length - 1]
+                : path
 
         if (folderName === "")
             folderName = qsTr("Home")
@@ -91,8 +92,8 @@ Page {
 
             PageHeader {
                 title: page.selectionMode === "folder"
-                        ? qsTr("Choose folder")
-                        : qsTr("Choose audio file")
+                       ? qsTr("Choose folder")
+                       : qsTr("Choose audio file")
             }
 
             Label {
@@ -209,4 +210,5 @@ Page {
 
         VerticalScrollDecorator {}
     }
+
 }

@@ -35,15 +35,6 @@ Page {
         }
     }
 
-    function normalizedPath(value) {
-        var path = value.toString()
-
-        if (path.indexOf("file://") === 0)
-            path = path.substring(7)
-
-        return path.replace(/\/+$/, "")
-    }
-
     function startFolderPlayback() {
         if (!page.appWindow) {
             console.log("Custom sound: appWindow reference is missing")
@@ -56,9 +47,7 @@ Page {
         }
 
         page.startFolderWhenReady = true
-
         folderPlaylistModel.folder = page.selectedFolder
-
         folderPlaylistTimer.restart()
     }
 
@@ -66,7 +55,6 @@ Page {
         if (!page.startFolderWhenReady)
             return
 
-        // Wait until FolderListModel has finished loading.
         if (folderPlaylistModel.status !== FolderListModel.Ready) {
             folderPlaylistTimer.restart()
             return
@@ -79,9 +67,9 @@ Page {
         for (var i = 0; i < folderPlaylistModel.count; i++) {
             if (!folderPlaylistModel.get(i, "fileIsDir")) {
                 files.push({
-                    "url": folderPlaylistModel.get(i, "fileURL"),
-                    "name": folderPlaylistModel.get(i, "fileName")
-                })
+                               "url": folderPlaylistModel.get(i, "fileURL"),
+                               "name": folderPlaylistModel.get(i, "fileName")
+                           })
             }
         }
 
@@ -90,8 +78,7 @@ Page {
             return
         }
 
-        page.appWindow.startCustomSoundPlaylist(
-                    files, page.loopFolder)
+        page.appWindow.startCustomSoundPlaylist(files, page.loopFolder)
 
         page.selectedFile = files[0].url
         page.selectedFileName = files[0].name
@@ -116,8 +103,9 @@ Page {
                 title: qsTr("Custom sound")
             }
 
+            // Single-file selection
             SectionHeader {
-                text: qsTr("Select an audio file")
+                text: qsTr("Audio file")
             }
 
             Label {
@@ -137,7 +125,7 @@ Page {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
 
-                text: qsTr("Choose MP3 or audio file")
+                text: qsTr("Choose audio file")
 
                 onClicked: {
                     page.pickerSelectionMode = "file"
@@ -145,6 +133,7 @@ Page {
                 }
             }
 
+            // Folder playback
             SectionHeader {
                 text: qsTr("Folder playback")
             }
@@ -183,9 +172,7 @@ Page {
                 enabled: page.appWindow !== null &&
                          page.selectedFolder.toString() !== ""
 
-                onClicked: {
-                    page.startFolderPlayback()
-                }
+                onClicked: page.startFolderPlayback()
             }
 
             Row {
@@ -195,29 +182,26 @@ Page {
 
                 Button {
                     width: (parent.width - parent.spacing) / 2
+
                     text: qsTr("Previous")
 
                     enabled: page.appWindow !== null &&
                              page.appWindow.customSoundPlaylistActive
 
-                    onClicked: {
-                        page.appWindow.playPreviousCustomSound()
-                    }
+                    onClicked: page.appWindow.playPreviousCustomSound()
                 }
 
                 Button {
                     width: (parent.width - parent.spacing) / 2
+
                     text: qsTr("Next")
 
                     enabled: page.appWindow !== null &&
                              page.appWindow.customSoundPlaylistActive
 
-                    onClicked: {
-                        page.appWindow.playNextCustomSound()
-                    }
+                    onClicked: page.appWindow.playNextCustomSound()
                 }
             }
-
 
             TextSwitch {
                 text: qsTr("Loop folder")
@@ -228,11 +212,10 @@ Page {
 
                 checked: page.loopFolder
 
-                onCheckedChanged: {
-                    page.loopFolder = checked
-                }
+                onCheckedChanged: page.loopFolder = checked
             }
 
+            // Playback controls
             SectionHeader {
                 text: qsTr("Playback")
             }
@@ -281,12 +264,8 @@ Page {
                     } else if (page.appWindow.customSoundPlaylistActive) {
                         page.appWindow.resumeCustomSound()
                     } else {
-                        page.appWindow.customSoundSource =
-                                page.selectedFile
-
-                        page.appWindow.customSoundName =
-                                page.selectedFileName
-
+                        page.appWindow.customSoundSource = page.selectedFile
+                        page.appWindow.customSoundName = page.selectedFileName
                         page.appWindow.playCustomSound()
                     }
                 }
@@ -328,6 +307,7 @@ Page {
                 }
             }
 
+            // Volume control
             SectionHeader {
                 text: qsTr("Volume")
             }
@@ -355,14 +335,11 @@ Page {
                     valueText: Math.round(value) + "%"
 
                     enabled: page.appWindow !== null
-
                     opacity: enabled ? 1.0 : 0.5
 
                     onValueChanged: {
-                        if (page.appWindow) {
+                        if (page.appWindow)
                             page.appWindow.customSoundVolume = value
-                            console.log("Custom sound volume:", value)
-                        }
                     }
                 }
 
@@ -394,7 +371,7 @@ Page {
                         sourceSize: Qt.size(
                                         Theme.iconSizeSmall * 1.6 * 2,
                                         Theme.iconSizeSmall * 1.6 * 2
-                                    )
+                                        )
 
                         fillMode: Image.PreserveAspectFit
                         visible: false
@@ -407,10 +384,15 @@ Page {
                     }
                 }
             }
+
+            Item {
+                width: 1
+                height: Theme.paddingLarge
+            }
         }
     }
 
-    // Poll the model until it is ready.
+    // Wait for FolderListModel to finish loading.
     Timer {
         id: folderPlaylistTimer
 
@@ -478,4 +460,5 @@ Page {
             }
         }
     }
+
 }
