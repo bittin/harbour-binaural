@@ -108,8 +108,8 @@
         <translation>Slovenian</translation>
     </message>
     <message>
-        <source>Images have been manually modified for use in this app:</source>
-        <translation>Images have been manually modified for use in this app:</translation>
+        <source>Images have been manually edited for use in this app:</source>
+        <translation>Images have been manually edited for use in this app:</translation>
     </message>
 </context>
 <context>

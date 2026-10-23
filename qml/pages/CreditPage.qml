@@ -321,7 +321,7 @@ Page {
                 linkColor: Theme.primaryColor
                 font.pixelSize: Theme.fontSizeExtraSmall
 
-                text: qsTr("Images have been manually modified for use in this app:") +
+                text: qsTr("Images have been manually edited for use in this app:") +
                       "<br>" +
                       "<a href=\"https://commons.wikimedia.org/wiki/File:Beating_Frequency.svg\">" +
                       "Beating_Frequency.svg" +

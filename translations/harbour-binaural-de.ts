@@ -133,7 +133,7 @@
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="324"/>
-        <source>Images have been manually modified for use in this app:</source>
+        <source>Images have been manually edited for use in this app:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
