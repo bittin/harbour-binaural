@@ -92,15 +92,15 @@
     </message>
     <message>
         <source>Audio files</source>
-        <translation type="unfinished">Äänitiedostot</translation>
+        <translation>Äänitiedostot</translation>
     </message>
     <message>
         <source>Pixabay Content License</source>
-        <translation type="unfinished">Pixabay-sisältölisenssi</translation>
+        <translation>Pixabay-sisältölisenssi</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation type="unfinished">Kuvat</translation>
+        <translation>Kuvat</translation>
     </message>
     <message>
         <source>Binaural graph image modified for use in</source>
@@ -118,7 +118,7 @@
     <message>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation type="unfinished">Tiedostoja on muokattu manuaalisesti tätä sovellusta varten</translation>
+        <translation>Tiedostoja on muokattu manuaalisesti tätä sovellusta varten</translation>
     </message>
     <message>
         <source>Norwegian</source>
@@ -371,7 +371,7 @@
     <name>PlaybackBar</name>
     <message>
         <source>Start your sound mix</source>
-        <translation type="unfinished"></translation>
+        <translation>Aloita äänimiksaus</translation>
     </message>
 </context>
 </TS>
