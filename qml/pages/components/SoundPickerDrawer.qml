@@ -159,84 +159,6 @@ SilicaFlickable {
             }
         }
 
-        Button {
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2 * Theme.horizontalPageMargin
-
-            text: qsTr("Open audio file or folder")
-
-            onClicked: page.openAudioPicker()
-        }
-
-        // Selected folder and current track information.
-        Item {
-            id: trackInfoContainer
-
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2 * Theme.horizontalPageMargin
-
-            property bool showTrackInfo:
-                selectedFolderName !== ""
-                && appWindow !== null
-                && appWindow.customSoundPlaylistActive
-
-            property real expandedHeight:
-                folderNameLabel.implicitHeight
-                + Theme.paddingSmall
-                + (showTrackInfo
-                   ? trackNameLabel.implicitHeight + Theme.paddingSmall
-                   : 0)
-
-            height: expandedHeight
-
-            Behavior on height {
-                NumberAnimation {
-                    duration: 300
-                    easing.type: Easing.OutCubic
-                }
-            }
-
-            Label {
-                id: folderNameLabel
-
-                anchors {
-                    top: parent.top
-                    left: parent.left
-                    right: parent.right
-                }
-
-                text: selectedFolderName !== ""
-                      ? selectedFolderName
-                      : (selectedFileName !== ""
-                         ? selectedFileName
-                         : qsTr("No file selected"))
-
-                wrapMode: Text.Wrap
-                color: Theme.highlightColor
-                font.pixelSize: Theme.fontSizeMedium
-            }
-
-            Label {
-                id: trackNameLabel
-
-                anchors {
-                    top: folderNameLabel.bottom
-                    topMargin: Theme.paddingSmall
-                    left: parent.left
-                    right: parent.right
-                }
-
-                visible: trackInfoContainer.showTrackInfo
-
-                text: page.appWindow
-                      ? page.appWindow.customSoundName : ""
-
-                wrapMode: Text.Wrap
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeSmall
-            }
-        }
-
         // Playback controls.
         Item {
             id: playbackControlsContainer
@@ -380,99 +302,185 @@ SilicaFlickable {
             }
         }
 
-        // Repeat toggle.
-        Switch {
-            id: loopButton
+        Button {
+            x: Theme.horizontalPageMargin
+            width: parent.width - 2 * Theme.horizontalPageMargin
 
-            anchors.horizontalCenter: parent.horizontalCenter
+            text: qsTr("Open audio file or folder")
 
-            icon.source: "image://theme/icon-m-repeat"
+            onClicked: page.openAudioPicker()
+        }
 
-            automaticCheck: false
-            checked: appWindow ? appWindow.customSoundLoop : false
+        // Selected folder and current track information.
+        Item {
+            id: trackInfoContainer
 
-            onClicked: {
-                if (appWindow) {
-                    appWindow.customSoundLoop =
-                            !appWindow.customSoundLoop
+            x: Theme.horizontalPageMargin
+            width: parent.width - 2 * Theme.horizontalPageMargin
+
+            property bool showTrackInfo:
+                selectedFolderName !== ""
+                && appWindow !== null
+                && appWindow.customSoundPlaylistActive
+
+            property real expandedHeight:
+                folderNameLabel.implicitHeight
+                + Theme.paddingSmall
+                + (showTrackInfo
+                   ? trackNameLabel.implicitHeight + Theme.paddingSmall
+                   : 0)
+
+            height: expandedHeight
+
+            Behavior on height {
+                NumberAnimation {
+                    duration: 300
+                    easing.type: Easing.OutCubic
                 }
+            }
+
+            Label {
+                id: folderNameLabel
+
+                anchors {
+                    top: parent.top
+                    left: parent.left
+                    right: parent.right
+                }
+
+                text: selectedFolderName !== ""
+                      ? selectedFolderName
+                      : (selectedFileName !== ""
+                         ? selectedFileName
+                         : qsTr("No file selected"))
+
+                wrapMode: Text.Wrap
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeMedium
+            }
+
+            Label {
+                id: trackNameLabel
+
+                anchors {
+                    top: folderNameLabel.bottom
+                    topMargin: Theme.paddingSmall
+                    left: parent.left
+                    right: parent.right
+                }
+
+                visible: trackInfoContainer.showTrackInfo
+
+                text: page.appWindow
+                      ? page.appWindow.customSoundName : ""
+
+                wrapMode: Text.Wrap
+                color: Theme.secondaryHighlightColor
+                font.pixelSize: Theme.fontSizeSmall
             }
         }
 
-        // Volume control Custom Sounds
-        Item {
-            id: customSoundVolumeContainer
+        // Volume slider + volume icon + Repeat switch
+        // Volume and repeat controls in one responsive row
+        Row {
+            id: customSoundControls
 
-            width: parent.width
-            height: customSoundVolumeSlider.height
-                    + customSoundVolumeIcon.height
-                    - Theme.paddingLarge
+            width: parent.width - 2 * Theme.horizontalPageMargin
+            x: Theme.horizontalPageMargin
+            spacing: 0
 
-            Slider {
-                id: customSoundVolumeSlider
+            // Volume slider and original icon
+            Item {
+                id: customSoundVolumeContainer
 
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.rightMargin: Theme.horizontalPageMargin
+                y: Theme.paddingSmall  // Moves slider and icon down slightly
 
-                minimumValue: 0
-                maximumValue: 100
-                value: 50
+                width: parent.width - loopButton.width
+                       - customSoundControls.spacing
+                height: customSoundVolumeSlider.height
+                        + customSoundVolumeIcon.height
+                        - Theme.paddingLarge
 
-                //enabled: ambiencePage.activeAmbiences.length > 0
-                //opacity: enabled ? 1.0 : 0.5
+                Slider {
+                    id: customSoundVolumeSlider
 
-                onValueChanged: {
-                    if (appWindow
-                            && appWindow.customSoundVolume !== value) {
-                        appWindow.customSoundVolume = value
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+
+                    minimumValue: 0
+                    maximumValue: 100
+                    value: appWindow ? appWindow.customSoundVolume : 50
+
+                    onValueChanged: {
+                        if (appWindow &&
+                                appWindow.customSoundVolume !== value) {
+                            appWindow.customSoundVolume = value
+                        }
+                    }
+                }
+
+                // Original volume icon: size, placement and appearance preserved
+                Item {
+                    id: customSoundVolumeIcon
+
+                    width: Theme.iconSizeSmall * 1.6
+                    height: Theme.iconSizeSmall * 1.6
+
+                    anchors.top: customSoundVolumeSlider.bottom
+                    anchors.topMargin: -Theme.paddingLarge
+                    anchors.horizontalCenter: customSoundVolumeSlider.horizontalCenter
+
+                    Image {
+                        id: customSoundVolumeImage
+
+                        anchors.fill: parent
+
+                        source: customSoundVolumeSlider.value === 0
+                                ? "../../images/icon-s-volume-1.svg"
+                                : customSoundVolumeSlider.value <= 33
+                                  ? "../../images/icon-s-volume-2.svg"
+                                  : customSoundVolumeSlider.value <= 66
+                                    ? "../../images/icon-s-volume-3.svg"
+                                    : "../../images/icon-s-volume-4.svg"
+
+                        sourceSize: Qt.size(
+                                        Theme.iconSizeSmall * 1.6 * 2,
+                                        Theme.iconSizeSmall * 1.6 * 2
+                                        )
+
+                        fillMode: Image.PreserveAspectFit
+                        visible: false
+                    }
+
+                    ColorOverlay {
+                        anchors.fill: customSoundVolumeImage
+                        source: customSoundVolumeImage
+                        color: Theme.primaryColor
                     }
                 }
             }
 
-            Item {
-                id: customSoundVolumeIcon
+            // Repeat toggle
+            Switch {
+                id: loopButton
 
-                width: Theme.iconSizeSmall * 1.6
-                height: Theme.iconSizeSmall * 1.6
+                x: -Theme.paddingSmall
 
-                anchors.top: customSoundVolumeSlider.bottom
-                anchors.topMargin: -Theme.paddingLarge
-                anchors.horizontalCenter: customSoundVolumeSlider.horizontalCenter
+                anchors.verticalCenter: customSoundVolumeContainer.verticalCenter
 
-                //opacity: ambiencePage.activeAmbiences.length > 0 ? 1.0 : 0.5
+                icon.source: "image://theme/icon-m-repeat"
+                automaticCheck: false
+                checked: appWindow ? appWindow.customSoundLoop : false
 
-                Image {
-                    id: customSoundVolumeImage
-
-                    anchors.fill: parent
-
-                    source: customSoundVolumeSlider.value === 0
-                            ? "../../images/icon-s-volume-1.svg"
-                            : customSoundVolumeSlider.value <= 33
-                              ? "../../images/icon-s-volume-2.svg"
-                              : customSoundVolumeSlider.value <= 66
-                                ? "../../images/icon-s-volume-3.svg"
-                                : "../../images/icon-s-volume-4.svg"
-
-                    sourceSize: Qt.size(
-                                    Theme.iconSizeSmall * 1.6 * 2,
-                                    Theme.iconSizeSmall * 1.6 * 2
-                                    )
-
-                    fillMode: Image.PreserveAspectFit
-                    visible: false
-                }
-
-                ColorOverlay {
-                    anchors.fill: customSoundVolumeImage
-                    source: customSoundVolumeImage
-                    color: Theme.primaryColor
+                onClicked: {
+                    if (appWindow) {
+                        appWindow.customSoundLoop =
+                                !appWindow.customSoundLoop
+                    }
                 }
             }
         }
-    //////////////////
+
     }
 
     // File picker remains a separate navigation page.
