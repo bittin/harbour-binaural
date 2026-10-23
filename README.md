@@ -18,6 +18,12 @@ Binaural is a sound app for [Sailfish OS](https://sailfishos.org) designed for r
 
 The latest release is available on [OpenRepos.net](https://openrepos.net/content/molan/binaural)
 
+## Translations
+
+Translations are managed with [Hosted Weblate](https://hosted.weblate.org/projects/harbour-binaural/harbour-binaural/). New languages can be added through `Weblate` or directly via `GitHub`. Incomplete translations may not be accepted or included in the app.
+
+<a href="https://hosted.weblate.org/engage/harbour-binaural/"><img src="https://hosted.weblate.org/widget/harbour-binaural/harbour-binaural/svg-badge.svg" alt="Übersetzungsstatus"></a>
+
 ## Audio Engine
 
 The `AudioEngine` coordinates three types of audio sources: binaural beats, colored noise, and ambient sounds. Each source type has its own playback implementation, allowing different types of sound to be combined.
@@ -81,12 +87,6 @@ Clone or download this repository and import it into your Sailfish OS IDE using 
 Contributions to this project are very welcome. If you already know what you want to add or fix, please open a `Pull Request` with your proposal. You can also use `Discussions` to propose features or changes.
 
 Please include an explanation of the changes or a brief changelog summary. Pull requests will be reviewed before they are merged. Please note that not all contributions may be accepted if they conflict with the project's philosophy, simplicity, or overall direction.
-
-## Translations
-
-Translations are managed with [Hosted Weblate](https://hosted.weblate.org/projects/harbour-binaural/harbour-binaural/). New languages can be added through `Weblate` or directly via `GitHub`. Incomplete translations may not be accepted or included in the app.
-
-<a href="https://hosted.weblate.org/engage/harbour-binaural/"><img src="https://hosted.weblate.org/widget/harbour-binaural/harbour-binaural/svg-badge.svg" alt="Übersetzungsstatus"></a>
 
 ## Screenshots
 
