@@ -56,7 +56,10 @@ Page {
 
                 text: qsTr("Choose MP3 or audio file")
 
-                onClicked: pageStack.push(musicPickerPage)
+                onClicked: {
+                    console.log("Soundpicker: opening MusicPickerPage")
+                    pageStack.animatorPush(musicPickerPage)
+                }
             }
 
             SectionHeader {
