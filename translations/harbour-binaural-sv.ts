@@ -82,6 +82,22 @@
         <source>Try another folder or check where your audio files are stored.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Home</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use this folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Open a folder or select this folder</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CreditPage</name>
@@ -370,6 +386,34 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Folder playback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No folder selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loop folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Repeat the folder continuously</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop after the last audio file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Playback</source>
         <translation type="unfinished"></translation>
     </message>
@@ -406,11 +450,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Repeat continuously</source>
+        <source>Repeat the selected sound continuously</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Play once</source>
+        <source>Play the selected sound once</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

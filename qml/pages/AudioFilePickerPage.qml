@@ -5,10 +5,14 @@ import Qt.labs.folderlistmodel 2.1
 Page {
     id: page
 
-
-    signal fileSelected(url fileUrl, string fileName)
+    // "file" selects one audio file.
+    // "folder" selects the currently displayed folder.
+    property string selectionMode: "file"
 
     property url homeFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
+
+    signal fileSelected(url fileUrl, string fileName)
+    signal folderSelected(url folderUrl, string folderName)
 
     allowedOrientations: Orientation.All
 
@@ -23,6 +27,23 @@ Page {
 
     property bool atHome:
         normalizedPath(folderModel.folder) === normalizedPath(homeFolder)
+
+    function selectCurrentFolder() {
+        var folderUrl = folderModel.folder
+        var path = normalizedPath(folderUrl)
+        var parts = path.split("/")
+        var folderName = parts.length > 0
+                         ? parts[parts.length - 1]
+                         : path
+
+        if (folderName === "")
+            folderName = qsTr("Home")
+
+        console.log("Audio picker: selected folder", folderUrl)
+
+        page.folderSelected(folderUrl, folderName)
+        pageStack.pop()
+    }
 
     FolderListModel {
         id: folderModel
@@ -69,7 +90,9 @@ Page {
             spacing: Theme.paddingSmall
 
             PageHeader {
-                title: qsTr("Choose audio file")
+                title: page.selectionMode === "folder"
+                        ? qsTr("Choose folder")
+                        : qsTr("Choose audio file")
             }
 
             Label {
@@ -106,8 +129,21 @@ Page {
                 }
             }
 
+            Button {
+                visible: page.selectionMode === "folder"
+
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+
+                text: qsTr("Use this folder")
+
+                onClicked: page.selectCurrentFolder()
+            }
+
             SectionHeader {
-                text: qsTr("Folders and audio files")
+                text: page.selectionMode === "folder"
+                      ? qsTr("Open a folder or select this folder")
+                      : qsTr("Folders and audio files")
             }
         }
 
@@ -120,8 +156,9 @@ Page {
             onClicked: {
                 if (fileIsDir) {
                     folderModel.folder = fileURL
-                } else {
+                } else if (page.selectionMode === "file") {
                     console.log("Audio picker: selected", fileURL)
+
                     page.fileSelected(fileURL, fileName)
                     pageStack.pop()
                 }
@@ -135,9 +172,11 @@ Page {
                 anchors.verticalCenter: parent.verticalCenter
 
                 text: fileName
+
                 color: fileItem.highlighted
                        ? Theme.highlightColor
                        : Theme.primaryColor
+
                 font.pixelSize: Theme.fontSizeMedium
                 truncationMode: TruncationMode.Fade
             }
@@ -149,10 +188,14 @@ Page {
                 anchors.rightMargin: Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
 
-                text: fileIsDir ? qsTr("Folder  ›") : qsTr("Audio")
+                text: fileIsDir
+                      ? qsTr("Folder  ›")
+                      : qsTr("Audio")
+
                 color: fileItem.highlighted
                        ? Theme.highlightColor
                        : Theme.secondaryColor
+
                 font.pixelSize: Theme.fontSizeSmall
             }
         }
@@ -166,5 +209,4 @@ Page {
 
         VerticalScrollDecorator {}
     }
-
 }

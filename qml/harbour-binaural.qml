@@ -42,7 +42,7 @@ ApplicationWindow {
                              ? mainPage.isPlaying
                              : false
 
-    // Custom Sound Picker
+    // Custom sound player
     property url customSoundSource: ""
     property string customSoundName: ""
     property bool customSoundLoop: false
@@ -50,12 +50,14 @@ ApplicationWindow {
     property bool customSoundPlaying: customAudio.playbackState
                                       === Audio.PlayingState
 
-    // Slider setting: 0 to 100 percent.
     property real customSoundVolume: 50
-
-    // Independent gain for the sleep-timer fade.
-    // 1.0 = full slider volume; 0.0 = silent.
     property real customSoundFadeGain: 1.0
+
+    // Folder playlist
+    property var customSoundPlaylist: []
+    property int customSoundPlaylistIndex: -1
+    property bool customSoundFolderLoop: false
+    property bool customSoundPlaylistActive: false
 
     Audio {
         id: customAudio
@@ -63,20 +65,28 @@ ApplicationWindow {
         source: appWindow.customSoundSource
         autoPlay: false
 
-        loops: appWindow.customSoundLoop
-               ? Audio.Infinite
-               : 1
+        loops: appWindow.customSoundPlaylistActive
+               ? 1
+               : (appWindow.customSoundLoop
+                  ? Audio.Infinite
+                  : 1)
 
-        // Slider volume multiplied by the fade gain.
         volume: (appWindow.customSoundVolume / 100.0)
                 * appWindow.customSoundFadeGain
+
+        onStatusChanged: {
+            if (status === Audio.EndOfMedia &&
+                    appWindow.customSoundPlaylistActive) {
+                appWindow.playNextCustomSound()
+            }
+        }
 
         onError: {
             console.log("Custom audio error:", errorString)
         }
     }
 
-    // Fade the custom sound to silence over 10 seconds.
+    // Fade custom sound to silence over 10 seconds.
     NumberAnimation {
         id: customSoundFadeOut
 
@@ -86,7 +96,6 @@ ApplicationWindow {
         duration: 10000
 
         onStopped: {
-            // Stop only if the fade reached silence.
             if (appWindow.customSoundFadeGain <= 0.001) {
                 customAudio.stop()
                 appWindow.customSoundFadeGain = 1.0
@@ -94,11 +103,20 @@ ApplicationWindow {
         }
     }
 
+    function clearCustomSoundPlaylist() {
+        customSoundPlaylistActive = false
+        customSoundPlaylist = []
+        customSoundPlaylistIndex = -1
+        customSoundFolderLoop = false
+    }
+
     function playCustomSound() {
         if (customSoundSource.toString() === "")
             return
 
-        // Cancel a pending fade and restore normal gain.
+        // Starting single-file playback cancels the playlist.
+        clearCustomSoundPlaylist()
+
         customSoundFadeOut.stop()
         customSoundFadeGain = 1.0
 
@@ -106,7 +124,6 @@ ApplicationWindow {
     }
 
     function pauseCustomSound() {
-        // Cancel the fade before pausing.
         customSoundFadeOut.stop()
         customSoundFadeGain = 1.0
 
@@ -115,9 +132,60 @@ ApplicationWindow {
 
     function stopCustomSound() {
         customSoundFadeOut.stop()
+        clearCustomSoundPlaylist()
+
+        customAudio.stop()
+        customSoundFadeGain = 1.0
+    }
+
+    function startCustomSoundPlaylist(files, folderLoop) {
+        if (!files || files.length === 0) {
+            console.log("Folder playlist: no audio files found")
+            return
+        }
+
+        customSoundFadeOut.stop()
         customAudio.stop()
 
         customSoundFadeGain = 1.0
+        customSoundLoop = false
+
+        customSoundPlaylist = files
+        customSoundPlaylistIndex = 0
+        customSoundFolderLoop = folderLoop
+        customSoundPlaylistActive = true
+
+        customSoundSource = files[0].url
+        customSoundName = files[0].name
+
+        customAudio.play()
+    }
+
+    function playNextCustomSound() {
+        if (!customSoundPlaylistActive ||
+                customSoundPlaylist.length === 0) {
+            return
+        }
+
+        var nextIndex = customSoundPlaylistIndex + 1
+
+        if (nextIndex >= customSoundPlaylist.length) {
+            if (customSoundFolderLoop) {
+                nextIndex = 0
+            } else {
+                customSoundPlaylistActive = false
+                customSoundPlaylistIndex = -1
+                return
+            }
+        }
+
+        customSoundPlaylistIndex = nextIndex
+
+        customSoundSource = customSoundPlaylist[nextIndex].url
+        customSoundName = customSoundPlaylist[nextIndex].name
+        customSoundFadeGain = 1.0
+
+        customAudio.play()
     }
 
     function fadeOutCustomSound() {
@@ -162,7 +230,6 @@ ApplicationWindow {
         onTriggered: appWindow.updatePlaybackBarVisibility()
     }
 
-    // Update after the page stack changes.
     Connections {
         target: appWindow.pageStack
 
@@ -187,8 +254,9 @@ ApplicationWindow {
 
     function pauseSleepTimer() {
         if (!appWindow.sleepTimerRunning ||
-                appWindow.sleepTimerPaused)
+                appWindow.sleepTimerPaused) {
             return
+        }
 
         sleepTimer.stop()
         appWindow.sleepTimerPaused = true
@@ -196,8 +264,9 @@ ApplicationWindow {
 
     function resumeSleepTimer() {
         if (!appWindow.sleepTimerRunning ||
-                !appWindow.sleepTimerPaused)
+                !appWindow.sleepTimerPaused) {
             return
+        }
 
         if (appWindow.sleepTimerRemainingSeconds <= 0) {
             appWindow.cancelSleepTimer()
@@ -225,8 +294,9 @@ ApplicationWindow {
 
         onTriggered: {
             if (appWindow.sleepTimerPaused ||
-                    !appWindow.sleepTimerRunning)
+                    !appWindow.sleepTimerRunning) {
                 return
+            }
 
             if (appWindow.sleepTimerRemainingSeconds > 0)
                 appWindow.sleepTimerRemainingSeconds--
@@ -244,14 +314,11 @@ ApplicationWindow {
                     appWindow.mainPage.fadeOutForSleepTimer()
                 }
 
-                // Fade the custom sound at the same time.
                 appWindow.fadeOutCustomSound()
             }
         }
     }
 
-    // Something selected but not playing (system suspend or manual
-    // stop): dimmed hint state of the playback bar.
     property bool pausedMode: !isPlaying &&
                               (activeBand !== "" ||
                                activeAmbiences.length > 0 ||
@@ -283,9 +350,8 @@ ApplicationWindow {
             sleepTimerRemainingSeconds: appWindow.sleepTimerRemainingSeconds
 
             onPlayPauseClicked: {
-                if (appWindow.mainPage) {
+                if (appWindow.mainPage)
                     appWindow.mainPage.togglePlayback()
-                }
             }
         }
     }
@@ -298,7 +364,6 @@ ApplicationWindow {
 
         x: 0
         z: 3
-
         visible: true
 
         y: appWindow.playbackBarShouldShow

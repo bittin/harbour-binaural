@@ -2,29 +2,102 @@
 import Sailfish.Silica 1.0
 import QtMultimedia 5.0
 import QtGraphicalEffects 1.0
+import Qt.labs.folderlistmodel 2.1
 
 Page {
     id: page
 
     objectName: "SoundpickerPage"
 
-    // Reference to the top-level ApplicationWindow.
     property var appWindow: null
 
-    // Currently selected audio file.
+    // Selected audio file
     property url selectedFile: ""
     property string selectedFileName: ""
 
+    // Selected folder
+    property url selectedFolder: ""
+    property string selectedFolderName: ""
+    property bool loopFolder: false
+
+    // Browser selection mode: "file" or "folder"
+    property string pickerSelectionMode: "file"
+
+    property bool startFolderWhenReady: false
+
     allowedOrientations: Orientation.All
 
-    // Restore the selected sound when opening this page.
     Component.onCompleted: {
-        if (page.appWindow) {
-            if (page.appWindow.customSoundSource.toString() !== "") {
-                page.selectedFile = page.appWindow.customSoundSource
-                page.selectedFileName = page.appWindow.customSoundName
+        if (page.appWindow &&
+                page.appWindow.customSoundSource.toString() !== "") {
+            page.selectedFile = page.appWindow.customSoundSource
+            page.selectedFileName = page.appWindow.customSoundName
+        }
+    }
+
+    function normalizedPath(value) {
+        var path = value.toString()
+
+        if (path.indexOf("file://") === 0)
+            path = path.substring(7)
+
+        return path.replace(/\/+$/, "")
+    }
+
+    function startFolderPlayback() {
+        if (!page.appWindow) {
+            console.log("Custom sound: appWindow reference is missing")
+            return
+        }
+
+        if (page.selectedFolder.toString() === "") {
+            console.log("Custom sound: no folder selected")
+            return
+        }
+
+        page.startFolderWhenReady = true
+
+        folderPlaylistModel.folder = page.selectedFolder
+
+        folderPlaylistTimer.restart()
+    }
+
+    function buildFolderPlaylist() {
+        if (!page.startFolderWhenReady)
+            return
+
+        // Wait until FolderListModel has finished loading.
+        if (folderPlaylistModel.status !== FolderListModel.Ready) {
+            folderPlaylistTimer.restart()
+            return
+        }
+
+        page.startFolderWhenReady = false
+
+        var files = []
+
+        for (var i = 0; i < folderPlaylistModel.count; i++) {
+            if (!folderPlaylistModel.get(i, "fileIsDir")) {
+                files.push({
+                    "url": folderPlaylistModel.get(i, "fileURL"),
+                    "name": folderPlaylistModel.get(i, "fileName")
+                })
             }
         }
+
+        if (files.length === 0) {
+            console.log("Custom sound: no audio files found in folder")
+            return
+        }
+
+        page.appWindow.startCustomSoundPlaylist(
+                    files, page.loopFolder)
+
+        page.selectedFile = files[0].url
+        page.selectedFileName = files[0].name
+
+        console.log("Custom sound: starting playlist with",
+                    files.length, "files")
     }
 
     SilicaFlickable {
@@ -67,8 +140,65 @@ Page {
                 text: qsTr("Choose MP3 or audio file")
 
                 onClicked: {
-                    console.log("Custom sound: opening audio file browser")
+                    page.pickerSelectionMode = "file"
                     pageStack.push(audioFilePicker)
+                }
+            }
+
+            SectionHeader {
+                text: qsTr("Folder playback")
+            }
+
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+
+                text: page.selectedFolderName !== ""
+                      ? page.selectedFolderName
+                      : qsTr("No folder selected")
+
+                wrapMode: Text.Wrap
+                color: Theme.secondaryColor
+                font.pixelSize: Theme.fontSizeSmall
+            }
+
+            Button {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+
+                text: qsTr("Choose folder")
+
+                onClicked: {
+                    page.pickerSelectionMode = "folder"
+                    pageStack.push(audioFilePicker)
+                }
+            }
+
+            Button {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+
+                text: qsTr("Play folder")
+
+                enabled: page.appWindow !== null &&
+                         page.selectedFolder.toString() !== ""
+
+                onClicked: {
+                    page.startFolderPlayback()
+                }
+            }
+
+            TextSwitch {
+                text: qsTr("Loop folder")
+
+                description: checked
+                             ? qsTr("Repeat the folder continuously")
+                             : qsTr("Stop after the last audio file")
+
+                checked: page.loopFolder
+
+                onCheckedChanged: {
+                    page.loopFolder = checked
                 }
             }
 
@@ -107,22 +237,25 @@ Page {
                       ? qsTr("Pause")
                       : qsTr("Play")
 
-                enabled: page.appWindow !== null
-                         && page.selectedFile.toString() !== ""
+                enabled: page.appWindow !== null &&
+                         (page.selectedFile.toString() !== "" ||
+                          page.appWindow.customSoundPlaylistActive)
 
                 onClicked: {
-                    if (!page.appWindow) {
-                        console.log("Custom sound: appWindow reference is missing")
+                    if (!page.appWindow)
                         return
-                    }
-
-                    // Synchronize the global audio player.
-                    page.appWindow.customSoundSource = page.selectedFile
-                    page.appWindow.customSoundName = page.selectedFileName
 
                     if (page.appWindow.customSoundPlaying) {
                         page.appWindow.pauseCustomSound()
+                    } else if (page.appWindow.customSoundPlaylistActive) {
+                        page.appWindow.resumeCustomSound()
                     } else {
+                        page.appWindow.customSoundSource =
+                                page.selectedFile
+
+                        page.appWindow.customSoundName =
+                                page.selectedFileName
+
                         page.appWindow.playCustomSound()
                     }
                 }
@@ -134,8 +267,9 @@ Page {
 
                 text: qsTr("Stop")
 
-                enabled: page.appWindow !== null
-                         && page.selectedFile.toString() !== ""
+                enabled: page.appWindow !== null &&
+                         (page.selectedFile.toString() !== "" ||
+                          page.appWindow.customSoundPlaylistActive)
 
                 onClicked: {
                     if (page.appWindow)
@@ -144,19 +278,18 @@ Page {
             }
 
             TextSwitch {
-                id: loopSwitch
-
                 text: qsTr("Loop sound")
 
                 description: checked
-                             ? qsTr("Repeat continuously")
-                             : qsTr("Play once")
+                             ? qsTr("Repeat the selected sound continuously")
+                             : qsTr("Play the selected sound once")
 
                 checked: page.appWindow
                          ? page.appWindow.customSoundLoop
                          : false
 
-                enabled: page.appWindow !== null
+                enabled: page.appWindow !== null &&
+                         !page.appWindow.customSoundPlaylistActive
 
                 onCheckedChanged: {
                     if (page.appWindow)
@@ -172,7 +305,8 @@ Page {
                 id: volumeControl
 
                 width: parent.width
-                height: customSoundVolumeSlider.height + Theme.iconSizeSmall
+                height: customSoundVolumeSlider.height +
+                        Theme.iconSizeSmall
 
                 Slider {
                     id: customSoundVolumeSlider
@@ -190,7 +324,6 @@ Page {
                     valueText: Math.round(value) + "%"
 
                     enabled: page.appWindow !== null
-                             && page.selectedFile.toString() !== ""
 
                     opacity: enabled ? 1.0 : 0.5
 
@@ -230,7 +363,7 @@ Page {
                         sourceSize: Qt.size(
                                         Theme.iconSizeSmall * 1.6 * 2,
                                         Theme.iconSizeSmall * 1.6 * 2
-                                        )
+                                    )
 
                         fillMode: Image.PreserveAspectFit
                         visible: false
@@ -246,25 +379,71 @@ Page {
         }
     }
 
-    // Custom browser replaces the system MusicPickerPage.
+    // Poll the model until it is ready.
+    Timer {
+        id: folderPlaylistTimer
+
+        interval: 200
+        repeat: false
+
+        onTriggered: {
+            if (page.startFolderWhenReady)
+                page.buildFolderPlaylist()
+        }
+    }
+
+    // Audio files in the selected folder.
+    FolderListModel {
+        id: folderPlaylistModel
+
+        folder: page.selectedFolder
+
+        showDirs: false
+        showFiles: true
+        showHidden: false
+        showOnlyReadable: true
+        sortField: FolderListModel.Name
+
+        nameFilters: [
+            "*.mp3", "*.MP3",
+            "*.wav", "*.WAV",
+            "*.ogg", "*.OGG",
+            "*.oga", "*.OGA",
+            "*.flac", "*.FLAC",
+            "*.m4a", "*.M4A",
+            "*.aac", "*.AAC",
+            "*.opus", "*.OPUS",
+            "*.wma", "*.WMA",
+            "*.aif", "*.AIF",
+            "*.aiff", "*.AIFF",
+            "*.m4b", "*.M4B",
+            "*.3gp", "*.3GP"
+        ]
+    }
+
     Component {
         id: audioFilePicker
 
         AudioFilePickerPage {
+            selectionMode: page.pickerSelectionMode
+
             onFileSelected: {
-                // Save the selected file on this page.
                 page.selectedFile = fileUrl
                 page.selectedFileName = fileName
 
-                // Synchronize the global player.
                 if (page.appWindow) {
                     page.appWindow.customSoundSource = fileUrl
                     page.appWindow.customSoundName = fileName
-                } else {
-                    console.log("Custom sound: appWindow reference is missing")
                 }
 
                 console.log("Custom sound: selected file", fileUrl)
+            }
+
+            onFolderSelected: {
+                page.selectedFolder = folderUrl
+                page.selectedFolderName = folderName
+
+                console.log("Custom sound: selected folder", folderUrl)
             }
         }
     }
