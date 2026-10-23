@@ -5,15 +5,24 @@ import Qt.labs.folderlistmodel 2.1
 Page {
     id: page
 
+
     signal fileSelected(url fileUrl, string fileName)
 
-    property url homeFolder: "file:///home/nemo"
-
-    property bool atHome:
-        folderModel.folder.toString().replace(/\/+$/, "") ===
-        homeFolder.toString().replace(/\/+$/, "")
+    property url homeFolder: StandardPaths.writableLocation(StandardPaths.HomeLocation)
 
     allowedOrientations: Orientation.All
+
+    function normalizedPath(value) {
+        var path = value.toString()
+
+        if (path.indexOf("file://") === 0)
+            path = path.substring(7)
+
+        return path.replace(/\/+$/, "")
+    }
+
+    property bool atHome:
+        normalizedPath(folderModel.folder) === normalizedPath(homeFolder)
 
     FolderListModel {
         id: folderModel
@@ -29,19 +38,19 @@ Page {
         sortField: FolderListModel.Name
 
         nameFilters: [
-            "*.mp3",  "*.MP3",
-            "*.wav",  "*.WAV",
-            "*.ogg",  "*.OGG",
-            "*.oga",  "*.OGA",
+            "*.mp3", "*.MP3",
+            "*.wav", "*.WAV",
+            "*.ogg", "*.OGG",
+            "*.oga", "*.OGA",
             "*.flac", "*.FLAC",
-            "*.m4a",  "*.M4A",
-            "*.aac",  "*.AAC",
+            "*.m4a", "*.M4A",
+            "*.aac", "*.AAC",
             "*.opus", "*.OPUS",
-            "*.wma",  "*.WMA",
-            "*.aif",  "*.AIF",
+            "*.wma", "*.WMA",
+            "*.aif", "*.AIF",
             "*.aiff", "*.AIFF",
-            "*.m4b",  "*.M4B",
-            "*.3gp",  "*.3GP"
+            "*.m4b", "*.M4B",
+            "*.3gp", "*.3GP"
         ]
 
         onFolderChanged: {
@@ -53,7 +62,6 @@ Page {
         id: fileList
 
         anchors.fill: parent
-
         model: folderModel
 
         header: Column {
@@ -66,49 +74,34 @@ Page {
 
             Label {
                 x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
 
-                width: parent.width -
-                       2 * Theme.horizontalPageMargin
-
-                text: folderModel.folder.toString()
-                          .replace("file://", "")
-
+                text: page.normalizedPath(folderModel.folder)
                 color: Theme.secondaryColor
                 font.pixelSize: Theme.fontSizeSmall
-
                 wrapMode: Text.WrapAnywhere
             }
 
-            Row {
+            Button {
                 x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
 
-                width: parent.width -
-                       2 * Theme.horizontalPageMargin
+                text: qsTr("Up")
+                enabled: !page.atHome
 
-                spacing: Theme.paddingSmall
+                onClicked: {
+                    if (page.atHome)
+                        return
 
-                Button {
-                    width: (parent.width - parent.spacing) / 2
+                    var homePath = page.normalizedPath(page.homeFolder)
+                    var parentFolder = folderModel.parentFolder
+                    var parentPath = page.normalizedPath(parentFolder)
 
-                    text: qsTr("Home")
-
-                    onClicked: {
+                    if (parentPath === homePath ||
+                            parentPath.indexOf(homePath + "/") === 0) {
+                        folderModel.folder = parentFolder
+                    } else {
                         folderModel.folder = page.homeFolder
-                    }
-                }
-
-                Button {
-                    width: (parent.width - parent.spacing) / 2
-
-                    text: qsTr("Up")
-
-                    enabled: !page.atHome
-
-                    onClicked: {
-                        if (!page.atHome) {
-                            folderModel.folder =
-                                    folderModel.parentFolder
-                        }
                     }
                 }
             }
@@ -126,17 +119,10 @@ Page {
 
             onClicked: {
                 if (fileIsDir) {
-                    // Open the selected folder.
                     folderModel.folder = fileURL
                 } else {
-                    // Return the selected audio file.
-                    console.log(
-                        "Audio picker: selected",
-                        fileURL
-                    )
-
+                    console.log("Audio picker: selected", fileURL)
                     page.fileSelected(fileURL, fileName)
-
                     pageStack.pop()
                 }
             }
@@ -144,20 +130,15 @@ Page {
             Label {
                 anchors.left: parent.left
                 anchors.leftMargin: Theme.horizontalPageMargin
-
                 anchors.right: itemTypeLabel.left
                 anchors.rightMargin: Theme.paddingMedium
-
                 anchors.verticalCenter: parent.verticalCenter
 
                 text: fileName
-
                 color: fileItem.highlighted
                        ? Theme.highlightColor
                        : Theme.primaryColor
-
                 font.pixelSize: Theme.fontSizeMedium
-
                 truncationMode: TruncationMode.Fade
             }
 
@@ -166,17 +147,12 @@ Page {
 
                 anchors.right: parent.right
                 anchors.rightMargin: Theme.horizontalPageMargin
-
                 anchors.verticalCenter: parent.verticalCenter
 
-                text: fileIsDir
-                      ? qsTr("Folder  ›")
-                      : qsTr("Audio")
-
+                text: fileIsDir ? qsTr("Folder  ›") : qsTr("Audio")
                 color: fileItem.highlighted
                        ? Theme.highlightColor
                        : Theme.secondaryColor
-
                 font.pixelSize: Theme.fontSizeSmall
             }
         }
@@ -185,12 +161,10 @@ Page {
             enabled: folderModel.count === 0
 
             text: qsTr("No audio files or folders")
-
-            hintText: qsTr(
-                "Try another folder or check where your audio files are stored."
-            )
+            hintText: qsTr("Try another folder or check where your audio files are stored.")
         }
 
         VerticalScrollDecorator {}
     }
+
 }

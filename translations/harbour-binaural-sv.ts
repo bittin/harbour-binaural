@@ -59,10 +59,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Home</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Up</source>
         <translation type="unfinished"></translation>
     </message>
@@ -358,39 +354,7 @@
 <context>
     <name>SoundpickerPage</name>
     <message>
-        <source>Pause</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Play</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Custom sound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Playback</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Playing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Loop sound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Repeat continuously</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Play once</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -406,7 +370,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Playback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Audio player unavailable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -415,6 +387,30 @@
     </message>
     <message>
         <source>Select an audio file first</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pause</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loop sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Repeat continuously</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play once</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

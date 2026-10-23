@@ -6,7 +6,6 @@ import QtGraphicalEffects 1.0
 Page {
     id: page
 
-
     objectName: "SoundpickerPage"
 
     // Reference to the top-level ApplicationWindow.
@@ -50,9 +49,7 @@ Page {
 
             Label {
                 x: Theme.horizontalPageMargin
-
-                width: parent.width -
-                       2 * Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
 
                 text: page.selectedFileName !== ""
                       ? page.selectedFileName
@@ -65,17 +62,12 @@ Page {
 
             Button {
                 x: Theme.horizontalPageMargin
-
-                width: parent.width -
-                       2 * Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
 
                 text: qsTr("Choose MP3 or audio file")
 
                 onClicked: {
-                    console.log(
-                                "Custom sound: opening audio file browser"
-                                )
-
+                    console.log("Custom sound: opening audio file browser")
                     pageStack.push(audioFilePicker)
                 }
             }
@@ -86,9 +78,7 @@ Page {
 
             Label {
                 x: Theme.horizontalPageMargin
-
-                width: parent.width -
-                       2 * Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
 
                 text: {
                     if (!page.appWindow)
@@ -110,12 +100,10 @@ Page {
 
             Button {
                 x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
 
-                width: parent.width -
-                       2 * Theme.horizontalPageMargin
-
-                text: page.appWindow
-                      && page.appWindow.customSoundPlaying
+                text: page.appWindow &&
+                      page.appWindow.customSoundPlaying
                       ? qsTr("Pause")
                       : qsTr("Play")
 
@@ -124,18 +112,13 @@ Page {
 
                 onClicked: {
                     if (!page.appWindow) {
-                        console.log(
-                                    "Custom sound: appWindow reference is missing"
-                                    )
+                        console.log("Custom sound: appWindow reference is missing")
                         return
                     }
 
                     // Synchronize the global audio player.
-                    page.appWindow.customSoundSource =
-                            page.selectedFile
-
-                    page.appWindow.customSoundName =
-                            page.selectedFileName
+                    page.appWindow.customSoundSource = page.selectedFile
+                    page.appWindow.customSoundName = page.selectedFileName
 
                     if (page.appWindow.customSoundPlaying) {
                         page.appWindow.pauseCustomSound()
@@ -147,9 +130,7 @@ Page {
 
             Button {
                 x: Theme.horizontalPageMargin
-
-                width: parent.width -
-                       2 * Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
 
                 text: qsTr("Stop")
 
@@ -173,7 +154,7 @@ Page {
 
                 checked: page.appWindow
                          ? page.appWindow.customSoundLoop
-                         : true
+                         : false
 
                 enabled: page.appWindow !== null
 
@@ -188,16 +169,15 @@ Page {
             }
 
             Item {
-                width: parent.width
+                id: volumeControl
 
-                height: customSoundVolumeSlider.height +
-                        Theme.iconSizeSmall
+                width: parent.width
+                height: customSoundVolumeSlider.height + Theme.iconSizeSmall
 
                 Slider {
                     id: customSoundVolumeSlider
 
                     width: parent.width * 0.9
-
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     minimumValue: 0
@@ -230,9 +210,7 @@ Page {
 
                     anchors.top: customSoundVolumeSlider.bottom
                     anchors.topMargin: -Theme.paddingLarge
-
-                    anchors.horizontalCenter:
-                        customSoundVolumeSlider.horizontalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
 
                     opacity: customSoundVolumeSlider.enabled ? 1.0 : 0.5
 
@@ -260,7 +238,6 @@ Page {
 
                     ColorOverlay {
                         anchors.fill: customSoundVolumeImage
-
                         source: customSoundVolumeImage
                         color: Theme.primaryColor
                     }
@@ -284,15 +261,10 @@ Page {
                     page.appWindow.customSoundSource = fileUrl
                     page.appWindow.customSoundName = fileName
                 } else {
-                    console.log(
-                                "Custom sound: appWindow reference is missing"
-                                )
+                    console.log("Custom sound: appWindow reference is missing")
                 }
 
-                console.log(
-                            "Custom sound: selected file",
-                            fileUrl
-                            )
+                console.log("Custom sound: selected file", fileUrl)
             }
         }
     }

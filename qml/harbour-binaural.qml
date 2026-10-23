@@ -45,7 +45,7 @@ ApplicationWindow {
     // Custom Sound Picker
     property url customSoundSource: ""
     property string customSoundName: ""
-    property bool customSoundLoop: true
+    property bool customSoundLoop: false
 
     property bool customSoundPlaying: customAudio.playbackState
                                       === Audio.PlayingState
