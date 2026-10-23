@@ -25,8 +25,12 @@ ApplicationWindow {
                                 ? mainPage.activeBand
                                 : ""
 
-    property string activeAmbience: mainPage
-                                    ? mainPage.activeAmbience
+    property var activeAmbiences: mainPage
+                                  ? mainPage.activeAmbiences
+                                  : []
+
+    property string activeAmbience: activeAmbiences.length > 0
+                                    ? activeAmbiences[0]
                                     : ""
 
     property string activeNoise: mainPage
@@ -154,7 +158,7 @@ ApplicationWindow {
     // stop): dimmed hint state of the playback bar.
     property bool pausedMode: !isPlaying &&
                               (activeBand !== "" ||
-                               activeAmbience !== "" ||
+                               activeAmbiences.length > 0 ||
                                activeNoise !== "")
 
     initialPage: Component {
@@ -171,7 +175,7 @@ ApplicationWindow {
     cover: Component {
         CoverPage {
             activeBand: appWindow.activeBand
-            activeAmbience: appWindow.activeAmbience
+            activeAmbiences: appWindow.activeAmbiences
             activeNoise: appWindow.activeNoise
             isPlaying: appWindow.isPlaying
             isPaused: appWindow.pausedMode

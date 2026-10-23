@@ -62,10 +62,11 @@ public:
     Q_INVOKABLE void pauseBinaural();
     Q_INVOKABLE void setFrequencyBand(const QString &band);
 
-    // Existing QML API: unchanged.
+    // Ambience controls.
     Q_INVOKABLE void setAmbience(const QString &ambience);
     Q_INVOKABLE void pauseAmbience();
     Q_INVOKABLE void stopAmbience();
+    Q_INVOKABLE void stopAmbienceByName(const QString &ambience);
     Q_INVOKABLE void resumeAmbience();
 
     Q_INVOKABLE void setColoredNoise(const QString &noise);
@@ -110,7 +111,7 @@ private:
     QAudioOutput *m_audioOutput;
     BinauralGenerator *m_generator;
 
-    // Up to three independent ambience channels.
+    // Three independent ambience channels.
     AmbienceChannel *m_ambienceChannels[MaxAmbienceChannels];
 
     // Colored-noise output.
@@ -132,7 +133,7 @@ private:
     int m_ambienceVolume;
     int m_coloredNoiseVolume;
 
-    // Fade state used by the existing implementations.
+    // Fade state.
     int m_binauralFadeInPosition;
 
     double m_binauralFadeOutStartVolume;

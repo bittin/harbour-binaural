@@ -8,8 +8,20 @@ Page {
     id: page
 
     property string activeBand: ""
-    property string activeAmbience: ""
     property string activeNoise: ""
+    property var activeAmbiences: []
+    property string activeAmbience: activeAmbiences.length > 0
+                                    ? activeAmbiences[0] : ""
+
+    property string ambienceDisplayName: {
+        if (activeAmbiences.length === 0)
+            return ""
+
+        if (activeAmbiences.length === 1)
+            return SoundNames.label(activeAmbiences[0])
+
+        return SoundNames.label("Ambient mix")
+    }
 
     property bool bandPlaying: audioEngine.binauralPlaying
     property bool ambiencePlaying: audioEngine.ambiencePlaying
@@ -24,9 +36,7 @@ Page {
                              noisePlaying
 
     property bool pausedMode: !isPlaying &&
-                              (activeBand !== "" ||
-                               activeAmbience !== "" ||
-                               activeNoise !== "")
+        (activeBand !== "" || activeAmbiences.length > 0 || activeNoise !== "")
 
     AudioEngine {
         id: audioEngine
@@ -38,12 +48,13 @@ Page {
 
     onActiveBandChanged: checkSleepTimer()
     onActiveAmbienceChanged: checkSleepTimer()
+    onActiveAmbiencesChanged: checkSleepTimer()
     onActiveNoiseChanged: checkSleepTimer()
 
     function checkSleepTimer() {
         if (appWindow.sleepTimerRunning &&
             page.activeBand === "" &&
-            page.activeAmbience === "" &&
+            page.activeAmbiences.length === 0 &&
             page.activeNoise === "") {
             appWindow.cancelSleepTimer()
         }
@@ -62,12 +73,12 @@ Page {
             }
         }
 
-        if (activeAmbience !== "") {
-            if (audioEngine.ambiencePaused) {
+        if (activeAmbiences.length > 0) {
+            if (audioEngine.ambiencePaused)
                 audioEngine.resumeAmbience()
-            } else if (!audioEngine.ambiencePlaying) {
-                audioEngine.setAmbience(activeAmbience)
-            }
+
+            for (var i = 0; i < activeAmbiences.length; ++i)
+                audioEngine.setAmbience(activeAmbiences[i])
         }
 
         if (activeNoise !== "") {
@@ -97,7 +108,7 @@ Page {
         audioEngine.stopColoredNoise()
 
         page.activeBand = ""
-        page.activeAmbience = ""
+        page.activeAmbiences = []
         page.activeNoise = ""
 
         ambienceDrawer.open = false
@@ -123,7 +134,7 @@ Page {
         background: AmbienceDrawer {
             id: ambienceSelector
 
-            activeAmbience: page.activeAmbience
+            activeAmbiences: page.activeAmbiences
             ambiencePlaying: page.ambiencePlaying
             pausedMode: page.pausedMode
 
@@ -132,18 +143,33 @@ Page {
             }
 
             onAmbienceSelected: {
-                if (!page.pausedMode) {
-                    page.activeAmbience = ambience
-                    audioEngine.setAmbience(ambience)
-                } else {
-                    audioEngine.stopAmbience()
-                    page.activeAmbience = ambience
-                }
+                if (page.activeAmbiences.indexOf(ambience) !== -1)
+                    return
+
+                if (page.activeAmbiences.length >= 3)
+                    return
+
+                var wasPaused = page.pausedMode
+
+                page.activeAmbiences = page.activeAmbiences.concat([ambience])
+
+                audioEngine.setAmbience(ambience)
+
+                if (wasPaused)
+                    audioEngine.pauseAmbience()
             }
 
             onAmbienceDeselected: {
-                page.activeAmbience = ""
-                audioEngine.stopAmbience()
+                var updated = page.activeAmbiences.slice()
+                var index = updated.indexOf(ambience)
+
+                if (index === -1)
+                    return
+
+                updated.splice(index, 1)
+                page.activeAmbiences = updated
+
+                audioEngine.stopAmbienceByName(ambience)
             }
 
             onAmbienceVolumeChanged: {
@@ -181,7 +207,7 @@ Page {
                         text: qsTr("Deselect all sounds")
 
                         enabled: page.activeBand !== "" ||
-                                 page.activeAmbience !== "" ||
+                                 page.activeAmbiences.length > 0 ||
                                  page.activeNoise !== ""
 
                         onClicked: {
@@ -193,7 +219,7 @@ Page {
                         text: qsTr("Timer")
 
                         enabled: page.activeBand !== "" ||
-                                 page.activeAmbience !== "" ||
+                                 page.activeAmbiences.length > 0 ||
                                  page.activeNoise !== ""
 
                         onClicked: {
@@ -648,18 +674,19 @@ Page {
 
                         Button {
                             id: ambienceButton
-
                             anchors.centerIn: parent
                             preferredWidth: Theme.buttonWidthMedium
 
-                            text: page.activeAmbience === ""
+                            text: page.activeAmbiences.length === 0
                                   ? qsTr("Choose an ambient sound")
-                                  : SoundNames.label(page.activeAmbience)
+                                  : page.activeAmbiences.map(function(ambience) {
+                                        return SoundNames.label(ambience)
+                                    }).join(", ")
 
-                            highlighted: page.activeAmbience !== ""
+                            highlighted: page.activeAmbiences.length > 0
 
                             opacity: page.ambiencePlaying ? 1.0
-                                     : page.activeAmbience !== "" ? 0.6
+                                     : page.activeAmbiences.length > 0 ? 0.6
                                      : 1.0
 
                             onClicked: {

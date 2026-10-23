@@ -53,13 +53,6 @@
     </message>
 </context>
 <context>
-    <name>CoverPage</name>
-    <message>
-        <source>Start your sound mix</source>
-        <translation>Start your sound mix</translation>
-    </message>
-</context>
-<context>
     <name>CreditPage</name>
     <message>
         <source>Norwegian</source>
@@ -131,10 +124,6 @@
         <translation>Are created by playing two slightly different tones, one in each ear. The brain processes the difference as a rhythmic beat. Different beat frequencies can be used to support focus, relaxation, meditation, or sleep.</translation>
     </message>
     <message>
-        <source>Individual experiences may vary.</source>
-        <translation>Individual experiences may vary.</translation>
-    </message>
-    <message>
         <source>Deep sleep, rest</source>
         <translation>Deep sleep, rest</translation>
     </message>
@@ -168,10 +157,6 @@
     <message>
         <source>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</source>
         <translation>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</translation>
-    </message>
-    <message>
-        <source>Individual experiences may vary.</source>
-        <translation>Individual experiences may vary.</translation>
     </message>
     <message>
         <source>Focus, sleep and background noise masking</source>
@@ -317,6 +302,18 @@
     <message>
         <source>Lake</source>
         <translation>Lake</translation>
+    </message>
+    <message>
+        <source>Start your sound mix</source>
+        <translation>Start your sound mix</translation>
+    </message>
+    <message>
+        <source>Individual experiences may vary.</source>
+        <translation>Individual experiences may vary.</translation>
+    </message>
+    <message>
+        <source>Ambient mix</source>
+        <translation>Ambient mix</translation>
     </message>
 </context>
 <context>

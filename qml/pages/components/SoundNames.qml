@@ -39,6 +39,11 @@ QtObject {
         case "Sailing":     return qsTr("Sailing")
         case "Lake":        return qsTr("Lake")
 
+            // General UI text
+        case "Ambient mix":                 return qsTr("Ambient mix")
+        case "Start your sound mix": return qsTr("Start your sound mix")
+        case "Individual experiences may vary.": return qsTr("Individual experiences may vary.")
+
         default:            return key
         }
     }

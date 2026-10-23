@@ -53,13 +53,6 @@
     </message>
 </context>
 <context>
-    <name>CoverPage</name>
-    <message>
-        <source>Start your sound mix</source>
-        <translation>Begin je geluidsmix</translation>
-    </message>
-</context>
-<context>
     <name>CreditPage</name>
     <message>
         <source>Norwegian</source>
@@ -131,10 +124,6 @@
         <translation>Worden gemaakt door twee licht verschillende tonen af te spelen, één in elk oor. De hersenen verwerken het verschil als een soort ritmische beat. Verschillende beatfrequenties kunnen gebruikt worden om je te helpen focussen, ontspannen, mediteren of slapen.</translation>
     </message>
     <message>
-        <source>Individual experiences may vary.</source>
-        <translation>De ervaring kan verschillen van persoon tot persoon.</translation>
-    </message>
-    <message>
         <source>Deep sleep, rest</source>
         <translation>Diepe slaap, rust</translation>
     </message>
@@ -168,10 +157,6 @@
     <message>
         <source>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</source>
         <translation>Geluid met verschillende hoeveelheden energie op verschillende frequenties. Elke kleur heeft een ander karakter, en wordt doorgaans gebruikt voor verschillende doeleinden.</translation>
-    </message>
-    <message>
-        <source>Individual experiences may vary.</source>
-        <translation>De ervaring kan verschillen van persoon tot persoon.</translation>
     </message>
     <message>
         <source>Focus, sleep and background noise masking</source>
@@ -317,6 +302,18 @@
     <message>
         <source>Lake</source>
         <translation>Meer</translation>
+    </message>
+    <message>
+        <source>Start your sound mix</source>
+        <translation type="unfinished">Begin je geluidsmix</translation>
+    </message>
+    <message>
+        <source>Individual experiences may vary.</source>
+        <translation type="unfinished">De ervaring kan verschillen van persoon tot persoon.</translation>
+    </message>
+    <message>
+        <source>Ambient mix</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

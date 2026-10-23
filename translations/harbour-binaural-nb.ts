@@ -53,13 +53,6 @@
     </message>
 </context>
 <context>
-    <name>CoverPage</name>
-    <message>
-        <source>Start your sound mix</source>
-        <translation>Start lydmiksen din</translation>
-    </message>
-</context>
-<context>
     <name>CreditPage</name>
     <message>
         <source>Norwegian</source>
@@ -131,10 +124,6 @@
         <translation>Skapes ved å spille av to litt forskjellige toner, én i hvert øre. Hjernen behandler forskjellen som en rytmisk puls. Forskjellige frekvenser kan brukes til å støtte fokus, avslapning, meditasjon eller søvn.</translation>
     </message>
     <message>
-        <source>Individual experiences may vary.</source>
-        <translation>Individuelle opplevelser kan variere.</translation>
-    </message>
-    <message>
         <source>Deep sleep, rest</source>
         <translation>Dyp søvn, hvile</translation>
     </message>
@@ -168,10 +157,6 @@
     <message>
         <source>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</source>
         <translation>Lyd med ulik mengde energi ved forskjellige frekvenser. Hver farge har sine egne kjennetegn og brukes vanligvis til ulike formål.</translation>
-    </message>
-    <message>
-        <source>Individual experiences may vary.</source>
-        <translation>Individuelle opplevelser kan variere.</translation>
     </message>
     <message>
         <source>Focus, sleep and background noise masking</source>
@@ -317,6 +302,18 @@
     <message>
         <source>Lake</source>
         <translation>Innsjø</translation>
+    </message>
+    <message>
+        <source>Start your sound mix</source>
+        <translation type="unfinished">Start lydmiksen din</translation>
+    </message>
+    <message>
+        <source>Individual experiences may vary.</source>
+        <translation type="unfinished">Individuelle opplevelser kan variere.</translation>
+    </message>
+    <message>
+        <source>Ambient mix</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -1,7 +1,8 @@
 #include "audioengine.h"
 
-#include <QDebug>
 #include <QMap>
+#include <QDebug>
+#include <QtMath>
 
 namespace
 {
@@ -24,6 +25,10 @@ namespace
     }
 }
 
+// ============================================================================
+// STATE
+// ============================================================================
+
 bool AudioEngine::isAmbiencePlaying() const
 {
     for (int i = 0; i < MaxAmbienceChannels; ++i) {
@@ -38,43 +43,69 @@ bool AudioEngine::isAmbiencePlaying() const
 
 bool AudioEngine::isAmbiencePaused() const
 {
-    bool hasPausedChannel = false;
+    bool foundPausedChannel = false;
 
     for (int i = 0; i < MaxAmbienceChannels; ++i) {
-        if (!m_ambienceChannels[i])
+        AmbienceChannel *channel = m_ambienceChannels[i];
+
+        if (!channel)
             continue;
 
-        if (m_ambienceChannels[i]->isPlaying())
+        if (channel->isPlaying())
             return false;
 
-        if (m_ambienceChannels[i]->isPaused())
-            hasPausedChannel = true;
+        if (channel->isPaused())
+            foundPausedChannel = true;
     }
 
-    return hasPausedChannel;
+    return foundPausedChannel;
 }
+
+// ============================================================================
+// PLAYBACK
+// ============================================================================
 
 void AudioEngine::setAmbience(const QString &ambience)
 {
     const auto it = ambienceFiles().constFind(ambience);
 
-    if (it == ambienceFiles().constEnd())
+    if (it == ambienceFiles().constEnd()) {
+        qWarning() << "AudioEngine: unknown ambience:" << ambience;
         return;
+    }
 
-    // Preserve the current single-selection behavior.
-    stopAmbiencesImmediately();
+    // Do not start the same sound in multiple channels.
+    for (int i = 0; i < MaxAmbienceChannels; ++i) {
+        AmbienceChannel *channel = m_ambienceChannels[i];
 
-    if (!m_ambienceChannels[0]->start(it.value())) {
-        qWarning() << "AudioEngine: failed to start ambience:"
-                   << ambience;
+        if (channel && channel->fileName() == it.value())
+            return;
+    }
+
+    // Find the first free channel.
+    for (int i = 0; i < MaxAmbienceChannels; ++i) {
+        AmbienceChannel *channel = m_ambienceChannels[i];
+
+        if (!channel || !channel->fileName().isEmpty())
+            continue;
+
+        channel->setVolume(m_ambienceVolume);
+
+        if (!channel->start(it.value())) {
+            qWarning()
+                << "AudioEngine: failed to start ambience:"
+                << ambience;
+        }
 
         updatePlayingState();
         return;
     }
 
-    m_ambienceChannels[0]->setVolume(m_ambienceVolume);
-
-    updatePlayingState();
+    // All three channels are occupied. Reject the fourth sound.
+    qWarning()
+        << "AudioEngine: maximum of"
+        << MaxAmbienceChannels
+        << "simultaneous ambiences reached";
 }
 
 void AudioEngine::pauseAmbience()
@@ -83,6 +114,8 @@ void AudioEngine::pauseAmbience()
         if (m_ambienceChannels[i])
             m_ambienceChannels[i]->pause();
     }
+
+    updatePlayingState();
 }
 
 void AudioEngine::resumeAmbience()
@@ -91,14 +124,33 @@ void AudioEngine::resumeAmbience()
         if (m_ambienceChannels[i])
             m_ambienceChannels[i]->resume();
     }
+
+    updatePlayingState();
 }
 
 void AudioEngine::stopAmbience()
 {
+    stopAmbiencesImmediately();
+}
+
+void AudioEngine::stopAmbienceByName(const QString &ambience)
+{
+    const auto it = ambienceFiles().constFind(ambience);
+
+    if (it == ambienceFiles().constEnd())
+        return;
+
     for (int i = 0; i < MaxAmbienceChannels; ++i) {
-        if (m_ambienceChannels[i])
-            m_ambienceChannels[i]->stop();
+        AmbienceChannel *channel = m_ambienceChannels[i];
+
+        if (channel && channel->fileName() == it.value()) {
+            // Stop only the requested sound and free its channel immediately.
+            channel->stopImmediately();
+            break;
+        }
     }
+
+    updatePlayingState();
 }
 
 void AudioEngine::stopAmbiencesImmediately()
@@ -107,7 +159,13 @@ void AudioEngine::stopAmbiencesImmediately()
         if (m_ambienceChannels[i])
             m_ambienceChannels[i]->stopImmediately();
     }
+
+    updatePlayingState();
 }
+
+// ============================================================================
+// VOLUME
+// ============================================================================
 
 void AudioEngine::setAmbienceVolume(int volume)
 {

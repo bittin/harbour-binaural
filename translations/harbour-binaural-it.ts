@@ -53,13 +53,6 @@
     </message>
 </context>
 <context>
-    <name>CoverPage</name>
-    <message>
-        <source>Start your sound mix</source>
-        <translation>Avvia il tuo mix sonoro</translation>
-    </message>
-</context>
-<context>
     <name>CreditPage</name>
     <message>
         <source>Norwegian</source>
@@ -131,10 +124,6 @@
         <translation>Sono creati riproducendo due toni leggermente diversi, uno per ciascun orecchio. Il cervello elabora la differenza come un battito ritmico. Diverse frequenze di battito possono essere utilizzate per favorire la concentrazione, il rilassamento, la meditazione o il sonno.</translation>
     </message>
     <message>
-        <source>Individual experiences may vary.</source>
-        <translation>Gli effetti possono variare da persona a persona.</translation>
-    </message>
-    <message>
         <source>Deep sleep, rest</source>
         <translation>Sonno profondo, riposo</translation>
     </message>
@@ -168,10 +157,6 @@
     <message>
         <source>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</source>
         <translation>Suono con diverse quantità di energia alle diverse frequenze. Ogni colore ha caratteristiche diverse ed è comunemente utilizzato per scopi differenti.</translation>
-    </message>
-    <message>
-        <source>Individual experiences may vary.</source>
-        <translation>Gli effetti possono variare da persona a persona.</translation>
     </message>
     <message>
         <source>Focus, sleep and background noise masking</source>
@@ -317,6 +302,18 @@
     <message>
         <source>Lake</source>
         <translation>Lago</translation>
+    </message>
+    <message>
+        <source>Start your sound mix</source>
+        <translation type="unfinished">Avvia il tuo mix sonoro</translation>
+    </message>
+    <message>
+        <source>Individual experiences may vary.</source>
+        <translation type="unfinished">Gli effetti possono variare da persona a persona.</translation>
+    </message>
+    <message>
+        <source>Ambient mix</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
