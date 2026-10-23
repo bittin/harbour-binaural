@@ -113,7 +113,7 @@ Page {
         page.activeAmbiences = []
         page.activeNoise = ""
 
-        ambienceDrawer.open = false
+        selectorDrawer.open = false
     }
 
     Component {
@@ -126,23 +126,18 @@ Page {
         InfoColoredPage {}
     }
 
-    Drawer {
-        id: ambienceDrawer
+    // Components used as the shared drawer's background panels.
+    Component {
+        id: ambiencePanelComponent
 
-        anchors.fill: parent
-        dock: Dock.Bottom
-        backgroundSize: ambienceSelector.height
-
-        background: AmbienceDrawer {
-            id: ambienceSelector
+        AmbienceDrawer {
+            width: selectorLoader.width
 
             activeAmbiences: page.activeAmbiences
             ambiencePlaying: page.ambiencePlaying
             pausedMode: page.pausedMode
 
-            onCloseRequested: {
-                ambienceDrawer.open = false
-            }
+            onCloseRequested: selectorDrawer.open = false
 
             onAmbienceSelected: {
                 if (page.activeAmbiences.indexOf(ambience) !== -1)
@@ -152,8 +147,8 @@ Page {
                     return
 
                 var wasPaused = page.pausedMode
-
-                page.activeAmbiences = page.activeAmbiences.concat([ambience])
+                page.activeAmbiences =
+                        page.activeAmbiences.concat([ambience])
 
                 audioEngine.setAmbience(ambience)
 
@@ -178,6 +173,48 @@ Page {
                 audioEngine.setAmbienceVolume(volume)
             }
         }
+    }
+
+    Component {
+        id: customSoundPanelComponent
+
+        SoundPickerDrawer {
+            width: selectorLoader.width
+            appWindow: page.applicationWindow
+
+            onCloseRequested: selectorDrawer.open = false
+        }
+    }
+
+    Drawer {
+        id: selectorDrawer
+
+        anchors.fill: parent
+        dock: Dock.Bottom
+
+        // false = ambience panel; true = custom sound panel
+        property bool showingCustomSound: false
+
+        backgroundSize: selectorLoader.height
+
+        background: Loader {
+            id: selectorLoader
+
+            width: parent.width
+
+            sourceComponent: selectorDrawer.showingCustomSound
+                            ? customSoundPanelComponent
+                            : ambiencePanelComponent
+
+            height: item ? item.height : 0
+        }
+
+        // KEEP your existing foregroundContent Item here, unchanged:
+        // - foreground SilicaFlickable and all main-page controls
+        // - PullDownMenu
+        // - drawerDimmer, with opacity based on selectorDrawer.opened
+        // - MouseArea, enabled when selectorDrawer.opened,
+        //   closing selectorDrawer on click
 
         // The container is the Drawer foreground.
         // The dimmer and click handler move with the foreground,
@@ -682,7 +719,7 @@ Page {
                                 id: ambienceButton
 
                                 anchors.centerIn: parent
-                                preferredWidth: Theme.buttonWidthMedium
+                                width: parent.width * 0.8
 
                                 text: page.activeAmbiences.length === 0
                                       ? qsTr("Choose an ambient sound")
@@ -699,7 +736,8 @@ Page {
                                            : 1.0
 
                                 onClicked: {
-                                    ambienceDrawer.open = true
+                                    selectorDrawer.showingCustomSound = false
+                                    selectorDrawer.open = true
                                 }
 
                                 Label {
@@ -729,17 +767,13 @@ Page {
                                 id: soundPickerButton
 
                                 anchors.centerIn: parent
-                                preferredWidth: Theme.buttonWidthMedium
+                                width: parent.width * 0.8
 
                                 text: qsTr("Choose custom sound")
 
                                 onClicked: {
-                                    pageStack.push(
-                                                Qt.resolvedUrl("SoundpickerPage.qml"),
-                                                {
-                                                    "appWindow": page.applicationWindow
-                                                }
-                                                )
+                                    selectorDrawer.showingCustomSound = true
+                                    selectorDrawer.open = true
                                 }
 
                                 Label {
@@ -775,7 +809,7 @@ Page {
                 z: 1
 
                 color: Theme.overlayBackgroundColor
-                opacity: ambienceDrawer.opened ? 0.6 : 0.0
+                opacity: selectorDrawer.opened ? 0.6 : 0.0
 
                 Behavior on opacity {
                     NumberAnimation {
@@ -789,10 +823,10 @@ Page {
             MouseArea {
                 anchors.fill: parent
                 z: 2
-                enabled: ambienceDrawer.opened
+                enabled: selectorDrawer.opened
 
                 onClicked: {
-                    ambienceDrawer.open = false
+                    selectorDrawer.open = false
                 }
             }
         }

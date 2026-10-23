@@ -5,11 +5,7 @@ import Qt.labs.folderlistmodel 2.1
 Page {
     id: page
 
-    // "file" selects one audio file.
-    // "folder" selects the currently displayed folder.
     property string selectionMode: "file"
-
-    // Use the Sailfish Silica StandardPaths API.
     property url homeFolder: StandardPaths.home
 
     signal fileSelected(url fileUrl, string fileName)
@@ -27,7 +23,8 @@ Page {
     }
 
     property bool atHome:
-        normalizedPath(folderModel.folder) === normalizedPath(homeFolder)
+        normalizedPath(folderModel.folder) ===
+        normalizedPath(homeFolder)
 
     function selectCurrentFolder() {
         var folderUrl = folderModel.folder
@@ -42,7 +39,7 @@ Page {
 
         console.log("Audio picker: selected folder", folderUrl)
 
-        page.folderSelected(folderUrl, folderName)
+        folderSelected(folderUrl, folderName)
         pageStack.pop()
     }
 
@@ -50,13 +47,11 @@ Page {
         id: folderModel
 
         folder: page.homeFolder
-        rootFolder: page.homeFolder
 
         showDirs: true
         showFiles: true
         showHidden: false
         showOnlyReadable: true
-
         sortField: FolderListModel.Name
 
         nameFilters: [
@@ -85,6 +80,7 @@ Page {
 
         anchors.fill: parent
         model: folderModel
+        clip: true
 
         header: Column {
             width: fileList.width
@@ -100,7 +96,10 @@ Page {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
 
-                text: page.normalizedPath(folderModel.folder)
+                text: page.atHome
+                      ? qsTr("Home")
+                      : page.normalizedPath(folderModel.folder)
+
                 color: Theme.secondaryColor
                 font.pixelSize: Theme.fontSizeSmall
                 wrapMode: Text.WrapAnywhere
@@ -110,29 +109,15 @@ Page {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
 
-                text: qsTr("Up")
+                text: qsTr("Home")
                 enabled: !page.atHome
 
                 onClicked: {
-                    if (page.atHome)
-                        return
-
-                    var homePath = page.normalizedPath(page.homeFolder)
-                    var parentFolder = folderModel.parentFolder
-                    var parentPath = page.normalizedPath(parentFolder)
-
-                    if (parentPath === homePath ||
-                            parentPath.indexOf(homePath + "/") === 0) {
-                        folderModel.folder = parentFolder
-                    } else {
-                        folderModel.folder = page.homeFolder
-                    }
+                    folderModel.folder = page.homeFolder
                 }
             }
 
             Button {
-                visible: page.selectionMode === "folder"
-
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
 
@@ -142,9 +127,7 @@ Page {
             }
 
             SectionHeader {
-                text: page.selectionMode === "folder"
-                      ? qsTr("Open a folder or select this folder")
-                      : qsTr("Folders and audio files")
+                text: qsTr("Folders and audio files")
             }
         }
 
@@ -156,8 +139,10 @@ Page {
 
             onClicked: {
                 if (fileIsDir) {
+                    // Open the folder and display its contents.
                     folderModel.folder = fileURL
-                } else if (page.selectionMode === "file") {
+                } else {
+                    // Select an individual audio file.
                     console.log("Audio picker: selected", fileURL)
 
                     page.fileSelected(fileURL, fileName)
@@ -202,7 +187,8 @@ Page {
         }
 
         ViewPlaceholder {
-            enabled: folderModel.count === 0
+            enabled: folderModel.status === FolderListModel.Ready
+                     && folderModel.count === 0
 
             text: qsTr("No audio files or folders")
             hintText: qsTr("Try another folder or check where your audio files are stored.")
@@ -210,5 +196,4 @@ Page {
 
         VerticalScrollDecorator {}
     }
-
 }

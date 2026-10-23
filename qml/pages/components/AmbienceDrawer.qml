@@ -149,8 +149,8 @@ SilicaFlickable {
                     enabled: highlighted || ambiencePage.activeAmbiences.length < 3
 
                     opacity: !enabled ? 0.35
-                             : highlighted && !ambiencePage.ambiencePlaying ? 0.6
-                             : 1.0
+                                      : highlighted && !ambiencePage.ambiencePlaying ? 0.6
+                                                                                     : 1.0
 
                     onClicked: {
                         if (highlighted) {
@@ -179,14 +179,20 @@ SilicaFlickable {
 
         // Volume control.
         Item {
+            id: ambienceVolumeContainer
+
             width: parent.width
-            height: ambienceVolumeSlider.height + Theme.iconSizeSmall
+            height: ambienceVolumeSlider.height
+                    + ambienceVolumeIcon.height
+                    - Theme.paddingLarge
 
             Slider {
                 id: ambienceVolumeSlider
 
-                width: parent.width * 0.9
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
 
                 minimumValue: 0
                 maximumValue: 100
