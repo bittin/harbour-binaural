@@ -88,15 +88,15 @@
     </message>
     <message>
         <source>Audio files</source>
-        <translation>Zvočne datoteke</translation>
+        <translation type="unfinished">Zvočne datoteke</translation>
     </message>
     <message>
         <source>Pixabay Content License</source>
-        <translation>Licenca za vsebino Pixabay</translation>
+        <translation type="unfinished">Licenca za vsebino Pixabay</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation>Slike</translation>
+        <translation type="unfinished">Slike</translation>
     </message>
     <message>
         <source>Binaural graph image modified for use in</source>
@@ -114,7 +114,7 @@
     <message>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation>Datoteke so bile ročno prilagojene za uporabo v tej aplikaciji v okviru</translation>
+        <translation type="unfinished">Datoteke so bile ročno prilagojene za uporabo v tej aplikaciji v okviru</translation>
     </message>
 </context>
 <context>
