@@ -119,17 +119,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="285"/>
-        <source>Pixabay</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="301"/>
+        <location filename="../qml/pages/CreditPage.qml" line="300"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="315"/>
+        <location filename="../qml/pages/CreditPage.qml" line="314"/>
         <source>Images have been manually edited for use in this app:</source>
         <translation type="unfinished"></translation>
     </message>

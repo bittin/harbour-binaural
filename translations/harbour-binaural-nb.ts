@@ -97,10 +97,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Pixabay</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
