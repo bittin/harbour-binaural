@@ -188,6 +188,37 @@ Page {
                 }
             }
 
+            Row {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                spacing: Theme.paddingMedium
+
+                Button {
+                    width: (parent.width - parent.spacing) / 2
+                    text: qsTr("Previous")
+
+                    enabled: page.appWindow !== null &&
+                             page.appWindow.customSoundPlaylistActive
+
+                    onClicked: {
+                        page.appWindow.playPreviousCustomSound()
+                    }
+                }
+
+                Button {
+                    width: (parent.width - parent.spacing) / 2
+                    text: qsTr("Next")
+
+                    enabled: page.appWindow !== null &&
+                             page.appWindow.customSoundPlaylistActive
+
+                    onClicked: {
+                        page.appWindow.playNextCustomSound()
+                    }
+                }
+            }
+
+
             TextSwitch {
                 text: qsTr("Loop folder")
 

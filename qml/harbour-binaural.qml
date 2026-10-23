@@ -22,9 +22,7 @@ ApplicationWindow {
 
     property var mainPage
 
-    property string activeBand: mainPage
-                                ? mainPage.activeBand
-                                : ""
+    property string activeBand: mainPage ? mainPage.activeBand : ""
 
     property var activeAmbiences: mainPage
                                   ? mainPage.activeAmbiences
@@ -34,13 +32,9 @@ ApplicationWindow {
                                     ? activeAmbiences[0]
                                     : ""
 
-    property string activeNoise: mainPage
-                                 ? mainPage.activeNoise
-                                 : ""
+    property string activeNoise: mainPage ? mainPage.activeNoise : ""
 
-    property bool isPlaying: mainPage
-                             ? mainPage.isPlaying
-                             : false
+    property bool isPlaying: mainPage ? mainPage.isPlaying : false
 
     // Custom sound player
     property url customSoundSource: ""
@@ -59,6 +53,9 @@ ApplicationWindow {
     property bool customSoundFolderLoop: false
     property bool customSoundPlaylistActive: false
 
+    // Used to start playback after changing the source.
+    property bool customSoundStartPending: false
+
     Audio {
         id: customAudio
 
@@ -75,9 +72,22 @@ ApplicationWindow {
                 * appWindow.customSoundFadeGain
 
         onStatusChanged: {
+            if (status === Audio.Loaded &&
+                    appWindow.customSoundStartPending) {
+                appWindow.customSoundStartPending = false
+                customAudio.play()
+            }
+
             if (status === Audio.EndOfMedia &&
                     appWindow.customSoundPlaylistActive) {
+                console.log("Playlist: track finished")
                 appWindow.playNextCustomSound()
+            }
+
+            if (status === Audio.InvalidMedia) {
+                appWindow.customSoundStartPending = false
+                console.log("Custom audio: invalid media",
+                            appWindow.customSoundSource)
             }
         }
 
@@ -108,6 +118,7 @@ ApplicationWindow {
         customSoundPlaylist = []
         customSoundPlaylistIndex = -1
         customSoundFolderLoop = false
+        customSoundStartPending = false
     }
 
     function playCustomSound() {
@@ -119,15 +130,25 @@ ApplicationWindow {
 
         customSoundFadeOut.stop()
         customSoundFadeGain = 1.0
+        customSoundStartPending = false
 
         customAudio.play()
     }
 
     function pauseCustomSound() {
         customSoundFadeOut.stop()
+        customSoundStartPending = false
         customSoundFadeGain = 1.0
 
         customAudio.pause()
+    }
+
+    function resumeCustomSound() {
+        customSoundFadeOut.stop()
+        customSoundFadeGain = 1.0
+
+        if (customSoundSource.toString() !== "")
+            customAudio.play()
     }
 
     function stopCustomSound() {
@@ -158,34 +179,70 @@ ApplicationWindow {
         customSoundSource = files[0].url
         customSoundName = files[0].name
 
-        customAudio.play()
+        console.log("Playlist: starting", customSoundName)
+
+        // Start once the new source has loaded.
+        customSoundStartPending = true
     }
 
-    function playNextCustomSound() {
+    function changeCustomSoundTrack(direction) {
         if (!customSoundPlaylistActive ||
                 customSoundPlaylist.length === 0) {
+            console.log("Playlist: cannot change track; no active playlist")
             return
         }
 
-        var nextIndex = customSoundPlaylistIndex + 1
+        var nextIndex = customSoundPlaylistIndex + direction
+
+        if (nextIndex < 0) {
+            if (customSoundFolderLoop) {
+                nextIndex = customSoundPlaylist.length - 1
+            } else {
+                nextIndex = 0
+            }
+        }
 
         if (nextIndex >= customSoundPlaylist.length) {
             if (customSoundFolderLoop) {
                 nextIndex = 0
             } else {
-                customSoundPlaylistActive = false
-                customSoundPlaylistIndex = -1
+                console.log("Playlist: already at the last track")
                 return
             }
         }
 
-        customSoundPlaylistIndex = nextIndex
+        if (nextIndex === customSoundPlaylistIndex) {
+            // Restart the current track when there is nowhere to go.
+            customAudio.stop()
+            customSoundFadeOut.stop()
+            customSoundFadeGain = 1.0
+            customAudio.play()
+            return
+        }
 
+        customSoundFadeOut.stop()
+        customAudio.stop()
+
+        customSoundFadeGain = 1.0
+        customSoundStartPending = true
+        customSoundPlaylistIndex = nextIndex
         customSoundSource = customSoundPlaylist[nextIndex].url
         customSoundName = customSoundPlaylist[nextIndex].name
-        customSoundFadeGain = 1.0
 
-        customAudio.play()
+        console.log("Playlist: switching to track",
+                    nextIndex, customSoundName)
+    }
+
+    function playPreviousCustomSound() {
+        changeCustomSoundTrack(-1)
+    }
+
+    function playNextCustomSound() {
+        changeCustomSoundTrack(1)
+    }
+
+    function skipToNextCustomSound() {
+        playNextCustomSound()
     }
 
     function fadeOutCustomSound() {
@@ -223,7 +280,6 @@ ApplicationWindow {
 
     Timer {
         id: playbackBarVisibilityTimer
-
         interval: 300
         repeat: false
 
@@ -392,4 +448,5 @@ ApplicationWindow {
     }
 
     allowedOrientations: defaultAllowedOrientations
+
 }
