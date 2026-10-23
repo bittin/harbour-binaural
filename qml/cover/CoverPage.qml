@@ -7,8 +7,9 @@ CoverBackground {
     id: cover
 
     property string activeBand: ""
-    property string activeAmbience: ""
+    property var activeAmbiences: []
     property string activeNoise: ""
+
     property bool isPlaying: false
     property bool isPaused: false
 
@@ -43,7 +44,7 @@ CoverBackground {
 
         // Dim the cover art while the system has stopped the sound.
         opacity: isPlaying || (activeBand === "" &&
-                              activeAmbience === "" &&
+                              activeAmbiences.length === 0 &&
                               activeNoise === "")
                  ? 1.0
                  : 0.6
@@ -94,7 +95,7 @@ CoverBackground {
 
             visible: !sleepTimerRunning &&
                      activeBand === "" &&
-                     activeAmbience === "" &&
+                     activeAmbiences.length === 0 &&
                      activeNoise === ""
 
             x: Theme.horizontalPageMargin
@@ -106,10 +107,10 @@ CoverBackground {
             font.pixelSize: Theme.fontSizeSmall
             wrapMode: Text.WordWrap
 
-            text: qsTr("Start your sound mix")
+            text: SoundNames.label("Start your sound mix")
         }
 
-        // Sleep timer status
+        // Sleep timer status.
         Item {
             id: coverSleepTimerRow
 
@@ -159,6 +160,7 @@ CoverBackground {
         }
 
         // Selected sound names.
+        // One ambience shows its name; multiple ambiences show "Ambient mix".
         Label {
             id: coverSoundNames
 
@@ -183,8 +185,11 @@ CoverBackground {
                 if (activeNoise !== "")
                     parts.push(SoundNames.label(activeNoise))
 
-                if (activeAmbience !== "")
-                    parts.push(SoundNames.label(activeAmbience))
+                if (activeAmbiences.length === 1) {
+                    parts.push(SoundNames.label(activeAmbiences[0]))
+                } else if (activeAmbiences.length > 1) {
+                    parts.push(SoundNames.label("Ambient mix"))
+                }
 
                 return parts.join("\n")
             }
@@ -196,7 +201,7 @@ CoverBackground {
         id: playbackActionList
 
         enabled: activeBand !== "" ||
-                 activeAmbience !== "" ||
+                 activeAmbiences.length > 0 ||
                  activeNoise !== ""
 
         CoverAction {

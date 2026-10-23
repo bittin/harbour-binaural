@@ -216,7 +216,7 @@ FullscreenContentPage {
                     width: parent.width - 2 * Theme.horizontalPageMargin
                     x: Theme.horizontalPageMargin
 
-                    text: qsTr("Individual experiences may vary.")
+                    text: SoundNames.label("Individual experiences may vary.")
                     color: Theme.secondaryColor
                     font.pixelSize: Theme.fontSizeSmall
                     wrapMode: Text.WordWrap

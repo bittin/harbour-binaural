@@ -54,10 +54,19 @@ DockedPanel {
                      ? "image://theme/icon-m-pause"
                      : "image://theme/icon-m-play"
 
-        enabled: playbackBar.applicationWindow !== null &&
-                 (playbackBar.applicationWindow.activeBand !== "" ||
-                  playbackBar.applicationWindow.activeNoise !== "" ||
-                  playbackBar.applicationWindow.activeAmbience !== "")
+        enabled: {
+            var app = playbackBar.applicationWindow
+
+            if (!app || !app.mainPage)
+                return false
+
+            var page = app.mainPage
+            var ambiences = page.activeAmbiences || []
+
+            return app.activeBand !== "" ||
+                   app.activeNoise !== "" ||
+                   ambiences.length > 0
+        }
 
         opacity: enabled ? 1.0 : 0.5
 
@@ -93,14 +102,17 @@ DockedPanel {
         }
 
         color: {
-            if (!playbackBar.applicationWindow)
-                return Theme.secondaryColor
-
             var app = playbackBar.applicationWindow
 
-            if (app.activeBand === "" &&
-                    app.activeNoise === "" &&
-                    app.activeAmbience === "") {
+            if (!app || !app.mainPage)
+                return Theme.secondaryColor
+
+            var page = app.mainPage
+            var ambiences = page.activeAmbiences || []
+
+            if (page.activeBand === "" &&
+                    page.activeNoise === "" &&
+                    ambiences.length === 0) {
                 return Theme.secondaryColor
             }
 
@@ -113,24 +125,30 @@ DockedPanel {
         elide: Text.ElideRight
 
         text: {
-            if (!playbackBar.applicationWindow)
+            var app = playbackBar.applicationWindow
+
+            if (!app || !app.mainPage)
                 return qsTr("Start your sound mix")
 
-            var app = playbackBar.applicationWindow
+            var page = app.mainPage
             var parts = []
+            var ambiences = page.activeAmbiences || []
 
-            if (app.activeBand !== "")
-                parts.push(SoundNames.label(app.activeBand))
+            if (page.activeBand !== "")
+                parts.push(SoundNames.label(page.activeBand))
 
-            if (app.activeNoise !== "")
-                parts.push(SoundNames.label(app.activeNoise))
+            if (page.activeNoise !== "")
+                parts.push(SoundNames.label(page.activeNoise))
 
-            if (app.activeAmbience !== "")
-                parts.push(SoundNames.label(app.activeAmbience))
+            if (ambiences.length === 1) {
+                parts.push(SoundNames.label(ambiences[0]))
+            } else if (ambiences.length > 1) {
+                parts.push(SoundNames.label("Ambient mix"))
+            }
 
             return parts.length > 0
                     ? parts.join(" & ")
-                    : qsTr("Start your sound mix")
+                    : SoundNames.label("Start your sound mix")
         }
     }
 
@@ -293,5 +311,4 @@ DockedPanel {
             sleepTimerLabelDelay.restart()
         }
     }
-
 }

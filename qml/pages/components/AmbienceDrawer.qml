@@ -7,12 +7,12 @@ import Binaural 1.0
 SilicaFlickable {
     id: ambiencePage
 
-    property string activeAmbience: ""
+    property var activeAmbiences: []
     property bool ambiencePlaying: false
     property bool pausedMode: false
 
     signal ambienceSelected(string ambience)
-    signal ambienceDeselected()
+    signal ambienceDeselected(string ambience)
     signal ambienceVolumeChanged(real volume)
     signal closeRequested()
 
@@ -144,15 +144,18 @@ SilicaFlickable {
 
                     text: SoundNames.label(modelData)
 
-                    highlighted: ambiencePage.activeAmbience === modelData
+                    highlighted: ambiencePage.activeAmbiences.indexOf(modelData) !== -1
 
-                    opacity: highlighted && !ambiencePage.ambiencePlaying
-                             ? 0.6 : 1.0
+                    enabled: highlighted || ambiencePage.activeAmbiences.length < 3
+
+                    opacity: !enabled ? 0.35
+                             : highlighted && !ambiencePage.ambiencePlaying ? 0.6
+                             : 1.0
 
                     onClicked: {
                         if (highlighted) {
-                            ambiencePage.ambienceDeselected()
-                        } else {
+                            ambiencePage.ambienceDeselected(modelData)
+                        } else if (ambiencePage.activeAmbiences.length < 3) {
                             ambiencePage.ambienceSelected(modelData)
                         }
                     }
@@ -162,11 +165,13 @@ SilicaFlickable {
 
                         text: parent.text
 
-                        color: ambienceButton.highlighted
-                               ? (ambiencePage.ambiencePlaying
-                                  ? Theme.highlightColor
-                                  : Theme.secondaryHighlightColor)
-                               : Theme.primaryColor
+                        color: !ambienceButton.enabled
+                               ? Theme.secondaryColor
+                               : ambienceButton.highlighted
+                                 ? (ambiencePage.ambiencePlaying
+                                    ? Theme.highlightColor
+                                    : Theme.secondaryHighlightColor)
+                                 : Theme.primaryColor
                     }
                 }
             }
@@ -187,7 +192,7 @@ SilicaFlickable {
                 maximumValue: 100
                 value: 50
 
-                enabled: ambiencePage.activeAmbience !== ""
+                enabled: ambiencePage.activeAmbiences.length > 0
                 opacity: enabled ? 1.0 : 0.5
 
                 onValueChanged: {
@@ -205,7 +210,7 @@ SilicaFlickable {
                 anchors.topMargin: -Theme.paddingLarge
                 anchors.horizontalCenter: ambienceVolumeSlider.horizontalCenter
 
-                opacity: ambiencePage.activeAmbience !== "" ? 1.0 : 0.5
+                opacity: ambiencePage.activeAmbiences.length > 0 ? 1.0 : 0.5
 
                 Image {
                     id: ambienceVolumeImage

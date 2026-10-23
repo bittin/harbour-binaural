@@ -53,13 +53,6 @@
     </message>
 </context>
 <context>
-    <name>CoverPage</name>
-    <message>
-        <source>Start your sound mix</source>
-        <translation>Starta din ljudmix</translation>
-    </message>
-</context>
-<context>
     <name>CreditPage</name>
     <message>
         <source>Norwegian</source>
@@ -131,10 +124,6 @@
         <translation>Skapas genom att man spelar upp två något olika toner, en i varje öra. Hjärnan tolkar skillnaden som en rytmisk puls. Olika pulsfrekvenser kan användas för att främja koncentration, avslappning, meditation eller sömn.</translation>
     </message>
     <message>
-        <source>Individual experiences may vary.</source>
-        <translation>Upplevelserna kan variera från person till person.</translation>
-    </message>
-    <message>
         <source>Deep sleep, rest</source>
         <translation>Djupsömn, vila</translation>
     </message>
@@ -168,10 +157,6 @@
     <message>
         <source>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</source>
         <translation>Ljud med olika energimängder vid olika frekvenser. Varje färg har sin egen karaktär och används vanligtvis för olika ändamål.</translation>
-    </message>
-    <message>
-        <source>Individual experiences may vary.</source>
-        <translation>Upplevelserna kan variera från person till person.</translation>
     </message>
     <message>
         <source>Focus, sleep and background noise masking</source>
@@ -317,6 +302,18 @@
     <message>
         <source>Lake</source>
         <translation>Sjö</translation>
+    </message>
+    <message>
+        <source>Start your sound mix</source>
+        <translation type="unfinished">Starta din ljudmix</translation>
+    </message>
+    <message>
+        <source>Individual experiences may vary.</source>
+        <translation type="unfinished">Upplevelserna kan variera från person till person.</translation>
+    </message>
+    <message>
+        <source>Ambient mix</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

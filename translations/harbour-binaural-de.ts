@@ -65,14 +65,6 @@
     </message>
 </context>
 <context>
-    <name>CoverPage</name>
-    <message>
-        <location filename="../qml/cover/CoverPage.qml" line="109"/>
-        <source>Start your sound mix</source>
-        <translation>Starte deinen Klangmix</translation>
-    </message>
-</context>
-<context>
     <name>CreditPage</name>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="14"/>
@@ -189,11 +181,6 @@
         <source>Complex thinking and information processing</source>
         <translation>Komplexes Denken und Informationsverarbeitung</translation>
     </message>
-    <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="243"/>
-        <source>Individual experiences may vary.</source>
-        <translation>Individuelle Erfahrungen können variieren.</translation>
-    </message>
 </context>
 <context>
     <name>InfoColoredPage</name>
@@ -232,51 +219,46 @@
         <source>Sound masking and general listening</source>
         <translation>Geräuschmaskierung und allgemeines Hören</translation>
     </message>
-    <message>
-        <location filename="../qml/pages/components/InfoColoredPage.qml" line="219"/>
-        <source>Individual experiences may vary.</source>
-        <translation>Individuellen Erfahrungen können variieren.</translation>
-    </message>
 </context>
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="171"/>
+        <location filename="../qml/pages/MainPage.qml" line="197"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="181"/>
+        <location filename="../qml/pages/MainPage.qml" line="207"/>
         <source>Deselect all sounds</source>
         <translation>Alle Klänge deaktivieren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="193"/>
+        <location filename="../qml/pages/MainPage.qml" line="219"/>
         <source>Timer</source>
         <translation>Timer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="221"/>
+        <location filename="../qml/pages/MainPage.qml" line="247"/>
         <source>Binaural Beats</source>
         <translation>Binaurale Beats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="235"/>
+        <location filename="../qml/pages/MainPage.qml" line="261"/>
         <source>To be used with</source>
         <translation>Zu verwenden mit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="449"/>
+        <location filename="../qml/pages/MainPage.qml" line="475"/>
         <source>Colored Noise</source>
         <translation>Farbiges Rauschen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="623"/>
+        <location filename="../qml/pages/MainPage.qml" line="649"/>
         <source>Ambient Sound</source>
         <translation>Umgebungsgeräusche</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="656"/>
+        <location filename="../qml/pages/MainPage.qml" line="681"/>
         <source>Choose an ambient sound</source>
         <translation>Wähle ein Umgebungsgeräusch</translation>
     </message>
@@ -284,8 +266,7 @@
 <context>
     <name>PlaybackBar</name>
     <message>
-        <location filename="../qml/pages/components/PlaybackBar.qml" line="117"/>
-        <location filename="../qml/pages/components/PlaybackBar.qml" line="133"/>
+        <location filename="../qml/pages/components/PlaybackBar.qml" line="131"/>
         <source>Start your sound mix</source>
         <translation type="unfinished">Starte deinen Klangmix</translation>
     </message>
@@ -391,6 +372,21 @@
         <location filename="../qml/pages/components/SoundNames.qml" line="40"/>
         <source>Lake</source>
         <translation>See</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/components/SoundNames.qml" line="43"/>
+        <source>Ambient mix</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/components/SoundNames.qml" line="44"/>
+        <source>Start your sound mix</source>
+        <translation type="unfinished">Starte deinen Klangmix</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/components/SoundNames.qml" line="45"/>
+        <source>Individual experiences may vary.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -22,6 +22,7 @@ QT += multimedia
 
 
 SOURCES += src/harbour-binaural.cpp \
+    src/ambiencechannel.cpp \
     src/audioengine.cpp \
     src/audioengine_ambience.cpp \
     src/audioengine_binaural.cpp \
@@ -85,6 +86,7 @@ TRANSLATIONS += translations/harbour-binaural-nl.ts
 
 
 HEADERS += \
+    src/ambiencechannel.h \
     src/audioengine.h \
     src/binauralgenerator.h \
     src/colorednoisegenerator.h
