@@ -65,6 +65,49 @@
     </message>
 </context>
 <context>
+    <name>AudioFilePickerPage</name>
+    <message>
+        <location filename="../qml/pages/AudioFilePickerPage.qml" line="64"/>
+        <source>Choose audio file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AudioFilePickerPage.qml" line="93"/>
+        <source>Home</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AudioFilePickerPage.qml" line="103"/>
+        <source>Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AudioFilePickerPage.qml" line="117"/>
+        <source>Folders and audio files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AudioFilePickerPage.qml" line="173"/>
+        <source>Folder  ›</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AudioFilePickerPage.qml" line="174"/>
+        <source>Audio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AudioFilePickerPage.qml" line="187"/>
+        <source>No audio files or folders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AudioFilePickerPage.qml" line="189"/>
+        <source>Try another folder or check where your audio files are stored.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CreditPage</name>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="14"/>
@@ -397,82 +440,82 @@
 <context>
     <name>SoundpickerPage</name>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="33"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="44"/>
         <source>Custom sound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="66"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="84"/>
         <source>Playback</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="78"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="98"/>
         <source>Playing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="37"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="48"/>
         <source>Select an audio file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="46"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="59"/>
         <source>No file selected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="57"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="72"/>
         <source>Choose MP3 or audio file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="75"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="95"/>
         <source>Audio player unavailable</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="81"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="101"/>
         <source>Ready to play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="83"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="103"/>
         <source>Select an audio file first</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="97"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="119"/>
         <source>Pause</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="98"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="120"/>
         <source>Play</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="126"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="154"/>
         <source>Stop</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="140"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="168"/>
         <source>Loop sound</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="142"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="171"/>
         <source>Repeat continuously</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="143"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="172"/>
         <source>Play once</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SoundpickerPage.qml" line="158"/>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="187"/>
         <source>Volume</source>
         <translation type="unfinished"></translation>
     </message>

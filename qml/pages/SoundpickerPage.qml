@@ -1,21 +1,32 @@
 ﻿import QtQuick 2.0
 import Sailfish.Silica 1.0
-import Sailfish.Pickers 1.0
 import QtMultimedia 5.0
 import QtGraphicalEffects 1.0
 
 Page {
     id: page
 
+
     objectName: "SoundpickerPage"
 
     // Reference to the top-level ApplicationWindow.
     property var appWindow: null
 
+    // Currently selected audio file.
     property url selectedFile: ""
     property string selectedFileName: ""
 
     allowedOrientations: Orientation.All
+
+    // Restore the selected sound when opening this page.
+    Component.onCompleted: {
+        if (page.appWindow) {
+            if (page.appWindow.customSoundSource.toString() !== "") {
+                page.selectedFile = page.appWindow.customSoundSource
+                page.selectedFileName = page.appWindow.customSoundName
+            }
+        }
+    }
 
     SilicaFlickable {
         anchors.fill: parent
@@ -39,7 +50,9 @@ Page {
 
             Label {
                 x: Theme.horizontalPageMargin
-                width: parent.width - 2 * Theme.horizontalPageMargin
+
+                width: parent.width -
+                       2 * Theme.horizontalPageMargin
 
                 text: page.selectedFileName !== ""
                       ? page.selectedFileName
@@ -52,13 +65,18 @@ Page {
 
             Button {
                 x: Theme.horizontalPageMargin
-                width: parent.width - 2 * Theme.horizontalPageMargin
+
+                width: parent.width -
+                       2 * Theme.horizontalPageMargin
 
                 text: qsTr("Choose MP3 or audio file")
 
                 onClicked: {
-                    console.log("Soundpicker: opening MusicPickerPage")
-                    pageStack.animatorPush(musicPickerPage)
+                    console.log(
+                                "Custom sound: opening audio file browser"
+                                )
+
+                    pageStack.push(audioFilePicker)
                 }
             }
 
@@ -68,7 +86,9 @@ Page {
 
             Label {
                 x: Theme.horizontalPageMargin
-                width: parent.width - 2 * Theme.horizontalPageMargin
+
+                width: parent.width -
+                       2 * Theme.horizontalPageMargin
 
                 text: {
                     if (!page.appWindow)
@@ -90,26 +110,32 @@ Page {
 
             Button {
                 x: Theme.horizontalPageMargin
-                width: parent.width - 2 * Theme.horizontalPageMargin
+
+                width: parent.width -
+                       2 * Theme.horizontalPageMargin
 
                 text: page.appWindow
                       && page.appWindow.customSoundPlaying
                       ? qsTr("Pause")
                       : qsTr("Play")
 
-                // Use the selected local file as the enable condition.
                 enabled: page.appWindow !== null
                          && page.selectedFile.toString() !== ""
 
                 onClicked: {
                     if (!page.appWindow) {
-                        console.log("Custom sound: appWindow reference is missing")
+                        console.log(
+                                    "Custom sound: appWindow reference is missing"
+                                    )
                         return
                     }
 
-                    // Keep the global player source synchronized.
-                    page.appWindow.customSoundSource = page.selectedFile
-                    page.appWindow.customSoundName = page.selectedFileName
+                    // Synchronize the global audio player.
+                    page.appWindow.customSoundSource =
+                            page.selectedFile
+
+                    page.appWindow.customSoundName =
+                            page.selectedFileName
 
                     if (page.appWindow.customSoundPlaying) {
                         page.appWindow.pauseCustomSound()
@@ -121,7 +147,9 @@ Page {
 
             Button {
                 x: Theme.horizontalPageMargin
-                width: parent.width - 2 * Theme.horizontalPageMargin
+
+                width: parent.width -
+                       2 * Theme.horizontalPageMargin
 
                 text: qsTr("Stop")
 
@@ -138,6 +166,7 @@ Page {
                 id: loopSwitch
 
                 text: qsTr("Loop sound")
+
                 description: checked
                              ? qsTr("Repeat continuously")
                              : qsTr("Play once")
@@ -160,12 +189,15 @@ Page {
 
             Item {
                 width: parent.width
-                height: customSoundVolumeSlider.height + Theme.iconSizeSmall
+
+                height: customSoundVolumeSlider.height +
+                        Theme.iconSizeSmall
 
                 Slider {
                     id: customSoundVolumeSlider
 
                     width: parent.width * 0.9
+
                     anchors.horizontalCenter: parent.horizontalCenter
 
                     minimumValue: 0
@@ -183,9 +215,8 @@ Page {
                     opacity: enabled ? 1.0 : 0.5
 
                     onValueChanged: {
-                        if (page.appWindow) {
+                        if (page.appWindow)
                             page.appWindow.customSoundVolume = value
-                        }
                     }
                 }
 
@@ -197,7 +228,9 @@ Page {
 
                     anchors.top: customSoundVolumeSlider.bottom
                     anchors.topMargin: -Theme.paddingLarge
-                    anchors.horizontalCenter: customSoundVolumeSlider.horizontalCenter
+
+                    anchors.horizontalCenter:
+                        customSoundVolumeSlider.horizontalCenter
 
                     opacity: customSoundVolumeSlider.enabled ? 1.0 : 0.5
 
@@ -225,6 +258,7 @@ Page {
 
                     ColorOverlay {
                         anchors.fill: customSoundVolumeImage
+
                         source: customSoundVolumeImage
                         color: Theme.primaryColor
                     }
@@ -233,33 +267,30 @@ Page {
         }
     }
 
+    // Custom browser replaces the system MusicPickerPage.
     Component {
-        id: musicPickerPage
+        id: audioFilePicker
 
-        MusicPickerPage {
-            onSelectedContentPropertiesChanged: {
-                var properties = selectedContentProperties
+        AudioFilePickerPage {
+            onFileSelected: {
+                // Save the selected file on this page.
+                page.selectedFile = fileUrl
+                page.selectedFileName = fileName
 
-                if (properties
-                        && properties.filePath
-                        && properties.filePath.toString() !== "") {
-
-                    page.selectedFile = properties.filePath
-                    page.selectedFileName = properties.fileName || ""
-
-                    if (page.appWindow) {
-                        page.appWindow.customSoundSource =
-                                page.selectedFile
-
-                        page.appWindow.customSoundName =
-                                page.selectedFileName
-                    } else {
-                        console.log(
-                                    "Custom sound: appWindow was not passed to SoundpickerPage")
-                    }
-
-                    pageStack.pop()
+                // Synchronize the global player.
+                if (page.appWindow) {
+                    page.appWindow.customSoundSource = fileUrl
+                    page.appWindow.customSoundName = fileName
+                } else {
+                    console.log(
+                                "Custom sound: appWindow reference is missing"
+                                )
                 }
+
+                console.log(
+                            "Custom sound: selected file",
+                            fileUrl
+                            )
             }
         }
     }

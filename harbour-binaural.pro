@@ -33,6 +33,7 @@ SOURCES += src/harbour-binaural.cpp \
 
 DISTFILES += qml/harbour-binaural.qml \
     icons/216x216/harbour-binaural.png \
+    qml/pages/AudioFilePickerPage.qml \
     qml/pages/CreditPage.qml \
     qml/pages/MainPage.qml \
     qml/cover/CoverPage.qml \
