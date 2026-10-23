@@ -24,58 +24,42 @@
         <translation>Entwicklung</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="74"/>
-        <source>Source code on</source>
-        <translation>Quellcode auf</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/AboutPage.qml" line="82"/>
-        <source>Translations</source>
-        <translation>Übersetzungen</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/AboutPage.qml" line="89"/>
+        <location filename="../qml/pages/AboutPage.qml" line="112"/>
         <source>Help translate the application into your language.</source>
         <translation>Hilf dabei, die Anwendung in deine Sprache zu übersetzen.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="107"/>
+        <location filename="../qml/pages/AboutPage.qml" line="105"/>
         <source>Support</source>
         <translation>Unterstützung</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="114"/>
+        <location filename="../qml/pages/AboutPage.qml" line="134"/>
         <source>For small tips to support the project.</source>
         <translation>Für ein kleines Trinkgeld um das Projekt zu unterstützen.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="132"/>
+        <location filename="../qml/pages/AboutPage.qml" line="97"/>
         <source>Credits</source>
         <translation>Danksagungen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="144"/>
-        <source>Binaural was inspired by</source>
-        <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
-        <translation>Binaural wurde inspiriert durch</translation>
+        <location filename="../qml/pages/AboutPage.qml" line="86"/>
+        <source>Source code</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="163"/>
-        <source>Asset credits</source>
-        <translation>Quellenangaben</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/AboutPage.qml" line="171"/>
+        <location filename="../qml/pages/AboutPage.qml" line="153"/>
         <source>Data protection</source>
         <translation>Datenschutz</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="178"/>
+        <location filename="../qml/pages/AboutPage.qml" line="160"/>
         <source>This application works exclusively offline and requires permission to output audio. No data is collected.</source>
         <translation>Diese Anwendung funktioniert ausschließlich offline und benötigt die Berechtigung zur Audioausgabe. Es werden keine Daten gesammelt.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="186"/>
+        <location filename="../qml/pages/AboutPage.qml" line="168"/>
         <source>License</source>
         <translation>Lizenz</translation>
     </message>
@@ -91,47 +75,66 @@
 <context>
     <name>CreditPage</name>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="83"/>
-        <source>Asset credits</source>
-        <translation>Quellenangaben</translation>
+        <location filename="../qml/pages/CreditPage.qml" line="14"/>
+        <source>Norwegian</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="87"/>
+        <location filename="../qml/pages/CreditPage.qml" line="18"/>
+        <source>Swedish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CreditPage.qml" line="22"/>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CreditPage.qml" line="26"/>
+        <source>Slovenian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CreditPage.qml" line="130"/>
+        <source>Credits</source>
+        <translation type="unfinished">Danksagungen</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CreditPage.qml" line="142"/>
+        <source>Binaural was inspired by</source>
+        <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
+        <translation type="unfinished">Binaural wurde inspiriert durch</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CreditPage.qml" line="159"/>
+        <source>Translations</source>
+        <translation type="unfinished">Übersetzungen</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CreditPage.qml" line="208"/>
         <source>Audio files</source>
         <translation>Audiodateien</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="96"/>
+        <location filename="../qml/pages/CreditPage.qml" line="217"/>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
         <translation>Die Dateien wurden für die Verwendung in dieser Anwendung manuell angepasst unter der</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="99"/>
+        <location filename="../qml/pages/CreditPage.qml" line="220"/>
         <source>Pixabay Content License</source>
         <translation>Pixabay-Inhaltslizenz</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="179"/>
+        <location filename="../qml/pages/CreditPage.qml" line="310"/>
         <source>Images</source>
         <translation>Bilder</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="188"/>
-        <source>Binaural graph image modified for use in</source>
-        <extracomment>Full sentence: &quot;Binaural graph image modified for use in Binaural:&quot; Second Binaural word means the app names which isn&apos;t translated.</extracomment>
-        <translation>Binaural-Diagramm, angepasst für die Verwendung in</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="214"/>
-        <source>Based on</source>
-        <extracomment>Full sentence: &quot;Based on Beating_Frequency.svg - Ansgar Hellwig (Ahellwig). CC BY-SA 3.0 - Original source</extracomment>
-        <translation>Basierend auf</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="225"/>
-        <source>Original source</source>
-        <translation>Originalquelle</translation>
+        <location filename="../qml/pages/CreditPage.qml" line="324"/>
+        <source>Images have been manually modified for use in this app:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

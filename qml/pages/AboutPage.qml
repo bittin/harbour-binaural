@@ -68,18 +68,41 @@ Page {
                 text: qsTr("Development")
             }
 
+            Label {
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                x: Theme.horizontalPageMargin
+
+                text: "molan (molan-git)"
+
+                color: Theme.highlightColor
+                font.pixelSize: Theme.fontSizeSmall
+                wrapMode: Text.WordWrap
+            }
+
             Button {
+                width: parent.width * 0.8
                 anchors.horizontalCenter: parent.horizontalCenter
 
-                text: qsTr("Source code on") + " Github"
+                text: qsTr("Source code")
 
                 onClicked: {
                     Qt.openUrlExternally("https://github.com/molan-git/harbour-binaural")
                 }
             }
 
+            Button {
+                width: parent.width * 0.8
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                text: qsTr("Credits")
+
+                onClicked: {
+                    pageStack.animatorPush(Qt.resolvedUrl("CreditPage.qml"))
+                }
+            }
+
             SectionHeader {
-                text: qsTr("Translations")
+                text: qsTr("Support")
             }
 
             Label {
@@ -94,6 +117,7 @@ Page {
             }
 
             Button {
+                width: parent.width * 0.8
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 text: "Hosted Weblate"
@@ -101,10 +125,6 @@ Page {
                 onClicked: {
                     Qt.openUrlExternally("https://hosted.weblate.org/projects/harbour-binaural/harbour-binaural/")
                 }
-            }
-
-            SectionHeader {
-                text: qsTr("Support")
             }
 
             Label {
@@ -119,51 +139,13 @@ Page {
             }
 
             Button {
+                width: parent.width * 0.8
                 anchors.horizontalCenter: parent.horizontalCenter
 
                 text: "Ko-fi"
 
                 onClicked: {
                     Qt.openUrlExternally("https://ko-fi.com/molangit")
-                }
-            }
-
-            SectionHeader {
-                text: qsTr("Credits")
-            }
-
-            Label {
-                width: parent.width - 2 * Theme.horizontalPageMargin
-                x: Theme.horizontalPageMargin
-
-                property string metiqUrl: "https://github.com/metiq-xyz/android-app"
-
-                textFormat: Text.StyledText
-
-                //: Full sentence: "Binaural was inspired by Metiq."
-                text: qsTr("Binaural was inspired by") +
-                      " " +
-                      "<a href=\"" + metiqUrl + "\">" +
-                      "Metiq" +
-                      "</a>."
-
-                color: Theme.highlightColor
-                linkColor: Theme.primaryColor
-                font.pixelSize: Theme.fontSizeSmall
-                wrapMode: Text.WordWrap
-
-                onLinkActivated: {
-                    Qt.openUrlExternally(link)
-                }
-            }
-
-            Button {
-                anchors.horizontalCenter: parent.horizontalCenter
-
-                text: qsTr("Asset credits")
-
-                onClicked: {
-                    pageStack.animatorPush(Qt.resolvedUrl("CreditPage.qml"))
                 }
             }
 

@@ -16,14 +16,6 @@
         <translation>Utvikling</translation>
     </message>
     <message>
-        <source>Source code on</source>
-        <translation>Kildekode på</translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation>Oversettelser</translation>
-    </message>
-    <message>
         <source>Help translate the application into your language.</source>
         <translation>Hjelp til med å oversette applikasjonen til ditt språk.</translation>
     </message>
@@ -48,21 +40,16 @@
         <translation>Applikasjon for avspilling av binaurale rytmer, farget støy og omgivelseslyder.</translation>
     </message>
     <message>
-        <source>Binaural was inspired by</source>
-        <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
-        <translation>Binaural er inspirert av</translation>
-    </message>
-    <message>
-        <source>Asset credits</source>
-        <translation>Rettigheter for mediefiler</translation>
-    </message>
-    <message>
         <source>Support</source>
         <translation>Støtte</translation>
     </message>
     <message>
         <source>For small tips to support the project.</source>
         <translation>For små bidrag for å støtte prosjektet.</translation>
+    </message>
+    <message>
+        <source>Source code</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -74,10 +61,6 @@
 </context>
 <context>
     <name>CreditPage</name>
-    <message>
-        <source>Asset credits</source>
-        <translation>Rettigheter for mediefiler</translation>
-    </message>
     <message>
         <source>Audio files</source>
         <translation>Lydfiler</translation>
@@ -91,23 +74,42 @@
         <translation>bilder</translation>
     </message>
     <message>
-        <source>Binaural graph image modified for use in</source>
-        <extracomment>Full sentence: &quot;Binaural graph image modified for use in Binaural:&quot; Second Binaural word means the app names which isn&apos;t translated.</extracomment>
-        <translation>Binauralt grafbilde modifisert for bruk i</translation>
-    </message>
-    <message>
-        <source>Based on</source>
-        <extracomment>Full sentence: &quot;Based on Beating_Frequency.svg - Ansgar Hellwig (Ahellwig). CC BY-SA 3.0 - Original source</extracomment>
-        <translation>Basert på</translation>
-    </message>
-    <message>
-        <source>Original source</source>
-        <translation>Opprinnelig kilde</translation>
-    </message>
-    <message>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
         <translation>Filene har blitt manuelt redigert for bruk i denne appen under</translation>
+    </message>
+    <message>
+        <source>Binaural was inspired by</source>
+        <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
+        <translation type="unfinished">Binaural er inspirert av</translation>
+    </message>
+    <message>
+        <source>Credits</source>
+        <translation type="unfinished">Takk til</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation type="unfinished">Oversettelser</translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images have been manually modified for use in this app:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

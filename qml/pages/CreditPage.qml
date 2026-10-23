@@ -8,6 +8,27 @@ Page {
 
     allowedOrientations: defaultAllowedOrientations
 
+    // List of translation credits (add names and info here)
+    property var translationCredits: [
+        {
+            language: qsTr("Norwegian"),
+            name: "fsilye (Frank Paul Silye)"
+        },
+        {
+            language: qsTr("Swedish"),
+            name: "eson57 (Åke Engelbrektson)"
+        },
+        {
+            language: qsTr("Dutch"),
+            name: "Nathan"
+        },
+        {
+            language: qsTr("Slovenian"),
+            name: "Boštjan"
+        }
+    ]
+
+    // List of sound credits (add names and info here)
     property var soundCredits: [
         {
             name: SoundNames.label("Wind"),
@@ -71,6 +92,32 @@ Page {
         }
     ]
 
+    property real creditsLabelWidth: {
+        var labels = []
+
+        for (var i = 0; i < translationCredits.length; ++i)
+            labels.push(translationCredits[i].language + ":")
+
+        for (var j = 0; j < soundCredits.length; ++j)
+            labels.push(soundCredits[j].name + ":")
+
+        var widest = 0
+        var metrics = Qt.createQmlObject(
+            'import QtQuick 2.0; Text { font.pixelSize: '
+            + Theme.fontSizeExtraSmall + ' }',
+            page
+        )
+
+        for (var k = 0; k < labels.length; ++k) {
+            metrics.text = labels[k]
+            if (metrics.implicitWidth > widest)
+                widest = metrics.implicitWidth
+        }
+
+        metrics.destroy()
+        return widest
+    }
+
     SilicaListView {
         id: creditList
 
@@ -80,8 +127,82 @@ Page {
             width: page.width
 
             PageHeader {
-                title: qsTr("Asset credits")
+                title: qsTr("Credits")
             }
+
+            Label {
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                x: Theme.horizontalPageMargin
+
+                property string metiqUrl: "https://github.com/metiq-xyz/android-app"
+
+                textFormat: Text.StyledText
+
+                //: Full sentence: "Binaural was inspired by Metiq."
+                text: qsTr("Binaural was inspired by") +
+                      " " +
+                      "<a href=\"" + metiqUrl + "\">" +
+                      "Metiq" +
+                      "</a>."
+
+                color: Theme.highlightColor
+                linkColor: Theme.primaryColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+                wrapMode: Text.WordWrap
+
+                onLinkActivated: {
+                    Qt.openUrlExternally(link)
+                }
+            }
+
+            SectionHeader {
+                text: qsTr("Translations")
+            }
+
+            Column {
+                id: translationContent
+
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+
+                Repeater {
+                    model: page.translationCredits
+
+                    delegate: Item {
+                        width: translationContent.width
+                        height: translationRow.height + Theme.paddingSmall / 2
+                        Grid {
+                            id: translationRow
+
+                            width: parent.width
+                            columns: 2
+                            columnSpacing: Theme.paddingMedium * 1.5
+
+                            Text {
+                                width: page.creditsLabelWidth
+                                text: modelData.language + ":"
+
+                                color: Theme.highlightColor
+                                font.pixelSize: Theme.fontSizeExtraSmall
+                                wrapMode: Text.NoWrap
+                            }
+
+                            Text {
+                                width: translationRow.width -
+                                       page.creditsLabelWidth -
+                                       translationRow.columnSpacing
+
+                                text: modelData.name
+
+                                color: Theme.highlightColor
+                                font.pixelSize: Theme.fontSizeExtraSmall
+                                wrapMode: Text.NoWrap
+                            }
+                        }
+                    }
+                }
+            }
+
 
             SectionHeader {
                 text: qsTr("Audio files")
@@ -102,7 +223,7 @@ Page {
 
                 color: Theme.highlightColor
                 linkColor: Theme.primaryColor
-                font.pixelSize: Theme.fontSizeSmall
+                font.pixelSize: Theme.fontSizeExtraSmall
                 horizontalAlignment: Text.AlignLeft
                 wrapMode: Text.WordWrap
                 textFormat: Text.StyledText
@@ -126,30 +247,40 @@ Page {
         delegate: ListItem {
             id: creditItem
 
-            contentHeight: creditContent.height +
-                           Theme.paddingMedium
+            contentHeight: creditContent.height + Theme.paddingSmall / 2
 
-            Column {
+            Grid {
                 id: creditContent
 
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
 
-                spacing: Theme.paddingSmall
+                columns: 2
+                columnSpacing: Theme.paddingMedium * 1.5
 
                 Text {
-                    width: parent.width
+                    width: page.creditsLabelWidth
+
+                    text: modelData.name + ":"
+
+                    color: Theme.highlightColor
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    wrapMode: Text.NoWrap
+                }
+
+                Text {
+                    width: creditContent.width -
+                           creditContent.children[0].width -
+                           creditContent.columnSpacing
 
                     textFormat: Text.StyledText
-                    wrapMode: Text.WordWrap
+                    wrapMode: Text.NoWrap
 
                     color: Theme.highlightColor
                     linkColor: Theme.primaryColor
-                    font.pixelSize: Theme.fontSizeSmall
+                    font.pixelSize: Theme.fontSizeExtraSmall
 
-                    text: modelData.name +
-                          ": " +
-                          "<a href=\"" + modelData.authorUrl + "\">" +
+                    text: "<a href=\"" + modelData.authorUrl + "\">" +
                           modelData.author +
                           "</a>" +
                           " - " +
@@ -179,50 +310,26 @@ Page {
                 text: qsTr("Images")
             }
 
-            Label {
-                width: parent.width - 2 * Theme.horizontalPageMargin
-                x: Theme.horizontalPageMargin
-
-                //: Full sentence: "Binaural graph image modified for use in Binaural:"
-                //: Second Binaural word means the app names which isn't translated.
-                text: qsTr("Binaural graph image modified for use in") +
-                      " Binaural:"
-
-                color: Theme.highlightColor
-                font.pixelSize: Theme.fontSizeSmall
-                horizontalAlignment: Text.AlignLeft
-                wrapMode: Text.WordWrap
-            }
-
-            Item {
-                width: 1
-                height: Theme.paddingLarge
-            }
-
             Text {
-                width: parent.width - 2 * Theme.horizontalPageMargin
                 x: Theme.horizontalPageMargin
+                width: parent.width - 2 * x
 
                 textFormat: Text.StyledText
                 wrapMode: Text.WordWrap
 
                 color: Theme.highlightColor
                 linkColor: Theme.primaryColor
-                font.pixelSize: Theme.fontSizeSmall
+                font.pixelSize: Theme.fontSizeExtraSmall
 
-                //: Full sentence: "Based on Beating_Frequency.svg - Ansgar Hellwig (Ahellwig). CC BY-SA 3.0 - Original source
-                text: qsTr("Based on") +
-                      " " +
+                text: qsTr("Images have been manually modified for use in this app:") +
+                      "<br>" +
+                      "<a href=\"https://commons.wikimedia.org/wiki/File:Beating_Frequency.svg\">" +
                       "Beating_Frequency.svg" +
-                      " - " +
-                      "Ansgar Hellwig (Ahellwig)." +
+                      "</a>" +
+                      " - Ansgar Hellwig (Ahellwig)" +
                       "<br>" +
                       "<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">" +
                       "CC BY-SA 3.0" +
-                      "</a>" +
-                      " - " +
-                      "<a href=\"https://commons.wikimedia.org/wiki/File:Beating_Frequency.svg\">" +
-                      qsTr("Original source") +
                       "</a>"
 
                 onLinkActivated: {
