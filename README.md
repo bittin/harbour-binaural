@@ -20,28 +20,47 @@ The latest release is available on [OpenRepos.net](https://openrepos.net/content
 
 ## Audio Engine
 
-The `AudioEngine` manages three audio sources: binaural beats, colored noise, and ambient sounds.
+The `AudioEngine` coordinates three types of audio sources: binaural beats, colored noise, and ambient sounds. Each source type has its own playback implementation, allowing different types of sound to be combined.
 
-* **Binaural beats:** `BinauralGenerator` generates two sine waves: a fixed 200 Hz tone in the left channel and a slightly higher frequency in the right channel. Their frequency difference creates the perceived binaural beat. The resulting stereo 16-bit PCM audio is streamed through `QAudioOutput`, with the sample rate adapted to the audio device.
-* **Colored noise:** `ColoredNoiseGenerator` generates White, Pink, Brown, and Grey noise in real time using dedicated DSP algorithms. Per-type gain calibration helps balance perceived loudness. The resulting 16-bit PCM audio is streamed through `QAudioOutput`.
-* **Ambient sounds:** Audio files are played using `QMediaPlayer`. The `AudioEngine` manages seamless looping, fade-in, fade-out, and crossfading between loop iterations.
+### Binaural Beats
+
+`BinauralGenerator` generates stereo audio containing two sine waves: a fixed 200 Hz tone in the left channel and a slightly higher frequency in the right channel. The frequency difference creates the perceived binaural beat.
+
+The resulting 16-bit PCM audio is streamed through `QAudioOutput`, with the sample rate adapted to the audio device.
+
+### Colored Noise
+
+`ColoredNoiseGenerator` generates White, Pink, Brown, and Grey noise in real time using dedicated digital signal processing (DSP) algorithms. Per-type gain calibration helps balance perceived loudness.
+
+The generated 16-bit PCM audio is streamed through `QAudioOutput`.
+
+### Ambient Sounds
+
+Ambient audio files are played using `QMediaPlayer`. The ambience implementation supports looping, fade-in, fade-out, and crossfading between loop iterations.
+
+The `AmbienceChannel` component provides an independent playback channel for an ambient sound. This allows multiple ambient sounds to play concurrently rather than forcing all ambient playback through a single player. Up to three ambient sounds can be selected and mixed at the same time. 
+
+The ambience playback implementation is coordinated by `AudioEngine`, which manages the active ambient channels alongside binaural beats and colored noise.
 
 ### Source Files
 
-| File                           | Responsibility                                                    |
-| ------------------------------ | ----------------------------------------------------------------- |
-| `audioengine.cpp`              | Initializes the audio engine and provides shared functionality.   |
-| `audioengine_binaural.cpp`     | Manages binaural beat generation and playback.                    |
-| `audioengine_colorednoise.cpp` | Manages colored noise generation and playback.                    |
-| `audioengine_ambience.cpp`     | Manages ambient sound playback, looping, fading, and crossfading. |
-| `binauralgenerator.cpp`        | Generates binaural tones using sine waves.                        |
-| `colorednoisegenerator.cpp`    | Implements DSP algorithms for White, Pink, Brown, and Grey noise. |
+| File                           | Responsibility                                                                                           |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| `audioengine.cpp`              | Initializes the audio engine and provides shared functionality.                                          |
+| `audioengine_binaural.cpp`     | Manages binaural beat generation and playback.                                                           |
+| `audioengine_colorednoise.cpp` | Manages colored noise generation and playback.                                                           |
+| `audioengine_ambience.cpp`     | Coordinates ambient sound playback and active ambience channels.                                         |
+| `ambiencechannel.cpp`          | Implements an individual ambient playback channel, including playback and sound-specific audio handling. |
+| `binauralgenerator.cpp`        | Generates binaural tones using sine waves.                                                               |
+| `colorednoisegenerator.cpp`    | Implements DSP algorithms for White, Pink, Brown, and Grey noise.                                        |
 
 ### Audio Pipeline
 
 * **Binaural beats:** `BinauralGenerator` → PCM stream → `QAudioOutput`
 * **Colored noise:** `ColoredNoiseGenerator` → PCM stream → `QAudioOutput`
-* **Ambient sounds:** Audio files → `QMediaPlayer` → looping and crossfading
+* **Ambient sounds:** Audio files → `AmbienceChannel` → `QMediaPlayer` → looping and crossfading
+
+The audio engine keeps these source types coordinated while allowing their playback to be combined.
 
 ## Requirements
 
