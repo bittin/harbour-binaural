@@ -72,7 +72,7 @@
     </message>
     <message>
         <source>Credits</source>
-        <translation type="unfinished">Medverkande</translation>
+        <translation>Medverkande</translation>
     </message>
     <message>
         <source>Binaural was inspired by</source>
@@ -85,20 +85,20 @@
     </message>
     <message>
         <source>Audio files</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljudfiler</translation>
     </message>
     <message>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Filer har redigerats manuellt för användning i den här appen under</translation>
     </message>
     <message>
         <source>Pixabay Content License</source>
-        <translation type="unfinished"></translation>
+        <translation>Pixabay Content-Licensen</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder</translation>
     </message>
     <message>
         <source>Images have been manually edited for use in this app:</source>
@@ -223,7 +223,7 @@
     <name>PlaybackBar</name>
     <message>
         <source>Start your sound mix</source>
-        <translation type="unfinished">Starta din ljudmix</translation>
+        <translation>Starta din ljudmix</translation>
     </message>
 </context>
 <context>
@@ -310,11 +310,11 @@
     </message>
     <message>
         <source>Start your sound mix</source>
-        <translation type="unfinished">Starta din ljudmix</translation>
+        <translation>Starta din ljudmix</translation>
     </message>
     <message>
         <source>Individual experiences may vary.</source>
-        <translation type="unfinished">Upplevelserna kan variera från person till person.</translation>
+        <translation>Upplevelserna kan variera från person till person.</translation>
     </message>
     <message>
         <source>Ambient mix</source>
