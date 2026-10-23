@@ -189,6 +189,11 @@ Page {
                     Qt.openUrlExternally(link)
                 }
             }
+
+            Item {
+                width: 1
+                height: Theme.paddingLarge
+            }
         }
     }
 }
