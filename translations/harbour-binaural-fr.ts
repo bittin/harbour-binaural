@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>Source code</source>
-        <translation type="unfinished"></translation>
+        <translation>Code source</translation>
     </message>
 </context>
 <context>
@@ -85,20 +85,20 @@
     </message>
     <message>
         <source>Audio files</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichiers audio</translation>
     </message>
     <message>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Les fichiers ont été modifiés manuellement pour être utilisés dans cette application sous la</translation>
     </message>
     <message>
         <source>Pixabay Content License</source>
-        <translation type="unfinished"></translation>
+        <translation>Licence de contenu Pixabay</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Images</translation>
     </message>
     <message>
         <source>Images have been manually edited for use in this app:</source>
@@ -122,7 +122,7 @@
     </message>
     <message>
         <source>Choose from:</source>
-        <translation>Choisissez parmi :</translation>
+        <translation>Choisissez parmi&#xa0;:</translation>
     </message>
     <message>
         <source>Are created by playing two slightly different tones, one in each ear. The brain processes the difference as a rhythmic beat. Different beat frequencies can be used to support focus, relaxation, meditation, or sleep.</source>
@@ -157,7 +157,7 @@
     <name>InfoColoredPage</name>
     <message>
         <source>Choose from:</source>
-        <translation>Choisissez parmi :</translation>
+        <translation>Choisissez parmi&#xa0;:</translation>
     </message>
     <message>
         <source>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</source>
@@ -223,7 +223,7 @@
     <name>PlaybackBar</name>
     <message>
         <source>Start your sound mix</source>
-        <translation type="unfinished">Démarre ton mixage sonore</translation>
+        <translation>Démarre ton mixage sonore</translation>
     </message>
 </context>
 <context>
