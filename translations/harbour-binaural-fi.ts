@@ -327,4 +327,11 @@
         <translation>Aloita äänimiksaus</translation>
     </message>
 </context>
+<context>
+    <name>PlaybackBar</name>
+    <message>
+        <source>Start your sound mix</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>
