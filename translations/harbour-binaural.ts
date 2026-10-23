@@ -63,57 +63,57 @@
     <name>CreditPage</name>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Norwegian</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished"></translation>
+        <translation>Swedish</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Dutch</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished"></translation>
+        <translation>Slovenian</translation>
     </message>
     <message>
         <source>Credits</source>
-        <translation type="unfinished">Credits</translation>
+        <translation>Credits</translation>
     </message>
     <message>
         <source>Binaural was inspired by</source>
         <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Binaural was inspired by</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Translations</translation>
     </message>
     <message>
         <source>Audio files</source>
-        <translation type="unfinished"></translation>
+        <translation>Audio files</translation>
     </message>
     <message>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Files have been manually edited for use in this app under the</translation>
     </message>
     <message>
         <source>Pixabay Content License</source>
-        <translation type="unfinished"></translation>
+        <translation>Pixabay Content License</translation>
     </message>
     <message>
         <source>Pixabay</source>
-        <translation type="unfinished"></translation>
+        <translation>Pixabay</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Images</translation>
     </message>
     <message>
         <source>Images have been manually edited for use in this app:</source>
-        <translation type="unfinished"></translation>
+        <translation>Images have been manually edited for use in this app:</translation>
     </message>
 </context>
 <context>
