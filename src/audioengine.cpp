@@ -5,7 +5,7 @@
 
 namespace
 {
-    const int SleepTimerFadeOutDuration = 5000;
+    const int SleepTimerFadeOutDuration = 10000;
     const int FadeInterval = 15;
     const int VolumeUpdateInterval = 50;
 }

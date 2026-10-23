@@ -223,44 +223,49 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="197"/>
+        <location filename="../qml/pages/MainPage.qml" line="199"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="207"/>
+        <location filename="../qml/pages/MainPage.qml" line="209"/>
         <source>Deselect all sounds</source>
         <translation>Alle Klänge deaktivieren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="219"/>
+        <location filename="../qml/pages/MainPage.qml" line="221"/>
         <source>Timer</source>
         <translation>Timer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="247"/>
+        <location filename="../qml/pages/MainPage.qml" line="249"/>
         <source>Binaural Beats</source>
         <translation>Binaurale Beats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="261"/>
+        <location filename="../qml/pages/MainPage.qml" line="263"/>
         <source>To be used with</source>
         <translation>Zu verwenden mit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="475"/>
+        <location filename="../qml/pages/MainPage.qml" line="477"/>
         <source>Colored Noise</source>
         <translation>Farbiges Rauschen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="649"/>
+        <location filename="../qml/pages/MainPage.qml" line="651"/>
         <source>Ambient Sound</source>
         <translation>Umgebungsgeräusche</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="681"/>
+        <location filename="../qml/pages/MainPage.qml" line="688"/>
         <source>Choose an ambient sound</source>
         <translation>Wähle ein Umgebungsgeräusch</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="734"/>
+        <source>Choose a sound file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -386,6 +391,89 @@
     <message>
         <location filename="../qml/pages/components/SoundNames.qml" line="45"/>
         <source>Individual experiences may vary.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SoundpickerPage</name>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="33"/>
+        <source>Custom sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="63"/>
+        <source>Playback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="75"/>
+        <source>Playing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="37"/>
+        <source>Select an audio file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="46"/>
+        <source>No file selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="57"/>
+        <source>Choose MP3 or audio file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="72"/>
+        <source>Audio player unavailable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="78"/>
+        <source>Ready to play</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="80"/>
+        <source>Select an audio file first</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="94"/>
+        <source>Pause</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="95"/>
+        <source>Play</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="123"/>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="137"/>
+        <source>Loop sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="139"/>
+        <source>Repeat continuously</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="140"/>
+        <source>Play once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SoundpickerPage.qml" line="155"/>
+        <source>Volume</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

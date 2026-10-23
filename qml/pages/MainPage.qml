@@ -7,6 +7,8 @@ import "components"
 Page {
     id: page
 
+    property var applicationWindow: null
+
     property string activeBand: ""
     property string activeNoise: ""
     property var activeAmbiences: []
@@ -649,67 +651,115 @@ Page {
                         text: qsTr("Ambient Sound")
                     }
 
-                    Item {
+                    Column {
                         width: parent.width
-                        height: ambienceButton.height
+                        spacing: Theme.paddingMedium
 
-                        Rectangle {
-                            anchors.fill: ambienceButton
-                            anchors.margins: -Theme.paddingSmall
-                            radius: Theme.paddingSmall
+                        // Ambient sound button with highlighted background
+                        Item {
+                            width: parent.width
+                            height: ambienceButton.height
 
-                            color: ambienceButton.highlighted
-                                   ? Theme.highlightColor
-                                   : "transparent"
+                            Rectangle {
+                                anchors.fill: ambienceButton
+                                anchors.margins: -Theme.paddingSmall
+                                radius: Theme.paddingSmall
 
-                            opacity: ambienceButton.highlighted
-                                     ? 0.15 : 0.0
+                                color: ambienceButton.highlighted
+                                       ? Theme.highlightColor
+                                       : "transparent"
 
-                            Behavior on opacity {
-                                NumberAnimation {
-                                    duration: 150
+                                opacity: ambienceButton.highlighted ? 0.15 : 0.0
+
+                                Behavior on opacity {
+                                    NumberAnimation {
+                                        duration: 150
+                                    }
+                                }
+                            }
+
+                            Button {
+                                id: ambienceButton
+
+                                anchors.centerIn: parent
+                                preferredWidth: Theme.buttonWidthMedium
+
+                                text: page.activeAmbiences.length === 0
+                                      ? qsTr("Choose an ambient sound")
+                                      : page.activeAmbiences.map(function(ambience) {
+                                          return SoundNames.label(ambience)
+                                      }).join(", ")
+
+                                highlighted: page.activeAmbiences.length > 0
+
+                                opacity: page.ambiencePlaying
+                                         ? 1.0
+                                         : page.activeAmbiences.length > 0
+                                           ? 0.6
+                                           : 1.0
+
+                                onClicked: {
+                                    ambienceDrawer.open = true
+                                }
+
+                                Label {
+                                    anchors.centerIn: parent
+                                    text: parent.text
+
+                                    color: ambienceButton.highlighted
+                                           ? (page.ambiencePlaying
+                                              ? Theme.highlightColor
+                                              : Theme.secondaryHighlightColor)
+                                           : Theme.primaryColor
                                 }
                             }
                         }
 
-                        Button {
-                            id: ambienceButton
-                            anchors.centerIn: parent
-                            preferredWidth: Theme.buttonWidthMedium
+                        Item {
+                            width: 1
+                            height: Theme.paddingSmall * 0.8
+                        }
 
-                            text: page.activeAmbiences.length === 0
-                                  ? qsTr("Choose an ambient sound")
-                                  : page.activeAmbiences.map(function(ambience) {
-                                        return SoundNames.label(ambience)
-                                    }).join(", ")
+                        // Custom sound picker button
+                        Item {
+                            width: parent.width
+                            height: soundPickerButton.height
 
-                            highlighted: page.activeAmbiences.length > 0
+                            Button {
+                                id: soundPickerButton
 
-                            opacity: page.ambiencePlaying ? 1.0
-                                     : page.activeAmbiences.length > 0 ? 0.6
-                                     : 1.0
-
-                            onClicked: {
-                                ambienceDrawer.open = true
-                            }
-
-                            Label {
                                 anchors.centerIn: parent
-                                text: parent.text
+                                preferredWidth: Theme.buttonWidthMedium
 
-                                color: ambienceButton.highlighted
-                                       ? (page.ambiencePlaying
-                                          ? Theme.highlightColor
-                                          : Theme.secondaryHighlightColor)
-                                       : Theme.primaryColor
+                                text: qsTr("Choose a sound file")
+
+                                onClicked: {
+                                    pageStack.push(
+                                                Qt.resolvedUrl("SoundpickerPage.qml"),
+                                                {
+                                                    "appWindow": page.applicationWindow
+                                                }
+                                                )
+                                }
+
+                                Label {
+                                    anchors.centerIn: parent
+                                    text: parent.text
+
+                                    color: soundPickerButton.highlighted
+                                           ? Theme.highlightColor
+                                           : Theme.primaryColor
+                                }
                             }
                         }
                     }
 
+                    // Spacing after the complete Ambient Sound section
                     Item {
                         width: 1
                         height: Theme.itemSizeMedium
                     }
+
                 }
 
                 VerticalScrollDecorator {}

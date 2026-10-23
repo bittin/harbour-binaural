@@ -213,6 +213,10 @@
         <source>Choose an ambient sound</source>
         <translation>Scegli un suono ambientale</translation>
     </message>
+    <message>
+        <source>Choose a sound file</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PlaybackBar</name>
@@ -313,6 +317,73 @@
     </message>
     <message>
         <source>Ambient mix</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SoundpickerPage</name>
+    <message>
+        <source>Pause</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stop</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playback</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Playing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loop sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Repeat continuously</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Play once</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select an audio file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No file selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose MP3 or audio file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio player unavailable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ready to play</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select an audio file first</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Volume</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

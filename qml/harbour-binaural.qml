@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import QtMultimedia 5.0
 import Binaural 1.0
 import "pages"
 import "cover"
@@ -40,6 +41,92 @@ ApplicationWindow {
     property bool isPlaying: mainPage
                              ? mainPage.isPlaying
                              : false
+
+    // Custom Sound Picker
+    property url customSoundSource: ""
+    property string customSoundName: ""
+    property bool customSoundLoop: true
+    property bool customSoundPlaying: customAudio.playbackState
+                                      === Audio.PlayingState
+    property real customSoundVolume: 50
+
+    // Actual audio volume, separate from the saved slider value.
+    property real customSoundEffectiveVolume: customSoundVolume / 100.0
+
+    Audio {
+        id: customAudio
+
+        source: appWindow.customSoundSource
+        autoPlay: false
+
+        loops: appWindow.customSoundLoop
+               ? Audio.Infinite
+               : 1
+
+        volume: appWindow.customSoundEffectiveVolume
+
+        onError: {
+            console.log("Custom audio error:", errorString)
+        }
+    }
+
+    // Fade the custom sound to silence over 10 seconds.
+    NumberAnimation {
+        id: customSoundFadeOut
+
+        target: appWindow
+        property: "customSoundEffectiveVolume"
+        to: 0
+        duration: 10000
+
+        onStopped: {
+            // Stop only if the fade actually reached silence.
+            if (appWindow.customSoundEffectiveVolume <= 0.001)
+                customAudio.stop()
+        }
+    }
+
+    function playCustomSound() {
+        if (customSoundSource.toString() === "")
+            return
+
+        // Cancel a pending fade before resuming playback.
+        customSoundFadeOut.stop()
+
+        // Restore the saved volume.
+        customSoundEffectiveVolume = customSoundVolume / 100.0
+
+        customAudio.play()
+    }
+
+    function pauseCustomSound() {
+        // Cancel the fade before pausing.
+        customSoundFadeOut.stop()
+
+        customSoundEffectiveVolume = customSoundVolume / 100.0
+        customAudio.pause()
+    }
+
+    function stopCustomSound() {
+        customSoundFadeOut.stop()
+        customAudio.stop()
+
+        customSoundEffectiveVolume = customSoundVolume / 100.0
+    }
+
+    function fadeOutCustomSound() {
+        if (customAudio.playbackState !== Audio.PlayingState) {
+            stopCustomSound()
+            return
+        }
+
+        if (customSoundFadeOut.running)
+            return
+
+        customSoundFadeOut.from = customSoundEffectiveVolume
+        customSoundFadeOut.to = 0
+        customSoundFadeOut.start()
+    }
 
     // Sleep Timer
     property bool sleepTimerRunning: false
@@ -150,6 +237,9 @@ ApplicationWindow {
                     console.log("SLEEP TIMER: calling fadeOutForSleepTimer")
                     appWindow.mainPage.fadeOutForSleepTimer()
                 }
+
+                // Fade out the custom sound at the same time.
+                appWindow.fadeOutCustomSound()
             }
         }
     }
@@ -164,6 +254,8 @@ ApplicationWindow {
     initialPage: Component {
         MainPage {
             id: mainPageInstance
+
+            applicationWindow: appWindow
 
             Component.onCompleted: {
                 appWindow.mainPage = mainPageInstance
