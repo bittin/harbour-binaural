@@ -62,36 +62,6 @@
 <context>
     <name>CreditPage</name>
     <message>
-        <source>Audio files</source>
-        <translation>Fichiers audio</translation>
-    </message>
-    <message>
-        <source>Pixabay Content License</source>
-        <translation>Licence de contenu Pixabay</translation>
-    </message>
-    <message>
-        <source>Images</source>
-        <translation>Images</translation>
-    </message>
-    <message>
-        <source>Files have been manually edited for use in this app under the</source>
-        <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation>Les fichiers ont été modifiés manuellement pour être utilisés dans cette application sous la</translation>
-    </message>
-    <message>
-        <source>Binaural was inspired by</source>
-        <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
-        <translation type="unfinished">Binaural a été inspiré par</translation>
-    </message>
-    <message>
-        <source>Credits</source>
-        <translation type="unfinished">Crédits</translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation type="unfinished">Traductions</translation>
-    </message>
-    <message>
         <source>Norwegian</source>
         <translation type="unfinished"></translation>
     </message>
@@ -105,6 +75,40 @@
     </message>
     <message>
         <source>Slovenian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Credits</source>
+        <translation type="unfinished">Crédits</translation>
+    </message>
+    <message>
+        <source>Binaural was inspired by</source>
+        <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Audio files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Files have been manually edited for use in this app under the</source>
+        <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pixabay Content License</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pixabay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

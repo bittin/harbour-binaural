@@ -9,7 +9,7 @@ Page {
     allowedOrientations: defaultAllowedOrientations
 
     // List of translation credits (add names and info here)
-    property var translationCredits: [
+    readonly property var translationCredits: [
         {
             language: qsTr("Norwegian"),
             name: "fsilye (Frank Paul Silye)"
@@ -29,7 +29,7 @@ Page {
     ]
 
     // List of sound credits (add names and info here)
-    property var soundCredits: [
+    readonly property var soundCredits: [
         {
             name: SoundNames.label("Wind"),
             author: "Jurij",
@@ -92,30 +92,41 @@ Page {
         }
     ]
 
+    // Hidden text used to measure the widest "label:" column,
+    // so both credit columns align.
+    Text {
+        id: labelMetrics
+        visible: false
+        font.pixelSize: Theme.fontSizeExtraSmall
+    }
+
     property real creditsLabelWidth: {
-        var labels = []
-
-        for (var i = 0; i < translationCredits.length; ++i)
-            labels.push(translationCredits[i].language + ":")
-
-        for (var j = 0; j < soundCredits.length; ++j)
-            labels.push(soundCredits[j].name + ":")
-
         var widest = 0
-        var metrics = Qt.createQmlObject(
-            'import QtQuick 2.0; Text { font.pixelSize: '
-            + Theme.fontSizeExtraSmall + ' }',
-            page
-        )
 
-        for (var k = 0; k < labels.length; ++k) {
-            metrics.text = labels[k]
-            if (metrics.implicitWidth > widest)
-                widest = metrics.implicitWidth
+        var measure = function (label) {
+            labelMetrics.text = label
+            if (labelMetrics.implicitWidth > widest)
+                widest = labelMetrics.implicitWidth
         }
 
-        metrics.destroy()
+        for (var i = 0; i < translationCredits.length; ++i)
+            measure(translationCredits[i].language + ":")
+
+        for (var j = 0; j < soundCredits.length; ++j)
+            measure(soundCredits[j].name + ":")
+
         return widest
+    }
+
+    function openLink(link) {
+        if (link.indexOf("https://") === 0 ||
+                link.indexOf("http://") === 0) {
+            Qt.openUrlExternally(link)
+        }
+    }
+
+    function link(url, label) {
+        return "<a href=\"" + url + "\">" + label + "</a>"
     }
 
     SilicaListView {
@@ -134,25 +145,20 @@ Page {
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 x: Theme.horizontalPageMargin
 
-                property string metiqUrl: "https://github.com/metiq-xyz/android-app"
-
                 textFormat: Text.StyledText
 
                 //: Full sentence: "Binaural was inspired by Metiq."
                 text: qsTr("Binaural was inspired by") +
                       " " +
-                      "<a href=\"" + metiqUrl + "\">" +
-                      "Metiq" +
-                      "</a>."
+                      page.link("https://github.com/metiq-xyz/android-app", "Metiq") +
+                      "."
 
                 color: Theme.highlightColor
                 linkColor: Theme.primaryColor
                 font.pixelSize: Theme.fontSizeExtraSmall
                 wrapMode: Text.WordWrap
 
-                onLinkActivated: {
-                    Qt.openUrlExternally(link)
-                }
+                onLinkActivated: openLink(link)
             }
 
             SectionHeader {
@@ -171,6 +177,7 @@ Page {
                     delegate: Item {
                         width: translationContent.width
                         height: translationRow.height + Theme.paddingSmall / 2
+
                         Grid {
                             id: translationRow
 
@@ -203,7 +210,6 @@ Page {
                 }
             }
 
-
             SectionHeader {
                 text: qsTr("Audio files")
             }
@@ -216,9 +222,8 @@ Page {
                 //: Keep the sentence natural when translating; "Pixabay Content License" is a clickable link.
                 text: qsTr("Files have been manually edited for use in this app under the") +
                       " " +
-                      "<a href=\"https://pixabay.com/service/license-summary/\">" +
-                      qsTr("Pixabay Content License") +
-                      "</a>" +
+                      page.link("https://pixabay.com/service/license-summary/",
+                                qsTr("Pixabay Content License")) +
                       ":"
 
                 color: Theme.highlightColor
@@ -228,16 +233,11 @@ Page {
                 wrapMode: Text.WordWrap
                 textFormat: Text.StyledText
 
-                onLinkActivated: {
-                    if (link.indexOf("https://") === 0 ||
-                            link.indexOf("http://") === 0) {
-                        Qt.openUrlExternally(link)
-                    }
-                }
+                onLinkActivated: openLink(link)
             }
 
             Item {
-                width: 1
+                width: parent.width
                 height: Theme.paddingLarge * 2
             }
         }
@@ -270,7 +270,7 @@ Page {
 
                 Text {
                     width: creditContent.width -
-                           creditContent.children[0].width -
+                           page.creditsLabelWidth -
                            creditContent.columnSpacing
 
                     textFormat: Text.StyledText
@@ -280,20 +280,11 @@ Page {
                     linkColor: Theme.primaryColor
                     font.pixelSize: Theme.fontSizeExtraSmall
 
-                    text: "<a href=\"" + modelData.authorUrl + "\">" +
-                          modelData.author +
-                          "</a>" +
+                    text: page.link(modelData.authorUrl, modelData.author) +
                           " - " +
-                          "<a href=\"" + modelData.sourceUrl + "\">" +
-                          "Pixabay" +
-                          "</a>"
+                          page.link(modelData.sourceUrl, qsTr("Pixabay"))
 
-                    onLinkActivated: {
-                        if (link.indexOf("https://") === 0 ||
-                                link.indexOf("http://") === 0) {
-                            Qt.openUrlExternally(link)
-                        }
-                    }
+                    onLinkActivated: openLink(link)
                 }
             }
         }
@@ -302,7 +293,7 @@ Page {
             width: page.width
 
             Item {
-                width: 1
+                width: parent.width
                 height: Theme.paddingLarge
             }
 
@@ -312,7 +303,7 @@ Page {
 
             Text {
                 x: Theme.horizontalPageMargin
-                width: parent.width - 2 * x
+                width: parent.width - 2 * Theme.horizontalPageMargin
 
                 textFormat: Text.StyledText
                 wrapMode: Text.WordWrap
@@ -323,21 +314,14 @@ Page {
 
                 text: qsTr("Images have been manually edited for use in this app:") +
                       "<br>" +
-                      "<a href=\"https://commons.wikimedia.org/wiki/File:Beating_Frequency.svg\">" +
-                      "Beating_Frequency.svg" +
-                      "</a>" +
+                      page.link("https://commons.wikimedia.org/wiki/File:Beating_Frequency.svg",
+                               "Beating_Frequency.svg") +
                       " - Ansgar Hellwig (Ahellwig)" +
                       "<br>" +
-                      "<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">" +
-                      "CC BY-SA 3.0" +
-                      "</a>"
+                      page.link("https://creativecommons.org/licenses/by-sa/3.0/",
+                               "CC BY-SA 3.0")
 
-                onLinkActivated: {
-                    if (link.indexOf("https://") === 0 ||
-                            link.indexOf("http://") === 0) {
-                        Qt.openUrlExternally(link)
-                    }
-                }
+                onLinkActivated: openLink(link)
             }
         }
 

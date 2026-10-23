@@ -95,44 +95,49 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="130"/>
+        <location filename="../qml/pages/CreditPage.qml" line="141"/>
         <source>Credits</source>
         <translation type="unfinished">Danksagungen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="142"/>
+        <location filename="../qml/pages/CreditPage.qml" line="151"/>
         <source>Binaural was inspired by</source>
         <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
-        <translation type="unfinished">Binaural wurde inspiriert durch</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="159"/>
+        <location filename="../qml/pages/CreditPage.qml" line="165"/>
         <source>Translations</source>
-        <translation type="unfinished">Übersetzungen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="208"/>
+        <location filename="../qml/pages/CreditPage.qml" line="214"/>
         <source>Audio files</source>
-        <translation>Audiodateien</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="217"/>
+        <location filename="../qml/pages/CreditPage.qml" line="223"/>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation>Die Dateien wurden für die Verwendung in dieser Anwendung manuell angepasst unter der</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="220"/>
+        <location filename="../qml/pages/CreditPage.qml" line="226"/>
         <source>Pixabay Content License</source>
-        <translation>Pixabay-Inhaltslizenz</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="310"/>
+        <location filename="../qml/pages/CreditPage.qml" line="285"/>
+        <source>Pixabay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CreditPage.qml" line="301"/>
         <source>Images</source>
-        <translation>Bilder</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="324"/>
+        <location filename="../qml/pages/CreditPage.qml" line="315"/>
         <source>Images have been manually edited for use in this app:</source>
         <translation type="unfinished"></translation>
     </message>
