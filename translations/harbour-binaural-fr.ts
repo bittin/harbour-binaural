@@ -56,32 +56,32 @@
     <name>CreditPage</name>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Norvégien</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished"></translation>
+        <translation>Suédois</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Néerlandais</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished"></translation>
+        <translation>Slovène</translation>
     </message>
     <message>
         <source>Credits</source>
-        <translation type="unfinished">Crédits</translation>
+        <translation>Crédits</translation>
     </message>
     <message>
         <source>Binaural was inspired by</source>
         <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Binaural a été inspiré par</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Traductions</translation>
     </message>
     <message>
         <source>Audio files</source>
@@ -102,7 +102,7 @@
     </message>
     <message>
         <source>Images have been manually edited for use in this app:</source>
-        <translation type="unfinished"></translation>
+        <translation>Les images ont été retouchées manuellement pour être utilisées dans cette application&#xa0;:</translation>
     </message>
     <message>
         <source>Special thanks to</source>
@@ -310,15 +310,15 @@
     </message>
     <message>
         <source>Start your sound mix</source>
-        <translation type="unfinished">Démarre ton mixage sonore</translation>
+        <translation>Démarre ton mixage sonore</translation>
     </message>
     <message>
         <source>Individual experiences may vary.</source>
-        <translation type="unfinished">Les effets peuvent varier d’une personne à l’autre.</translation>
+        <translation>Les effets peuvent varier d’une personne à l’autre.</translation>
     </message>
     <message>
         <source>Ambient mix</source>
-        <translation type="unfinished"></translation>
+        <translation>Mix ambient</translation>
     </message>
 </context>
 <context>
