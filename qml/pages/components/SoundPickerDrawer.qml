@@ -43,7 +43,7 @@ SilicaFlickable {
     function openAudioPicker() {
         var dialog = pageStack.push(
                     Qt.resolvedUrl("AudioFilePickerPage.qml"),
-                    { "selectionMode": "folder" }
+                    { "selectionMode": "file" }
                     )
 
         dialog.fileSelected.connect(function(fileUrl, fileName) {
