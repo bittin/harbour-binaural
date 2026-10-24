@@ -66,7 +66,7 @@
     </message>
     <message>
         <source>Source code</source>
-        <translation type="unfinished"></translation>
+        <translation>Izvorna koda</translation>
     </message>
 </context>
 <context>
@@ -130,7 +130,7 @@
     </message>
     <message>
         <source>Binaural was inspired by</source>
-        <translation type="unfinished"></translation>
+        <translation>Binaural je navdihnil</translation>
     </message>
     <message>
         <source>Pixabay</source>
@@ -138,7 +138,7 @@
     </message>
     <message>
         <source>Credits</source>
-        <translation type="unfinished"></translation>
+        <translation>Zasluge</translation>
     </message>
     <message>
         <source>Slovenian</source>
@@ -154,7 +154,7 @@
     </message>
     <message>
         <source>Images have been manually edited for use in this app:</source>
-        <translation type="unfinished"></translation>
+        <translation>Slike so bile ročno urejene za uporabo v tej aplikaciji:</translation>
     </message>
 </context>
 <context>
@@ -351,6 +351,14 @@
     <message>
         <source>Lake</source>
         <translation>Jezero</translation>
+    </message>
+    <message>
+        <source>Start your sound mix</source>
+        <translation>Predvajajte svoj mix</translation>
+    </message>
+    <message>
+        <source>Individual experiences may vary.</source>
+        <translation>Posamezne izkušnje se lahko razlikujejo.</translation>
     </message>
 </context>
 <context>
