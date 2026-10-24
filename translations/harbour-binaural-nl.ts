@@ -49,26 +49,26 @@
     </message>
     <message>
         <source>Source code</source>
-        <translation type="unfinished"></translation>
+        <translation>Broncode</translation>
     </message>
 </context>
 <context>
     <name>CreditPage</name>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Noors</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished"></translation>
+        <translation>Zweeds</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Nederlands</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished"></translation>
+        <translation>Sloveens</translation>
     </message>
     <message>
         <source>Credits</source>
@@ -77,11 +77,11 @@
     <message>
         <source>Binaural was inspired by</source>
         <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Binaural is geïnspireerd door</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertalingen</translation>
     </message>
     <message>
         <source>Audio files</source>
@@ -102,7 +102,7 @@
     </message>
     <message>
         <source>Images have been manually edited for use in this app:</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeeldingen zijn handmatig bewerkt voor gebruik in deze app:</translation>
     </message>
     <message>
         <source>Special thanks to</source>
@@ -318,7 +318,7 @@
     </message>
     <message>
         <source>Ambient mix</source>
-        <translation type="unfinished"></translation>
+        <translation>Ambientmix</translation>
     </message>
 </context>
 <context>
