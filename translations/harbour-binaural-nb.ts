@@ -49,7 +49,7 @@
     </message>
     <message>
         <source>Source code</source>
-        <translation type="unfinished"></translation>
+        <translation>Kildekode</translation>
     </message>
 </context>
 <context>
@@ -77,7 +77,7 @@
     <message>
         <source>Binaural was inspired by</source>
         <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Binaural er inspirert av</translation>
     </message>
     <message>
         <source>Translations</source>
@@ -102,7 +102,7 @@
     </message>
     <message>
         <source>Images have been manually edited for use in this app:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildene er manuelt redigert for bruk i denne appen:</translation>
     </message>
     <message>
         <source>Special thanks to</source>
