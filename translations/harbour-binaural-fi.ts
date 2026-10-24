@@ -66,7 +66,7 @@
     </message>
     <message>
         <source>Source code</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähdekoodi</translation>
     </message>
 </context>
 <context>
@@ -122,15 +122,15 @@
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Norja</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished"></translation>
+        <translation>Ruotsi</translation>
     </message>
     <message>
         <source>Binaural was inspired by</source>
-        <translation type="unfinished"></translation>
+        <translation>Binaural sai inspiraationsa yrityksestä</translation>
     </message>
     <message>
         <source>Pixabay</source>
@@ -142,19 +142,19 @@
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished"></translation>
+        <translation>Sloveeni</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Käännökset</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Hollanti</translation>
     </message>
     <message>
         <source>Images have been manually edited for use in this app:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kuvat on muokattu manuaalisesti tässä sovelluksessa käytettäviksi:</translation>
     </message>
 </context>
 <context>
@@ -351,6 +351,18 @@
     <message>
         <source>Lake</source>
         <translation>Järvi</translation>
+    </message>
+    <message>
+        <source>Start your sound mix</source>
+        <translation>Aloita äänimiksauksesi</translation>
+    </message>
+    <message>
+        <source>Individual experiences may vary.</source>
+        <translation>Yksilölliset kokemukset voivat vaihdella.</translation>
+    </message>
+    <message>
+        <source>Ambient mix</source>
+        <translation>Ambienttisekoitus</translation>
     </message>
 </context>
 <context>
