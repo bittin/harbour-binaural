@@ -266,7 +266,7 @@ ApplicationWindow {
     property int sleepTimerRemainingSeconds: 0
     property int sleepTimerDurationSeconds: 0
 
-    // Playback bar visibility
+    // Playback bar visibility (exclude from listed Pages)
     property bool playbackBarShouldShow: true
 
     function updatePlaybackBarVisibility() {
@@ -275,6 +275,7 @@ ApplicationWindow {
         playbackBarShouldShow = current === null ||
                 (current.objectName !== "AboutPage" &&
                  current.objectName !== "CreditPage" &&
+                 current.objectName !== "AudioFilePickerPage" &&
                  current.objectName !== "InfoBinauralPage" &&
                  current.objectName !== "InfoColoredPage")
     }

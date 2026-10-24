@@ -303,6 +303,7 @@ SilicaFlickable {
                                    : (playbackButtons.hasAudio
                                       ? Theme.primaryColor
                                       : Theme.secondaryColor))
+                        sourceSize: Qt.size(width * 2, height * 2)
                     }
 
                     MouseArea {

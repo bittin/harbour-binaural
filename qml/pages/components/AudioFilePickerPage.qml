@@ -4,6 +4,7 @@ import Qt.labs.folderlistmodel 2.1
 
 Dialog {
     id: picker
+    objectName: "AudioFilePickerPage"
 
     property string selectionMode: "file"
 
@@ -108,10 +109,6 @@ Dialog {
                     color: Theme.secondaryColor
                     font.pixelSize: Theme.fontSizeSmall
                     wrapMode: Text.WrapAnywhere
-                }
-
-                SectionHeader {
-                    text: qsTr("Folders and audio files")
                 }
 
                 // Up button to go back to parent folder
