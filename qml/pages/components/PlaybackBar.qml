@@ -174,6 +174,7 @@ DockedPanel {
             }
         }
 
+        // Sleep timer icon.
         Image {
             id: sleepTimerIcon
 
@@ -197,6 +198,7 @@ DockedPanel {
             sourceSize: Qt.size(width, height)
         }
 
+        // Sleep timer label showing time.
         Label {
             id: sleepTimerLabel
 
@@ -235,6 +237,8 @@ DockedPanel {
             font.pixelSize: Theme.fontSizeSmall
         }
 
+        // Makes sleep timer icon and label clickable when active.
+        // Deactivated when on TimerPage itself.
         MouseArea {
             id: timerMouseArea
 

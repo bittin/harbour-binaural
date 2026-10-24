@@ -35,12 +35,72 @@ SilicaFlickable {
         if (appWindow && appWindow.customSoundSource) {
             selectedFile = appWindow.customSoundSource
             selectedFileName = appWindow.customSoundName
-                    ? appWindow.customSoundName : ""
+                           ? appWindow.customSoundName : ""
         }
     }
 
+    // Open the picker as a separate PageStack entry.
     function openAudioPicker() {
-        pageStack.push(customAudioPicker)
+        var dialog = pageStack.push(
+                    Qt.resolvedUrl("AudioFilePickerPage.qml"),
+                    { "selectionMode": "folder" }
+                    )
+
+        dialog.fileSelected.connect(function(fileUrl, fileName) {
+            page.handleFileSelected(fileUrl, fileName)
+        })
+
+        dialog.folderSelected.connect(function(folderUrl, folderName) {
+            page.handleFolderSelected(folderUrl, folderName)
+        })
+    }
+
+    function handleFileSelected(fileUrl, fileName) {
+        selectedFile = fileUrl
+        selectedFileName = fileName
+
+        selectedFolder = ""
+        selectedFolderName = ""
+
+        startFolderWhenReady = false
+        folderPlaylistTimer.stop()
+
+        if (appWindow) {
+            appWindow.stopCustomSound()
+            appWindow.customSoundSource = fileUrl
+            appWindow.customSoundName = fileName
+            appWindow.playCustomSound()
+        }
+    }
+
+    function handleFolderSelected(folderUrl, folderName) {
+        selectedFolder = folderUrl
+        selectedFolderName = folderName
+
+        selectedFile = ""
+        selectedFileName = ""
+
+        startFolderPlayback()
+    }
+
+    function clearSelection() {
+        folderPlaylistTimer.stop()
+        startFolderWhenReady = false
+
+        selectedFile = ""
+        selectedFileName = ""
+        selectedFolder = ""
+        selectedFolderName = ""
+
+        previousFolderCount = -1
+        stableFolderCountTicks = 0
+        folderWaitTicks = 0
+
+        if (appWindow) {
+            appWindow.stopCustomSound()
+            appWindow.customSoundSource = ""
+            appWindow.customSoundName = ""
+        }
     }
 
     function startFolderPlayback() {
@@ -121,6 +181,7 @@ SilicaFlickable {
 
             Rectangle {
                 anchors.centerIn: parent
+
                 width: Theme.itemSizeExtraSmall * 2
                 height: Theme.paddingSmall
                 radius: Theme.paddingSmall
@@ -216,9 +277,8 @@ SilicaFlickable {
                         enabled: playbackButtons.hasPlaylist
 
                         onClicked: {
-                            if (enabled && page.appWindow) {
+                            if (enabled && page.appWindow)
                                 page.appWindow.playPreviousCustomSound()
-                            }
                         }
                     }
                 }
@@ -293,15 +353,15 @@ SilicaFlickable {
                         enabled: playbackButtons.hasPlaylist
 
                         onClicked: {
-                            if (enabled && page.appWindow) {
+                            if (enabled && page.appWindow)
                                 page.appWindow.playNextCustomSound()
-                            }
                         }
                     }
                 }
             }
         }
 
+        // Button to open AudioFilePickerPage
         Button {
             x: Theme.horizontalPageMargin
             width: parent.width - 2 * Theme.horizontalPageMargin
@@ -309,6 +369,19 @@ SilicaFlickable {
             text: qsTr("Open audio file or folder")
 
             onClicked: page.openAudioPicker()
+        }
+
+        // Button to clear selected file / folder
+        Button {
+            x: Theme.horizontalPageMargin
+            width: parent.width - 2 * Theme.horizontalPageMargin
+
+            text: qsTr("Clear selection")
+
+            enabled: page.selectedFile.toString() !== ""
+                     || page.selectedFolder.toString() !== ""
+
+            onClicked: page.clearSelection()
         }
 
         // Selected folder and current track information.
@@ -380,8 +453,7 @@ SilicaFlickable {
             }
         }
 
-        // Volume slider + volume icon + Repeat switch
-        // Volume and repeat controls in one responsive row
+        // Volume slider, volume icon and Repeat switch.
         Row {
             id: customSoundControls
 
@@ -389,14 +461,15 @@ SilicaFlickable {
             x: Theme.horizontalPageMargin
             spacing: 0
 
-            // Volume slider and original icon
+            // Volume slider
             Item {
                 id: customSoundVolumeContainer
 
-                y: Theme.paddingSmall  // Moves slider and icon down slightly
+                y: Theme.paddingSmall
 
                 width: parent.width - loopButton.width
                        - customSoundControls.spacing
+
                 height: customSoundVolumeSlider.height
                         + customSoundVolumeIcon.height
                         - Theme.paddingLarge
@@ -409,17 +482,18 @@ SilicaFlickable {
 
                     minimumValue: 0
                     maximumValue: 100
+
                     value: appWindow ? appWindow.customSoundVolume : 50
 
                     onValueChanged: {
-                        if (appWindow &&
-                                appWindow.customSoundVolume !== value) {
+                        if (appWindow
+                                && appWindow.customSoundVolume !== value) {
                             appWindow.customSoundVolume = value
                         }
                     }
                 }
 
-                // Original volume icon: size, placement and appearance preserved
+                // Volume icon.
                 Item {
                     id: customSoundVolumeIcon
 
@@ -428,7 +502,8 @@ SilicaFlickable {
 
                     anchors.top: customSoundVolumeSlider.bottom
                     anchors.topMargin: -Theme.paddingLarge
-                    anchors.horizontalCenter: customSoundVolumeSlider.horizontalCenter
+                    anchors.horizontalCenter:
+                        customSoundVolumeSlider.horizontalCenter
 
                     Image {
                         id: customSoundVolumeImage
@@ -460,16 +535,18 @@ SilicaFlickable {
                 }
             }
 
-            // Repeat toggle
+            // Repeat toggle.
             Switch {
                 id: loopButton
 
                 x: -Theme.paddingSmall
 
-                anchors.verticalCenter: customSoundVolumeContainer.verticalCenter
+                anchors.verticalCenter:
+                    customSoundVolumeContainer.verticalCenter
 
                 icon.source: "image://theme/icon-m-repeat"
                 automaticCheck: false
+
                 checked: appWindow ? appWindow.customSoundLoop : false
 
                 onClicked: {
@@ -480,44 +557,9 @@ SilicaFlickable {
                 }
             }
         }
-
     }
 
-    // File picker remains a separate navigation page.
-    AudioFilePickerPage {
-        id: customAudioPicker
-
-        selectionMode: "file"
-
-        onFileSelected: {
-            page.selectedFile = fileUrl
-            page.selectedFileName = fileName
-
-            page.selectedFolder = ""
-            page.selectedFolderName = ""
-
-            page.startFolderWhenReady = false
-            folderPlaylistTimer.stop()
-
-            if (page.appWindow) {
-                page.appWindow.stopCustomSound()
-                page.appWindow.customSoundSource = fileUrl
-                page.appWindow.customSoundName = fileName
-                page.appWindow.playCustomSound()
-            }
-        }
-
-        onFolderSelected: {
-            page.selectedFolder = folderUrl
-            page.selectedFolderName = folderName
-
-            page.selectedFile = ""
-            page.selectedFileName = ""
-
-            page.startFolderPlayback()
-        }
-    }
-
+    // Folder playlist loading timer.
     Timer {
         id: folderPlaylistTimer
 

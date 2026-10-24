@@ -47,7 +47,7 @@ ApplicationWindow {
     property real customSoundVolume: 50
     property real customSoundFadeGain: 1.0
 
-    // Folder playlist
+    // Custom sound folder playlist
     property var customSoundPlaylist: []
     property int customSoundPlaylistIndex: -1
     property bool customSoundFolderLoop: false
@@ -96,7 +96,8 @@ ApplicationWindow {
         }
     }
 
-    // Fade custom sound to silence over 10 seconds.
+    // Fade custom sound to silence in 10 seconds.
+    // Used with timer.
     NumberAnimation {
         id: customSoundFadeOut
 
