@@ -165,6 +165,11 @@ void AmbienceChannel::pause()
     m_resumeFadeIn = m_fadeInTimer->isActive();
     m_resumeCrossfade = m_crossfadeTimer->isActive();
 
+    if (m_stopping && m_fadeElapsed.isValid()) {
+        m_fadeElapsedBeforePause += m_fadeElapsed.elapsed();
+        m_fadeElapsed.invalidate();
+    }
+
     m_fadeInTimer->stop();
     m_crossfadeTimer->stop();
     m_fadeOutTimer->stop();
@@ -193,6 +198,7 @@ void AmbienceChannel::resume()
         m_fadingPlayer->play();
 
     if (m_stopping) {
+        m_fadeElapsed.start();
         m_fadeOutTimer->start();
     } else if (m_resumeCrossfade && m_fadingPlayer) {
         m_crossfadeTimer->start();
@@ -223,6 +229,8 @@ void AmbienceChannel::stop()
         m_fadingPlayer ? m_fadingPlayer->volume() : 0;
 
     m_fadeOutPosition = 0;
+    m_fadeElapsedBeforePause = 0;
+    m_fadeElapsed.start();
 
     m_stopping = true;
     m_paused = false;
@@ -251,6 +259,9 @@ void AmbienceChannel::stopImmediately()
     m_fadeInPosition = 0;
     m_fadeOutPosition = 0;
     m_crossfadePosition = 0;
+
+    m_fadeElapsed.invalidate();
+    m_fadeElapsedBeforePause = 0;
 
     m_fadeOutActiveVolume = 0;
     m_fadeOutFadingVolume = 0;
@@ -347,11 +358,12 @@ void AmbienceChannel::updateFadeOut()
     if (m_paused)
         return;
 
-    m_fadeOutPosition += FadeInterval;
+    const qint64 elapsed = m_fadeElapsedBeforePause
+        + m_fadeElapsed.elapsed();
 
     const double progress = qMin(
         1.0,
-        static_cast<double>(m_fadeOutPosition) / FadeOutDuration);
+        static_cast<double>(elapsed) / FadeOutDuration);
 
     m_activePlayer->setVolume(
         qRound(m_fadeOutActiveVolume * (1.0 - progress)));
@@ -362,7 +374,9 @@ void AmbienceChannel::updateFadeOut()
     }
 
     if (progress >= 1.0) {
+        // Save the intent before stopImmediately() resets the state.
         const bool shouldEmitFinished = m_stopping;
+
         stopImmediately();
 
         if (shouldEmitFinished)
