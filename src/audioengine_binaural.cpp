@@ -95,6 +95,9 @@ void AudioEngine::start()
     auto *generator =
         new BinauralGenerator(m_binauralChannel);
 
+    m_binauralChannel->setVolume(
+        m_binauralVolume / 100.0);
+
     const bool started = m_binauralChannel->start(
         generator,
         [this, generator](const QAudioFormat &format)

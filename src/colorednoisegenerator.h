@@ -4,10 +4,6 @@
 #include <QIODevice>
 #include <QtGlobal>
 
-// ============================================================================
-// COLORED NOISE GENERATOR
-// ============================================================================
-
 class ColoredNoiseGenerator : public QIODevice
 {
 public:

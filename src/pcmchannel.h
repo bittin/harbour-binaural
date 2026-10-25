@@ -14,10 +14,6 @@ class QAudioDeviceInfo;
 class QAudioFormat;
 
 /*
- * ============================================================================
- * PCM CHANNEL
- * ============================================================================
- *
  * Owns one PCM playback pipeline: a QAudioOutput fed by a
  * generator (QIODevice). Handles format negotiation, volume,
  * pause/resume, fade-out and teardown.
