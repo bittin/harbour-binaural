@@ -3,7 +3,6 @@
 
 #include <QAudioDeviceInfo>
 #include <QAudioFormat>
-#include <QDebug>
 #include <QMap>
 #include <QtMath>
 

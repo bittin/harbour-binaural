@@ -1,6 +1,9 @@
 #include "audioengine.h"
 #include "colorednoisegenerator.h"
 
+#include <QAudioDeviceInfo>
+#include <QAudioFormat>
+
 #include <QtMath>
 
 namespace
