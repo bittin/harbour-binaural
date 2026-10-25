@@ -28,7 +28,8 @@ SOURCES += src/harbour-binaural.cpp \
     src/audioengine_binaural.cpp \
     src/audioengine_colorednoise.cpp \
     src/binauralgenerator.cpp \
-    src/colorednoisegenerator.cpp
+    src/colorednoisegenerator.cpp \
+    src/pcmchannel.cpp
 
 
 DISTFILES += qml/harbour-binaural.qml \
@@ -89,7 +90,8 @@ HEADERS += \
     src/ambiencechannel.h \
     src/audioengine.h \
     src/binauralgenerator.h \
-    src/colorednoisegenerator.h
+    src/colorednoisegenerator.h \
+    src/pcmchannel.h
 
 
 # Install the audio files as application data.

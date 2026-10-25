@@ -78,4 +78,4 @@ private:
     bool m_resumeCrossfade;
 };
 
-#endif // AMBIENCECHANNEL_H
+#endif
