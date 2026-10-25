@@ -56,19 +56,19 @@
     <name>CreditPage</name>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Norska</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished"></translation>
+        <translation>Svenska</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Nederländska</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished"></translation>
+        <translation>Slovenska</translation>
     </message>
     <message>
         <source>Credits</source>
@@ -81,7 +81,7 @@
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Översättningar</translation>
     </message>
     <message>
         <source>Audio files</source>
@@ -318,7 +318,7 @@
     </message>
     <message>
         <source>Ambient mix</source>
-        <translation type="unfinished"></translation>
+        <translation>Ambientmix</translation>
     </message>
 </context>
 <context>
