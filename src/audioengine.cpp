@@ -3,6 +3,10 @@
 #include <QtMath>
 #include <QTimer>
 
+#include <QAudioDeviceInfo>
+#include <QAudioFormat>
+#include <QDebug>
+
 namespace
 {
     const int SleepTimerFadeOutDuration = 5000;
@@ -139,6 +143,49 @@ AudioEngine::~AudioEngine()
 void AudioEngine::updatePlayingState()
 {
     emit playingChanged();
+}
+
+bool AudioEngine::resolvePcmFormat(
+    QAudioFormat &format,
+    QAudioDeviceInfo &device,
+    const QString &context)
+{
+    format.setSampleRate(48000);
+    format.setChannelCount(2);
+    format.setSampleSize(16);
+    format.setCodec("audio/pcm");
+    format.setByteOrder(QAudioFormat::LittleEndian);
+    format.setSampleType(QAudioFormat::SignedInt);
+
+    device = QAudioDeviceInfo::defaultOutputDevice();
+
+    if (device.isNull())
+    {
+        qWarning() << "AudioEngine: no audio output device";
+        return false;
+    }
+
+    if (device.isFormatSupported(format))
+        return true;
+
+    /*
+     * Do not silently accept a nearest format with
+     * another sample size/type.
+     */
+    const QAudioFormat nearest = device.nearestFormat(format);
+
+    if (!nearest.isValid()
+        || nearest.sampleSize() != 16
+        || nearest.sampleType() != QAudioFormat::SignedInt
+        || nearest.byteOrder() != QAudioFormat::LittleEndian)
+    {
+        qWarning() << "AudioEngine: compatible 16-bit PCM output "
+                      "format not available for" << context;
+        return false;
+    }
+
+    format = nearest;
+    return true;
 }
 
 void AudioEngine::updateAmbienceState()

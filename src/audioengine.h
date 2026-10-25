@@ -83,6 +83,10 @@ signals:
 
 private:
     void updatePlayingState();
+    // Shared PCM output setup (binaural + colored noise).
+    bool resolvePcmFormat(QAudioFormat &format,
+                          QAudioDeviceInfo &device,
+                          const QString &context);
 
     // Binaural implementation.
     void updateBinauralFadeIn();
