@@ -3,7 +3,6 @@
 
 #include <QAudioDeviceInfo>
 #include <QAudioFormat>
-#include <QDebug>
 #include <QMap>
 #include <QtMath>
 
@@ -13,10 +12,6 @@
 
 namespace
 {
-    const int DefaultSampleRate = 48000;
-    const int ChannelCount = 2;
-    const int SampleSize = 16;
-
     const int BinauralFadeInDuration = 0;
     const int BinauralFadeOutDuration = 0;
 
@@ -98,7 +93,7 @@ void AudioEngine::setBinauralVolume(int volume)
 }
 
 // ============================================================================
-// BINAURAL
+// BINAURAL AUDIO
 // ============================================================================
 
 void AudioEngine::start()
@@ -121,43 +116,11 @@ void AudioEngine::start()
     }
 
     QAudioFormat format;
-    format.setSampleRate(DefaultSampleRate);
-    format.setChannelCount(ChannelCount);
-    format.setSampleSize(SampleSize);
-    format.setCodec("audio/pcm");
-    format.setByteOrder(QAudioFormat::LittleEndian);
-    format.setSampleType(QAudioFormat::SignedInt);
+    QAudioDeviceInfo device;
 
-    const QAudioDeviceInfo device =
-        QAudioDeviceInfo::defaultOutputDevice();
-
-    if (device.isNull())
-    {
-        qWarning()
-            << "AudioEngine: no audio output device";
+    if (!resolvePcmFormat(format, device,
+                          QStringLiteral("binaural")))
         return;
-    }
-
-    if (!device.isFormatSupported(format))
-    {
-        QAudioFormat nearest =
-            device.nearestFormat(format);
-
-        if (!nearest.isValid() ||
-            nearest.sampleSize() != SampleSize ||
-            nearest.sampleType()
-                != QAudioFormat::SignedInt ||
-            nearest.byteOrder()
-                != QAudioFormat::LittleEndian)
-        {
-            qWarning()
-                << "AudioEngine: compatible binaural "
-                   "PCM output format not available";
-            return;
-        }
-
-        format = nearest;
-    }
 
     m_generator =
         new BinauralGenerator(this);
