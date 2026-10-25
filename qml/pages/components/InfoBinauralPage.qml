@@ -20,8 +20,6 @@ FullscreenContentPage {
         contentHeight: scrollContent.height + Theme.paddingLarge
         clip: true
 
-        VerticalScrollDecorator { }
-
         Item {
             id: scrollContent
 
@@ -247,5 +245,7 @@ FullscreenContentPage {
                 }
             }
         }
+
+        VerticalScrollDecorator {}
     }
 }

@@ -33,6 +33,7 @@ Page {
         title: qsTr("Timer")
     }
 
+    // TimePicker Circle
     TimePicker {
         id: timerPicker
 
@@ -48,6 +49,7 @@ Page {
         minute: 30
     }
 
+    // Label displaying time via TimePicker Circle
     Label {
         visible: !page.appWindow.sleepTimerRunning
 
@@ -80,6 +82,7 @@ Page {
         z: 1
     }
 
+    // TimerDisplay circle when timer is running
     Item {
         id: timerDisplay
 
@@ -173,6 +176,7 @@ Page {
         }
     }
 
+    // Add and clear Timer Button
     IconButton {
         anchors {
             horizontalCenter: parent.horizontalCenter

@@ -223,5 +223,7 @@ FullscreenContentPage {
                 }
             }
         }
+
+        VerticalScrollDecorator {}
     }
 }

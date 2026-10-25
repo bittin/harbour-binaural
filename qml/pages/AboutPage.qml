@@ -9,8 +9,6 @@ Page {
         anchors.fill: parent
         contentHeight: contentColumn.height + Theme.paddingLarge
 
-        VerticalScrollDecorator { }
-
         Column {
             id: contentColumn
 
@@ -41,7 +39,7 @@ Page {
                 font.pixelSize: Theme.fontSizeLarge
             }
 
-            // Version number
+            // Release Version number
             Label {
                 width: parent.width
                 horizontalAlignment: Text.AlignHCenter
@@ -195,5 +193,7 @@ Page {
                 height: Theme.paddingLarge
             }
         }
+
+        VerticalScrollDecorator {}
     }
 }

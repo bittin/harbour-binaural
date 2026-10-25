@@ -92,8 +92,7 @@ Page {
         }
     ]
 
-    // Hidden text used to measure the widest "label:" column,
-    // so both credit columns align.
+    // Hidden text used to measure the widest "label:" column, so both credit columns align.
     Text {
         id: labelMetrics
         visible: false

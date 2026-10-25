@@ -242,7 +242,7 @@ Page {
                         height: Theme.paddingLarge
                     }
 
-                    // Binaural Beats
+                    // Binaural Beats Section
                     SectionHeader {
                         text: qsTr("Binaural Beats")
                     }
@@ -292,6 +292,7 @@ Page {
                         }
                     }
 
+                    // Binaural Beats Selection grid
                     SilicaGridView {
                         id: frequencyGrid
 
@@ -378,7 +379,7 @@ Page {
                         }
                     }
 
-                    // Binaural volume
+                    // Binaural Beats Volume slider
                     Item {
                         width: parent.width
 
@@ -450,6 +451,7 @@ Page {
                             }
                         }
 
+                        // Opens InfoBinauralPage
                         IconButton {
                             id: infoBinauralsButton
 
@@ -470,11 +472,12 @@ Page {
                         }
                     }
 
-                    // Colored Noise
+                    // Colored Noise Section
                     SectionHeader {
                         text: qsTr("Colored Noise")
                     }
 
+                    // Colored Noise Selection grid
                     SilicaGridView {
                         id: coloredNoiseGrid
 
@@ -551,7 +554,7 @@ Page {
                         }
                     }
 
-                    // Colored noise volume
+                    // Colored Noise Volume slider
                     Item {
                         width: parent.width
 
@@ -623,6 +626,7 @@ Page {
                             }
                         }
 
+                        // Opens InfoColoredPage
                         IconButton {
                             id: infoColoredButton
 
@@ -643,16 +647,16 @@ Page {
                         }
                     }
 
-                    // Ambient Sound
+                    // Ambient Sound Section
                     SectionHeader {
                         text: qsTr("Ambient Sound")
                     }
 
+                    // AmbienceDrawer button with glow background
                     Item {
                         width: parent.width
                         height: ambienceButton.height
 
-                        // Glow when an ambience is selected
                         Rectangle {
                             anchors.fill: ambienceButton
                             radius: Theme.paddingSmall
@@ -713,7 +717,7 @@ Page {
                 VerticalScrollDecorator {}
             }
 
-            // Dim the foreground while the drawer is open.
+            // Dim the foreground while Drawers are open.
             // This rectangle moves with the foreground and does not
             // cover the exposed drawer background.
             Rectangle {

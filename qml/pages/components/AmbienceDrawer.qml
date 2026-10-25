@@ -87,7 +87,7 @@ SilicaFlickable {
             }
         }
 
-        // Ambient sound selection
+        // Ambient Sound Selection grid
         SilicaGridView {
             id: ambienceGrid
 
@@ -177,7 +177,7 @@ SilicaFlickable {
             }
         }
 
-        // Volume control.
+        // Ambient Sound Volume Slider
         Item {
             width: parent.width
             height: ambienceVolumeSlider.height + Theme.iconSizeSmall
