@@ -316,9 +316,9 @@ Page {
                             width: frequencyGrid.cellWidth
                             height: frequencyGrid.cellHeight
 
+                            // Glow rectangle when sound activated
                             Rectangle {
                                 anchors.fill: frequencyButton
-                                anchors.margins: -Theme.paddingSmall
                                 radius: Theme.paddingSmall
 
                                 color: frequencyButton.highlighted
@@ -492,17 +492,16 @@ Page {
                             width: coloredNoiseGrid.cellWidth
                             height: coloredNoiseGrid.cellHeight
 
+                            // Glow when the sound is active
                             Rectangle {
                                 anchors.fill: coloredNoiseButton
-                                anchors.margins: -Theme.paddingSmall
                                 radius: Theme.paddingSmall
 
                                 color: coloredNoiseButton.highlighted
                                        ? Theme.highlightColor
                                        : "transparent"
 
-                                opacity: coloredNoiseButton.highlighted
-                                         ? 0.15 : 0.0
+                                opacity: coloredNoiseButton.highlighted ? 0.15 : 0.0
 
                                 Behavior on opacity {
                                     NumberAnimation {
@@ -653,17 +652,16 @@ Page {
                         width: parent.width
                         height: ambienceButton.height
 
+                        // Glow when an ambience is selected
                         Rectangle {
                             anchors.fill: ambienceButton
-                            anchors.margins: -Theme.paddingSmall
                             radius: Theme.paddingSmall
 
                             color: ambienceButton.highlighted
                                    ? Theme.highlightColor
                                    : "transparent"
 
-                            opacity: ambienceButton.highlighted
-                                     ? 0.15 : 0.0
+                            opacity: ambienceButton.highlighted ? 0.15 : 0.0
 
                             Behavior on opacity {
                                 NumberAnimation {
