@@ -1,4 +1,4 @@
-﻿import QtQuick 2.0
+﻿import QtQuick 2.6
 import Sailfish.Silica 1.0
 
 Page {
@@ -8,8 +8,29 @@ Page {
     property var appWindow
 
     function selectedDurationSeconds() {
-        return timerPicker.hour * 3600
-             + timerPicker.minute * 60
+        return timerPicker.hour * 3600 +
+               timerPicker.minute * 60
+    }
+
+    function formatTime(hour, minute) {
+        return (hour < 10 ? "0" : "") + hour + ":" +
+               (minute < 10 ? "0" : "") + minute
+    }
+
+    function formatRemainingTime(seconds) {
+        var hours = Math.floor(seconds / 3600)
+        var minutes = Math.floor((seconds % 3600) / 60)
+        var secs = seconds % 60
+
+        return (hours > 0
+                ? (hours < 10 ? "0" : "") + hours + ":"
+                : "") +
+               (minutes < 10 ? "0" : "") + minutes + ":" +
+               (secs < 10 ? "0" : "") + secs
+    }
+
+    PageHeader {
+        title: qsTr("Timer")
     }
 
     TimePicker {
@@ -17,21 +38,46 @@ Page {
 
         visible: !page.appWindow.sleepTimerRunning
 
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            top: page.top
+            topMargin: Theme.itemSizeExtraLarge
+        }
+
         hour: 0
         minute: 30
     }
 
     Label {
+        visible: !page.appWindow.sleepTimerRunning
+
         anchors {
             horizontalCenter: timerPicker.horizontalCenter
             verticalCenter: timerPicker.verticalCenter
         }
 
-        visible: timerPicker.visible
+        text: timerPicker.hour > 0
+              ? (timerPicker.hour < 10 ? "0" : "") +
+                timerPicker.hour +
+                ":" +
+                (timerPicker.minute < 10 ? "0" : "") +
+                timerPicker.minute +
+                "<font color=\"" +
+                Theme.rgba(Theme.secondaryColor, 0.7) +
+                "\">:00</font>"
+              : (timerPicker.minute < 10 ? "0" : "") +
+                timerPicker.minute +
+                "<font color=\"" +
+                Theme.rgba(Theme.secondaryColor, 0.7) +
+                "\">:00</font>"
 
-        text: qsTr("Set sleep timer")
-        color: Theme.highlightColor
-        font.pixelSize: Theme.fontSizeMedium
+        textFormat: Text.StyledText
+
+        color: Theme.primaryColor
+        font.pixelSize: Theme.fontSizeLarge
+        font.weight: Font.DemiBold
+
+        z: 1
     }
 
     Item {
@@ -41,34 +87,35 @@ Page {
 
         anchors {
             horizontalCenter: parent.horizontalCenter
-            verticalCenter: parent.verticalCenter
+            top: page.top
+            topMargin: Theme.itemSizeExtraLarge
         }
 
-        width: Math.min(parent.width * 0.7, 400)
-        height: width
+        width: timerPicker.width
+        height: timerPicker.height
 
         Canvas {
-            id: timerCanvas
+            id: timerRing
 
             anchors.fill: parent
 
-            property real progress: page.appWindow.sleepTimerProgress
-
-            onProgressChanged: requestPaint()
-
             onPaint: {
                 var ctx = getContext("2d")
-                ctx.reset()
-
                 var centerX = width / 2
                 var centerY = height / 2
-                var radius = Math.min(width, height) / 2 - Theme.paddingLarge
+                var radius = Math.min(width, height) / 2 - 10
 
-                ctx.beginPath()
-                ctx.arc(centerX, centerY, radius, 0, Math.PI * 2, false)
-                ctx.lineWidth = Theme.paddingSmall
-                ctx.strokeStyle = Theme.rgba(Theme.highlightColor, 0.2)
-                ctx.stroke()
+                var progress = 0
+
+                if (page.appWindow.sleepTimerDurationSeconds > 0) {
+                    progress =
+                            page.appWindow.sleepTimerRemainingSeconds /
+                            page.appWindow.sleepTimerDurationSeconds
+                }
+
+                progress = Math.max(0, Math.min(1, progress))
+
+                ctx.clearRect(0, 0, width, height)
 
                 ctx.beginPath()
                 ctx.arc(
@@ -76,38 +123,70 @@ Page {
                     centerY,
                     radius,
                     -Math.PI / 2,
-                    -Math.PI / 2 + Math.PI * 2 * progress,
+                    3 * Math.PI / 2,
                     false
                 )
-                ctx.lineWidth = Theme.paddingSmall
-                ctx.strokeStyle = Theme.highlightColor
+
+                ctx.lineWidth = 8
+                ctx.strokeStyle =
+                        Theme.rgba(Theme.primaryColor, 0.2)
                 ctx.stroke()
+
+                if (progress > 0) {
+                    ctx.beginPath()
+                    ctx.arc(
+                        centerX,
+                        centerY,
+                        radius,
+                        -Math.PI / 2,
+                        -Math.PI / 2 +
+                        (2 * Math.PI * progress),
+                        false
+                                )
+
+                    ctx.lineWidth = 8
+                    ctx.strokeStyle = Theme.highlightColor
+                    ctx.stroke()
+                }
+            }
+        }
+
+        Connections {
+            target: page.appWindow
+
+            onSleepTimerRemainingSecondsChanged: {
+                timerRing.requestPaint()
             }
         }
 
         Label {
             anchors.centerIn: parent
 
-            text: page.appWindow.sleepTimerRemainingText
-            font.pixelSize: Theme.fontSizeExtraLarge
-            color: Theme.highlightColor
+            text: page.formatRemainingTime(
+                      page.appWindow.sleepTimerRemainingSeconds)
+
+            color: page.appWindow.sleepTimerPaused
+                   ? Theme.secondaryHighlightColor
+                   : Theme.highlightColor
+            font.pixelSize: Theme.fontSizeLarge
+            font.weight: Font.DemiBold
         }
     }
 
     IconButton {
-        id: timerToggleButton
-
         anchors {
             horizontalCenter: parent.horizontalCenter
+
             top: page.appWindow.sleepTimerRunning
                  ? timerDisplay.bottom
                  : timerPicker.bottom
+
             topMargin: Theme.paddingLarge * 1.5
         }
 
         icon.source: page.appWindow.sleepTimerRunning
-                     ? "image://theme/icon-l-clear?"
-                     : "image://theme/icon-l-add"
+                    ? "image://theme/icon-l-clear?"
+                    : "image://theme/icon-l-add"
 
         enabled: page.appWindow.sleepTimerRunning ||
                  (page.selectedDurationSeconds() > 0 &&
@@ -121,24 +200,6 @@ Page {
                     page.selectedDurationSeconds()
                 )
             }
-        }
-    }
-
-    Button {
-        id: testSleepTimerButton
-
-        anchors {
-            horizontalCenter: parent.horizontalCenter
-            top: timerToggleButton.bottom
-            topMargin: Theme.paddingLarge
-        }
-
-        text: "Test 5-second fade"
-
-        enabled: page.appWindow.isPlaying
-
-        onClicked: {
-            page.appWindow.startSleepTimer(5)
         }
     }
 }
