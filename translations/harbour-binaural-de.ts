@@ -16,7 +16,7 @@
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="57"/>
         <source>Application for playing binaural beats, colored noises and ambient sounds.</source>
-        <translation>Anwendung zum Abspielen binauraler Beats, farbiger Rauschgeräusche und von Umgebungsgeräuschen.</translation>
+        <translation>App zum Abspielen binauraler Beats, farbiger Rauschklänge und Umgebungsgeräusche.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="66"/>
@@ -208,7 +208,7 @@
     <message>
         <location filename="../qml/pages/components/InfoColoredPage.qml" line="143"/>
         <source>Focus, sleep and background noise masking</source>
-        <translation>Konzentration, Schlaf und Maskierung von Hintergrundgeräuschen</translation>
+        <translation>Für Konzentration, Schlaf und Ausblenden von Hintergrundgeräuschen.</translation>
     </message>
     <message>
         <location filename="../qml/pages/components/InfoColoredPage.qml" line="163"/>
@@ -261,12 +261,12 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="652"/>
         <source>Ambient Sound</source>
-        <translation>Umgebungsgeräusche</translation>
+        <translation>Umgebungsklang</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="683"/>
         <source>Choose an ambient sound</source>
-        <translation>Wähle ein Umgebungsgeräusch</translation>
+        <translation>Umgebungsklang auswählen</translation>
     </message>
 </context>
 <context>
@@ -392,7 +392,7 @@
     <message>
         <location filename="../qml/pages/components/SoundNames.qml" line="45"/>
         <source>Individual experiences may vary.</source>
-        <translation>Die individuellen Erfahrungen können variieren.</translation>
+        <translation>Die Wirkung kann individuell variieren.</translation>
     </message>
 </context>
 <context>
