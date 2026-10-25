@@ -90,47 +90,57 @@ AudioEngine::AudioEngine(QObject *parent)
             &QTimer::timeout,
             this,
             [this]()
-            {
-                applyPendingColoredNoiseVolume();
-            });
+    {
+        applyPendingColoredNoiseVolume();
+    });
 
     connect(m_sleepTimerFadeTimer,
             &QTimer::timeout,
             this,
             [this]()
-            {
-                const double progress = qMin(
+    {
+        const double progress = qMin(
                     1.0,
                     static_cast<double>(
                         m_sleepTimerFadeElapsed.elapsed())
-                        / SleepTimerFadeOutDuration);
+                    / SleepTimerFadeOutDuration);
 
-                const double factor = 1.0 - progress;
+        const double factor = 1.0 - progress;
+        const int SleepTimerVolumeUpdateInterval = 100;
+        const qint64 elapsed =
+                m_sleepTimerFadeElapsed.elapsed();
 
-                m_binauralChannel->setVolume(
+        m_binauralChannel->setVolume(
                     m_sleepTimerBinauralStartVolume * factor);
 
-                for (int i = 0; i < MaxAmbienceChannels; ++i) {
-                    if (m_ambienceChannels[i]) {
-                        m_ambienceChannels[i]->applySleepVolume(
-                            m_sleepTimerAmbienceStartVolumes[i],
-                            factor);
-                    }
-                }
+        if (elapsed - m_sleepTimerLastAmbienceUpdate
+                >= SleepTimerVolumeUpdateInterval
+                || progress >= 1.0) {
 
-                m_noiseChannel->setVolume(
+            m_sleepTimerLastAmbienceUpdate = elapsed;
+
+            for (int i = 0; i < MaxAmbienceChannels; ++i) {
+                if (m_ambienceChannels[i]) {
+                    m_ambienceChannels[i]->applySleepVolume(
+                                m_sleepTimerAmbienceStartVolumes[i],
+                                factor);
+                }
+            }
+        }
+
+        m_noiseChannel->setVolume(
                     m_sleepTimerColoredNoiseStartVolume * factor);
 
-                if (progress >= 1.0) {
-                    m_sleepTimerFadeTimer->stop();
+        if (progress >= 1.0) {
+            m_sleepTimerFadeTimer->stop();
 
-                    m_binauralChannel->stopImmediately();
-                    stopAmbiencesImmediately();
-                    m_noiseChannel->stopImmediately();
+            m_binauralChannel->stopImmediately();
+            stopAmbiencesImmediately();
+            m_noiseChannel->stopImmediately();
 
-                    updatePlayingState();
-                }
-            });
+            updatePlayingState();
+        }
+    });
 }
 
 AudioEngine::~AudioEngine()
@@ -157,18 +167,19 @@ void AudioEngine::fadeOutForSleepTimer()
     m_sleepTimerFadeTimer->stop();
 
     m_sleepTimerBinauralStartVolume =
-        m_binauralChannel->volume();
+            m_binauralChannel->volume();
 
     m_sleepTimerColoredNoiseStartVolume =
-        m_noiseChannel->volume();
+            m_noiseChannel->volume();
 
     for (int i = 0; i < MaxAmbienceChannels; ++i) {
         m_sleepTimerAmbienceStartVolumes[i] =
-            m_ambienceChannels[i]
+                m_ambienceChannels[i]
                 ? m_ambienceChannels[i]->currentVolume()
                 : 0;
     }
 
     m_sleepTimerFadeElapsed.start();
+    m_sleepTimerLastAmbienceUpdate = 0;
     m_sleepTimerFadeTimer->start();
 }
