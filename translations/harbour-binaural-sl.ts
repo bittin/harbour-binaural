@@ -122,11 +122,11 @@
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Norveščina</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished"></translation>
+        <translation>Švedščina</translation>
     </message>
     <message>
         <source>Binaural was inspired by</source>
@@ -142,15 +142,15 @@
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished"></translation>
+        <translation>Slovenščina</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Prevodi</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Nizozemščina</translation>
     </message>
     <message>
         <source>Images have been manually edited for use in this app:</source>
@@ -359,6 +359,10 @@
     <message>
         <source>Individual experiences may vary.</source>
         <translation>Posamezne izkušnje se lahko razlikujejo.</translation>
+    </message>
+    <message>
+        <source>Ambient mix</source>
+        <translation>Ambientna mešanica</translation>
     </message>
 </context>
 <context>
