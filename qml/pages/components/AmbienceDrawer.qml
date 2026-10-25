@@ -115,10 +115,10 @@ SilicaFlickable {
                 width: ambienceGrid.cellWidth
                 height: ambienceGrid.cellHeight
 
+                // Glow rectangle when sound is activated
                 Rectangle {
                     anchors.fill: ambienceButton
-                    anchors.margins: -Theme.paddingSmall
-
+                    z: -1
                     radius: Theme.paddingSmall
 
                     color: ambienceButton.highlighted
