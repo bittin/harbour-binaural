@@ -64,11 +64,6 @@ void ColoredNoiseGenerator::start()
     open(QIODevice::ReadOnly);
 }
 
-void ColoredNoiseGenerator::stop()
-{
-    close();
-}
-
 qint64 ColoredNoiseGenerator::readData(char *data, qint64 maxlen)
 {
     if (!data || maxlen <= 0)

@@ -194,11 +194,7 @@ void PcmChannel::stopImmediately()
 
     if (m_generator)
     {
-        /*
-         * Both generators' stop() only closes the device
-         * and resets state that their start() resets again
-         * anyway. close() + delete is equivalent here.
-         */
+        // Close and delete the generator.
         m_generator->close();
         delete m_generator;
         m_generator = nullptr;

@@ -20,6 +20,9 @@ namespace
 
         return bands.value(band, -1.0);
     }
+
+    const int BinauralFadeOutDuration = 200;
+
 }
 
 // ============================================================================
@@ -124,5 +127,6 @@ void AudioEngine::stop()
     if (!m_binauralChannel->isRunning())
         return;
 
-    m_binauralChannel->beginFadeOut(0);
+    m_binauralChannel->beginFadeOut(
+        BinauralFadeOutDuration);
 }
