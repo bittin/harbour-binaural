@@ -2,7 +2,6 @@
 #define AUDIOENGINE_H
 
 #include <QObject>
-#include <QAudioOutput>
 #include <QElapsedTimer>
 #include <QTimer>
 #include <QString>
