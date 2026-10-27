@@ -495,7 +495,7 @@ SilicaFlickable {
             }
         }
 
-        // Custom Sound Volume Slider + Loop Button
+        // Custom Sound Volume Slider + Loop Switch
         Item {
             id: customSoundControls
 
@@ -575,8 +575,8 @@ SilicaFlickable {
                 }
             }
 
-            // Sound loop button on the right
-            IconButton {
+            // Sound loop selector
+            Switch {
                 id: loopButton
 
                 anchors.right: parent.right
@@ -584,23 +584,23 @@ SilicaFlickable {
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: Theme.paddingSmall * 1.7
 
-                icon.source: "image://theme/icon-m-repeat?" +
-                             (pressed
-                              ? Theme.highlightColor
-                              : (page.appWindow && page.appWindow.customSoundLoop
-                                 ? Theme.highlightColor
-                                 : Theme.primaryColor))
+                icon.source: "image://theme/icon-m-repeat"
+
+                checked: page.appWindow
+                         ? page.appWindow.customSoundLoop
+                         : false
+
+                onCheckedChanged: {
+                    if (page.appWindow)
+                        page.appWindow.customSoundLoop = checked
+                }
 
                 opacity: page.appWindow
                          && page.appWindow.customSoundSource.toString() !== ""
                          ? 1.0 : 0.5
 
-                onClicked: {
-                    if (page.appWindow) {
-                        page.appWindow.customSoundLoop =
-                                !page.appWindow.customSoundLoop
-                    }
-                }
+                enabled: page.appWindow
+                         && page.appWindow.customSoundSource.toString() !== ""
             }
         }
     }
