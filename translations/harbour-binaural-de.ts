@@ -300,12 +300,12 @@
 <context>
     <name>PlaybackBar</name>
     <message>
-        <location filename="../qml/pages/components/PlaybackBar.qml" line="137"/>
+        <location filename="../qml/pages/components/PlaybackBar.qml" line="149"/>
         <source>Start your sound mix</source>
         <translation>Starte deinen Klangmix</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/PlaybackBar.qml" line="156"/>
+        <location filename="../qml/pages/components/PlaybackBar.qml" line="168"/>
         <source>Custom sound</source>
         <translation type="unfinished"></translation>
     </message>
