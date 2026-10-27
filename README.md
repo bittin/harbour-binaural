@@ -91,7 +91,7 @@ Clone or download this repository and import it into your Sailfish OS IDE using 
 Contributions to this project are very welcome!
 Before implementing a new feature, please discuss your proposal with the main developer. All contributions must respect the project's existing Sailfish OS build target and compatibility requirements. 
 
-When submitting a Pull Request, please include a clear explanation of the changes and, where appropriate, a brief changelog summary. All pull requests will be reviewed before being merged. Please note that not all contributions may be accepted, particularly if they conflict with the project's philosophy, simplicity, compatibility requirements, or overall direction.
+When submitting a 'Pull Request', please include a clear explanation of the changes. All 'Pull Requests' will be reviewed before being merged. Please note that not all contributions may be accepted, particularly if they conflict with the project's philosophy, simplicity, compatibility requirements, or overall direction.
 
 ## Screenshots
 
