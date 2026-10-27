@@ -313,14 +313,19 @@ Page {
                 text: qsTr("Images have been manually edited for use in this app:") +
                       "<br>" +
                       page.link("https://commons.wikimedia.org/wiki/File:Beating_Frequency.svg",
-                               "Beating_Frequency.svg") +
+                                "Beating_Frequency.svg") +
                       " - Ansgar Hellwig (Ahellwig)" +
                       "<br>" +
                       page.link("https://creativecommons.org/licenses/by-sa/3.0/",
-                               "CC BY-SA 3.0")
+                                "CC BY-SA 3.0")
 
                 onLinkActivated: openLink(link)
             }
+        }
+
+        Item {
+            width: 1
+            height: Theme.paddingMedium
         }
 
         VerticalScrollDecorator {}

@@ -190,7 +190,7 @@ Page {
 
             Item {
                 width: 1
-                height: Theme.paddingLarge
+                height: Theme.paddingMedium
             }
         }
 
