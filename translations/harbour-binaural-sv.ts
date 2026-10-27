@@ -106,7 +106,7 @@
     </message>
     <message>
         <source>Special thanks to</source>
-        <extracomment>Special thanks to poetaster for the guidance on improving the audio engine / sound generators.</extracomment>
+        <extracomment>Full sentence: Special thanks to poetaster for the guidance on improving the audio engine / sound generators. &quot;audio engine&quot; and &quot;sound generators&quot; are not necessarily required to be translated. That&apos;s up to the translator.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -215,8 +215,8 @@
         <translation>Omgivningsljud</translation>
     </message>
     <message>
-        <source>Choose an ambient sound</source>
-        <translation>Välj ett omgivningsljud</translation>
+        <source>Choose ambient sounds</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
