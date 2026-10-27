@@ -680,7 +680,7 @@ Page {
                             preferredWidth: Theme.buttonWidthMedium
 
                             text: page.activeAmbiences.length === 0
-                                  ? qsTr("Choose an ambient sound")
+                                  ? qsTr("Choose ambient sounds")
                                   : page.activeAmbiences.map(function(ambience) {
                                         return SoundNames.label(ambience)
                                     }).join(", ")

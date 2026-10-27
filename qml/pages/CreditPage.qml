@@ -160,6 +160,28 @@ Page {
                 onLinkActivated: openLink(link)
             }
 
+            Label {
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                x: Theme.horizontalPageMargin
+
+                textFormat: Text.StyledText
+
+                //: Full sentence: Special thanks to poetaster for the guidance on improving the audio engine / sound generators.
+                //: "audio engine" and "sound generators" are not necessarily required to be translated. That's up to the translator.
+                text: qsTr("Special thanks to") +
+                      " " +
+                      page.link("https://github.com/poetaster", "poetaster") +
+                      " " +
+                      qsTr("for the guidance on improving the audio engine / sound generators.")
+
+                color: Theme.highlightColor
+                linkColor: Theme.primaryColor
+                font.pixelSize: Theme.fontSizeExtraSmall
+                wrapMode: Text.WordWrap
+
+                onLinkActivated: openLink(link)
+            }
+
             SectionHeader {
                 text: qsTr("Translations")
             }

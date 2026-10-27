@@ -4,62 +4,62 @@
 <context>
     <name>AboutPage</name>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="21"/>
+        <location filename="../qml/pages/AboutPage.qml" line="19"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="49"/>
+        <location filename="../qml/pages/AboutPage.qml" line="47"/>
         <source>Version</source>
         <translation>Version</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="59"/>
+        <location filename="../qml/pages/AboutPage.qml" line="57"/>
         <source>Application for playing binaural beats, colored noises and ambient sounds.</source>
         <translation>Anwendung zum Abspielen binauraler Beats, farbiger Rauschgeräusche und von Umgebungsgeräuschen.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="68"/>
+        <location filename="../qml/pages/AboutPage.qml" line="66"/>
         <source>Development</source>
         <translation>Entwicklung</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="112"/>
+        <location filename="../qml/pages/AboutPage.qml" line="110"/>
         <source>Help translate the application into your language.</source>
         <translation>Hilf dabei, die Anwendung in deine Sprache zu übersetzen.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="105"/>
+        <location filename="../qml/pages/AboutPage.qml" line="103"/>
         <source>Support</source>
         <translation>Unterstützung</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="134"/>
+        <location filename="../qml/pages/AboutPage.qml" line="132"/>
         <source>For small tips to support the project.</source>
         <translation>Für ein kleines Trinkgeld um das Projekt zu unterstützen.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="97"/>
+        <location filename="../qml/pages/AboutPage.qml" line="95"/>
         <source>Credits</source>
         <translation>Danksagungen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="86"/>
+        <location filename="../qml/pages/AboutPage.qml" line="84"/>
         <source>Source code</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="153"/>
+        <location filename="../qml/pages/AboutPage.qml" line="151"/>
         <source>Data protection</source>
         <translation>Datenschutz</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="160"/>
+        <location filename="../qml/pages/AboutPage.qml" line="158"/>
         <source>This application works exclusively offline and requires permission to output audio. No data is collected.</source>
         <translation>Diese Anwendung funktioniert ausschließlich offline und benötigt die Berechtigung zur Audioausgabe. Es werden keine Daten gesammelt.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AboutPage.qml" line="168"/>
+        <location filename="../qml/pages/AboutPage.qml" line="166"/>
         <source>License</source>
         <translation>Lizenz</translation>
     </message>
@@ -87,44 +87,55 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="141"/>
+        <location filename="../qml/pages/CreditPage.qml" line="140"/>
         <source>Credits</source>
         <translation type="unfinished">Danksagungen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="151"/>
+        <location filename="../qml/pages/CreditPage.qml" line="150"/>
         <source>Binaural was inspired by</source>
         <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="165"/>
+        <location filename="../qml/pages/CreditPage.qml" line="170"/>
+        <source>Special thanks to</source>
+        <extracomment>Special thanks to poetaster for the guidance on improving the audio engine / sound generators.</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CreditPage.qml" line="174"/>
+        <source>for the guidance on improving the audio engine / sound generators.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/CreditPage.qml" line="185"/>
         <source>Translations</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="214"/>
+        <location filename="../qml/pages/CreditPage.qml" line="234"/>
         <source>Audio files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="223"/>
+        <location filename="../qml/pages/CreditPage.qml" line="243"/>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="226"/>
+        <location filename="../qml/pages/CreditPage.qml" line="246"/>
         <source>Pixabay Content License</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="300"/>
+        <location filename="../qml/pages/CreditPage.qml" line="320"/>
         <source>Images</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="314"/>
+        <location filename="../qml/pages/CreditPage.qml" line="334"/>
         <source>Images have been manually edited for use in this app:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -132,47 +143,47 @@
 <context>
     <name>InfoBinauralPage</name>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="63"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="61"/>
         <source>Binaural Beats</source>
         <translation>Binaurale Beats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="73"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="71"/>
         <source>Are created by playing two slightly different tones, one in each ear. The brain processes the difference as a rhythmic beat. Different beat frequencies can be used to support focus, relaxation, meditation, or sleep.</source>
         <translation>Sie entstehen, indem zwei leicht unterschiedliche Töne abgespielt werden, einer in jedem Ohr. Das Gehirn verarbeitet den Unterschied als rhythmischen Beat. Verschiedene Beat-Frequenzen können Konzentration, Entspannung, Meditation oder Schlaf unterstützen.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="106"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="104"/>
         <source>Choose from:</source>
         <translation>Wähle aus:</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="142"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="140"/>
         <source>Deep sleep, rest</source>
         <translation>Tiefschlaf, Ruhe</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="159"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="157"/>
         <source>Deep relaxation, sleep</source>
         <translation>Tiefe Entspannung, Schlaf</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="176"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="174"/>
         <source>Meditation and relaxation</source>
         <translation>Meditation und Entspannung</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="193"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="191"/>
         <source>Calm and relaxed wakefulness</source>
         <translation>Ruhiges und entspanntes Wachsein</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="210"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="208"/>
         <source>Alertness and focus</source>
         <translation>Wachheit und Konzentration</translation>
     </message>
     <message>
-        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="227"/>
+        <location filename="../qml/pages/components/InfoBinauralPage.qml" line="225"/>
         <source>Complex thinking and information processing</source>
         <translation>Komplexes Denken und Informationsverarbeitung</translation>
     </message>
@@ -243,17 +254,17 @@
         <translation>Zu verwenden mit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="475"/>
+        <location filename="../qml/pages/MainPage.qml" line="477"/>
         <source>Colored Noise</source>
         <translation>Farbiges Rauschen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="648"/>
+        <location filename="../qml/pages/MainPage.qml" line="652"/>
         <source>Ambient Sound</source>
         <translation>Umgebungsgeräusche</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="679"/>
+        <location filename="../qml/pages/MainPage.qml" line="683"/>
         <source>Choose an ambient sound</source>
         <translation>Wähle ein Umgebungsgeräusch</translation>
     </message>

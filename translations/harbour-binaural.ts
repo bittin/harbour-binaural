@@ -104,6 +104,15 @@
         <source>Images have been manually edited for use in this app:</source>
         <translation>Images have been manually edited for use in this app:</translation>
     </message>
+    <message>
+        <source>Special thanks to</source>
+        <extracomment>Special thanks to poetaster for the guidance on improving the audio engine / sound generators.</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>for the guidance on improving the audio engine / sound generators.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InfoBinauralPage</name>
