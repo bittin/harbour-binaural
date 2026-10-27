@@ -64,6 +64,10 @@
         <source>For small tips to support the project.</source>
         <translation>Za majhne prispevke v podporo projektu.</translation>
     </message>
+    <message>
+        <source>Source code</source>
+        <translation>Izvorna koda</translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>
@@ -115,6 +119,42 @@
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
         <translation>Datoteke so bile ročno prilagojene za uporabo v tej aplikaciji v okviru</translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation>Norveščina</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Švedščina</translation>
+    </message>
+    <message>
+        <source>Binaural was inspired by</source>
+        <translation>Binaural je navdihnil</translation>
+    </message>
+    <message>
+        <source>Pixabay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Credits</source>
+        <translation>Zasluge</translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation>Slovenščina</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation>Prevodi</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation>Nizozemščina</translation>
+    </message>
+    <message>
+        <source>Images have been manually edited for use in this app:</source>
+        <translation>Slike so bile ročno urejene za uporabo v tej aplikaciji:</translation>
     </message>
 </context>
 <context>
@@ -312,6 +352,18 @@
         <source>Lake</source>
         <translation>Jezero</translation>
     </message>
+    <message>
+        <source>Start your sound mix</source>
+        <translation>Predvajajte svoj mix</translation>
+    </message>
+    <message>
+        <source>Individual experiences may vary.</source>
+        <translation>Posamezne izkušnje se lahko razlikujejo.</translation>
+    </message>
+    <message>
+        <source>Ambient mix</source>
+        <translation>Ambientna mešanica</translation>
+    </message>
 </context>
 <context>
     <name>TimerPage</name>
@@ -322,6 +374,13 @@
 </context>
 <context>
     <name>harbour-binaural</name>
+    <message>
+        <source>Start your sound mix</source>
+        <translation>Predvajajte svoj mix</translation>
+    </message>
+</context>
+<context>
+    <name>PlaybackBar</name>
     <message>
         <source>Start your sound mix</source>
         <translation>Predvajajte svoj mix</translation>

@@ -64,6 +64,10 @@
         <source>For small tips to support the project.</source>
         <translation>Voit tukea projektia antamalla pienen lahjoituksen.</translation>
     </message>
+    <message>
+        <source>Source code</source>
+        <translation>Lähdekoodi</translation>
+    </message>
 </context>
 <context>
     <name>CoverPage</name>
@@ -115,6 +119,42 @@
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
         <translation>Tiedostoja on muokattu manuaalisesti tätä sovellusta varten</translation>
+    </message>
+    <message>
+        <source>Norwegian</source>
+        <translation>Norja</translation>
+    </message>
+    <message>
+        <source>Swedish</source>
+        <translation>Ruotsi</translation>
+    </message>
+    <message>
+        <source>Binaural was inspired by</source>
+        <translation>Binaural sai inspiraationsa yrityksestä</translation>
+    </message>
+    <message>
+        <source>Pixabay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Credits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Slovenian</source>
+        <translation>Sloveeni</translation>
+    </message>
+    <message>
+        <source>Translations</source>
+        <translation>Käännökset</translation>
+    </message>
+    <message>
+        <source>Dutch</source>
+        <translation>Hollanti</translation>
+    </message>
+    <message>
+        <source>Images have been manually edited for use in this app:</source>
+        <translation>Kuvat on muokattu manuaalisesti tässä sovelluksessa käytettäviksi:</translation>
     </message>
 </context>
 <context>
@@ -312,6 +352,18 @@
         <source>Lake</source>
         <translation>Järvi</translation>
     </message>
+    <message>
+        <source>Start your sound mix</source>
+        <translation>Aloita äänimiksauksesi</translation>
+    </message>
+    <message>
+        <source>Individual experiences may vary.</source>
+        <translation>Yksilölliset kokemukset voivat vaihdella.</translation>
+    </message>
+    <message>
+        <source>Ambient mix</source>
+        <translation>Ambienttisekoitus</translation>
+    </message>
 </context>
 <context>
     <name>TimerPage</name>
@@ -322,6 +374,13 @@
 </context>
 <context>
     <name>harbour-binaural</name>
+    <message>
+        <source>Start your sound mix</source>
+        <translation>Aloita äänimiksaus</translation>
+    </message>
+</context>
+<context>
+    <name>PlaybackBar</name>
     <message>
         <source>Start your sound mix</source>
         <translation>Aloita äänimiksaus</translation>

@@ -16,7 +16,7 @@
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="57"/>
         <source>Application for playing binaural beats, colored noises and ambient sounds.</source>
-        <translation>Anwendung zum Abspielen binauraler Beats, farbiger Rauschgeräusche und von Umgebungsgeräuschen.</translation>
+        <translation>App zum Abspielen binauraler Beats, farbiger Rauschklänge und Umgebungsgeräusche.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="66"/>
@@ -46,7 +46,7 @@
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="84"/>
         <source>Source code</source>
-        <translation type="unfinished"></translation>
+        <translation>Quellcode</translation>
     </message>
     <message>
         <location filename="../qml/pages/AboutPage.qml" line="151"/>
@@ -69,33 +69,33 @@
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="14"/>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Norwegisch</translation>
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="18"/>
         <source>Swedish</source>
-        <translation type="unfinished"></translation>
+        <translation>Schwedisch</translation>
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="22"/>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Niederländisch</translation>
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="26"/>
         <source>Slovenian</source>
-        <translation type="unfinished"></translation>
+        <translation>Slowenisch</translation>
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="140"/>
         <source>Credits</source>
-        <translation type="unfinished">Danksagungen</translation>
+        <translation>Danksagungen</translation>
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="150"/>
         <source>Binaural was inspired by</source>
         <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Binaural wurde inspiriert durch</translation>
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="171"/>
@@ -111,33 +111,33 @@
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="186"/>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Übersetzungen</translation>
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="235"/>
         <source>Audio files</source>
-        <translation type="unfinished"></translation>
+        <translation>Audiodateien</translation>
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="244"/>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Dateien wurden für die Verwendung in dieser Anwendung manuell angepasst unter der</translation>
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="247"/>
         <source>Pixabay Content License</source>
-        <translation type="unfinished"></translation>
+        <translation>Pixabay-Inhaltslizenz</translation>
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="321"/>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder</translation>
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="335"/>
         <source>Images have been manually edited for use in this app:</source>
-        <translation type="unfinished"></translation>
+        <translation>Folgende Bilder wurden für die Verwendung in dieser Anwendung manuell angepasst:</translation>
     </message>
 </context>
 <context>
@@ -208,7 +208,7 @@
     <message>
         <location filename="../qml/pages/components/InfoColoredPage.qml" line="143"/>
         <source>Focus, sleep and background noise masking</source>
-        <translation>Konzentration, Schlaf und Maskierung von Hintergrundgeräuschen</translation>
+        <translation>Für Konzentration, Schlaf und Ausblenden von Hintergrundgeräuschen.</translation>
     </message>
     <message>
         <location filename="../qml/pages/components/InfoColoredPage.qml" line="163"/>
@@ -261,12 +261,12 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="652"/>
         <source>Ambient Sound</source>
-        <translation>Umgebungsgeräusche</translation>
+        <translation>Umgebungsklang</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="683"/>
         <source>Choose ambient sounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Umgebungsklänge auswählen</translation>
     </message>
 </context>
 <context>
@@ -274,7 +274,7 @@
     <message>
         <location filename="../qml/pages/components/PlaybackBar.qml" line="131"/>
         <source>Start your sound mix</source>
-        <translation type="unfinished">Starte deinen Klangmix</translation>
+        <translation>Starte deinen Klangmix</translation>
     </message>
 </context>
 <context>
@@ -382,17 +382,17 @@
     <message>
         <location filename="../qml/pages/components/SoundNames.qml" line="43"/>
         <source>Ambient mix</source>
-        <translation type="unfinished"></translation>
+        <translation>Ambient-Mix</translation>
     </message>
     <message>
         <location filename="../qml/pages/components/SoundNames.qml" line="44"/>
         <source>Start your sound mix</source>
-        <translation type="unfinished">Starte deinen Klangmix</translation>
+        <translation>Starte deinen Klangmix</translation>
     </message>
     <message>
         <location filename="../qml/pages/components/SoundNames.qml" line="45"/>
         <source>Individual experiences may vary.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Wirkung kann individuell variieren.</translation>
     </message>
 </context>
 <context>

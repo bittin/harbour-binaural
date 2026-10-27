@@ -49,60 +49,60 @@
     </message>
     <message>
         <source>Source code</source>
-        <translation type="unfinished"></translation>
+        <translation>Kildekode</translation>
     </message>
 </context>
 <context>
     <name>CreditPage</name>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished"></translation>
+        <translation>Norsk bokmål</translation>
     </message>
     <message>
         <source>Swedish</source>
-        <translation type="unfinished"></translation>
+        <translation>Svensk</translation>
     </message>
     <message>
         <source>Dutch</source>
-        <translation type="unfinished"></translation>
+        <translation>Nederlandsk</translation>
     </message>
     <message>
         <source>Slovenian</source>
-        <translation type="unfinished"></translation>
+        <translation>Slovensk</translation>
     </message>
     <message>
         <source>Credits</source>
-        <translation type="unfinished">Takk til</translation>
+        <translation>Takk til</translation>
     </message>
     <message>
         <source>Binaural was inspired by</source>
         <extracomment>Full sentence: &quot;Binaural was inspired by Metiq.&quot;</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Binaural er inspirert av</translation>
     </message>
     <message>
         <source>Translations</source>
-        <translation type="unfinished"></translation>
+        <translation>Oversettelser</translation>
     </message>
     <message>
         <source>Audio files</source>
-        <translation type="unfinished"></translation>
+        <translation>Lydfiler</translation>
     </message>
     <message>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Filene har blitt manuelt redigert for bruk i denne appen under</translation>
     </message>
     <message>
         <source>Pixabay Content License</source>
-        <translation type="unfinished"></translation>
+        <translation>Pixabays innholdslisens</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>bilder</translation>
     </message>
     <message>
         <source>Images have been manually edited for use in this app:</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildene er manuelt redigert for bruk i denne appen:</translation>
     </message>
     <message>
         <source>Special thanks to</source>
@@ -223,7 +223,7 @@
     <name>PlaybackBar</name>
     <message>
         <source>Start your sound mix</source>
-        <translation type="unfinished">Start lydmiksen din</translation>
+        <translation>Start lydmiksen din</translation>
     </message>
 </context>
 <context>
@@ -310,15 +310,15 @@
     </message>
     <message>
         <source>Start your sound mix</source>
-        <translation type="unfinished">Start lydmiksen din</translation>
+        <translation>Start lydmiksen din</translation>
     </message>
     <message>
         <source>Individual experiences may vary.</source>
-        <translation type="unfinished">Individuelle opplevelser kan variere.</translation>
+        <translation>Individuelle opplevelser kan variere.</translation>
     </message>
     <message>
         <source>Ambient mix</source>
-        <translation type="unfinished"></translation>
+        <translation>Omgivelsesmiks</translation>
     </message>
 </context>
 <context>
