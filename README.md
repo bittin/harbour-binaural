@@ -52,8 +52,6 @@ Ambient audio files are played using `QMediaPlayer`. The ambience implementation
 
 The `AmbienceChannel` component provides an independent playback channel for an ambient sound. This allows multiple ambient sounds to play concurrently rather than forcing all ambient playback through a single player. Up to three ambient sounds can be selected and mixed at the same time.
 
-The `AudioEngine` coordinates the active ambience channels alongside the PCM channels used for binaural beats and colored noise.
-
 ### Source Files
 
 | File                           | Responsibility                                                                                               |
