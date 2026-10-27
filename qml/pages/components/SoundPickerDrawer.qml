@@ -321,10 +321,10 @@ SilicaFlickable {
                             transparentBorder: true
                             horizontalOffset: 0
                             verticalOffset: 0
-                            radius: 8
-                            samples: 17
+                            radius: 0
+                            samples: 1
                             color: Theme.highlightColor
-                            opacity: 0.7
+                            opacity: 0.9
                         }
                     }
 
@@ -495,97 +495,111 @@ SilicaFlickable {
             }
         }
 
-        // Volume controls.
-        Column {
+        // Custom Sound Volume Slider + Loop Button
+        Item {
             id: customSoundControls
 
-            width: parent.width - 2 * Theme.horizontalPageMargin
-            x: Theme.horizontalPageMargin
-            spacing: Theme.paddingSmall
+            width: parent.width
+            height: customSoundVolumeSlider.height
+                    + customSoundVolumeIcon.height
+                    - Theme.paddingLarge
 
-            // Volume slider and icon.
-            Item {
-                id: customSoundVolumeContainer
+            Slider {
+                id: customSoundVolumeSlider
 
-                width: parent.width
-                height: customSoundVolumeSlider.height
-                        + customSoundVolumeIcon.height
-                        - Theme.paddingLarge
+                anchors.left: parent.left
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.right: loopButton.left
+                anchors.rightMargin: Theme.paddingLarge
 
-                Slider {
-                    id: customSoundVolumeSlider
+                minimumValue: 0
+                maximumValue: 100
 
-                    anchors.left: parent.left
-                    anchors.right: parent.right
+                value: page.appWindow
+                       ? page.appWindow.customSoundVolume
+                       : 50
 
-                    minimumValue: 0
-                    maximumValue: 100
+                enabled: page.appWindow
+                         && page.appWindow.customSoundSource.toString() !== ""
 
-                    value: appWindow ? appWindow.customSoundVolume : 50
+                opacity: enabled ? 1.0 : 0.5
 
-                    onValueChanged: {
-                        if (appWindow
-                                && appWindow.customSoundVolume !== value) {
-                            appWindow.customSoundVolume = value
-                        }
-                    }
-                }
-
-                // Volume icon.
-                Item {
-                    id: customSoundVolumeIcon
-
-                    width: Theme.iconSizeSmall * 1.6
-                    height: Theme.iconSizeSmall * 1.6
-
-                    anchors.top: customSoundVolumeSlider.bottom
-                    anchors.topMargin: -Theme.paddingLarge
-                    anchors.horizontalCenter: customSoundVolumeSlider.horizontalCenter
-
-                    Image {
-                        id: customSoundVolumeImage
-
-                        anchors.fill: parent
-
-                        source: customSoundVolumeSlider.value === 0
-                                ? "../../images/icon-s-volume-1.svg"
-                                : customSoundVolumeSlider.value <= 33
-                                  ? "../../images/icon-s-volume-2.svg"
-                                  : customSoundVolumeSlider.value <= 66
-                                    ? "../../images/icon-s-volume-3.svg"
-                                    : "../../images/icon-s-volume-4.svg"
-
-                        sourceSize: Qt.size(
-                                        Theme.iconSizeSmall * 1.6 * 2,
-                                        Theme.iconSizeSmall * 1.6 * 2
-                                    )
-
-                        fillMode: Image.PreserveAspectFit
-                        visible: false
-                    }
-
-                    ColorOverlay {
-                        anchors.fill: customSoundVolumeImage
-                        source: customSoundVolumeImage
-                        color: Theme.primaryColor
-                    }
+                onValueChanged: {
+                    if (page.appWindow)
+                        page.appWindow.customSoundVolume = value
                 }
             }
 
-            // Repeat toggle, with its own space.
-            Switch {
+            // Volume icon below the slider
+            Item {
+                id: customSoundVolumeIcon
+
+                width: Theme.iconSizeSmall * 1.6
+                height: Theme.iconSizeSmall * 1.6
+
+                anchors.top: customSoundVolumeSlider.bottom
+                anchors.topMargin: -Theme.paddingLarge
+                anchors.horizontalCenter: customSoundVolumeSlider.horizontalCenter
+                anchors.horizontalCenterOffset: Theme.paddingSmall
+
+                opacity: page.appWindow
+                         && page.appWindow.customSoundSource.toString() !== ""
+                         ? 1.0 : 0.5
+
+                Image {
+                    id: customSoundVolumeImage
+
+                    anchors.fill: parent
+
+                    source: customSoundVolumeSlider.value === 0
+                            ? "../../images/icon-s-volume-1.svg"
+                            : customSoundVolumeSlider.value <= 33
+                              ? "../../images/icon-s-volume-2.svg"
+                              : customSoundVolumeSlider.value <= 66
+                                ? "../../images/icon-s-volume-3.svg"
+                                : "../../images/icon-s-volume-4.svg"
+
+                    sourceSize: Qt.size(
+                                    Theme.iconSizeSmall * 1.6 * 2,
+                                    Theme.iconSizeSmall * 1.6 * 2
+                                )
+
+                    fillMode: Image.PreserveAspectFit
+                    visible: false
+                }
+
+                ColorOverlay {
+                    anchors.fill: customSoundVolumeImage
+                    source: customSoundVolumeImage
+                    color: Theme.primaryColor
+                }
+            }
+
+            // Sound loop button on the right
+            IconButton {
                 id: loopButton
 
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.right: parent.right
+                anchors.rightMargin: Theme.horizontalPageMargin
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.verticalCenterOffset: Theme.paddingSmall * 1.7
 
-                icon.source: "image://theme/icon-m-repeat"
-                automaticCheck: false
+                icon.source: "image://theme/icon-m-repeat?" +
+                             (pressed
+                              ? Theme.highlightColor
+                              : (page.appWindow && page.appWindow.customSoundLoop
+                                 ? Theme.highlightColor
+                                 : Theme.primaryColor))
 
-                checked: appWindow ? appWindow.customSoundLoop : false
+                opacity: page.appWindow
+                         && page.appWindow.customSoundSource.toString() !== ""
+                         ? 1.0 : 0.5
 
                 onClicked: {
-                    if (appWindow)
-                        appWindow.customSoundLoop = !appWindow.customSoundLoop
+                    if (page.appWindow) {
+                        page.appWindow.customSoundLoop =
+                                !page.appWindow.customSoundLoop
+                    }
                 }
             }
         }
