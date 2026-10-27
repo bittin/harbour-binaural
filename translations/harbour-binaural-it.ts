@@ -107,7 +107,7 @@
     <message>
         <source>Thanks to %1 for some guidance on improving audio engine / sound generators logic.</source>
         <extracomment>%1 is a hyperlink to the GitHub profile of &quot;poetaster&quot;. &quot;audio engine&quot; and &quot;sound generators&quot; are technical terms and may be left untranslated.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Ringraziamenti a %1 per la guida nel miglioramento della logica dell&apos;audio e dei generatori di suoni.</translation>
     </message>
 </context>
 <context>
