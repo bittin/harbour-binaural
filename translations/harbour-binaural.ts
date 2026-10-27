@@ -212,7 +212,7 @@
     </message>
     <message>
         <source>Choose ambient sounds</source>
-        <translation>Choose ambient sound</translation>
+        <translation>Choose ambient sounds</translation>
     </message>
 </context>
 <context>
