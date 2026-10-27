@@ -822,15 +822,20 @@ Page {
                             anchors.centerIn: parent
                             width: parent.width * 0.8
 
-                            // Hide the Button's built-in text to avoid overlapping labels
                             text: ""
+
+                            // Disable custom sound selection when 3 ambiences are active
+                            enabled: page.activeAmbiences.length < 3
+                                     || (applicationWindow
+                                         && applicationWindow.customSoundSource.toString() !== "")
 
                             highlighted: applicationWindow
                                          && applicationWindow.customSoundSource.toString() !== ""
 
-                            opacity: highlighted
-                                     ? (applicationWindow.customSoundPlaying ? 1.0 : 0.6)
-                                     : 1.0
+                            opacity: !enabled ? 0.35
+                                     : highlighted
+                                       ? (applicationWindow.customSoundPlaying ? 1.0 : 0.6)
+                                       : 1.0
 
                             onClicked: {
                                 selectorDrawer.showingCustomSound = true
@@ -839,8 +844,8 @@ Page {
 
                             Label {
                                 anchors.fill: parent
-                                anchors.leftMargin: Theme.paddingLarge
-                                anchors.rightMargin: Theme.paddingLarge
+                                anchors.leftMargin: Theme.paddingMedium
+                                anchors.rightMargin: Theme.paddingMedium
 
                                 text: applicationWindow
                                       && applicationWindow.customSoundName !== ""
@@ -851,11 +856,13 @@ Page {
                                 verticalAlignment: Text.AlignVCenter
                                 elide: Text.ElideRight
 
-                                color: soundPickerButton.highlighted
-                                       ? (applicationWindow.customSoundPlaying
-                                          ? Theme.highlightColor
-                                          : Theme.secondaryHighlightColor)
-                                       : Theme.primaryColor
+                                color: !soundPickerButton.enabled
+                                       ? Theme.secondaryColor
+                                       : soundPickerButton.highlighted
+                                         ? (applicationWindow.customSoundPlaying
+                                            ? Theme.highlightColor
+                                            : Theme.secondaryHighlightColor)
+                                         : Theme.primaryColor
                             }
                         }
                     }

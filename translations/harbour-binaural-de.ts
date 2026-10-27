@@ -292,7 +292,7 @@
         <translation>Umgebungsklänge auswählen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="848"/>
+        <location filename="../qml/pages/MainPage.qml" line="853"/>
         <source>Choose custom sound</source>
         <translation type="unfinished"></translation>
     </message>

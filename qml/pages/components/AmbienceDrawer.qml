@@ -10,6 +10,10 @@ SilicaFlickable {
     property var activeAmbiences: []
     property bool ambiencePlaying: false
     property bool pausedMode: false
+    property bool customSoundSelected: applicationWindow
+                                       && applicationWindow.customSoundSource.toString() !== ""
+
+    property int maxAmbiences: customSoundSelected ? 2 : 3
 
     signal ambienceSelected(string ambience)
     signal ambienceDeselected(string ambience)
@@ -146,7 +150,8 @@ SilicaFlickable {
 
                     highlighted: ambiencePage.activeAmbiences.indexOf(modelData) !== -1
 
-                    enabled: highlighted || ambiencePage.activeAmbiences.length < 3
+                    enabled: highlighted
+                             || ambiencePage.activeAmbiences.length < ambiencePage.maxAmbiences
 
                     opacity: !enabled ? 0.35
                                       : highlighted && !ambiencePage.ambiencePlaying ? 0.6
@@ -155,7 +160,7 @@ SilicaFlickable {
                     onClicked: {
                         if (highlighted) {
                             ambiencePage.ambienceDeselected(modelData)
-                        } else if (ambiencePage.activeAmbiences.length < 3) {
+                        } else if (ambiencePage.activeAmbiences.length < ambiencePage.maxAmbiences) {
                             ambiencePage.ambienceSelected(modelData)
                         }
                     }
