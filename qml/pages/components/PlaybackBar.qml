@@ -165,7 +165,7 @@ DockedPanel {
             }
 
             if (app.customSoundSource.toString() !== "") {
-                parts.push(qsTr("Custom sound"))
+                parts.push(SoundNames.label("Custom sound"))
             }
 
             return parts.length > 0

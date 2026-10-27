@@ -397,12 +397,20 @@ ApplicationWindow {
 
     cover: Component {
         CoverPage {
+            // Pass the main application window to the cover.
+            applicationWindow: appWindow
+
+            // Keep the cover's displayed sound selection synchronized.
             activeBand: appWindow.activeBand
-            activeAmbiences: appWindow.activeAmbiences
             activeNoise: appWindow.activeNoise
+            activeAmbiences: appWindow.activeAmbiences
+            customSoundSource: appWindow.customSoundSource
+
+            // Synchronize the cover's playback indicators.
             isPlaying: appWindow.isPlaying
             isPaused: appWindow.pausedMode
 
+            // Keep the cover's sleep timer display synchronized.
             sleepTimerRunning: appWindow.sleepTimerRunning
             sleepTimerPaused: appWindow.sleepTimerPaused
             sleepTimerRemainingSeconds: appWindow.sleepTimerRemainingSeconds

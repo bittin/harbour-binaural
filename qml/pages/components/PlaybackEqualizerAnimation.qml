@@ -1,18 +1,26 @@
 import QtQuick 2.6
 import Sailfish.Silica 1.0
 
+// Used in playbackBar and CoverPage
 Item {
     id: playingIndicator
 
     property var applicationWindow
     property color barColor: Theme.highlightColor
+    property real sizeMultiplier: 1.0
 
-    height: Math.min(Theme.iconSizeSmall, parent.height * 0.7)
+    // Makes the component genuinely reusable at different sizes.
+    height: Math.min(
+                Theme.iconSizeSmall * sizeMultiplier,
+                parent ? parent.height * 0.7 : Theme.iconSizeSmall * sizeMultiplier
+            )
 
     property var app: applicationWindow
 
     property bool playing: {
-        return app && (app.isPlaying || app.customSoundPlaying)
+        return app
+               && (app.isPlaying || app.customSoundPlaying)
+               && !app.pausedMode
     }
 
     property bool binauralActive: {
@@ -28,15 +36,21 @@ Item {
         if (!playing || !app)
             return 0
 
-        var builtInPlaying = app.isPlaying
-        var hasBinaural = builtInPlaying && app.activeBand !== ""
-        var hasNoise = builtInPlaying && app.activeNoise !== ""
+        var builtInPlaying = app.isPlaying === true
+
+        var hasBinaural = builtInPlaying
+                          && app.activeBand
+                          && app.activeBand !== ""
+
+        var hasNoise = builtInPlaying
+                       && app.activeNoise
+                       && app.activeNoise !== ""
 
         var hasAmbience = builtInPlaying
                           && app.activeAmbiences
                           && app.activeAmbiences.length > 0
 
-        var hasCustomSound = app.customSoundPlaying
+        var hasCustomSound = app.customSoundPlaying === true
 
         // Any ambience or custom sound uses the standard animation.
         if (hasAmbience || hasCustomSound)
@@ -56,7 +70,10 @@ Item {
         return 0
     }
 
-    property real barWidth: Math.max(2, Theme.iconSizeSmall / 6)
+    property real barWidth: Math.max(
+                                2,
+                                Theme.iconSizeSmall * sizeMultiplier / 6
+                            )
     property real barGap: barWidth
     property real idleHeight: height * 0.22
     property real maxBarHeight: height * 0.9
