@@ -72,8 +72,6 @@ The `AmbienceChannel` component provides an independent playback channel for an 
 * **Colored noise:** `ColoredNoiseGenerator` → `PcmChannel` → `QAudioOutput`
 * **Ambient sounds:** Audio files → `AmbienceChannel` → `QMediaPlayer`
 
-Binaural beats and colored noise are generated in real time and played through PCM channels. Ambient sounds are played from audio files using separate media-player channels. The `AudioEngine` coordinates these sources so they can be combined during playback.
-
 ## Requirements
 
 * Sailfish OS SDK with a build target for Sailfish OS 4.6 or newer.
