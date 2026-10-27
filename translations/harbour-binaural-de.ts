@@ -101,7 +101,7 @@
         <location filename="../qml/pages/CreditPage.qml" line="177"/>
         <source>Thanks to %1 for some guidance on improving audio engine / sound generators logic.</source>
         <extracomment>%1 is a hyperlink to the GitHub profile of &quot;poetaster&quot;. &quot;audio engine&quot; and &quot;sound generators&quot; are technical terms and may be left untranslated.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Besonderer Dank an %1 für die Unterstützung bei der Verbesserung der Audio-Engine / Sound-Generator-Logik.</translation>
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="189"/>
