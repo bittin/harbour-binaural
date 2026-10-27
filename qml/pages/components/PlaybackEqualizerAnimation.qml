@@ -52,7 +52,7 @@ Item {
         if (hasNoise && !hasBinaural)
             return 2
 
-        // Fallback for every other sound or future sound type.
+        // Fallback for every other sound.
         return 0
     }
 
@@ -72,13 +72,13 @@ Item {
         property: "wavePhase"
         from: 0
         to: 2 * Math.PI
-        duration: 1200
+        duration: 1000
         loops: Animation.Infinite
         running: playingIndicator.animationMode === 1
                  || playingIndicator.animationMode === 3
     }
 
-    // Strong vibration when binaural and colored noise are combined.
+    // Wave and vibration when binaural and colored noise are combined.
     SequentialAnimation {
         running: playingIndicator.animationMode === 3
         loops: Animation.Infinite
@@ -87,25 +87,18 @@ Item {
             target: playingIndicator
             property: "noiseVibration"
             to: Math.random()
-            duration: 40
+            duration: 100
         }
 
         NumberAnimation {
             target: playingIndicator
             property: "noiseVibration"
             to: Math.random()
-            duration: 55
-        }
-
-        NumberAnimation {
-            target: playingIndicator
-            property: "noiseVibration"
-            to: Math.random()
-            duration: 35
+            duration: 125
         }
 
         PauseAnimation {
-            duration: 10
+            duration: 30
         }
     }
 
@@ -125,7 +118,7 @@ Item {
 
             property real vibration: playingIndicator.animationMode === 3
                                      ? (playingIndicator.noiseVibration - 0.5)
-                                       * playingIndicator.maxBarHeight * 0.55
+                                       * playingIndicator.maxBarHeight * 0.60
                                      : 0
 
             // Animations control this property in modes 0 and 2.
@@ -167,7 +160,7 @@ Item {
                       || playingIndicator.animationMode === 3
             }
 
-            // Colored noise alone: independent, irregular movement.
+            // Colored noise: balanced, independent movement.
             SequentialAnimation {
                 running: playingIndicator.playing
                          && playingIndicator.animationMode === 2
@@ -176,31 +169,27 @@ Item {
                 NumberAnimation {
                     target: waveBar
                     property: "barHeight"
-
                     to: playingIndicator.idleHeight
-                        + Math.random()
-                        * (playingIndicator.maxBarHeight
+                        + (playingIndicator.maxBarHeight
                            - playingIndicator.idleHeight)
-
-                    duration: 70 + Math.random() * 150
-                    easing.type: Easing.OutQuad
+                        * (0.25 + Math.random() * 0.55)
+                    duration: 140 + Math.random() * 60
+                    easing.type: Easing.InOutQuad
                 }
 
                 NumberAnimation {
                     target: waveBar
                     property: "barHeight"
-
                     to: playingIndicator.idleHeight
-                        + Math.random()
-                        * (playingIndicator.maxBarHeight
+                        + (playingIndicator.maxBarHeight
                            - playingIndicator.idleHeight)
-
-                    duration: 60 + Math.random() * 120
+                        * (0.25 + Math.random() * 0.55)
+                    duration: 140 + Math.random() * 60
                     easing.type: Easing.InOutQuad
                 }
 
                 PauseAnimation {
-                    duration: Math.random() * 70
+                    duration: Math.random() * 40
                 }
             }
 
@@ -213,13 +202,11 @@ Item {
                 NumberAnimation {
                     target: waveBar
                     property: "barHeight"
-
                     to: playingIndicator.idleHeight
                         + (playingIndicator.maxBarHeight
                            - playingIndicator.idleHeight)
-                        * (0.3 + Math.random() * 0.7)
-
-                    duration: 150 + Math.random() * 250
+                        * (0.55 + Math.random() * 0.45)
+                    duration: 220 + Math.random() * 280
                     easing.type: Easing.InOutQuad
                 }
 
@@ -227,13 +214,12 @@ Item {
                     target: waveBar
                     property: "barHeight"
                     to: playingIndicator.idleHeight
-
-                    duration: 150 + Math.random() * 200
+                    duration: 220 + Math.random() * 230
                     easing.type: Easing.InOutQuad
                 }
 
                 PauseAnimation {
-                    duration: Math.random() * 120
+                    duration: Math.random() * 150
                 }
             }
 
