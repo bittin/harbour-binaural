@@ -5,11 +5,16 @@
 
 namespace
 {
-    const int SleepTimerFadeOutDuration = 5000;
+    // Total duration (ms) of the sleep-timer fade-out before all audio stops.
+    const int SleepTimerFadeOutDuration = 8000;
+    // Tick interval (ms) for the sleep-timer fade-out; smaller = smoother fade.
     const int FadeInterval = 15;
+    // Debounce delay for applying pending colored-noise volume changes (ms).
     const int VolumeUpdateInterval = 50;
 }
 
+// Manages all audio channels (binaural, colored noise, ambience) and
+// handles the sleep-timer fade-out.
 AudioEngine::AudioEngine(QObject *parent)
     : QObject(parent),
       m_sleepTimerFadeTimer(new QTimer(this)),
@@ -25,6 +30,7 @@ AudioEngine::AudioEngine(QObject *parent)
       m_ambienceVolume(50),
       m_coloredNoiseVolume(50)
 {
+    // Pre-allocate ambience channels and wire up state/finish signals.
     for (int i = 0; i < MaxAmbienceChannels; ++i) {
         m_ambienceChannels[i] = new AmbienceChannel(this);
         m_sleepTimerAmbienceStartVolumes[i] = 0;
@@ -68,6 +74,7 @@ AudioEngine::AudioEngine(QObject *parent)
             this,
             &AudioEngine::updatePlayingState);
 
+    // Clean up generator pointers when a channel is fully stopped.
     connect(m_binauralChannel,
             &PcmChannel::stopped,
             this,
@@ -105,26 +112,19 @@ AudioEngine::AudioEngine(QObject *parent)
                         m_sleepTimerFadeElapsed.elapsed())
                     / SleepTimerFadeOutDuration);
 
-        const double factor = 1.0 - progress;
-        const int SleepTimerVolumeUpdateInterval = 100;
-        const qint64 elapsed =
-                m_sleepTimerFadeElapsed.elapsed();
+        // Smoothstep (ease-in-out): zero slope at both ends,
+        // gentle for a sleep fade.
+        const double p = progress;
+        const double factor = 1.0 - (3.0 * p * p - 2.0 * p * p * p);
 
         m_binauralChannel->setVolume(
                     m_sleepTimerBinauralStartVolume * factor);
 
-        if (elapsed - m_sleepTimerLastAmbienceUpdate
-                >= SleepTimerVolumeUpdateInterval
-                || progress >= 1.0) {
-
-            m_sleepTimerLastAmbienceUpdate = elapsed;
-
-            for (int i = 0; i < MaxAmbienceChannels; ++i) {
-                if (m_ambienceChannels[i]) {
-                    m_ambienceChannels[i]->applySleepVolume(
-                                m_sleepTimerAmbienceStartVolumes[i],
-                                factor);
-                }
+        for (int i = 0; i < MaxAmbienceChannels; ++i) {
+            if (m_ambienceChannels[i]) {
+                m_ambienceChannels[i]->applySleepVolume(
+                            m_sleepTimerAmbienceStartVolumes[i],
+                            factor);
             }
         }
 
@@ -143,6 +143,7 @@ AudioEngine::AudioEngine(QObject *parent)
     });
 }
 
+// Ensure all audio is stopped before the engine is torn down.
 AudioEngine::~AudioEngine()
 {
     m_sleepTimerFadeTimer->stop();
@@ -162,6 +163,8 @@ void AudioEngine::updateAmbienceState()
     updatePlayingState();
 }
 
+// Captures current channel volumes as the fade-out starting point,
+// then begins the linear ramp-down over SleepTimerFadeOutDuration.
 void AudioEngine::fadeOutForSleepTimer()
 {
     m_sleepTimerFadeTimer->stop();
@@ -180,6 +183,5 @@ void AudioEngine::fadeOutForSleepTimer()
     }
 
     m_sleepTimerFadeElapsed.start();
-    m_sleepTimerLastAmbienceUpdate = 0;
     m_sleepTimerFadeTimer->start();
 }
