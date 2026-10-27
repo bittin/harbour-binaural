@@ -99,7 +99,7 @@
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="177"/>
-        <source>Special thanks to %1 for the guidance on improving audio engine / sound generators logic.</source>
+        <source>Thanks to %1 for some guidance on improving audio engine / sound generators logic.</source>
         <extracomment>%1 is a hyperlink to the GitHub profile of &quot;poetaster&quot;. &quot;audio engine&quot; and &quot;sound generators&quot; are technical terms and may be left untranslated.</extracomment>
         <translation type="unfinished"></translation>
     </message>

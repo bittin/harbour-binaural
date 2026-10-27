@@ -171,10 +171,10 @@ Page {
 
                 textFormat: Text.StyledText
 
-                // Full sentence: Special thanks to poetaster for guidance on improving audio engine / sound generators logic.
+                // Full sentence: Thanks to poetaster for some guidance on improving audio engine / sound generators logic.
                 //: %1 is a hyperlink to the GitHub profile of "poetaster".
                 //: "audio engine" and "sound generators" are technical terms and may be left untranslated.
-                text: qsTr("Special thanks to %1 for the guidance on improving audio engine / sound generators logic.")
+                text: qsTr("Thanks to %1 for some guidance on improving audio engine / sound generators logic.")
                       .arg(page.link("https://github.com/poetaster", "poetaster"))
 
                 color: Theme.highlightColor
