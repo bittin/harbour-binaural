@@ -39,7 +39,8 @@ AmbienceChannel::AmbienceChannel(QObject *parent)
       m_stopping(false),
       m_paused(false),
       m_resumeFadeIn(false),
-      m_resumeCrossfade(false)
+      m_resumeCrossfade(false),
+      m_sleepFactor(1.0)
 {
     m_fadeInTimer->setInterval(FadeInterval);
     m_crossfadeTimer->setInterval(FadeInterval);
@@ -135,6 +136,7 @@ bool AmbienceChannel::start(const QString &fileName)
 
     m_stopping = false;
     m_paused = false;
+    m_sleepFactor = 1.0;
 
     m_resumeFadeIn = true;
     m_resumeCrossfade = false;
@@ -268,6 +270,7 @@ void AmbienceChannel::stopImmediately()
 
     m_stopping = false;
     m_paused = false;
+    m_sleepFactor = 1.0;
 
     m_resumeFadeIn = false;
     m_resumeCrossfade = false;
@@ -297,6 +300,12 @@ void AmbienceChannel::applySleepVolume(
     double factor)
 {
     factor = qBound(0.0, factor, 1.0);
+    m_sleepFactor = factor;
+
+    // If a crossfade is in progress, it's already updating volume
+    // every 15 ms using m_sleepFactor — don't fight it.
+    if (m_crossfadeTimer->isActive())
+        return;
 
     if (m_activePlayer) {
         m_activePlayer->setVolume(
@@ -374,7 +383,6 @@ void AmbienceChannel::updateFadeOut()
     }
 
     if (progress >= 1.0) {
-        // Save the intent before stopImmediately() resets the state.
         const bool shouldEmitFinished = m_stopping;
 
         stopImmediately();
@@ -450,7 +458,8 @@ void AmbienceChannel::updateCrossfade()
         static_cast<double>(m_crossfadePosition)
             / CrossfadeDuration);
 
-    const int volume = targetVolume();
+    // Apply sleep factor so crossfade respects the fade-out.
+    const int volume = qRound(targetVolume() * m_sleepFactor);
 
     m_fadingPlayer->setVolume(
         qRound(volume * (1.0 - progress)));
@@ -476,7 +485,8 @@ void AmbienceChannel::finishCrossfade()
     }
 
     if (m_activePlayer)
-        m_activePlayer->setVolume(targetVolume());
+        m_activePlayer->setVolume(
+            qRound(targetVolume() * m_sleepFactor));
 }
 
 void AmbienceChannel::handleEndOfMedia(QMediaPlayer *player)
@@ -505,7 +515,6 @@ void AmbienceChannel::handleEndOfMedia(QMediaPlayer *player)
     if (m_paused)
         return;
 
-    // Fallback for backends that reach the end before crossfade starts.
     player->setPosition(0);
     player->play();
 }

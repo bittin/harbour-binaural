@@ -122,8 +122,6 @@ private:
     int m_coloredNoiseVolume;
 
     QString m_currentColoredNoise;
-
-    qint64 m_sleepTimerLastAmbienceUpdate = 0;
 };
 
 #endif

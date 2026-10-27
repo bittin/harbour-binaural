@@ -80,6 +80,8 @@ private:
 
     bool m_resumeFadeIn;
     bool m_resumeCrossfade;
+
+    double m_sleepFactor = 1.0;
 };
 
 #endif
