@@ -55,26 +55,6 @@
 <context>
     <name>AudioFilePickerPage</name>
     <message>
-        <source>Choose audio file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Up</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Folders and audio files</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Folder  ›</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Audio</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>No audio files or folders</source>
         <translation type="unfinished"></translation>
     </message>
@@ -83,19 +63,15 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Home</source>
+        <source>Music</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Choose folder</source>
+        <source>Use folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Use this folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Open a folder or select this folder</source>
+        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -262,7 +238,7 @@
         <translation>Choose ambient sounds</translation>
     </message>
     <message>
-        <source>Choose a sound file</source>
+        <source>Choose custom sound</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -369,97 +345,17 @@
     </message>
 </context>
 <context>
-    <name>SoundpickerPage</name>
+    <name>SoundPickerDrawer</name>
     <message>
-        <source>Custom sound</source>
+        <source>Open audio file or folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Select an audio file</source>
+        <source>Clear selection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>No file selected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choose MP3 or audio file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Folder playback</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No folder selected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Choose folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Play folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Loop folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Repeat the folder continuously</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stop after the last audio file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Playback</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Audio player unavailable</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Playing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Ready to play</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Select an audio file first</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Pause</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Play</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Stop</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Loop sound</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Repeat the selected sound continuously</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Play the selected sound once</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Volume</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
