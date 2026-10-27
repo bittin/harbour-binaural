@@ -3,17 +3,12 @@
 
 #include <QIODevice>
 
-// ============================================================================
-// BINAURAL GENERATOR
-// ============================================================================
-
 class BinauralGenerator : public QIODevice
 {
 public:
     explicit BinauralGenerator(QObject *parent = nullptr);
 
     void start();
-    void stop();
 
     void setBeatFrequency(double frequency);
     void setSampleRate(int sampleRate);

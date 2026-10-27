@@ -3,8 +3,9 @@
 
 #include <QObject>
 #include <QMediaPlayer>
-#include <QString>
+#include <QElapsedTimer>
 #include <QTimer>
+#include <QString>
 
 class AmbienceChannel : public QObject
 {
@@ -68,6 +69,9 @@ private:
     int m_crossfadePosition;
     int m_fadeOutPosition;
 
+    QElapsedTimer m_fadeElapsed;
+    qint64 m_fadeElapsedBeforePause = 0;
+
     int m_fadeOutActiveVolume;
     int m_fadeOutFadingVolume;
 
@@ -78,4 +82,4 @@ private:
     bool m_resumeCrossfade;
 };
 
-#endif // AMBIENCECHANNEL_H
+#endif

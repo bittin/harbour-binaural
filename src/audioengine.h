@@ -2,12 +2,12 @@
 #define AUDIOENGINE_H
 
 #include <QObject>
-#include <QAudioOutput>
 #include <QElapsedTimer>
 #include <QTimer>
 #include <QString>
 
 #include "ambiencechannel.h"
+#include "pcmchannel.h"
 
 class BinauralGenerator;
 class ColoredNoiseGenerator;
@@ -83,23 +83,12 @@ signals:
 
 private:
     void updatePlayingState();
-    // Shared PCM output setup (binaural + colored noise).
-    bool resolvePcmFormat(QAudioFormat &format,
-                          QAudioDeviceInfo &device,
-                          const QString &context);
-
-    // Binaural implementation.
-    void updateBinauralFadeIn();
-    void updateBinauralFadeOut();
-    void stopBinauralImmediately();
 
     // Ambience implementation.
     void stopAmbiencesImmediately();
     void updateAmbienceState();
 
-    // Colored-noise implementation.
-    void updateColoredNoiseFadeOut();
-    void stopColoredNoiseImmediately();
+    // Colored-noise volume.
     void applyPendingColoredNoiseVolume();
     int coloredNoiseTargetVolume() const;
 
@@ -111,23 +100,18 @@ private:
     int m_sleepTimerAmbienceStartVolumes[MaxAmbienceChannels];
     double m_sleepTimerColoredNoiseStartVolume;
 
-    // Binaural output.
-    QAudioOutput *m_audioOutput;
-    BinauralGenerator *m_generator;
+    // PCM playback channels (own output, generator, fade-out).
+    PcmChannel *m_binauralChannel;
+    PcmChannel *m_noiseChannel;
+
+    // Generators (parameter access only; lifetime owned by PcmChannel).
+    BinauralGenerator *m_binauralGenerator;
+    ColoredNoiseGenerator *m_noiseGenerator;
 
     // Three independent ambience channels.
     AmbienceChannel *m_ambienceChannels[MaxAmbienceChannels];
 
-    // Colored-noise output.
-    QAudioOutput *m_coloredNoiseOutput;
-    ColoredNoiseGenerator *m_coloredNoiseGenerator;
-
-    // Binaural timers.
-    QTimer *m_binauralFadeTimer;
-    QTimer *m_binauralFadeOutTimer;
-
-    // Colored-noise timers.
-    QTimer *m_coloredNoiseFadeOutTimer;
+    // Colored-noise volume debounce timer.
     QTimer *m_coloredNoiseVolumeTimer;
 
     // Audio settings.
@@ -137,16 +121,9 @@ private:
     int m_ambienceVolume;
     int m_coloredNoiseVolume;
 
-    // Fade state.
-    int m_binauralFadeInPosition;
-
-    double m_binauralFadeOutStartVolume;
-    double m_coloredNoiseFadeOutStartVolume;
-
-    QElapsedTimer m_binauralFadeOutElapsed;
-    QElapsedTimer m_coloredNoiseFadeOutElapsed;
-
     QString m_currentColoredNoise;
+
+    qint64 m_sleepTimerLastAmbienceUpdate = 0;
 };
 
-#endif // AUDIOENGINE_H
+#endif

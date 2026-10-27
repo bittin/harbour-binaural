@@ -31,13 +31,6 @@ void BinauralGenerator::start()
     open(QIODevice::ReadOnly);
 }
 
-void BinauralGenerator::stop()
-{
-    close();
-    m_leftPhase = 0.0;
-    m_rightPhase = 0.0;
-}
-
 void BinauralGenerator::setBeatFrequency(double frequency)
 {
     m_beatFrequency = qMax(0.0, frequency);

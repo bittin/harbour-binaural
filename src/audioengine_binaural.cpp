@@ -1,22 +1,12 @@
 #include "audioengine.h"
 #include "binauralgenerator.h"
 
-#include <QAudioDeviceInfo>
 #include <QAudioFormat>
 #include <QMap>
 #include <QtMath>
 
-// ============================================================================
-// BINAURAL CONSTANTS
-// ============================================================================
-
 namespace
 {
-    const int BinauralFadeInDuration = 0;
-    const int BinauralFadeOutDuration = 0;
-
-    const int FadeInterval = 15;
-
     double frequencyForBand(const QString &band)
     {
         static const QMap<QString, double> bands = {
@@ -30,6 +20,9 @@ namespace
 
         return bands.value(band, -1.0);
     }
+
+    const int BinauralFadeOutDuration = 200;
+
 }
 
 // ============================================================================
@@ -38,29 +31,22 @@ namespace
 
 bool AudioEngine::isBinauralPlaying() const
 {
-    return m_audioOutput &&
-           m_audioOutput->state() == QAudio::ActiveState;
+    return m_binauralChannel->isPlaying();
 }
 
 bool AudioEngine::isBinauralPaused() const
 {
-    return m_audioOutput &&
-           m_audioOutput->state() == QAudio::SuspendedState;
+    return m_binauralChannel->isPaused();
 }
 
 // ============================================================================
-// RESUME
+// RESUME / FREQUENCY / VOLUME
 // ============================================================================
 
 void AudioEngine::resumeBinaural()
 {
-    if (isBinauralPaused())
-        m_audioOutput->resume();
+    m_binauralChannel->resume();
 }
-
-// ============================================================================
-// FREQUENCY
-// ============================================================================
 
 void AudioEngine::setFrequencyBand(const QString &band)
 {
@@ -70,200 +56,80 @@ void AudioEngine::setFrequencyBand(const QString &band)
 
     m_beatFrequency = frequency;
 
-    if (m_generator)
-        m_generator->setBeatFrequency(m_beatFrequency);
+    if (m_binauralGenerator)
+        m_binauralGenerator->setBeatFrequency(m_beatFrequency);
 }
-
-// ============================================================================
-// VOLUME
-// ============================================================================
 
 void AudioEngine::setBinauralVolume(int volume)
 {
     m_binauralVolume =
         qBound(0, volume, 100);
 
-    if (m_audioOutput &&
-        !m_binauralFadeTimer->isActive() &&
-        !m_binauralFadeOutTimer->isActive())
-    {
-        m_audioOutput->setVolume(
-            m_binauralVolume / 100.0);
-    }
+    m_binauralChannel->setVolume(
+        m_binauralVolume / 100.0);
 }
 
 // ============================================================================
-// BINAURAL AUDIO
+// BINAURAL
 // ============================================================================
 
 void AudioEngine::start()
 {
-    if (m_audioOutput)
+    if (m_binauralChannel->isRunning())
     {
         /*
          * Starting while a fade-out is running cancels
          * the fade-out and restores the requested volume.
          */
-        if (m_binauralFadeOutTimer->isActive())
+        if (m_binauralChannel->isFadingOut())
         {
-            m_binauralFadeOutTimer->stop();
+            m_binauralChannel->cancelFadeOut();
 
-            m_audioOutput->setVolume(
+            m_binauralChannel->setVolume(
                 m_binauralVolume / 100.0);
         }
 
         return;
     }
 
-    QAudioFormat format;
-    QAudioDeviceInfo device;
+    auto *generator =
+        new BinauralGenerator(m_binauralChannel);
 
-    if (!resolvePcmFormat(format, device,
-                          QStringLiteral("binaural")))
-        return;
-
-    m_generator =
-        new BinauralGenerator(this);
-
-    m_generator->setBeatFrequency(
-        m_beatFrequency);
-
-    m_generator->setSampleRate(
-        format.sampleRate());
-
-    m_generator->start();
-
-    m_audioOutput =
-        new QAudioOutput(device, format, this);
-
-    m_audioOutput->setVolume(
+    m_binauralChannel->setVolume(
         m_binauralVolume / 100.0);
 
-    connect(
-        m_audioOutput,
-        &QAudioOutput::stateChanged,
-        this,
-        [this](QAudio::State)
+    const bool started = m_binauralChannel->start(
+        generator,
+        [this, generator](const QAudioFormat &format)
         {
-            updatePlayingState();
+            generator->setBeatFrequency(m_beatFrequency);
+            generator->setSampleRate(format.sampleRate());
+            generator->start();
         });
 
-    m_audioOutput->start(m_generator);
+    if (!started)
+    {
+        delete generator;
+        return;
+    }
+
+    m_binauralGenerator = generator;
+
     updatePlayingState();
 }
 
 void AudioEngine::pauseBinaural()
 {
-    if (!m_audioOutput ||
-        m_audioOutput->state() != QAudio::ActiveState)
-        return;
-
-    m_binauralFadeTimer->stop();
-    m_binauralFadeOutTimer->stop();
-
-    m_audioOutput->suspend();
+    m_binauralChannel->pause();
 
     updatePlayingState();
 }
 
 void AudioEngine::stop()
 {
-    if (!m_audioOutput ||
-        m_binauralFadeOutTimer->isActive())
-    {
+    if (!m_binauralChannel->isRunning())
         return;
-    }
 
-    m_binauralFadeTimer->stop();
-    m_binauralFadeOutStartVolume =
-        m_audioOutput->volume();
-
-    m_binauralFadeOutElapsed.start();
-
-    m_binauralFadeOutTimer->start();
-}
-
-void AudioEngine::updateBinauralFadeIn()
-{
-    if (!m_audioOutput)
-    {
-        m_binauralFadeTimer->stop();
-        return;
-    }
-
-    m_binauralFadeInPosition +=
-        FadeInterval;
-
-    const double progress =
-        BinauralFadeInDuration > 0
-            ? qMin(
-                  1.0,
-                  static_cast<double>(
-                      m_binauralFadeInPosition)
-                      / BinauralFadeInDuration)
-            : 1.0;
-
-    m_audioOutput->setVolume(
-        (m_binauralVolume / 100.0)
-        * progress);
-
-    if (progress >= 1.0)
-    {
-        m_audioOutput->setVolume(
-            m_binauralVolume / 100.0);
-
-        m_binauralFadeTimer->stop();
-        m_binauralFadeInPosition = 0;
-    }
-}
-
-void AudioEngine::updateBinauralFadeOut()
-{
-    if (!m_audioOutput)
-    {
-        m_binauralFadeOutTimer->stop();
-        return;
-    }
-
-    const double progress =
-        BinauralFadeOutDuration > 0
-            ? qMin(
-                  1.0,
-                  static_cast<double>(
-                      m_binauralFadeOutElapsed.elapsed())
-                      / BinauralFadeOutDuration)
-            : 1.0;
-
-    m_audioOutput->setVolume(
-        m_binauralFadeOutStartVolume
-        * (1.0 - progress));
-
-    if (progress >= 1.0)
-        stopBinauralImmediately();
-}
-
-void AudioEngine::stopBinauralImmediately()
-{
-    m_binauralFadeTimer->stop();
-    m_binauralFadeOutTimer->stop();
-
-    if (m_audioOutput)
-    {
-        m_audioOutput->stop();
-
-        delete m_audioOutput;
-        m_audioOutput = nullptr;
-    }
-
-    if (m_generator)
-    {
-        m_generator->stop();
-        delete m_generator;
-        m_generator = nullptr;
-    }
-
-    m_binauralFadeInPosition = 0;
-    m_binauralFadeOutStartVolume = 0.0;
-
-    updatePlayingState();
+    m_binauralChannel->beginFadeOut(
+        BinauralFadeOutDuration);
 }

@@ -64,19 +64,13 @@ void ColoredNoiseGenerator::start()
     open(QIODevice::ReadOnly);
 }
 
-void ColoredNoiseGenerator::stop()
-{
-    close();
-}
-
 qint64 ColoredNoiseGenerator::readData(char *data, qint64 maxlen)
 {
     if (!data || maxlen <= 0)
         return 0;
 
     const qint64 frameSize =
-        static_cast<qint64>(m_channelCount) *
-        static_cast<qint64>(sizeof(qint16));
+        m_channelCount * sizeof(qint16);
 
     if (frameSize <= 0)
         return 0;
@@ -184,8 +178,7 @@ void ColoredNoiseGenerator::resetNoiseState()
          */
         m_randomState[channel] =
             0x12345678u +
-            static_cast<quint32>(
-                channel * 0x13579BDFu);
+            channel * 0x13579BDFu;
 
         /*
          * Pink noise filter state.
@@ -246,9 +239,8 @@ double ColoredNoiseGenerator::nextRawWhite(int channel)
      * Convert unsigned 32-bit value to
      * approximately [-1.0, +1.0].
      */
-    return
-        (static_cast<double>(randomValue) /
-         2147483648.0) - 1.0;
+    return (randomValue / 2147483648.0) - 1.0;
+
 }
 
 double ColoredNoiseGenerator::nextWhite(int channel)

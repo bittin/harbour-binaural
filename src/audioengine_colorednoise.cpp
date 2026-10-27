@@ -1,9 +1,7 @@
 #include "audioengine.h"
 #include "colorednoisegenerator.h"
 
-#include <QAudioDeviceInfo>
 #include <QAudioFormat>
-
 #include <QtMath>
 
 namespace
@@ -11,40 +9,28 @@ namespace
     const int ColoredNoiseFadeOutDuration = 200;
 }
 
-
 // ============================================================================
 // STATE
 // ============================================================================
 
 bool AudioEngine::isColoredNoisePlaying() const
 {
-    return m_coloredNoiseOutput &&
-           m_coloredNoiseOutput->state()
-               == QAudio::ActiveState;
+    return m_noiseChannel->isPlaying();
 }
 
 bool AudioEngine::isColoredNoisePaused() const
 {
-    return m_coloredNoiseOutput &&
-           m_coloredNoiseOutput->state()
-               == QAudio::SuspendedState;
+    return m_noiseChannel->isPaused();
 }
 
-
 // ============================================================================
-// RESUME
+// RESUME / VOLUME
 // ============================================================================
 
 void AudioEngine::resumeColoredNoise()
 {
-    if (isColoredNoisePaused())
-        m_coloredNoiseOutput->resume();
+    m_noiseChannel->resume();
 }
-
-
-// ============================================================================
-// VOLUME
-// ============================================================================
 
 void AudioEngine::setColoredNoiseVolume(int volume)
 {
@@ -63,18 +49,13 @@ int AudioEngine::coloredNoiseTargetVolume() const
 
 void AudioEngine::applyPendingColoredNoiseVolume()
 {
-    if (m_coloredNoiseOutput &&
-        !m_coloredNoiseFadeOutTimer->isActive())
-    {
-        m_coloredNoiseOutput->setVolume(
-            static_cast<qreal>(
-                coloredNoiseTargetVolume()) / 100.0);
-    }
+    m_noiseChannel->setVolume(
+        static_cast<qreal>(
+            coloredNoiseTargetVolume()) / 100.0);
 }
 
-
 // ============================================================================
-// COLORED NOISE AUDIO
+// COLORED NOISE
 // ============================================================================
 
 void AudioEngine::setColoredNoise(
@@ -107,14 +88,13 @@ void AudioEngine::setColoredNoise(
      * If noise is already running, only change the
      * algorithm. The audio stream itself remains alive.
      */
-    if (m_coloredNoiseGenerator &&
-        m_coloredNoiseOutput)
+    if (m_noiseChannel->isRunning())
     {
-        m_coloredNoiseFadeOutTimer->stop();
+        m_noiseChannel->cancelFadeOut();
 
-        m_coloredNoiseGenerator->setNoiseType(type);
+        m_noiseGenerator->setNoiseType(type);
 
-        m_coloredNoiseOutput->setVolume(
+        m_noiseChannel->setVolume(
             static_cast<qreal>(
                 coloredNoiseTargetVolume()) / 100.0);
 
@@ -123,135 +103,56 @@ void AudioEngine::setColoredNoise(
         return;
     }
 
-    QAudioFormat format;
-    QAudioDeviceInfo device;
+    auto *generator =
+        new ColoredNoiseGenerator(m_noiseChannel);
 
-    if (!resolvePcmFormat(format, device,
-                          QStringLiteral("colored noise")))
-        return;
+    generator->setNoiseType(type);
 
-    m_coloredNoiseGenerator =
-        new ColoredNoiseGenerator(this);
-
-    m_coloredNoiseGenerator->setSampleRate(
-        format.sampleRate());
-
-    m_coloredNoiseGenerator->setChannelCount(
-        format.channelCount());
-
-    m_coloredNoiseGenerator->setNoiseType(type);
-
-    m_coloredNoiseGenerator->start();
-
-    m_coloredNoiseOutput =
-        new QAudioOutput(device, format, this);
-
-    m_coloredNoiseOutput->setVolume(
+    m_noiseChannel->setVolume(
         static_cast<qreal>(
             coloredNoiseTargetVolume()) / 100.0);
 
-    connect(
-        m_coloredNoiseOutput,
-        &QAudioOutput::stateChanged,
-        this,
-        [this](QAudio::State)
+    const bool started = m_noiseChannel->start(
+        generator,
+        [generator](const QAudioFormat &format)
         {
-            updatePlayingState();
+            generator->setSampleRate(
+                format.sampleRate());
+
+            generator->setChannelCount(
+                format.channelCount());
+
+            generator->start();
         });
+
+    if (!started)
+    {
+        delete generator;
+        return;
+    }
+
+    m_noiseGenerator = generator;
 
     m_currentColoredNoise = noise;
 
-    m_coloredNoiseOutput->start(
-        m_coloredNoiseGenerator);
-
     updatePlayingState();
 }
-
 
 void AudioEngine::pauseColoredNoise()
 {
-    if (!m_coloredNoiseOutput ||
-        m_coloredNoiseOutput->state()
-            != QAudio::ActiveState)
-        return;
-
-    m_coloredNoiseFadeOutTimer->stop();
-
-    m_coloredNoiseOutput->suspend();
+    m_noiseChannel->pause();
 
     updatePlayingState();
 }
-
 
 void AudioEngine::stopColoredNoise()
 {
-    if (!m_coloredNoiseOutput)
+    if (!m_noiseChannel->isRunning())
     {
-        stopColoredNoiseImmediately();
+        m_noiseChannel->stopImmediately();
         return;
     }
 
-    if (m_coloredNoiseFadeOutTimer->isActive())
-        return;
-
-    m_coloredNoiseFadeOutStartVolume =
-        m_coloredNoiseOutput->volume();
-
-    m_coloredNoiseFadeOutElapsed.start();
-
-    m_coloredNoiseFadeOutTimer->start();
-}
-
-
-void AudioEngine::updateColoredNoiseFadeOut()
-{
-    if (!m_coloredNoiseOutput)
-    {
-        m_coloredNoiseFadeOutTimer->stop();
-        return;
-    }
-
-    const double progress =
-        ColoredNoiseFadeOutDuration > 0
-            ? qMin(
-                  1.0,
-                  static_cast<double>(
-                      m_coloredNoiseFadeOutElapsed.elapsed())
-                      / ColoredNoiseFadeOutDuration)
-            : 1.0;
-
-    m_coloredNoiseOutput->setVolume(
-        m_coloredNoiseFadeOutStartVolume
-        * (1.0 - progress));
-
-    if (progress >= 1.0)
-        stopColoredNoiseImmediately();
-}
-
-
-void AudioEngine::stopColoredNoiseImmediately()
-{
-    m_coloredNoiseFadeOutTimer->stop();
-    m_coloredNoiseVolumeTimer->stop();
-
-    if (m_coloredNoiseOutput)
-    {
-        m_coloredNoiseOutput->stop();
-
-        delete m_coloredNoiseOutput;
-        m_coloredNoiseOutput = nullptr;
-    }
-
-    if (m_coloredNoiseGenerator)
-    {
-        m_coloredNoiseGenerator->stop();
-
-        delete m_coloredNoiseGenerator;
-        m_coloredNoiseGenerator = nullptr;
-    }
-
-    m_currentColoredNoise.clear();
-    m_coloredNoiseFadeOutStartVolume = 0.0;
-
-    updatePlayingState();
+    m_noiseChannel->beginFadeOut(
+        ColoredNoiseFadeOutDuration);
 }
