@@ -261,7 +261,7 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="586"/>
         <source>Choose ambient sounds</source>
-        <translation type="unfinished">Umgebungsklänge auswählen</translation>
+        <translation>Umgebungsklänge auswählen</translation>
     </message>
 </context>
 <context>
