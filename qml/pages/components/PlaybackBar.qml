@@ -27,7 +27,8 @@ DockedPanel {
         color: "black"
 
         opacity: playbackBar.applicationWindow &&
-                 playbackBar.applicationWindow.isPlaying
+                 (playbackBar.applicationWindow.isPlaying ||
+                  playbackBar.applicationWindow.customSoundPlaying)
                  ? 0.0 : 0.2
 
         Behavior on opacity {
@@ -50,7 +51,8 @@ DockedPanel {
         anchors.verticalCenter: parent.verticalCenter
 
         icon.source: playbackBar.applicationWindow &&
-                     playbackBar.applicationWindow.isPlaying
+                     (playbackBar.applicationWindow.isPlaying ||
+                      playbackBar.applicationWindow.customSoundPlaying)
                      ? "image://theme/icon-m-pause"
                      : "image://theme/icon-m-play"
 
@@ -65,7 +67,8 @@ DockedPanel {
 
             return app.activeBand !== "" ||
                    app.activeNoise !== "" ||
-                   ambiences.length > 0
+                   ambiences.length > 0 ||
+                   app.customSoundSource.toString() !== ""
         }
 
         opacity: enabled ? 1.0 : 0.5
@@ -110,15 +113,18 @@ DockedPanel {
             var page = app.mainPage
             var ambiences = page.activeAmbiences || []
 
-            if (page.activeBand === "" &&
-                    page.activeNoise === "" &&
-                    ambiences.length === 0) {
-                return Theme.secondaryColor
-            }
+            var hasBuiltInSound = page.activeBand !== "" ||
+                                  page.activeNoise !== "" ||
+                                  ambiences.length > 0
 
-            return app.isPlaying
-                    ? Theme.highlightColor
-                    : Theme.secondaryHighlightColor
+            var hasCustomSound = app.customSoundSource.toString() !== ""
+
+            if (!hasBuiltInSound && !hasCustomSound)
+                return Theme.secondaryColor
+
+            return (app.isPlaying || app.customSoundPlaying)
+                   ? Theme.highlightColor
+                   : Theme.secondaryHighlightColor
         }
 
         font.pixelSize: Theme.fontSizeMedium
@@ -146,9 +152,13 @@ DockedPanel {
                 parts.push(SoundNames.label("Ambient mix"))
             }
 
+            if (app.customSoundSource.toString() !== "") {
+                parts.push(qsTr("Custom sound"))
+            }
+
             return parts.length > 0
-                    ? parts.join(" & ")
-                    : SoundNames.label("Start your sound mix")
+                   ? parts.join(" & ")
+                   : SoundNames.label("Start your sound mix")
         }
     }
 

@@ -95,11 +95,13 @@ SilicaFlickable {
         previousFolderCount = -1
         stableFolderCountTicks = 0
         folderWaitTicks = 0
+        loopFolder = false
 
         if (appWindow) {
             appWindow.stopCustomSound()
             appWindow.customSoundSource = ""
             appWindow.customSoundName = ""
+            appWindow.customSoundLoop = false
         }
     }
 
@@ -283,50 +285,112 @@ SilicaFlickable {
                     }
                 }
 
-                // Play / Pause.
+                // Add / Clear custom sound selection.
                 Item {
+                    id: audioActionButton
+
                     width: playbackButtons.playButtonSize
                     height: playbackButtons.playButtonSize
 
-                    Icon {
-                        anchors.centerIn: parent
+                    property bool hasSelection:
+                        page.selectedFile.toString() !== ""
+                        || page.selectedFolder.toString() !== ""
 
+                    Icon {
+                        id: audioActionIcon
+
+                        anchors.centerIn: parent
                         width: playbackButtons.playButtonSize
                         height: playbackButtons.playButtonSize
 
                         source: "image://theme/"
-                                + (playbackButtons.isPlaying
-                                   ? "icon-m-pause?"
-                                   : "icon-m-play?")
-                                + (playPauseMouseArea.pressed
+                                + (audioActionButton.hasSelection
+                                   ? "icon-l-clear?"
+                                   : "icon-l-add?")
+                                + (audioActionMouseArea.pressed
                                    ? Theme.highlightColor
-                                   : (playbackButtons.hasAudio
-                                      ? Theme.primaryColor
-                                      : Theme.secondaryColor))
+                                   : Theme.primaryColor)
+
+                        sourceSize: Qt.size(width * 2, height * 2)
+
+                        // Glow follows the icon's shape.
+                        layer.enabled: page.appWindow
+                                       && page.appWindow.customSoundPlaying
+
+                        layer.effect: DropShadow {
+                            transparentBorder: true
+                            horizontalOffset: 0
+                            verticalOffset: 0
+                            radius: 8
+                            samples: 17
+                            color: Theme.highlightColor
+                            opacity: 0.7
+                        }
+                    }
+
+                    MouseArea {
+                        id: audioActionMouseArea
+                        anchors.fill: parent
+
+                        onClicked: {
+                            if (audioActionButton.hasSelection) {
+                                if (page.appWindow)
+                                    page.appWindow.stopCustomSound()
+
+                                page.clearSelection()
+                            } else {
+                                page.openAudioPicker()
+                            }
+                        }
+                    }
+                }
+
+                // Restart selected custom sound.
+                Item {
+                    id: restartButton
+
+                    width: playbackButtons.playButtonSize
+                    height: playbackButtons.playButtonSize
+
+                    property bool hasSelection:
+                        page.selectedFile.toString() !== ""
+                        || page.selectedFolder.toString() !== ""
+
+                    property bool canRestart:
+                        hasSelection
+                        && page.appWindow
+                        && !page.appWindow.customSoundPlaying
+
+                    Icon {
+                        anchors.centerIn: parent
+                        width: playbackButtons.playButtonSize
+                        height: playbackButtons.playButtonSize
+
+                        source: "image://theme/icon-l-play?"
+                                + (restartMouseArea.pressed && restartButton.canRestart
+                                   ? Theme.highlightColor
+                                   : restartButton.canRestart
+                                     ? Theme.primaryColor
+                                     : Theme.secondaryColor)
+
                         sourceSize: Qt.size(width * 2, height * 2)
                     }
 
                     MouseArea {
-                        id: playPauseMouseArea
-
+                        id: restartMouseArea
                         anchors.fill: parent
-                        enabled: playbackButtons.hasAudio
+                        enabled: restartButton.canRestart
 
                         onClicked: {
                             if (!page.appWindow)
                                 return
 
-                            if (page.appWindow.customSoundPlaying
-                                    && !page.appWindow.customSoundPaused) {
-                                page.appWindow.pauseCustomSound()
-                            } else if (page.appWindow.customSoundPaused
-                                       || page.appWindow.customSoundPlaylistActive) {
-                                page.appWindow.resumeCustomSound()
+                            if (page.selectedFolder.toString() !== "") {
+                                page.startFolderPlayback()
                             } else if (page.selectedFile.toString() !== "") {
-                                page.appWindow.customSoundSource =
-                                        page.selectedFile
-                                page.appWindow.customSoundName =
-                                        page.selectedFileName
+                                page.appWindow.stopCustomSound()
+                                page.appWindow.customSoundSource = page.selectedFile
+                                page.appWindow.customSoundName = page.selectedFileName
                                 page.appWindow.playCustomSound()
                             }
                         }
@@ -360,29 +424,6 @@ SilicaFlickable {
                     }
                 }
             }
-        }
-
-        // Button to open AudioFilePickerPage
-        Button {
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2 * Theme.horizontalPageMargin
-
-            text: qsTr("Open audio file or folder")
-
-            onClicked: page.openAudioPicker()
-        }
-
-        // Button to clear selected file / folder
-        Button {
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2 * Theme.horizontalPageMargin
-
-            text: qsTr("Clear selection")
-
-            enabled: page.selectedFile.toString() !== ""
-                     || page.selectedFolder.toString() !== ""
-
-            onClicked: page.clearSelection()
         }
 
         // Selected folder and current track information.
@@ -454,23 +495,19 @@ SilicaFlickable {
             }
         }
 
-        // Volume slider, volume icon and Repeat switch.
-        Row {
+        // Volume controls.
+        Column {
             id: customSoundControls
 
             width: parent.width - 2 * Theme.horizontalPageMargin
             x: Theme.horizontalPageMargin
-            spacing: 0
+            spacing: Theme.paddingSmall
 
-            // Volume slider
+            // Volume slider and icon.
             Item {
                 id: customSoundVolumeContainer
 
-                y: Theme.paddingSmall
-
-                width: parent.width - loopButton.width
-                       - customSoundControls.spacing
-
+                width: parent.width
                 height: customSoundVolumeSlider.height
                         + customSoundVolumeIcon.height
                         - Theme.paddingLarge
@@ -503,8 +540,7 @@ SilicaFlickable {
 
                     anchors.top: customSoundVolumeSlider.bottom
                     anchors.topMargin: -Theme.paddingLarge
-                    anchors.horizontalCenter:
-                        customSoundVolumeSlider.horizontalCenter
+                    anchors.horizontalCenter: customSoundVolumeSlider.horizontalCenter
 
                     Image {
                         id: customSoundVolumeImage
@@ -522,7 +558,7 @@ SilicaFlickable {
                         sourceSize: Qt.size(
                                         Theme.iconSizeSmall * 1.6 * 2,
                                         Theme.iconSizeSmall * 1.6 * 2
-                                        )
+                                    )
 
                         fillMode: Image.PreserveAspectFit
                         visible: false
@@ -536,14 +572,11 @@ SilicaFlickable {
                 }
             }
 
-            // Repeat toggle.
+            // Repeat toggle, with its own space.
             Switch {
                 id: loopButton
 
-                x: -Theme.paddingSmall
-
-                anchors.verticalCenter:
-                    customSoundVolumeContainer.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 icon.source: "image://theme/icon-m-repeat"
                 automaticCheck: false
@@ -551,10 +584,8 @@ SilicaFlickable {
                 checked: appWindow ? appWindow.customSoundLoop : false
 
                 onClicked: {
-                    if (appWindow) {
-                        appWindow.customSoundLoop =
-                                !appWindow.customSoundLoop
-                    }
+                    if (appWindow)
+                        appWindow.customSoundLoop = !appWindow.customSoundLoop
                 }
             }
         }

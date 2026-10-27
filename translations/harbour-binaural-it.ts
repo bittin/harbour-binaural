@@ -248,6 +248,10 @@
         <source>Start your sound mix</source>
         <translation>Avvia il tuo mix sonoro</translation>
     </message>
+    <message>
+        <source>Custom sound</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SoundNames</name>
@@ -346,14 +350,6 @@
 </context>
 <context>
     <name>SoundPickerDrawer</name>
-    <message>
-        <source>Open audio file or folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Clear selection</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>No file selected</source>
         <translation type="unfinished"></translation>

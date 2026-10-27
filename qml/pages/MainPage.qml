@@ -93,26 +93,61 @@ Page {
     }
 
     function togglePlayback() {
-        if (isPlaying) {
+        var customSoundIsPlaying =
+                appWindow && appWindow.customSoundPlaying
+
+        if (isPlaying || customSoundIsPlaying) {
+            // Pause all sounds.
             audioEngine.pauseBinaural()
             audioEngine.pauseAmbience()
             audioEngine.pauseColoredNoise()
+
+            if (appWindow && appWindow.customSoundPlaying)
+                appWindow.pauseCustomSound()
+
             appWindow.pauseSleepTimer()
         } else {
+            // Resume all selected sounds.
             resumeAll()
+
+            if (applicationWindow &&
+                    applicationWindow.customSoundSource.toString() !== "" &&
+                    !applicationWindow.customSoundPlaying) {
+                applicationWindow.resumeCustomSound()
+            }
+
             appWindow.resumeSleepTimer()
         }
     }
 
     function deselectAllSounds() {
+        // Stop binaural beats.
         audioEngine.stop()
+
+        // Stop ambient sounds.
         audioEngine.stopAmbience()
+
+        // Stop colored noise.
         audioEngine.stopColoredNoise()
 
+        // Clear the custom sound selection in the drawer, if available.
+        if (selectorLoader.item
+                && selectorLoader.item.clearSelection) {
+            selectorLoader.item.clearSelection()
+        } else if (applicationWindow) {
+            // Fallback if the custom sound drawer isn't currently loaded.
+            applicationWindow.stopCustomSound()
+            applicationWindow.customSoundSource = ""
+            applicationWindow.customSoundName = ""
+            applicationWindow.customSoundLoop = false
+        }
+
+        // Clear selected sounds on the main page.
         page.activeBand = ""
         page.activeAmbiences = []
         page.activeNoise = ""
 
+        // Close the selector drawer.
         selectorDrawer.open = false
     }
 
@@ -247,7 +282,9 @@ Page {
 
                         enabled: page.activeBand !== "" ||
                                  page.activeAmbiences.length > 0 ||
-                                 page.activeNoise !== ""
+                                 page.activeNoise !== "" ||
+                                 (page.applicationWindow &&
+                                  page.applicationWindow.customSoundSource.toString() !== "")
 
                         onClicked: {
                             page.deselectAllSounds()
@@ -259,7 +296,9 @@ Page {
 
                         enabled: page.activeBand !== "" ||
                                  page.activeAmbiences.length > 0 ||
-                                 page.activeNoise !== ""
+                                 page.activeNoise !== "" ||
+                                 (page.applicationWindow &&
+                                  page.applicationWindow.customSoundSource.toString() !== "")
 
                         onClicked: {
                             pageStack.push(
@@ -780,11 +819,18 @@ Page {
 
                         Button {
                             id: soundPickerButton
-
                             anchors.centerIn: parent
                             width: parent.width * 0.8
 
-                            text: qsTr("Choose custom sound")
+                            // Hide the Button's built-in text to avoid overlapping labels
+                            text: ""
+
+                            highlighted: applicationWindow
+                                         && applicationWindow.customSoundSource.toString() !== ""
+
+                            opacity: highlighted
+                                     ? (applicationWindow.customSoundPlaying ? 1.0 : 0.6)
+                                     : 1.0
 
                             onClicked: {
                                 selectorDrawer.showingCustomSound = true
@@ -792,11 +838,23 @@ Page {
                             }
 
                             Label {
-                                anchors.centerIn: parent
-                                text: parent.text
+                                anchors.fill: parent
+                                anchors.leftMargin: Theme.paddingLarge
+                                anchors.rightMargin: Theme.paddingLarge
+
+                                text: applicationWindow
+                                      && applicationWindow.customSoundName !== ""
+                                      ? applicationWindow.customSoundName
+                                      : qsTr("Choose custom sound")
+
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                                elide: Text.ElideRight
 
                                 color: soundPickerButton.highlighted
-                                       ? Theme.highlightColor
+                                       ? (applicationWindow.customSoundPlaying
+                                          ? Theme.highlightColor
+                                          : Theme.secondaryHighlightColor)
                                        : Theme.primaryColor
                             }
                         }
@@ -808,7 +866,6 @@ Page {
                     width: 1
                     height: Theme.itemSizeMedium
                 }
-
             }
 
             VerticalScrollDecorator {}

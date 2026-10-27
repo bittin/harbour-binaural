@@ -252,47 +252,47 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="236"/>
+        <location filename="../qml/pages/MainPage.qml" line="271"/>
         <source>About</source>
         <translation>Über</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="246"/>
+        <location filename="../qml/pages/MainPage.qml" line="281"/>
         <source>Deselect all sounds</source>
         <translation>Alle Klänge deaktivieren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="258"/>
+        <location filename="../qml/pages/MainPage.qml" line="295"/>
         <source>Timer</source>
         <translation>Timer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="286"/>
+        <location filename="../qml/pages/MainPage.qml" line="325"/>
         <source>Binaural Beats</source>
         <translation>Binaurale Beats</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="300"/>
+        <location filename="../qml/pages/MainPage.qml" line="339"/>
         <source>To be used with</source>
         <translation>Zu verwenden mit</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="516"/>
+        <location filename="../qml/pages/MainPage.qml" line="555"/>
         <source>Colored Noise</source>
         <translation>Farbiges Rauschen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="691"/>
+        <location filename="../qml/pages/MainPage.qml" line="730"/>
         <source>Ambient Sound</source>
         <translation>Umgebungsklang</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="723"/>
+        <location filename="../qml/pages/MainPage.qml" line="762"/>
         <source>Choose ambient sounds</source>
         <translation>Umgebungsklänge auswählen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="787"/>
+        <location filename="../qml/pages/MainPage.qml" line="848"/>
         <source>Choose custom sound</source>
         <translation type="unfinished"></translation>
     </message>
@@ -300,9 +300,14 @@
 <context>
     <name>PlaybackBar</name>
     <message>
-        <location filename="../qml/pages/components/PlaybackBar.qml" line="131"/>
+        <location filename="../qml/pages/components/PlaybackBar.qml" line="137"/>
         <source>Start your sound mix</source>
         <translation>Starte deinen Klangmix</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/components/PlaybackBar.qml" line="156"/>
+        <source>Custom sound</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -426,17 +431,7 @@
 <context>
     <name>SoundPickerDrawer</name>
     <message>
-        <location filename="../qml/pages/components/SoundPickerDrawer.qml" line="370"/>
-        <source>Open audio file or folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/SoundPickerDrawer.qml" line="380"/>
-        <source>Clear selection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/SoundPickerDrawer.qml" line="429"/>
+        <location filename="../qml/pages/components/SoundPickerDrawer.qml" line="470"/>
         <source>No file selected</source>
         <translation type="unfinished"></translation>
     </message>

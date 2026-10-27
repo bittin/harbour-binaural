@@ -104,7 +104,7 @@ ApplicationWindow {
         target: appWindow
         property: "customSoundFadeGain"
         to: 0
-        duration: 10000
+        duration: 8000
 
         onStopped: {
             if (appWindow.customSoundFadeGain <= 0.001) {
