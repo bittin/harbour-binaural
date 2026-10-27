@@ -58,17 +58,17 @@ The `AmbienceChannel` component provides an independent playback channel for an 
 
 ### Source Files
 
-| File                           | Responsibility                                                                                               |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `audioengine.cpp`              | Initializes the audio engine and provides shared functionality.                                              |
-| `audioengine_binaural.cpp`     | Manages binaural beat generation and playback.                                                               |
-| `audioengine_colorednoise.cpp` | Manages colored noise generation and playback.                                                               |
-| `audioengine_ambience.cpp`     | Coordinates ambient sound playback and active ambience channels.                                             |
-| `pcmchannel.cpp`               | Manages PCM playback through `QAudioOutput`, including volume, pause/resume, fade-out, and resource cleanup. |
-| `pcmchannel.h`                 | Declares the `PcmChannel` class and its playback interface.                                                  |
-| `ambiencechannel.cpp`          | Implements an individual ambient playback channel, including playback and sound-specific audio handling.     |
-| `binauralgenerator.cpp`        | Generates binaural tones using sine waves.                                                                   |
-| `colorednoisegenerator.cpp`    | Implements DSP algorithms for white, pink, brown, and grey noise.                                            |
+| File                           | Responsibility                                                                                                     |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------       |
+| `audioengine.cpp`              | Initializes the audio engine and provides shared functionality.                                                    |
+| `audioengine_binaural.cpp`     | Manages binaural beat generation and playback.                                                                     |
+| `audioengine_colorednoise.cpp` | Manages colored noise generation and playback.                                                                     |
+| `audioengine_ambience.cpp`     | Coordinates ambient sound playback and active ambience channels.                                                   |
+| `pcmchannel.cpp`               | Manages PCM playback through `QAudioOutput`, including volume, pause/resume, fade-out, and resource cleanup.       |
+| `pcmchannel.h`                 | Declares the `PcmChannel` class and its playback interface.                                                        |
+| `ambiencechannel.cpp`          | Implements an individual ambient playback channel, allowing up to three ambient sounds to play simultaneously.     |
+| `binauralgenerator.cpp`        | Generates binaural tones using sine waves.                                                                         |
+| `colorednoisegenerator.cpp`    | Implements DSP algorithms for white, pink, brown, and grey noise.                                                  |
 
 ### Audio Pipeline
 
