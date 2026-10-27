@@ -74,7 +74,7 @@ The `AmbienceChannel` component provides an independent playback channel for an 
 
 ## Requirements
 
-* Sailfish OS SDK with a build target for Sailfish OS 4.6 or newer.
+* Sailfish OS SDK with a build target for Sailfish OS 4.6.0.12 or newer.
 
 ## Build
 
@@ -88,9 +88,10 @@ Clone or download this repository and import it into your Sailfish OS IDE using 
 
 ## Contributions
 
-Contributions to this project are very welcome. If you already know what you want to add or fix, please open a `Pull Request` with your proposal. You can also use `Discussions` to propose features or changes.
+Contributions to this project are very welcome!
+Before implementing a new feature, please discuss your proposal with the main developer. All contributions must respect the project's existing Sailfish OS build target and compatibility requirements. 
 
-Please include an explanation of the changes or a brief changelog summary. Pull requests will be reviewed before they are merged. Please note that not all contributions may be accepted if they conflict with the project's philosophy, simplicity, or overall direction.
+When submitting a Pull Request, please include a clear explanation of the changes and, where appropriate, a brief changelog summary. All pull requests will be reviewed before being merged. Please note that not all contributions may be accepted, particularly if they conflict with the project's philosophy, simplicity, compatibility requirements, or overall direction.
 
 ## Screenshots
 
