@@ -102,15 +102,11 @@
     </message>
     <message>
         <source>Images have been manually edited for use in this app:</source>
-        <translation>Les images ont été retouchées manuellement pour être utilisées dans cette application&#xa0;:</translation>
+        <translation>Les images ont été retouchées manuellement pour être utilisées dans cette application :</translation>
     </message>
     <message>
-        <source>Special thanks to</source>
-        <extracomment>Full sentence: Special thanks to poetaster for the guidance on improving the audio engine / sound generators. &quot;audio engine&quot; and &quot;sound generators&quot; are not necessarily required to be translated. That&apos;s up to the translator.</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>for the guidance on improving the audio engine / sound generators.</source>
+        <source>Special thanks to %1 for the guidance on improving audio engine / sound generators logic.</source>
+        <extracomment>%1 is a hyperlink to the GitHub profile of &quot;poetaster&quot;. &quot;audio engine&quot; and &quot;sound generators&quot; are technical terms and may be left untranslated.</extracomment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -122,7 +118,7 @@
     </message>
     <message>
         <source>Choose from:</source>
-        <translation>Choisissez parmi&#xa0;:</translation>
+        <translation>Choisissez parmi :</translation>
     </message>
     <message>
         <source>Are created by playing two slightly different tones, one in each ear. The brain processes the difference as a rhythmic beat. Different beat frequencies can be used to support focus, relaxation, meditation, or sleep.</source>
@@ -157,7 +153,7 @@
     <name>InfoColoredPage</name>
     <message>
         <source>Choose from:</source>
-        <translation>Choisissez parmi&#xa0;:</translation>
+        <translation>Choisissez parmi :</translation>
     </message>
     <message>
         <source>Sound with different amounts of energy at different frequencies. Each color has a different character and is commonly used for different purposes.</source>

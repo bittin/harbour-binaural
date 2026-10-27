@@ -98,44 +98,39 @@
         <translation>Binaural wurde inspiriert durch</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="171"/>
-        <source>Special thanks to</source>
-        <extracomment>Full sentence: Special thanks to poetaster for the guidance on improving the audio engine / sound generators. &quot;audio engine&quot; and &quot;sound generators&quot; are not necessarily required to be translated. That&apos;s up to the translator.</extracomment>
+        <location filename="../qml/pages/CreditPage.qml" line="177"/>
+        <source>Special thanks to %1 for the guidance on improving audio engine / sound generators logic.</source>
+        <extracomment>%1 is a hyperlink to the GitHub profile of &quot;poetaster&quot;. &quot;audio engine&quot; and &quot;sound generators&quot; are technical terms and may be left untranslated.</extracomment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="175"/>
-        <source>for the guidance on improving the audio engine / sound generators.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/CreditPage.qml" line="186"/>
+        <location filename="../qml/pages/CreditPage.qml" line="189"/>
         <source>Translations</source>
         <translation>Übersetzungen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="235"/>
+        <location filename="../qml/pages/CreditPage.qml" line="238"/>
         <source>Audio files</source>
         <translation>Audiodateien</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="244"/>
+        <location filename="../qml/pages/CreditPage.qml" line="247"/>
         <source>Files have been manually edited for use in this app under the</source>
         <extracomment>Full sentence: &quot;Files have been manually edited for use in this app under the Pixabay Content License:&quot; Keep the sentence natural when translating; &quot;Pixabay Content License&quot; is a clickable link.</extracomment>
         <translation>Dateien wurden für die Verwendung in dieser Anwendung manuell angepasst unter der</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="247"/>
+        <location filename="../qml/pages/CreditPage.qml" line="250"/>
         <source>Pixabay Content License</source>
         <translation>Pixabay-Inhaltslizenz</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="321"/>
+        <location filename="../qml/pages/CreditPage.qml" line="324"/>
         <source>Images</source>
         <translation>Bilder</translation>
     </message>
     <message>
-        <location filename="../qml/pages/CreditPage.qml" line="335"/>
+        <location filename="../qml/pages/CreditPage.qml" line="338"/>
         <source>Images have been manually edited for use in this app:</source>
         <translation>Folgende Bilder wurden für die Verwendung in dieser Anwendung manuell angepasst:</translation>
     </message>

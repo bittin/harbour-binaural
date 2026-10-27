@@ -105,12 +105,8 @@
         <translation>Le immagini sono state modificate manualmente per essere utilizzate in questa app:</translation>
     </message>
     <message>
-        <source>Special thanks to</source>
-        <extracomment>Full sentence: Special thanks to poetaster for the guidance on improving the audio engine / sound generators. &quot;audio engine&quot; and &quot;sound generators&quot; are not necessarily required to be translated. That&apos;s up to the translator.</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>for the guidance on improving the audio engine / sound generators.</source>
+        <source>Special thanks to %1 for the guidance on improving audio engine / sound generators logic.</source>
+        <extracomment>%1 is a hyperlink to the GitHub profile of &quot;poetaster&quot;. &quot;audio engine&quot; and &quot;sound generators&quot; are technical terms and may be left untranslated.</extracomment>
         <translation type="unfinished"></translation>
     </message>
 </context>
