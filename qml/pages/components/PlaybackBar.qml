@@ -97,22 +97,10 @@ DockedPanel {
     Label {
         id: soundLabel
 
-        anchors.left: playingIndicator.right
-        anchors.leftMargin: Theme.paddingMedium
-        anchors.right: parent.right
-        anchors.rightMargin: Theme.horizontalPageMargin
-        anchors.verticalCenter: parent.verticalCenter
-
-        anchors.verticalCenterOffset:
-            playbackBar.applicationWindow &&
-            playbackBar.applicationWindow.sleepTimerRunning
-            ? -Theme.paddingMedium * 1.5
-            : 0
-
-        Behavior on anchors.verticalCenterOffset {
-            NumberAnimation {
-                duration: 350
-                easing.type: Easing.Linear
+        Behavior on color {
+            ColorAnimation {
+                duration: 100
+                easing.type: Easing.InOutQuad
             }
         }
 
@@ -137,6 +125,25 @@ DockedPanel {
             return (app.isPlaying || app.customSoundPlaying)
                    ? Theme.highlightColor
                    : Theme.secondaryHighlightColor
+        }
+
+        anchors.left: playingIndicator.right
+        anchors.leftMargin: Theme.paddingMedium
+        anchors.right: parent.right
+        anchors.rightMargin: Theme.horizontalPageMargin
+        anchors.verticalCenter: parent.verticalCenter
+
+        anchors.verticalCenterOffset:
+            playbackBar.applicationWindow &&
+            playbackBar.applicationWindow.sleepTimerRunning
+            ? -Theme.paddingMedium * 1.5
+            : 0
+
+        Behavior on anchors.verticalCenterOffset {
+            NumberAnimation {
+                duration: 350
+                easing.type: Easing.Linear
+            }
         }
 
         font.pixelSize: Theme.fontSizeMedium

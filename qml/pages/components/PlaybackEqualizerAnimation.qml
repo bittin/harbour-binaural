@@ -81,6 +81,9 @@ Item {
     property real wavePhase: 0
     property real noiseVibration: 0
 
+    // Shared spike factor for side bars (index 0 and 2) in default mode.
+    property real sideSpike: 0.55 + Math.random() * 0.45
+
     width: barWidth * 3 + barGap * 2
 
     // Continuously moving wave for binaural modes.
@@ -104,19 +107,28 @@ Item {
             target: playingIndicator
             property: "noiseVibration"
             to: Math.random()
-            duration: 100
+            duration: 180
         }
 
         NumberAnimation {
             target: playingIndicator
             property: "noiseVibration"
             to: Math.random()
-            duration: 125
+            duration: 180
         }
 
         PauseAnimation {
-            duration: 30
+            duration: 50
         }
+    }
+
+    // Updates the shared side-bar spike each default-mode cycle (300+250+100).
+    Timer {
+        interval: 650
+        repeat: true
+        running: playingIndicator.playing
+                 && playingIndicator.animationMode === 0
+        onTriggered: playingIndicator.sideSpike = 0.55 + Math.random() * 0.45
     }
 
     Repeater {
@@ -133,9 +145,11 @@ Item {
                                          - playingIndicator.idleHeight)
                                       * (0.5 + 0.5 * Math.sin(wavePosition))
 
+            // Phase-shifted per-bar jitter so bars are never in sync (mode 3).
             property real vibration: playingIndicator.animationMode === 3
-                                     ? (playingIndicator.noiseVibration - 0.5)
-                                       * playingIndicator.maxBarHeight * 0.60
+                                     ? Math.sin(playingIndicator.noiseVibration * 10 + index * 2.1) * 0.5
+                                       // make spiking less wild, lower the number:
+                                       * playingIndicator.maxBarHeight * 0.20
                                      : 0
 
             // Animations control this property in modes 0 and 2.
@@ -189,7 +203,7 @@ Item {
                     to: playingIndicator.idleHeight
                         + (playingIndicator.maxBarHeight
                            - playingIndicator.idleHeight)
-                        * (0.25 + Math.random() * 0.55)
+                        * (0.20 + Math.random() * 0.40)
                     duration: 140 + Math.random() * 60
                     easing.type: Easing.InOutQuad
                 }
@@ -200,7 +214,7 @@ Item {
                     to: playingIndicator.idleHeight
                         + (playingIndicator.maxBarHeight
                            - playingIndicator.idleHeight)
-                        * (0.25 + Math.random() * 0.55)
+                        * (0.20 + Math.random() * 0.40)
                     duration: 140 + Math.random() * 60
                     easing.type: Easing.InOutQuad
                 }
@@ -221,9 +235,12 @@ Item {
                     property: "barHeight"
                     to: playingIndicator.idleHeight
                         + (playingIndicator.maxBarHeight
+                           * (model.index === 1 ? 1.0 : 0.7)
                            - playingIndicator.idleHeight)
-                        * (0.55 + Math.random() * 0.45)
-                    duration: 220 + Math.random() * 280
+                        * (model.index === 1
+                           ? (0.80 + Math.random() * 0.20)   // range 0.80–1.00
+                           : playingIndicator.sideSpike)
+                    duration: 300
                     easing.type: Easing.InOutQuad
                 }
 
@@ -231,29 +248,41 @@ Item {
                     target: waveBar
                     property: "barHeight"
                     to: playingIndicator.idleHeight
-                    duration: 220 + Math.random() * 230
+                    duration: 250
                     easing.type: Easing.InOutQuad
                 }
 
                 PauseAnimation {
-                    duration: Math.random() * 150
+                    duration: 100
                 }
+            }
+
+            // Smooth fade to idle on stop/pause.
+            NumberAnimation {
+                id: stopFade
+                target: waveBar
+                property: "barHeight"
+                duration: 100
+                easing.type: Easing.OutQuad
             }
 
             Connections {
                 target: playingIndicator
 
                 onPlayingChanged: {
-                    if (!playingIndicator.playing)
-                        waveBar.barHeight = playingIndicator.idleHeight
+                    if (!playingIndicator.playing) {
+                        stopFade.to = playingIndicator.idleHeight
+                        stopFade.start()
+                    }
                 }
 
                 onAnimationModeChanged: {
-                    if (!playingIndicator.playing)
-                        waveBar.barHeight = playingIndicator.idleHeight
+                    if (!playingIndicator.playing) {
+                        stopFade.to = playingIndicator.idleHeight
+                        stopFade.start()
+                    }
                 }
             }
         }
     }
-
 }
