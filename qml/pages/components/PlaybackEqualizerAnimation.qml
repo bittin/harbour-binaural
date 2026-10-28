@@ -149,7 +149,7 @@ Item {
             property real vibration: playingIndicator.animationMode === 3
                                      ? Math.sin(playingIndicator.noiseVibration * 10 + index * 2.1) * 0.5
                                        // make spiking less wild, lower the number:
-                                       * playingIndicator.maxBarHeight * 0.25
+                                       * playingIndicator.maxBarHeight * 0.30
                                      : 0
 
             // Animations control this property in modes 0 and 2.
