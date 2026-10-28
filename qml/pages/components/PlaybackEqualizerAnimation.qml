@@ -107,18 +107,18 @@ Item {
             target: playingIndicator
             property: "noiseVibration"
             to: Math.random()
-            duration: 180
+            duration: 100
         }
 
         NumberAnimation {
             target: playingIndicator
             property: "noiseVibration"
             to: Math.random()
-            duration: 180
+            duration: 125
         }
 
         PauseAnimation {
-            duration: 50
+            duration: 30
         }
     }
 
@@ -149,7 +149,7 @@ Item {
             property real vibration: playingIndicator.animationMode === 3
                                      ? Math.sin(playingIndicator.noiseVibration * 10 + index * 2.1) * 0.5
                                        // make spiking less wild, lower the number:
-                                       * playingIndicator.maxBarHeight * 0.20
+                                       * playingIndicator.maxBarHeight * 0.25
                                      : 0
 
             // Animations control this property in modes 0 and 2.
