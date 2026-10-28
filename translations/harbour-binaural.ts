@@ -248,10 +248,6 @@
         <source>Start your sound mix</source>
         <translation>Start your sound mix</translation>
     </message>
-    <message>
-        <source>Custom sound</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SoundNames</name>
@@ -346,6 +342,10 @@
     <message>
         <source>Ambient mix</source>
         <translation>Ambient mix</translation>
+    </message>
+    <message>
+        <source>Custom sound</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

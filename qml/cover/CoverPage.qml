@@ -43,31 +43,24 @@ CoverBackground {
             return Number.POSITIVE_INFINITY
         }
 
-        var labelBottom = coverSoundNames.mapToItem(
-                    cover, 0, coverSoundNames.height).y
-
-        var actionTop = playbackActionList.y
-
-        return actionTop - labelBottom
-    }
-
+    // Cover artwork and playback equalizer.
     Item {
         id: coverBackgroundIcon
 
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
 
-        width: parent.width - 2 * Theme.paddingSmall
-        height: parent.height * 0.45
+        width: Math.min(parent.width - 2 * Theme.paddingSmall,
+                        parent.height * 0.58)
+        height: width * 0.75
 
         z: 0
 
-        // Dim the cover art while the system has stopped the sound.
-        opacity: isPlaying || (activeBand === "" &&
-                               activeAmbiences.length === 0 &&
-                               activeNoise === "")
-                 ? 1.0
-                 : 0.6
+        opacity: isPlaying ||
+                 (activeBand === "" &&
+                  activeAmbiences.length === 0 &&
+                  activeNoise === "")
+                 ? 1.0 : 0.6
 
         Behavior on opacity {
             NumberAnimation {
@@ -79,17 +72,15 @@ CoverBackground {
             id: coverBackgroundImage
 
             anchors.fill: parent
-
             source: "../images/binaural-cover.svg"
             sourceSize: Qt.size(width * 2, height * 2)
-
             fillMode: Image.PreserveAspectFit
             visible: false
         }
 
+        // Keep the artwork color treatment; no gradient or mask.
         ColorOverlay {
             anchors.fill: coverBackgroundImage
-
             source: coverBackgroundImage
             color: Theme.primaryColor
         }
@@ -99,8 +90,8 @@ CoverBackground {
 
             applicationWindow: cover.applicationWindow
 
-            anchors.horizontalCenter: coverBackgroundIcon.horizontalCenter
-            anchors.verticalCenter: coverBackgroundIcon.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
 
             sizeMultiplier: 1.8
             barColor: Theme.primaryColor
@@ -109,6 +100,9 @@ CoverBackground {
         }
     }
 
+    // Status, sleep timer, and sound labels.
+    // This is a Column, so its height comes from its contents.
+    // Not clipped by the playback action list.
     Column {
         id: coverLabels
 
@@ -119,43 +113,6 @@ CoverBackground {
 
         spacing: Theme.paddingSmall
 
-        // Enable the mask only when the sound names approach the controls.
-        property bool fadeRequired:
-            soundLabelActionGap() < Theme.paddingSmall
-
-        layer.enabled: fadeRequired
-
-        layer.effect: OpacityMask {
-            maskSource: Item {
-                width: coverLabels.width
-                height: coverLabels.height
-
-                Rectangle {
-                    anchors.fill: parent
-
-                    gradient: Gradient {
-                        GradientStop {
-                            position: 0.0
-                            color: Theme.primaryColor
-                        }
-                        GradientStop {
-                            position: Math.max(
-                                          0,
-                                          1 - Theme.paddingLarge /
-                                          Math.max(1, coverLabels.height)
-                                          )
-                            color: Theme.primaryColor
-                        }
-                        GradientStop {
-                            position: 1.0
-                            color: "transparent"
-                        }
-                    }
-                }
-            }
-        }
-
-        // Status text: only visible when no sounds are selected.
         Label {
             id: coverStatusLabel
 
@@ -168,7 +125,6 @@ CoverBackground {
             width: parent.width - 2 * Theme.horizontalPageMargin
 
             horizontalAlignment: Text.AlignHCenter
-
             color: Theme.secondaryColor
             font.pixelSize: Theme.fontSizeSmall
             wrapMode: Text.WordWrap
@@ -176,12 +132,13 @@ CoverBackground {
             text: SoundNames.label("Start your sound mix")
         }
 
-        // Sleep timer status.
+        // Sleep timer status and icon.
         Item {
             id: coverSleepTimerRow
 
             visible: sleepTimerRunning
             width: parent.width
+
             height: Math.max(
                         Theme.iconSizeSmall * 0.8,
                         coverSleepTimerLabel.implicitHeight
@@ -197,6 +154,7 @@ CoverBackground {
                        : Theme.highlightColor
 
                 font.pixelSize: Theme.fontSizeSmall
+
                 text: formatRemainingTime(sleepTimerRemainingSeconds)
             }
 
@@ -259,7 +217,7 @@ CoverBackground {
         }
     }
 
-    // Show the play/pause button whenever at least one sound is selected.
+    // Play/pause action.
     CoverActionList {
         id: playbackActionList
 
