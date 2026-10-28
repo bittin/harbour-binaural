@@ -8,7 +8,6 @@ CoverBackground {
     id: cover
 
     property var applicationWindow: null
-
     property string activeBand: ""
     property string activeNoise: ""
     property var activeAmbiences: []
@@ -34,14 +33,6 @@ CoverBackground {
                 (minutes < 10 ? "0" : "") + minutes + ":" +
                 (secs < 10 ? "0" : "") + secs
     }
-
-    // Measure the gap between the final sound label and playback controls.
-    function soundLabelActionGap() {
-        if (!coverSoundNames.visible ||
-                !playbackActionList.enabled ||
-                !coverSoundNames.text) {
-            return Number.POSITIVE_INFINITY
-        }
 
     // Cover artwork and playback equalizer.
     Item {
