@@ -8,6 +8,17 @@ import "pages/components"
 ApplicationWindow {
     id: appWindow
 
+    bottomMargin: appWindow.playbackBarShouldShow
+                  ? playbackBar.height
+                  : 0
+
+    Behavior on bottomMargin {
+        NumberAnimation {
+            duration: 120
+            easing.type: Easing.OutQuad
+        }
+    }
+
     property var mainPage
 
     property string activeBand: mainPage

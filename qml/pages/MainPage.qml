@@ -608,15 +608,6 @@ Page {
                         width: parent.width
                         height: Theme.itemSizeMedium
                     }
-
-                    // Bottom padding for the playback bar overlay.
-                    // The bar slides in/out via y-animation; this spacer ensures
-                    // scrollable content is never hidden behind it.
-                    Item {
-                        width: parent.width
-                        height: appWindow.playbackBarShouldShow
-                                ? Theme.itemSizeExtraLarge : 0
-                    }
                 }
 
                 VerticalScrollDecorator {}
