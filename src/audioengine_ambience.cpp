@@ -78,7 +78,9 @@ void AudioEngine::setAmbience(const QString &ambience)
     for (int i = 0; i < MaxAmbienceChannels; ++i) {
         AmbienceChannel *channel = m_ambienceChannels[i];
 
-        if (channel && channel->fileName() == it.value())
+        if (channel
+                && channel->fileName() == it.value()
+                && !channel->isStopping())
             return;
     }
 
@@ -130,7 +132,12 @@ void AudioEngine::resumeAmbience()
 
 void AudioEngine::stopAmbience()
 {
-    stopAmbiencesImmediately();
+    for (int i = 0; i < MaxAmbienceChannels; ++i) {
+        if (m_ambienceChannels[i])
+            m_ambienceChannels[i]->stop();
+    }
+
+    updatePlayingState();
 }
 
 void AudioEngine::stopAmbienceByName(const QString &ambience)
@@ -144,8 +151,10 @@ void AudioEngine::stopAmbienceByName(const QString &ambience)
         AmbienceChannel *channel = m_ambienceChannels[i];
 
         if (channel && channel->fileName() == it.value()) {
-            // Stop only the requested sound and free its channel immediately.
-            channel->stopImmediately();
+            // Stop only the requested sound with a short fade-out,
+            // consistent with the binaural and colored-noise channels.
+            // AmbienceChannel emits finished() when the fade completes.
+            channel->stop();
             break;
         }
     }

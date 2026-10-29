@@ -107,6 +107,11 @@ bool AmbienceChannel::isPaused() const
         && m_activePlayer->state() == QMediaPlayer::PausedState;
 }
 
+bool AmbienceChannel::isStopping() const
+{
+    return m_stopping;
+}
+
 QString AmbienceChannel::fileName() const
 {
     return m_fileName;

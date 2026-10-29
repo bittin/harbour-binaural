@@ -24,6 +24,7 @@ public:
 
     bool isPlaying() const;
     bool isPaused() const;
+    bool isStopping() const;
 
     QString fileName() const;
 
