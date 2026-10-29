@@ -101,7 +101,7 @@
         <location filename="../qml/pages/CreditPage.qml" line="177"/>
         <source>Thanks to %1 for some guidance on improving audio engine / sound generators logic.</source>
         <extracomment>%1 is a hyperlink to the GitHub profile of &quot;poetaster&quot;. &quot;audio engine&quot; and &quot;sound generators&quot; are technical terms and may be left untranslated.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Besonderer Dank an %1 für die Unterstützung bei der Verbesserung der Audio-Engine / Sound-Generator-Logik.</translation>
     </message>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="189"/>
@@ -401,13 +401,13 @@
         <location filename="../qml/pages/TimerPage.qml" line="75"/>
         <source>h</source>
         <extracomment>SI symbol for hour. Keep as-is for Latin-script locales.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>h</translation>
     </message>
     <message>
         <location filename="../qml/pages/TimerPage.qml" line="96"/>
         <source>min</source>
         <extracomment>SI symbol for minute. Keep as-is for Latin-script locales.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>min</translation>
     </message>
 </context>
 </TS>
