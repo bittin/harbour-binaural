@@ -401,13 +401,13 @@
         <location filename="../qml/pages/TimerPage.qml" line="75"/>
         <source>h</source>
         <extracomment>SI symbol for hour. Keep as-is for Latin-script locales.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>h</translation>
     </message>
     <message>
         <location filename="../qml/pages/TimerPage.qml" line="96"/>
         <source>min</source>
         <extracomment>SI symbol for minute. Keep as-is for Latin-script locales.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>min</translation>
     </message>
 </context>
 </TS>
