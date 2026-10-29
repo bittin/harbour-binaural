@@ -2,16 +2,13 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtGraphicalEffects 1.0
 import Binaural 1.0
-import "../pages/components"
 
 CoverBackground {
     id: cover
 
-    property var applicationWindow: null
     property string activeBand: ""
-    property string activeNoise: ""
     property var activeAmbiences: []
-    property url customSoundSource: ""
+    property string activeNoise: ""
 
     property bool isPlaying: false
     property bool isPaused: false
@@ -30,28 +27,27 @@ CoverBackground {
         return (hours > 0
                 ? (hours < 10 ? "0" : "") + hours + ":"
                 : "") +
-                (minutes < 10 ? "0" : "") + minutes + ":" +
-                (secs < 10 ? "0" : "") + secs
+               (minutes < 10 ? "0" : "") + minutes + ":" +
+               (secs < 10 ? "0" : "") + secs
     }
 
-    // Cover artwork and playback equalizer.
     Item {
         id: coverBackgroundIcon
 
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
 
-        width: Math.min(parent.width - 2 * Theme.paddingSmall,
-                        parent.height * 0.58)
-        height: width * 0.75
+        width: parent.width - 2 * Theme.paddingSmall
+        height: parent.height * 0.45
 
         z: 0
 
-        opacity: isPlaying ||
-                 (activeBand === "" &&
-                  activeAmbiences.length === 0 &&
-                  activeNoise === "")
-                 ? 1.0 : 0.6
+        // Dim the cover art while the system has stopped the sound.
+        opacity: isPlaying || (activeBand === "" &&
+                              activeAmbiences.length === 0 &&
+                              activeNoise === "")
+                 ? 1.0
+                 : 0.6
 
         Behavior on opacity {
             NumberAnimation {
@@ -63,37 +59,26 @@ CoverBackground {
             id: coverBackgroundImage
 
             anchors.fill: parent
+
             source: "../images/binaural-cover.svg"
-            sourceSize: Qt.size(width * 2, height * 2)
+
+            sourceSize: Qt.size(
+                            width * 2,
+                            height * 2
+                            )
+
             fillMode: Image.PreserveAspectFit
             visible: false
         }
 
-        // Keep the artwork color treatment; no gradient or mask.
         ColorOverlay {
             anchors.fill: coverBackgroundImage
+
             source: coverBackgroundImage
             color: Theme.primaryColor
         }
-
-        PlaybackEqualizerAnimation {
-            id: coverEqualizer
-
-            applicationWindow: cover.applicationWindow
-
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.verticalCenter: parent.verticalCenter
-
-            sizeMultiplier: 1.8
-            barColor: Theme.primaryColor
-            opacity: 0.8
-            z: 1
-        }
     }
 
-    // Status, sleep timer, and sound labels.
-    // This is a Column, so its height comes from its contents.
-    // Not clipped by the playback action list.
     Column {
         id: coverLabels
 
@@ -104,6 +89,7 @@ CoverBackground {
 
         spacing: Theme.paddingSmall
 
+        // Status text: only visible when no sounds are selected.
         Label {
             id: coverStatusLabel
 
@@ -116,6 +102,7 @@ CoverBackground {
             width: parent.width - 2 * Theme.horizontalPageMargin
 
             horizontalAlignment: Text.AlignHCenter
+
             color: Theme.secondaryColor
             font.pixelSize: Theme.fontSizeSmall
             wrapMode: Text.WordWrap
@@ -123,53 +110,57 @@ CoverBackground {
             text: SoundNames.label("Start your sound mix")
         }
 
-        // Sleep timer status and icon.
+        // Sleep timer status.
         Item {
             id: coverSleepTimerRow
 
             visible: sleepTimerRunning
             width: parent.width
-
             height: Math.max(
                         Theme.iconSizeSmall * 0.8,
-                        coverSleepTimerLabel.implicitHeight
-                    )
+                        coverSleepTimerLabel.implicitHeight)
 
-            Label {
-                id: coverSleepTimerLabel
-
+            Row {
                 anchors.centerIn: parent
+                spacing: Theme.paddingSmall
 
-                color: sleepTimerPaused
-                       ? Theme.secondaryHighlightColor
-                       : Theme.highlightColor
+                Image {
+                    id: coverSleepTimerIcon
 
-                font.pixelSize: Theme.fontSizeSmall
+                    width: Theme.iconSizeSmall * 0.8
+                    height: Theme.iconSizeSmall * 0.8
 
-                text: formatRemainingTime(sleepTimerRemainingSeconds)
-            }
+                    anchors.verticalCenter: coverSleepTimerLabel.verticalCenter
+                    anchors.verticalCenterOffset: Theme.paddingSmall / 3
 
-            Image {
-                id: coverSleepTimerIcon
+                    source: "image://theme/icon-s-timer?" +
+                            (sleepTimerPaused
+                             ? Theme.secondaryColor
+                             : Theme.primaryColor)
 
-                width: Theme.iconSizeSmall * 0.8
-                height: Theme.iconSizeSmall * 0.8
+                    sourceSize: Qt.size(
+                                    width,
+                                    height
+                                    )
+                }
 
-                anchors.right: coverSleepTimerLabel.left
-                anchors.rightMargin: Theme.paddingSmall
-                anchors.verticalCenter: coverSleepTimerLabel.verticalCenter
-                anchors.verticalCenterOffset: Theme.paddingSmall / 3
+                Label {
+                    id: coverSleepTimerLabel
 
-                source: "image://theme/icon-s-timer?" +
-                        (sleepTimerPaused
-                         ? Theme.secondaryHighlightColor
-                         : Theme.highlightColor)
+                    color: sleepTimerPaused
+                           ? Theme.secondaryColor
+                           : Theme.primaryColor
 
-                sourceSize: Qt.size(width, height)
+                    font.pixelSize: Theme.fontSizeSmall
+
+                    text: formatRemainingTime(
+                              sleepTimerRemainingSeconds)
+                }
             }
         }
 
         // Selected sound names.
+        // One ambience shows its name; multiple ambiences show "Ambient mix".
         Label {
             id: coverSoundNames
 
@@ -177,11 +168,11 @@ CoverBackground {
 
             horizontalAlignment: Text.AlignHCenter
 
+            // Highlight only while playing.
             color: isPlaying
-                   ? Theme.primaryColor
-                   : Theme.secondaryColor
+                   ? Theme.highlightColor
+                   : Theme.secondaryHighlightColor
 
-            opacity: 0.6
             font.pixelSize: Theme.fontSizeSmall
             wrapMode: Text.WordWrap
 
@@ -200,15 +191,12 @@ CoverBackground {
                     parts.push(SoundNames.label("Ambient mix"))
                 }
 
-                if (customSoundSource.toString() !== "")
-                    parts.push(SoundNames.label("Custom sound"))
-
                 return parts.join("\n")
             }
         }
     }
 
-    // Play/pause action.
+    // Show the play/pause button whenever at least one sound is selected.
     CoverActionList {
         id: playbackActionList
 

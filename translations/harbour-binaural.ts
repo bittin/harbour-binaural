@@ -53,29 +53,6 @@
     </message>
 </context>
 <context>
-    <name>AudioFilePickerPage</name>
-    <message>
-        <source>No audio files or folders</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Try another folder or check where your audio files are stored.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Music</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>CreditPage</name>
     <message>
         <source>Norwegian</source>
@@ -237,10 +214,6 @@
         <source>Choose ambient sounds</source>
         <translation>Choose ambient sounds</translation>
     </message>
-    <message>
-        <source>Choose custom sound</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>PlaybackBar</name>
@@ -342,17 +315,6 @@
     <message>
         <source>Ambient mix</source>
         <translation>Ambient mix</translation>
-    </message>
-    <message>
-        <source>Custom sound</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SoundPickerDrawer</name>
-    <message>
-        <source>No file selected</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
