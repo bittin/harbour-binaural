@@ -74,6 +74,10 @@ private:
     qreal m_volume;
     qreal m_fadeStartVolume;
     int m_fadeDuration;
+    // True while a fade-out is running toward an intended stop.
+    bool m_stopAfterFade;
+    // Fade time already elapsed before the last pause.
+    qint64 m_fadeElapsedBeforePause;
 
     QString m_name;
 };

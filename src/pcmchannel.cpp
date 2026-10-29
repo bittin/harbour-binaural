@@ -23,6 +23,8 @@ PcmChannel::PcmChannel(const QString &name,
       m_volume(initialVolume),
       m_fadeStartVolume(0.0),
       m_fadeDuration(0),
+      m_stopAfterFade(false),
+      m_fadeElapsedBeforePause(0),
       m_name(name)
 {
     m_fadeTimer->setInterval(FadeInterval);
@@ -114,6 +116,15 @@ void PcmChannel::pause()
         || m_output->state() != QAudio::ActiveState)
         return;
 
+    // Preserve a running fade-out across the pause so the
+    // intended stop is not silently aborted.
+    if (m_fadeTimer->isActive())
+    {
+        m_fadeElapsedBeforePause +=
+                m_fadeElapsed.elapsed();
+        m_fadeElapsed.invalidate();
+    }
+
     m_fadeTimer->stop();
 
     m_output->suspend();
@@ -121,6 +132,14 @@ void PcmChannel::pause()
 
 void PcmChannel::resume()
 {
+    // Continue an interrupted fade-out toward its stop.
+    if (m_stopAfterFade && m_output)
+    {
+        m_fadeElapsed.start();
+        m_fadeTimer->start();
+        return;
+    }
+
     if (isPaused())
         m_output->resume();
 }
@@ -147,6 +166,8 @@ void PcmChannel::beginFadeOut(int durationMs)
 
     m_fadeStartVolume = m_output->volume();
     m_fadeDuration = durationMs;
+    m_stopAfterFade = true;
+    m_fadeElapsedBeforePause = 0;
 
     m_fadeElapsed.start();
     m_fadeTimer->start();
@@ -155,6 +176,8 @@ void PcmChannel::beginFadeOut(int durationMs)
 void PcmChannel::cancelFadeOut()
 {
     m_fadeTimer->stop();
+    m_stopAfterFade = false;
+    m_fadeElapsedBeforePause = 0;
 }
 
 void PcmChannel::updateFadeOut()
@@ -162,14 +185,17 @@ void PcmChannel::updateFadeOut()
     if (!m_output)
     {
         m_fadeTimer->stop();
+        m_stopAfterFade = false;
         return;
     }
+
+    const qint64 elapsed = m_fadeElapsedBeforePause
+        + m_fadeElapsed.elapsed();
 
     const double progress =
         m_fadeDuration > 0
             ? qMin(1.0,
-                   static_cast<double>(
-                       m_fadeElapsed.elapsed())
+                   static_cast<double>(elapsed)
                        / m_fadeDuration)
             : 1.0;
 
@@ -183,6 +209,8 @@ void PcmChannel::updateFadeOut()
 void PcmChannel::stopImmediately()
 {
     m_fadeTimer->stop();
+    m_stopAfterFade = false;
+    m_fadeElapsedBeforePause = 0;
 
     if (m_output)
     {
