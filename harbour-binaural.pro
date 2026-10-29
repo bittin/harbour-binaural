@@ -42,7 +42,6 @@ DISTFILES += qml/harbour-binaural.qml \
     qml/pages/components/InfoBinauralPage.qml \
     qml/pages/components/InfoColoredPage.qml \
     qml/pages/components/PlaybackBar.qml \
-    qml/pages/components/PlaybackEqualizerAnimation.qml \
     qml/pages/components/SoundNames.qml \
     qml/pages/components/SoundPickerDrawer.qml \
     qml/pages/components/AudioFilePickerPage.qml \

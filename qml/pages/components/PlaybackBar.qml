@@ -81,18 +81,6 @@ DockedPanel {
         }
     }
 
-    // Animated Equalizer component.
-    PlaybackEqualizerAnimation {
-        id: playingIndicator
-
-        applicationWindow: playbackBar.applicationWindow
-        barColor: soundLabel.color
-
-        anchors.left: playbackButton.right
-        anchors.leftMargin: Theme.paddingLarge
-        anchors.verticalCenter: soundLabel.verticalCenter
-    }
-
     // Current sound mix label.
     Label {
         id: soundLabel
@@ -127,7 +115,7 @@ DockedPanel {
                    : Theme.secondaryHighlightColor
         }
 
-        anchors.left: playingIndicator.right
+        anchors.left: playbackButton.right
         anchors.leftMargin: Theme.paddingMedium
         anchors.right: parent.right
         anchors.rightMargin: Theme.horizontalPageMargin
