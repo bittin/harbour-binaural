@@ -253,7 +253,8 @@ bool PcmChannel::resolvePcmFormat(
 
     if (device.isNull())
     {
-        qWarning() << "AudioEngine: no audio output device for" << m_name;
+        qWarning() << "PcmChannel:" << m_name
+                   << "no audio output device";
         return false;
     }
 
@@ -267,12 +268,12 @@ bool PcmChannel::resolvePcmFormat(
     const QAudioFormat nearest = device.nearestFormat(format);
 
     if (!nearest.isValid()
-        || nearest.sampleSize() != 16
-        || nearest.sampleType() != QAudioFormat::SignedInt
+            || nearest.sampleSize() != 16
+            || nearest.sampleType() != QAudioFormat::SignedInt
         || nearest.byteOrder() != QAudioFormat::LittleEndian)
     {
-        qWarning() << "AudioEngine: compatible 16-bit PCM output "
-                      "format not available for" << m_name;
+        qWarning() << "PcmChannel:" << m_name
+                   << "no compatible 16-bit PCM output format";
         return false;
     }
 

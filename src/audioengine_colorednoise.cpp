@@ -148,11 +148,8 @@ void AudioEngine::pauseColoredNoise()
 void AudioEngine::stopColoredNoise()
 {
     if (!m_noiseChannel->isRunning())
-    {
-        m_noiseChannel->stopImmediately();
         return;
-    }
 
     m_noiseChannel->beginFadeOut(
-        ColoredNoiseFadeOutDuration);
+                ColoredNoiseFadeOutDuration);
 }
