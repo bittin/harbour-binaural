@@ -33,7 +33,6 @@ SOURCES += src/harbour-binaural.cpp \
 
 
 DISTFILES += qml/harbour-binaural.qml \
-    icons/216x216/harbour-binaural.png \
     qml/pages/CreditPage.qml \
     qml/pages/MainPage.qml \
     qml/cover/CoverPage.qml \
@@ -45,6 +44,8 @@ DISTFILES += qml/harbour-binaural.qml \
     qml/pages/components/PlaybackBar.qml \
     qml/pages/components/SoundNames.qml \
     qml/pages/components/VolumeIcon.qml \
+    qml/pages/components/SoundPickerDrawer.qml \
+    qml/pages/components/AudioFilePickerPage.qml \
     rpm/harbour-binaural.changes \
     rpm/harbour-binaural.changes.run.in \
     rpm/harbour-binaural.spec \

@@ -27,7 +27,8 @@ DockedPanel {
         color: "black"
 
         opacity: playbackBar.applicationWindow &&
-                 playbackBar.applicationWindow.isPlaying
+                 (playbackBar.applicationWindow.isPlaying ||
+                  playbackBar.applicationWindow.customSoundPlaying)
                  ? 0.0 : 0.2
 
         Behavior on opacity {
@@ -50,7 +51,8 @@ DockedPanel {
         anchors.verticalCenter: parent.verticalCenter
 
         icon.source: playbackBar.applicationWindow &&
-                     playbackBar.applicationWindow.isPlaying
+                     (playbackBar.applicationWindow.isPlaying ||
+                      playbackBar.applicationWindow.customSoundPlaying)
                      ? "image://theme/icon-m-pause"
                      : "image://theme/icon-m-play"
 
@@ -65,7 +67,8 @@ DockedPanel {
 
             return app.activeBand !== "" ||
                    app.activeNoise !== "" ||
-                   ambiences.length > 0
+                   ambiences.length > 0 ||
+                   app.customSoundSource.toString() !== ""
         }
 
         opacity: enabled ? 1.0 : 0.5
@@ -82,8 +85,38 @@ DockedPanel {
     Label {
         id: soundLabel
 
+        Behavior on color {
+            ColorAnimation {
+                duration: 100
+                easing.type: Easing.InOutQuad
+            }
+        }
+
+        color: {
+            var app = playbackBar.applicationWindow
+
+            if (!app || !app.mainPage)
+                return Theme.secondaryColor
+
+            var page = app.mainPage
+            var ambiences = page.activeAmbiences || []
+
+            var hasBuiltInSound = page.activeBand !== "" ||
+                                  page.activeNoise !== "" ||
+                                  ambiences.length > 0
+
+            var hasCustomSound = app.customSoundSource.toString() !== ""
+
+            if (!hasBuiltInSound && !hasCustomSound)
+                return Theme.secondaryColor
+
+            return (app.isPlaying || app.customSoundPlaying)
+                   ? Theme.highlightColor
+                   : Theme.secondaryHighlightColor
+        }
+
         anchors.left: playbackButton.right
-        anchors.leftMargin: Theme.paddingLarge
+        anchors.leftMargin: Theme.paddingMedium
         anchors.right: parent.right
         anchors.rightMargin: Theme.horizontalPageMargin
         anchors.verticalCenter: parent.verticalCenter
@@ -99,26 +132,6 @@ DockedPanel {
                 duration: 350
                 easing.type: Easing.Linear
             }
-        }
-
-        color: {
-            var app = playbackBar.applicationWindow
-
-            if (!app || !app.mainPage)
-                return Theme.secondaryColor
-
-            var page = app.mainPage
-            var ambiences = page.activeAmbiences || []
-
-            if (page.activeBand === "" &&
-                    page.activeNoise === "" &&
-                    ambiences.length === 0) {
-                return Theme.secondaryColor
-            }
-
-            return app.isPlaying
-                    ? Theme.highlightColor
-                    : Theme.secondaryHighlightColor
         }
 
         font.pixelSize: Theme.fontSizeMedium
@@ -146,9 +159,13 @@ DockedPanel {
                 parts.push(SoundNames.label("Ambient mix"))
             }
 
+            if (app.customSoundSource.toString() !== "") {
+                parts.push(SoundNames.label("Custom sound"))
+            }
+
             return parts.length > 0
-                    ? parts.join(" & ")
-                    : SoundNames.label("Start your sound mix")
+                   ? parts.join(" & ")
+                   : SoundNames.label("Start your sound mix")
         }
     }
 
@@ -174,6 +191,7 @@ DockedPanel {
             }
         }
 
+        // Sleep timer icon.
         Image {
             id: sleepTimerIcon
 
@@ -197,6 +215,7 @@ DockedPanel {
             sourceSize: Qt.size(width, height)
         }
 
+        // Sleep timer label showing time.
         Label {
             id: sleepTimerLabel
 
@@ -235,6 +254,8 @@ DockedPanel {
             font.pixelSize: Theme.fontSizeSmall
         }
 
+        // Makes sleep timer icon and label clickable when active.
+        // Deactivated when on TimerPage itself.
         MouseArea {
             id: timerMouseArea
 

@@ -10,6 +10,10 @@ SilicaFlickable {
     property var activeAmbiences: []
     property bool ambiencePlaying: false
     property bool pausedMode: false
+    property bool customSoundSelected: applicationWindow
+                                       && applicationWindow.customSoundSource.toString() !== ""
+
+    property int maxAmbiences: customSoundSelected ? 2 : 3
 
     signal ambienceSelected(string ambience)
     signal ambienceDeselected(string ambience)
@@ -140,7 +144,8 @@ SilicaFlickable {
 
                     highlighted: ambiencePage.activeAmbiences.indexOf(modelData) !== -1
 
-                    enabled: highlighted || ambiencePage.activeAmbiences.length < 3
+                    enabled: highlighted
+                             || ambiencePage.activeAmbiences.length < ambiencePage.maxAmbiences
 
                     color: !enabled
                            ? Theme.secondaryColor
@@ -151,13 +156,13 @@ SilicaFlickable {
                              : Theme.primaryColor
 
                     opacity: !enabled ? 0.35
-                             : highlighted && !ambiencePage.ambiencePlaying ? 0.6
-                             : 1.0
+                                      : highlighted && !ambiencePage.ambiencePlaying ? 0.6
+                                                                                     : 1.0
 
                     onClicked: {
                         if (highlighted) {
                             ambiencePage.ambienceDeselected(modelData)
-                        } else if (ambiencePage.activeAmbiences.length < 3) {
+                        } else if (ambiencePage.activeAmbiences.length < ambiencePage.maxAmbiences) {
                             ambiencePage.ambienceSelected(modelData)
                         }
                     }
@@ -167,14 +172,20 @@ SilicaFlickable {
 
         // Ambient Sound Volume Slider
         Item {
+            id: ambienceVolumeContainer
+
             width: parent.width
-            height: ambienceVolumeSlider.height + Theme.iconSizeSmall
+            height: ambienceVolumeSlider.height
+                    + ambienceVolumeIcon.height
+                    - Theme.paddingLarge
 
             Slider {
                 id: ambienceVolumeSlider
 
-                width: parent.width * 0.9
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.leftMargin: Theme.horizontalPageMargin
+                anchors.rightMargin: Theme.horizontalPageMargin
 
                 minimumValue: 0
                 maximumValue: 100
