@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import QtMultimedia 5.0
 import Binaural 1.0
 import "pages"
 import "cover"
@@ -22,7 +21,9 @@ ApplicationWindow {
 
     property var mainPage
 
-    property string activeBand: mainPage ? mainPage.activeBand : ""
+    property string activeBand: mainPage
+                                ? mainPage.activeBand
+                                : ""
 
     property var activeAmbiences: mainPage
                                   ? mainPage.activeAmbiences
@@ -32,233 +33,13 @@ ApplicationWindow {
                                     ? activeAmbiences[0]
                                     : ""
 
-    property string activeNoise: mainPage ? mainPage.activeNoise : ""
+    property string activeNoise: mainPage
+                                 ? mainPage.activeNoise
+                                 : ""
 
-    property bool isPlaying: mainPage ? mainPage.isPlaying : false
-
-    // Custom sound player
-    property url customSoundSource: ""
-    property string customSoundName: ""
-    property bool customSoundLoop: false
-
-    property bool customSoundPlaying: customAudio.playbackState
-                                      === Audio.PlayingState
-
-    property real customSoundVolume: 50
-    property real customSoundFadeGain: 1.0
-
-    // Custom sound folder playlist
-    property var customSoundPlaylist: []
-    property int customSoundPlaylistIndex: -1
-    property bool customSoundFolderLoop: false
-    property bool customSoundPlaylistActive: false
-
-    // Used to start playback after changing the source.
-    property bool customSoundStartPending: false
-
-    Audio {
-        id: customAudio
-
-        source: appWindow.customSoundSource
-        autoPlay: false
-
-        loops: appWindow.customSoundPlaylistActive
-               ? 1
-               : (appWindow.customSoundLoop
-                  ? Audio.Infinite
-                  : 1)
-
-        volume: (appWindow.customSoundVolume / 100.0)
-                * appWindow.customSoundFadeGain
-
-        onStatusChanged: {
-            if (status === Audio.Loaded &&
-                    appWindow.customSoundStartPending) {
-                appWindow.customSoundStartPending = false
-                customAudio.play()
-            }
-
-            if (status === Audio.EndOfMedia &&
-                    appWindow.customSoundPlaylistActive) {
-                console.log("Playlist: track finished")
-                appWindow.playNextCustomSound()
-            }
-
-            if (status === Audio.InvalidMedia) {
-                appWindow.customSoundStartPending = false
-                console.log("Custom audio: invalid media",
-                            appWindow.customSoundSource)
-            }
-        }
-
-        onError: {
-            console.log("Custom audio error:", errorString)
-        }
-    }
-
-    // Fade custom sound to silence in 10 seconds.
-    // Used with timer.
-    NumberAnimation {
-        id: customSoundFadeOut
-
-        target: appWindow
-        property: "customSoundFadeGain"
-        to: 0
-        duration: 8000
-
-        onStopped: {
-            if (appWindow.customSoundFadeGain <= 0.001) {
-                customAudio.stop()
-                appWindow.customSoundFadeGain = 1.0
-            }
-        }
-    }
-
-    function clearCustomSoundPlaylist() {
-        customSoundPlaylistActive = false
-        customSoundPlaylist = []
-        customSoundPlaylistIndex = -1
-        customSoundFolderLoop = false
-        customSoundStartPending = false
-    }
-
-    function playCustomSound() {
-        if (customSoundSource.toString() === "")
-            return
-
-        // Starting single-file playback cancels the playlist.
-        clearCustomSoundPlaylist()
-
-        customSoundFadeOut.stop()
-        customSoundFadeGain = 1.0
-        customSoundStartPending = false
-
-        customAudio.play()
-    }
-
-    function pauseCustomSound() {
-        customSoundFadeOut.stop()
-        customSoundStartPending = false
-        customSoundFadeGain = 1.0
-
-        customAudio.pause()
-    }
-
-    function resumeCustomSound() {
-        customSoundFadeOut.stop()
-        customSoundFadeGain = 1.0
-
-        if (customSoundSource.toString() !== "")
-            customAudio.play()
-    }
-
-    function stopCustomSound() {
-        customSoundFadeOut.stop()
-        clearCustomSoundPlaylist()
-
-        customAudio.stop()
-        customSoundFadeGain = 1.0
-    }
-
-    function startCustomSoundPlaylist(files, folderLoop) {
-        if (!files || files.length === 0) {
-            console.log("Folder playlist: no audio files found")
-            return
-        }
-
-        customSoundFadeOut.stop()
-        customAudio.stop()
-
-        customSoundFadeGain = 1.0
-        customSoundLoop = false
-
-        customSoundPlaylist = files
-        customSoundPlaylistIndex = 0
-        customSoundFolderLoop = folderLoop
-        customSoundPlaylistActive = true
-
-        customSoundSource = files[0].url
-        customSoundName = files[0].name
-
-        console.log("Playlist: starting", customSoundName)
-
-        // Start once the new source has loaded.
-        customSoundStartPending = true
-    }
-
-    function changeCustomSoundTrack(direction) {
-        if (!customSoundPlaylistActive ||
-                customSoundPlaylist.length === 0) {
-            console.log("Playlist: cannot change track; no active playlist")
-            return
-        }
-
-        var nextIndex = customSoundPlaylistIndex + direction
-
-        if (nextIndex < 0) {
-            if (customSoundFolderLoop) {
-                nextIndex = customSoundPlaylist.length - 1
-            } else {
-                nextIndex = 0
-            }
-        }
-
-        if (nextIndex >= customSoundPlaylist.length) {
-            if (customSoundFolderLoop) {
-                nextIndex = 0
-            } else {
-                console.log("Playlist: already at the last track")
-                return
-            }
-        }
-
-        if (nextIndex === customSoundPlaylistIndex) {
-            // Restart the current track when there is nowhere to go.
-            customAudio.stop()
-            customSoundFadeOut.stop()
-            customSoundFadeGain = 1.0
-            customAudio.play()
-            return
-        }
-
-        customSoundFadeOut.stop()
-        customAudio.stop()
-
-        customSoundFadeGain = 1.0
-        customSoundStartPending = true
-        customSoundPlaylistIndex = nextIndex
-        customSoundSource = customSoundPlaylist[nextIndex].url
-        customSoundName = customSoundPlaylist[nextIndex].name
-
-        console.log("Playlist: switching to track",
-                    nextIndex, customSoundName)
-    }
-
-    function playPreviousCustomSound() {
-        changeCustomSoundTrack(-1)
-    }
-
-    function playNextCustomSound() {
-        changeCustomSoundTrack(1)
-    }
-
-    function skipToNextCustomSound() {
-        playNextCustomSound()
-    }
-
-    function fadeOutCustomSound() {
-        if (customAudio.playbackState !== Audio.PlayingState) {
-            stopCustomSound()
-            return
-        }
-
-        if (customSoundFadeOut.running)
-            return
-
-        customSoundFadeOut.from = customSoundFadeGain
-        customSoundFadeOut.to = 0
-        customSoundFadeOut.start()
-    }
+    property bool isPlaying: mainPage
+                             ? mainPage.isPlaying
+                             : false
 
     // Sleep Timer
     property bool sleepTimerRunning: false
@@ -266,7 +47,7 @@ ApplicationWindow {
     property int sleepTimerRemainingSeconds: 0
     property int sleepTimerDurationSeconds: 0
 
-    // Playback bar visibility (exclude from listed Pages)
+    // Playback bar visibility
     property bool playbackBarShouldShow: true
 
     function updatePlaybackBarVisibility() {
@@ -275,19 +56,20 @@ ApplicationWindow {
         playbackBarShouldShow = current === null ||
                 (current.objectName !== "AboutPage" &&
                  current.objectName !== "CreditPage" &&
-                 current.objectName !== "AudioFilePickerPage" &&
                  current.objectName !== "InfoBinauralPage" &&
                  current.objectName !== "InfoColoredPage")
     }
 
     Timer {
         id: playbackBarVisibilityTimer
+
         interval: 300
         repeat: false
 
         onTriggered: appWindow.updatePlaybackBarVisibility()
     }
 
+    // Update after the page stack changes.
     Connections {
         target: appWindow.pageStack
 
@@ -312,9 +94,8 @@ ApplicationWindow {
 
     function pauseSleepTimer() {
         if (!appWindow.sleepTimerRunning ||
-                appWindow.sleepTimerPaused) {
+                appWindow.sleepTimerPaused)
             return
-        }
 
         sleepTimer.stop()
         appWindow.sleepTimerPaused = true
@@ -322,9 +103,8 @@ ApplicationWindow {
 
     function resumeSleepTimer() {
         if (!appWindow.sleepTimerRunning ||
-                !appWindow.sleepTimerPaused) {
+                !appWindow.sleepTimerPaused)
             return
-        }
 
         if (appWindow.sleepTimerRemainingSeconds <= 0) {
             appWindow.cancelSleepTimer()
@@ -352,9 +132,8 @@ ApplicationWindow {
 
         onTriggered: {
             if (appWindow.sleepTimerPaused ||
-                    !appWindow.sleepTimerRunning) {
+                    !appWindow.sleepTimerRunning)
                 return
-            }
 
             if (appWindow.sleepTimerRemainingSeconds > 0)
                 appWindow.sleepTimerRemainingSeconds--
@@ -371,12 +150,12 @@ ApplicationWindow {
                     console.log("SLEEP TIMER: calling fadeOutForSleepTimer")
                     appWindow.mainPage.fadeOutForSleepTimer()
                 }
-
-                appWindow.fadeOutCustomSound()
             }
         }
     }
 
+    // Something selected but not playing (system suspend or manual
+    // stop): dimmed hint state of the playback bar.
     property bool pausedMode: !isPlaying &&
                               (activeBand !== "" ||
                                activeAmbiences.length > 0 ||
@@ -385,8 +164,6 @@ ApplicationWindow {
     initialPage: Component {
         MainPage {
             id: mainPageInstance
-
-            applicationWindow: appWindow
 
             Component.onCompleted: {
                 appWindow.mainPage = mainPageInstance
@@ -397,27 +174,20 @@ ApplicationWindow {
 
     cover: Component {
         CoverPage {
-            // Pass the main application window to the cover.
-            applicationWindow: appWindow
-
-            // Keep the cover's displayed sound selection synchronized.
             activeBand: appWindow.activeBand
-            activeNoise: appWindow.activeNoise
             activeAmbiences: appWindow.activeAmbiences
-            customSoundSource: appWindow.customSoundSource
-
-            // Synchronize the cover's playback indicators.
+            activeNoise: appWindow.activeNoise
             isPlaying: appWindow.isPlaying
             isPaused: appWindow.pausedMode
 
-            // Keep the cover's sleep timer display synchronized.
             sleepTimerRunning: appWindow.sleepTimerRunning
             sleepTimerPaused: appWindow.sleepTimerPaused
             sleepTimerRemainingSeconds: appWindow.sleepTimerRemainingSeconds
 
             onPlayPauseClicked: {
-                if (appWindow.mainPage)
+                if (appWindow.mainPage) {
                     appWindow.mainPage.togglePlayback()
+                }
             }
         }
     }
@@ -430,6 +200,7 @@ ApplicationWindow {
 
         x: 0
         z: 3
+
         visible: true
 
         y: appWindow.playbackBarShouldShow
@@ -458,5 +229,4 @@ ApplicationWindow {
     }
 
     allowedOrientations: defaultAllowedOrientations
-
 }

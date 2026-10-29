@@ -65,34 +65,6 @@
     </message>
 </context>
 <context>
-    <name>AudioFilePickerPage</name>
-    <message>
-        <location filename="../qml/pages/components/AudioFilePickerPage.qml" line="60"/>
-        <source>Music</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/AudioFilePickerPage.qml" line="73"/>
-        <source>Use folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/AudioFilePickerPage.qml" line="74"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/AudioFilePickerPage.qml" line="193"/>
-        <source>No audio files or folders</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/AudioFilePickerPage.qml" line="194"/>
-        <source>Try another folder or check where your audio files are stored.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>CreditPage</name>
     <message>
         <location filename="../qml/pages/CreditPage.qml" line="14"/>
@@ -291,23 +263,13 @@
         <source>Choose ambient sounds</source>
         <translation>Umgebungsklänge auswählen</translation>
     </message>
-    <message>
-        <location filename="../qml/pages/MainPage.qml" line="853"/>
-        <source>Choose custom sound</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>PlaybackBar</name>
     <message>
-        <location filename="../qml/pages/components/PlaybackBar.qml" line="149"/>
+        <location filename="../qml/pages/components/PlaybackBar.qml" line="131"/>
         <source>Start your sound mix</source>
         <translation>Starte deinen Klangmix</translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/components/PlaybackBar.qml" line="168"/>
-        <source>Custom sound</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -426,14 +388,6 @@
         <location filename="../qml/pages/components/SoundNames.qml" line="45"/>
         <source>Individual experiences may vary.</source>
         <translation>Die Wirkung kann individuell variieren.</translation>
-    </message>
-</context>
-<context>
-    <name>SoundPickerDrawer</name>
-    <message>
-        <location filename="../qml/pages/components/SoundPickerDrawer.qml" line="470"/>
-        <source>No file selected</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

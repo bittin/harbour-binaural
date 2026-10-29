@@ -7,8 +7,6 @@ import "components"
 Page {
     id: page
 
-    property var applicationWindow: null
-
     property string activeBand: ""
     property string activeNoise: ""
     property var activeAmbiences: []
@@ -26,7 +24,7 @@ Page {
                              noisePlaying
 
     property bool pausedMode: !isPlaying &&
-                              (activeBand !== "" || activeAmbiences.length > 0 || activeNoise !== "")
+        (activeBand !== "" || activeAmbiences.length > 0 || activeNoise !== "")
 
     AudioEngine {
         id: audioEngine
@@ -42,9 +40,9 @@ Page {
 
     function checkSleepTimer() {
         if (appWindow.sleepTimerRunning &&
-                page.activeBand === "" &&
-                page.activeAmbiences.length === 0 &&
-                page.activeNoise === "") {
+            page.activeBand === "" &&
+            page.activeAmbiences.length === 0 &&
+            page.activeNoise === "") {
             appWindow.cancelSleepTimer()
         }
     }
@@ -80,62 +78,27 @@ Page {
     }
 
     function togglePlayback() {
-        var customSoundIsPlaying =
-                appWindow && appWindow.customSoundPlaying
-
-        if (isPlaying || customSoundIsPlaying) {
-            // Pause all sounds.
+        if (isPlaying) {
             audioEngine.pauseBinaural()
             audioEngine.pauseAmbience()
             audioEngine.pauseColoredNoise()
-
-            if (appWindow && appWindow.customSoundPlaying)
-                appWindow.pauseCustomSound()
-
             appWindow.pauseSleepTimer()
         } else {
-            // Resume all selected sounds.
             resumeAll()
-
-            if (applicationWindow &&
-                    applicationWindow.customSoundSource.toString() !== "" &&
-                    !applicationWindow.customSoundPlaying) {
-                applicationWindow.resumeCustomSound()
-            }
-
             appWindow.resumeSleepTimer()
         }
     }
 
     function deselectAllSounds() {
-        // Stop binaural beats.
         audioEngine.stop()
-
-        // Stop ambient sounds.
         audioEngine.stopAmbience()
-
-        // Stop colored noise.
         audioEngine.stopColoredNoise()
 
-        // Clear the custom sound selection in the drawer, if available.
-        if (selectorLoader.item
-                && selectorLoader.item.clearSelection) {
-            selectorLoader.item.clearSelection()
-        } else if (applicationWindow) {
-            // Fallback if the custom sound drawer isn't currently loaded.
-            applicationWindow.stopCustomSound()
-            applicationWindow.customSoundSource = ""
-            applicationWindow.customSoundName = ""
-            applicationWindow.customSoundLoop = false
-        }
-
-        // Clear selected sounds on the main page.
         page.activeBand = ""
         page.activeAmbiences = []
         page.activeNoise = ""
 
-        // Close the selector drawer.
-        selectorDrawer.open = false
+        ambienceDrawer.open = false
     }
 
     Component {
@@ -148,18 +111,23 @@ Page {
         InfoColoredPage {}
     }
 
-    // Components used as the shared drawer's background panels.
-    Component {
-        id: ambiencePanelComponent
+    Drawer {
+        id: ambienceDrawer
 
-        AmbienceDrawer {
-            width: selectorLoader.width
+        anchors.fill: parent
+        dock: Dock.Bottom
+        backgroundSize: ambienceSelector.height
+
+        background: AmbienceDrawer {
+            id: ambienceSelector
 
             activeAmbiences: page.activeAmbiences
             ambiencePlaying: page.ambiencePlaying
             pausedMode: page.pausedMode
 
-            onCloseRequested: selectorDrawer.open = false
+            onCloseRequested: {
+                ambienceDrawer.open = false
+            }
 
             onAmbienceSelected: {
                 if (page.activeAmbiences.indexOf(ambience) !== -1)
@@ -169,8 +137,8 @@ Page {
                     return
 
                 var wasPaused = page.pausedMode
-                page.activeAmbiences =
-                        page.activeAmbiences.concat([ambience])
+
+                page.activeAmbiences = page.activeAmbiences.concat([ambience])
 
                 audioEngine.setAmbience(ambience)
 
@@ -195,48 +163,6 @@ Page {
                 audioEngine.setAmbienceVolume(volume)
             }
         }
-    }
-
-    Component {
-        id: customSoundPanelComponent
-
-        SoundPickerDrawer {
-            width: selectorLoader.width
-            appWindow: page.applicationWindow
-
-            onCloseRequested: selectorDrawer.open = false
-        }
-    }
-
-    Drawer {
-        id: selectorDrawer
-
-        anchors.fill: parent
-        dock: Dock.Bottom
-
-        // false = ambience panel; true = custom sound panel
-        property bool showingCustomSound: false
-
-        backgroundSize: selectorLoader.height
-
-        background: Loader {
-            id: selectorLoader
-
-            width: parent.width
-
-            sourceComponent: selectorDrawer.showingCustomSound
-                             ? customSoundPanelComponent
-                             : ambiencePanelComponent
-
-            height: item ? item.height : 0
-        }
-
-        // KEEP your existing foregroundContent Item here, unchanged:
-        // - foreground SilicaFlickable and all main-page controls
-        // - PullDownMenu
-        // - drawerDimmer, with opacity based on selectorDrawer.opened
-        // - MouseArea, enabled when selectorDrawer.opened,
-        //   closing selectorDrawer on click
 
         // The container is the Drawer foreground.
         // The dimmer and click handler move with the foreground,
@@ -259,8 +185,8 @@ Page {
 
                         onClicked: {
                             pageStack.push(
-                                        Qt.resolvedUrl("AboutPage.qml")
-                                        )
+                                Qt.resolvedUrl("AboutPage.qml")
+                            )
                         }
                     }
 
@@ -269,9 +195,7 @@ Page {
 
                         enabled: page.activeBand !== "" ||
                                  page.activeAmbiences.length > 0 ||
-                                 page.activeNoise !== "" ||
-                                 (page.applicationWindow &&
-                                  page.applicationWindow.customSoundSource.toString() !== "")
+                                 page.activeNoise !== ""
 
                         onClicked: {
                             page.deselectAllSounds()
@@ -283,15 +207,13 @@ Page {
 
                         enabled: page.activeBand !== "" ||
                                  page.activeAmbiences.length > 0 ||
-                                 page.activeNoise !== "" ||
-                                 (page.applicationWindow &&
-                                  page.applicationWindow.customSoundSource.toString() !== "")
+                                 page.activeNoise !== ""
 
                         onClicked: {
                             pageStack.push(
-                                        Qt.resolvedUrl("TimerPage.qml"),
-                                        { appWindow: appWindow }
-                                        )
+                                Qt.resolvedUrl("TimerPage.qml"),
+                                { appWindow: appWindow }
+                            )
                         }
                     }
                 }
@@ -635,7 +557,7 @@ Page {
                         text: qsTr("Ambient Sound")
                     }
 
-                    // Ambient sound button with highlighted background
+                    // AmbienceDrawer button with glow background
                     Item {
                         width: parent.width
                         height: ambienceButton.height
@@ -657,9 +579,8 @@ Page {
 
                         Button {
                             id: ambienceButton
-
                             anchors.centerIn: parent
-                            width: parent.width * 0.8
+                            preferredWidth: Theme.buttonWidthMedium
 
                             text: page.activeAmbiences.length === 0
                                   ? qsTr("Choose ambient sounds")
@@ -673,15 +594,12 @@ Page {
                                       : Theme.secondaryHighlightColor)
                                    : Theme.primaryColor
 
-                            opacity: page.ambiencePlaying
-                                     ? 1.0
-                                     : page.activeAmbiences.length > 0
-                                       ? 0.6
-                                       : 1.0
+                            opacity: page.ambiencePlaying ? 1.0
+                                     : page.activeAmbiences.length > 0 ? 0.6
+                                     : 1.0
 
                             onClicked: {
-                                selectorDrawer.showingCustomSound = false
-                                selectorDrawer.open = true
+                                ambienceDrawer.open = true
                             }
                         }
                     }
@@ -690,118 +608,40 @@ Page {
                         width: parent.width
                         height: Theme.itemSizeMedium
                     }
+                }
 
-                    // Custom sound picker button
-                    Item {
-                        width: parent.width
-                        height: soundPickerButton.height
+                VerticalScrollDecorator {}
+            }
 
-                        Rectangle {
-                            anchors.fill: soundPickerButton
-                            radius: Theme.paddingSmall
+            // Dim the foreground while Drawers are open.
+            // This rectangle moves with the foreground and does not
+            // cover the exposed drawer background.
+            Rectangle {
+                id: drawerDimmer
 
-                            color: soundPickerButton.highlighted
-                                   ? Theme.highlightColor
-                                   : "transparent"
+                anchors.fill: parent
+                z: 1
 
-                            opacity: soundPickerButton.highlighted ? 0.15 : 0.0
+                color: Theme.overlayBackgroundColor
+                opacity: ambienceDrawer.opened ? 0.6 : 0.0
 
-                            Behavior on opacity {
-                                NumberAnimation {
-                                    duration: 150
-                                }
-                            }
-                        }
-
-                        Button {
-                            id: soundPickerButton
-                            anchors.centerIn: parent
-                            width: parent.width * 0.8
-
-                            text: ""
-
-                            // Disable custom sound selection when 3 ambiences are active
-                            enabled: page.activeAmbiences.length < 3
-                                     || (applicationWindow
-                                         && applicationWindow.customSoundSource.toString() !== "")
-
-                            highlighted: applicationWindow
-                                         && applicationWindow.customSoundSource.toString() !== ""
-
-                            opacity: !enabled ? 0.35
-                                     : highlighted
-                                       ? (applicationWindow.customSoundPlaying ? 1.0 : 0.6)
-                                       : 1.0
-
-                            onClicked: {
-                                selectorDrawer.showingCustomSound = true
-                                selectorDrawer.open = true
-                            }
-
-                            Label {
-                                anchors.fill: parent
-                                anchors.leftMargin: Theme.paddingMedium
-                                anchors.rightMargin: Theme.paddingMedium
-
-                                text: applicationWindow
-                                      && applicationWindow.customSoundName !== ""
-                                      ? applicationWindow.customSoundName
-                                      : qsTr("Choose custom sound")
-
-                                horizontalAlignment: Text.AlignHCenter
-                                verticalAlignment: Text.AlignVCenter
-                                elide: Text.ElideRight
-
-                                color: !soundPickerButton.enabled
-                                       ? Theme.secondaryColor
-                                       : soundPickerButton.highlighted
-                                         ? (applicationWindow.customSoundPlaying
-                                            ? Theme.highlightColor
-                                            : Theme.secondaryHighlightColor)
-                                         : Theme.primaryColor
-                            }
-                        }
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: 200
                     }
                 }
-
-                // Spacing after the complete Ambient Sound section
-                Item {
-                    width: 1
-                    height: Theme.itemSizeMedium
-                }
             }
 
-            VerticalScrollDecorator {}
-        }
+            // Intercept taps on the visible foreground while open.
+            // Taps close the drawer instead of activating page buttons.
+            MouseArea {
+                anchors.fill: parent
+                z: 2
+                enabled: ambienceDrawer.opened
 
-        // Dim the foreground while Drawers are open.
-        // This rectangle moves with the foreground and does not
-        // cover the exposed drawer background.
-        Rectangle {
-            id: drawerDimmer
-
-            anchors.fill: parent
-            z: 1
-
-            color: Theme.overlayBackgroundColor
-            opacity: selectorDrawer.opened ? 0.6 : 0.0
-
-            Behavior on opacity {
-                NumberAnimation {
-                    duration: 200
+                onClicked: {
+                    ambienceDrawer.open = false
                 }
-            }
-        }
-
-        // Intercept taps on the visible foreground while open.
-        // Taps close the drawer instead of activating page buttons.
-        MouseArea {
-            anchors.fill: parent
-            z: 2
-            enabled: selectorDrawer.opened
-
-            onClicked: {
-                selectorDrawer.open = false
             }
         }
     }
