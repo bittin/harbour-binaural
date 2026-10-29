@@ -10,18 +10,6 @@ Page {
     property string activeBand: ""
     property string activeNoise: ""
     property var activeAmbiences: []
-    property string activeAmbience: activeAmbiences.length > 0
-                                    ? activeAmbiences[0] : ""
-
-    property string ambienceDisplayName: {
-        if (activeAmbiences.length === 0)
-            return ""
-
-        if (activeAmbiences.length === 1)
-            return SoundNames.label(activeAmbiences[0])
-
-        return SoundNames.label("Ambient mix")
-    }
 
     property bool bandPlaying: audioEngine.binauralPlaying
     property bool ambiencePlaying: audioEngine.ambiencePlaying
@@ -47,7 +35,6 @@ Page {
     }
 
     onActiveBandChanged: checkSleepTimer()
-    onActiveAmbienceChanged: checkSleepTimer()
     onActiveAmbiencesChanged: checkSleepTimer()
     onActiveNoiseChanged: checkSleepTimer()
 
