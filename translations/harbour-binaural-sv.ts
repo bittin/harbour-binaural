@@ -323,5 +323,15 @@
         <source>Timer</source>
         <translation>Timer</translation>
     </message>
+    <message>
+        <source>h</source>
+        <extracomment>SI symbol for hour. Keep as-is for Latin-script locales.</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>min</source>
+        <extracomment>SI symbol for minute. Keep as-is for Latin-script locales.</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 </TS>
