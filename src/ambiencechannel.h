@@ -67,7 +67,6 @@ private:
 
     int m_fadeInPosition;
     int m_crossfadePosition;
-    int m_fadeOutPosition;
 
     QElapsedTimer m_fadeElapsed;
     qint64 m_fadeElapsedBeforePause = 0;

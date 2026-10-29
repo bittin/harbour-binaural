@@ -33,7 +33,6 @@ AmbienceChannel::AmbienceChannel(QObject *parent)
       m_volume(50),
       m_fadeInPosition(0),
       m_crossfadePosition(0),
-      m_fadeOutPosition(0),
       m_fadeOutActiveVolume(0),
       m_fadeOutFadingVolume(0),
       m_stopping(false),
@@ -132,7 +131,6 @@ bool AmbienceChannel::start(const QString &fileName)
 
     m_fadeInPosition = 0;
     m_crossfadePosition = 0;
-    m_fadeOutPosition = 0;
 
     m_stopping = false;
     m_paused = false;
@@ -230,7 +228,6 @@ void AmbienceChannel::stop()
     m_fadeOutFadingVolume =
         m_fadingPlayer ? m_fadingPlayer->volume() : 0;
 
-    m_fadeOutPosition = 0;
     m_fadeElapsedBeforePause = 0;
     m_fadeElapsed.start();
 
@@ -259,7 +256,6 @@ void AmbienceChannel::stopImmediately()
     m_fileName.clear();
 
     m_fadeInPosition = 0;
-    m_fadeOutPosition = 0;
     m_crossfadePosition = 0;
 
     m_fadeElapsed.invalidate();
