@@ -33,7 +33,6 @@ Page {
         title: qsTr("Timer")
     }
 
-    // TimePicker Circle
     TimePicker {
         id: timerPicker
 
@@ -49,37 +48,57 @@ Page {
         minute: 30
     }
 
-    // Label displaying time via TimePicker Circle
-    Label {
+    // Time display with h/min units inside TimePicker
+    Column {
         visible: !page.appWindow.sleepTimerRunning
-
         anchors {
             horizontalCenter: timerPicker.horizontalCenter
             verticalCenter: timerPicker.verticalCenter
         }
+        spacing: 0
 
-        text: timerPicker.hour > 0
-              ? (timerPicker.hour < 10 ? "0" : "") +
-                timerPicker.hour +
-                ":" +
-                (timerPicker.minute < 10 ? "0" : "") +
-                timerPicker.minute +
-                "<font color=\"" +
-                Theme.rgba(Theme.secondaryColor, 0.7) +
-                "\">:00</font>"
-              : (timerPicker.minute < 10 ? "0" : "") +
-                timerPicker.minute +
-                "<font color=\"" +
-                Theme.rgba(Theme.secondaryColor, 0.7) +
-                "\">:00</font>"
+        // Hour display
+        Row {
+            visible: timerPicker.hour > 0
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: Theme.paddingSmall
 
-        textFormat: Text.StyledText
+            Label {
+                id: hourValue
+                text: timerPicker.hour
+                color: Theme.primaryColor
+                font.pixelSize: Theme.fontSizeLarge
+                font.weight: Font.DemiBold
+            }
+            Label {
+                //: SI symbol for hour. Keep as-is for Latin-script locales.
+                text: qsTr("h")
+                color: Theme.secondaryColor
+                font.pixelSize: Theme.fontSizeSmall
+                anchors.baseline: hourValue.baseline
+            }
+        }
 
-        color: Theme.primaryColor
-        font.pixelSize: Theme.fontSizeLarge
-        font.weight: Font.DemiBold
+        // Minute display
+        Row {
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: Theme.paddingSmall
 
-        z: 1
+            Label {
+                id: minuteValue
+                text: timerPicker.minute
+                color: Theme.primaryColor
+                font.pixelSize: Theme.fontSizeLarge
+                font.weight: Font.DemiBold
+            }
+            Label {
+                //: SI symbol for minute. Keep as-is for Latin-script locales.
+                text: qsTr("min")
+                color: Theme.secondaryColor
+                font.pixelSize: Theme.fontSizeSmall
+                anchors.baseline: minuteValue.baseline
+            }
+        }
     }
 
     // TimerDisplay circle when timer is running
@@ -97,57 +116,45 @@ Page {
         width: timerPicker.width
         height: timerPicker.height
 
+        // Outer countdown timer ring
         Canvas {
             id: timerRing
-
             anchors.fill: parent
 
             onPaint: {
                 var ctx = getContext("2d")
                 var centerX = width / 2
                 var centerY = height / 2
-                var radius = Math.min(width, height) / 2 - 10
+                var ringWidth = Theme.paddingMedium
+                var radius = Math.min(width, height) / 2 - ringWidth
 
                 var progress = 0
-
                 if (page.appWindow.sleepTimerDurationSeconds > 0) {
-                    progress =
-                            page.appWindow.sleepTimerRemainingSeconds /
-                            page.appWindow.sleepTimerDurationSeconds
+                    progress = page.appWindow.sleepTimerRemainingSeconds
+                               / page.appWindow.sleepTimerDurationSeconds
                 }
-
                 progress = Math.max(0, Math.min(1, progress))
 
                 ctx.clearRect(0, 0, width, height)
 
+                // Main ring (track)
                 ctx.beginPath()
-                ctx.arc(
-                    centerX,
-                    centerY,
-                    radius,
-                    -Math.PI / 2,
-                    3 * Math.PI / 2,
-                    false
-                )
-
-                ctx.lineWidth = 8
-                ctx.strokeStyle =
-                        Theme.rgba(Theme.primaryColor, 0.2)
+                ctx.arc(centerX, centerY, radius,
+                        -Math.PI / 2, 3 * Math.PI / 2, false)
+                ctx.lineWidth = ringWidth
+                ctx.lineCap = "butt"
+                ctx.strokeStyle = Theme.rgba(Theme.primaryColor, 0.2)
                 ctx.stroke()
 
+                // Main ring (progress)
                 if (progress > 0) {
                     ctx.beginPath()
-                    ctx.arc(
-                        centerX,
-                        centerY,
-                        radius,
-                        -Math.PI / 2,
-                        -Math.PI / 2 +
-                        (2 * Math.PI * progress),
-                        false
-                                )
-
-                    ctx.lineWidth = 8
+                    ctx.arc(centerX, centerY, radius,
+                            -Math.PI / 2,
+                            -Math.PI / 2 + (2 * Math.PI * progress),
+                            false)
+                    ctx.lineWidth = ringWidth
+                    ctx.lineCap = "round"
                     ctx.strokeStyle = Theme.highlightColor
                     ctx.stroke()
                 }
@@ -156,18 +163,62 @@ Page {
 
         Connections {
             target: page.appWindow
-
             onSleepTimerRemainingSecondsChanged: {
                 timerRing.requestPaint()
             }
         }
 
+        // Inner orbiting dot - one turn per minute
+        Item {
+            id: orbitContainer
+            anchors.centerIn: parent
+            width: 0
+            height: 0
+
+            property real orbitRadius: Math.min(timerDisplay.width, timerDisplay.height) / 2
+                                       - Theme.paddingMedium * 2.2
+                                       - Theme.iconSizeSmall / 2
+
+            // -90° = 12-Uhr-Position (oben)
+            property real orbitAngle: -90
+
+            // Bei Timer-Start auf 12 Uhr zurücksetzen
+            Connections {
+                target: page.appWindow
+                onSleepTimerRunningChanged: {
+                    if (page.appWindow.sleepTimerRunning)
+                        orbitContainer.orbitAngle = -90
+                }
+            }
+
+            Timer {
+                interval: 100
+                repeat: true
+                running: page.appWindow.sleepTimerRunning
+                onTriggered: {
+                    orbitContainer.orbitAngle += 0.6
+                    // Präzision erhalten: Winkel im Bereich [-90, 270) halten
+                    if (orbitContainer.orbitAngle >= 270)
+                        orbitContainer.orbitAngle -= 360
+                }
+            }
+
+            Rectangle {
+                width: Theme.iconSizeSmall * 1.2
+                height: Theme.iconSizeSmall * 1.2
+                radius: width / 2
+                color: Theme.highlightColor
+                opacity: 0.4
+
+                x: orbitContainer.orbitRadius * Math.cos(orbitContainer.orbitAngle * Math.PI / 180) - width / 2
+                y: orbitContainer.orbitRadius * Math.sin(orbitContainer.orbitAngle * Math.PI / 180) - height / 2
+            }
+        }
+
         Label {
             anchors.centerIn: parent
-
             text: page.formatRemainingTime(
                       page.appWindow.sleepTimerRemainingSeconds)
-
             color: page.appWindow.sleepTimerPaused
                    ? Theme.secondaryHighlightColor
                    : Theme.highlightColor
@@ -190,7 +241,7 @@ Page {
 
         icon.source: page.appWindow.sleepTimerRunning
                     ? "image://theme/icon-l-clear?"
-                    : "image://theme/icon-l-add"
+                    : "image://theme/icon-l-add?"
 
         enabled: page.appWindow.sleepTimerRunning ||
                  (page.selectedDurationSeconds() > 0 &&
@@ -201,8 +252,7 @@ Page {
                 page.appWindow.cancelSleepTimer()
             } else {
                 page.appWindow.startSleepTimer(
-                    page.selectedDurationSeconds()
-                )
+                    page.selectedDurationSeconds())
             }
         }
     }
