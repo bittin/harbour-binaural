@@ -59,7 +59,6 @@ SilicaFlickable {
 
             MouseArea {
                 id: handleMouseArea
-
                 anchors.fill: parent
 
                 property real startY: 0
@@ -70,17 +69,15 @@ SilicaFlickable {
                     startX = mouse.x
                 }
 
-                onClicked: {
-                    ambiencePage.closeRequested()
-                }
-
                 onReleased: {
                     var deltaY = mouse.y - startY
                     var deltaX = mouse.x - startX
 
-                    // A deliberate downward swipe closes the drawer.
-                    if (deltaY > Theme.itemSizeSmall
-                            && Math.abs(deltaY) > Math.abs(deltaX)) {
+                    // Tap OR deliberate downward swipe
+                    if (Math.abs(deltaY) < 5 && Math.abs(deltaX) < 5) {
+                        ambiencePage.closeRequested()
+                    } else if (deltaY > Theme.itemSizeSmall
+                               && Math.abs(deltaY) > Math.abs(deltaX)) {
                         ambiencePage.closeRequested()
                     }
                 }

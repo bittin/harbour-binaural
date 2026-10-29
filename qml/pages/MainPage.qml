@@ -224,7 +224,9 @@ Page {
                     width: parent.width
                     spacing: Theme.paddingMedium
 
+                    // Move slightly down for display notch on modern devices
                     Item {
+                        width: parent.width
                         height: Theme.paddingLarge
                     }
 
@@ -603,6 +605,7 @@ Page {
                     }
 
                     Item {
+                        width: parent.width
                         height: Theme.itemSizeMedium
                     }
                 }
