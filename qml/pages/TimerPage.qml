@@ -175,37 +175,22 @@ Page {
             width: 0
             height: 0
 
+            // Angle =nfunction of elapsed time
+            property real orbitAngle: {
+                if (!page.appWindow.sleepTimerRunning)
+                    return 0
+                var elapsed = page.appWindow.sleepTimerDurationSeconds
+                              - page.appWindow.sleepTimerRemainingSeconds
+                return (elapsed / 60.0) * 360.0 - 90.0
+            }
+
             property real orbitRadius: Math.min(timerDisplay.width, timerDisplay.height) / 2
-                                       - Theme.paddingMedium * 2.2
+                                       - Theme.paddingMedium * 3
                                        - Theme.iconSizeSmall / 2
 
-            // -90° = 12-Uhr-Position (oben)
-            property real orbitAngle: -90
-
-            // Bei Timer-Start auf 12 Uhr zurücksetzen
-            Connections {
-                target: page.appWindow
-                onSleepTimerRunningChanged: {
-                    if (page.appWindow.sleepTimerRunning)
-                        orbitContainer.orbitAngle = -90
-                }
-            }
-
-            Timer {
-                interval: 100
-                repeat: true
-                running: page.appWindow.sleepTimerRunning
-                onTriggered: {
-                    orbitContainer.orbitAngle += 0.6
-                    // Präzision erhalten: Winkel im Bereich [-90, 270) halten
-                    if (orbitContainer.orbitAngle >= 270)
-                        orbitContainer.orbitAngle -= 360
-                }
-            }
-
             Rectangle {
-                width: Theme.iconSizeSmall * 1.2
-                height: Theme.iconSizeSmall * 1.2
+                width: Theme.iconSizeSmall
+                height: Theme.iconSizeSmall
                 radius: width / 2
                 color: Theme.highlightColor
                 opacity: 0.4

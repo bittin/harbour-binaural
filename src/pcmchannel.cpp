@@ -94,16 +94,6 @@ bool PcmChannel::start(
 
     m_output->setVolume(m_volume);
 
-    // 500 ms buffer to absorb main-thread stalls during
-    // Prevents ALSA PCM ring buffer underruns (audible as audio dropout)
-    // only needed in the procedurally generated channels
-    m_output->setBufferSize(
-        format.sampleRate()
-        * format.channelCount()
-        * (format.sampleSize() / 8)
-        / 2
-    );
-
     connect(m_output,
             &QAudioOutput::stateChanged,
             this,
