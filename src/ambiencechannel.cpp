@@ -302,10 +302,10 @@ void AmbienceChannel::applySleepVolume(
     factor = qBound(0.0, factor, 1.0);
     m_sleepFactor = factor;
 
-    // If a crossfade is in progress, it's already updating volume
-    // every 15 ms using m_sleepFactor — don't fight it.
-    if (m_crossfadeTimer->isActive())
-        return;
+    // If a crossfade or fade-in is in progress, that fade is already
+    // updating volume every 15 ms using m_sleepFactor — don't fight it.
+    if (m_crossfadeTimer->isActive() || m_fadeInTimer->isActive())
+             return;
 
     if (m_activePlayer) {
         m_activePlayer->setVolume(
@@ -328,7 +328,10 @@ void AmbienceChannel::applyPendingVolume()
         return;
     }
 
-    m_activePlayer->setVolume(targetVolume());
+    // Honor the sleep-timer factor so a pause/resume during the
+    // sleep fade-out does not jump back to full target volume.
+    m_activePlayer->setVolume(
+                qRound(targetVolume() * m_sleepFactor));
 }
 
 void AmbienceChannel::updateFadeIn()
@@ -341,14 +344,17 @@ void AmbienceChannel::updateFadeIn()
     m_fadeInPosition += FadeInterval;
 
     const double progress = qMin(
-        1.0,
-        static_cast<double>(m_fadeInPosition) / FadeInDuration);
+                1.0,
+                static_cast<double>(m_fadeInPosition) / FadeInDuration);
 
-    m_activePlayer->setVolume(
-        qRound(targetVolume() * progress));
+    // Honor the sleep-timer factor so the fade-in does not fight
+    // the global sleep fade-out.
+    const int volume = qRound(targetVolume() * m_sleepFactor);
+
+    m_activePlayer->setVolume(qRound(volume * progress));
 
     if (progress >= 1.0) {
-        m_activePlayer->setVolume(targetVolume());
+        m_activePlayer->setVolume(volume);
 
         m_fadeInPosition = 0;
         m_resumeFadeIn = false;
