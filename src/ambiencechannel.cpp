@@ -405,13 +405,17 @@ void AmbienceChannel::checkCrossfade(QMediaPlayer *player)
         || player != m_activePlayer
         || m_fadingPlayer
         || m_stopping
-        || m_paused) {
+            || m_paused) {
         return;
     }
 
     const qint64 duration = player->duration();
 
     if (duration <= 0)
+        return;
+
+    // Never crossfade files that are shorter than the crossfade
+    if (duration <= CrossfadeDuration)
         return;
 
     if (duration - player->position() <= CrossfadeDuration)
@@ -421,9 +425,9 @@ void AmbienceChannel::checkCrossfade(QMediaPlayer *player)
 void AmbienceChannel::startCrossfade(QMediaPlayer *fadingPlayer)
 {
     if (!fadingPlayer
-        || fadingPlayer != m_activePlayer
-        || m_fadingPlayer
-        || m_stopping
+            || fadingPlayer != m_activePlayer
+            || m_fadingPlayer
+            || m_stopping
         || m_paused) {
         return;
     }
