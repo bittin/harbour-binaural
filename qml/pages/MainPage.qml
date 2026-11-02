@@ -111,37 +111,27 @@ Page {
         InfoColoredPage {}
     }
 
-    Drawer {
+    PageDrawer {
         id: ambienceDrawer
 
-        anchors.fill: parent
-        dock: Dock.Bottom
-        backgroundSize: ambienceSelector.height
-
-        background: AmbienceDrawer {
+        drawerContent: AmbienceDrawer {
             id: ambienceSelector
 
             activeAmbiences: page.activeAmbiences
             ambiencePlaying: page.ambiencePlaying
             pausedMode: page.pausedMode
 
-            onCloseRequested: {
-                ambienceDrawer.open = false
-            }
+            onCloseRequested: ambienceDrawer.open = false
 
             onAmbienceSelected: {
                 if (page.activeAmbiences.indexOf(ambience) !== -1)
                     return
-
                 if (page.activeAmbiences.length >= 3)
                     return
 
                 var wasPaused = page.pausedMode
-
                 page.activeAmbiences = page.activeAmbiences.concat([ambience])
-
                 audioEngine.setAmbience(ambience)
-
                 if (wasPaused)
                     audioEngine.pauseAmbience()
             }
@@ -149,13 +139,10 @@ Page {
             onAmbienceDeselected: {
                 var updated = page.activeAmbiences.slice()
                 var index = updated.indexOf(ambience)
-
                 if (index === -1)
                     return
-
                 updated.splice(index, 1)
                 page.activeAmbiences = updated
-
                 audioEngine.stopAmbienceByName(ambience)
             }
 
