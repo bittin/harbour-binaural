@@ -379,12 +379,12 @@
     <message>
         <source>h</source>
         <extracomment>SI symbol for hour. Keep as-is for Latin-script locales.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>t</translation>
     </message>
     <message>
         <source>min</source>
         <extracomment>SI symbol for minute. Keep as-is for Latin-script locales.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>min</translation>
     </message>
 </context>
 </TS>

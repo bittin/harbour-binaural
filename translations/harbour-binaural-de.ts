@@ -69,22 +69,22 @@
     <message>
         <location filename="../qml/pages/AudioFilePickerPage.qml" line="51"/>
         <source>Music</source>
-        <translation type="unfinished"></translation>
+        <translation>Musik</translation>
     </message>
     <message>
         <location filename="../qml/pages/AudioFilePickerPage.qml" line="70"/>
         <source>Use Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Ordner benutzen</translation>
     </message>
     <message>
         <location filename="../qml/pages/AudioFilePickerPage.qml" line="71"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../qml/pages/AudioFilePickerPage.qml" line="163"/>
         <source>No audio files or folders</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Audiodateien oder Ordner</translation>
     </message>
 </context>
 <context>
@@ -163,12 +163,12 @@
     <message>
         <location filename="../qml/pages/components/CustomBinauralDrawer.qml" line="35"/>
         <source>Base frequency</source>
-        <translation type="unfinished"></translation>
+        <translation>Basisfrequenz</translation>
     </message>
     <message>
         <location filename="../qml/pages/components/CustomBinauralDrawer.qml" line="73"/>
         <source>Beat frequency</source>
-        <translation type="unfinished"></translation>
+        <translation>Beat-Frequenz</translation>
     </message>
 </context>
 <context>
@@ -287,7 +287,7 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="509"/>
         <source>Custom frequencies</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigene Frequenzen</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="535"/>
@@ -297,7 +297,7 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="593"/>
         <source>Wave motion</source>
-        <translation type="unfinished"></translation>
+        <translation>Wellenbewegung</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="618"/>
@@ -315,12 +315,12 @@
     <message>
         <location filename="../qml/pages/components/NoiseWaveDrawer.qml" line="32"/>
         <source>Wave depth</source>
-        <translation type="unfinished"></translation>
+        <translation>Wellentiefe</translation>
     </message>
     <message>
         <location filename="../qml/pages/components/NoiseWaveDrawer.qml" line="70"/>
         <source>Wave length</source>
-        <translation type="unfinished"></translation>
+        <translation>Wellenlänge</translation>
     </message>
 </context>
 <context>
@@ -441,7 +441,7 @@
     <message>
         <location filename="../qml/pages/components/SoundNames.qml" line="44"/>
         <source>Custom sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigener Sound</translation>
     </message>
     <message>
         <location filename="../qml/pages/components/SoundNames.qml" line="45"/>

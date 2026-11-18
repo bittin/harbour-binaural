@@ -56,19 +56,19 @@
     <name>AudioFilePickerPage</name>
     <message>
         <source>Music</source>
-        <translation type="unfinished"></translation>
+        <translation>Musikk</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Avbryt</translation>
     </message>
     <message>
         <source>No audio files or folders</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen lydfiler eller mapper</translation>
     </message>
     <message>
         <source>Use Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Bruk mappe</translation>
     </message>
 </context>
 <context>
@@ -126,18 +126,18 @@
     <message>
         <source>Thanks to %1 for some guidance on improving audio engine / sound generators logic.</source>
         <extracomment>%1 is a hyperlink to the GitHub profile of &quot;poetaster&quot;. &quot;audio engine&quot; and &quot;sound generators&quot; are technical terms and may be left untranslated.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Takk til %1 for veiledning om forbedring av logikken for lydmotor / lydgeneratorer.</translation>
     </message>
 </context>
 <context>
     <name>CustomBinauralDrawer</name>
     <message>
         <source>Base frequency</source>
-        <translation type="unfinished"></translation>
+        <translation>Basisfrekvens</translation>
     </message>
     <message>
         <source>Beat frequency</source>
-        <translation type="unfinished"></translation>
+        <translation>Svevningsfrekvens</translation>
     </message>
 </context>
 <context>
@@ -257,11 +257,11 @@
     <name>NoiseWaveDrawer</name>
     <message>
         <source>Wave depth</source>
-        <translation type="unfinished"></translation>
+        <translation>Bølgedybde</translation>
     </message>
     <message>
         <source>Wave length</source>
-        <translation type="unfinished"></translation>
+        <translation>Bølgelengde</translation>
     </message>
 </context>
 <context>
@@ -367,7 +367,7 @@
     </message>
     <message>
         <source>Custom sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Egendefinert lyd</translation>
     </message>
 </context>
 <context>
@@ -379,12 +379,12 @@
     <message>
         <source>h</source>
         <extracomment>SI symbol for hour. Keep as-is for Latin-script locales.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>t</translation>
     </message>
     <message>
         <source>min</source>
         <extracomment>SI symbol for minute. Keep as-is for Latin-script locales.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>min</translation>
     </message>
 </context>
 </TS>

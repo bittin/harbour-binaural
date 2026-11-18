@@ -156,6 +156,10 @@
         <source>Images have been manually edited for use in this app:</source>
         <translation>Slike so bile ročno urejene za uporabo v tej aplikaciji:</translation>
     </message>
+    <message>
+        <source>Thanks to %1 for some guidance on improving audio engine / sound generators logic.</source>
+        <translation>Zahvaljujem se %1 za nekaj nasvetov glede izboljšanja logike zvočnega pogona in generatorjev zvoka.</translation>
+    </message>
 </context>
 <context>
     <name>InfoBinauralPage</name>
@@ -269,6 +273,18 @@
         <source>Timer</source>
         <translation>Časovnik</translation>
     </message>
+    <message>
+        <source>Choose ambient sounds</source>
+        <translation>Izberite ambientalne zvoke</translation>
+    </message>
+    <message>
+        <source>Custom frequencies</source>
+        <translation>Frekvence po meri</translation>
+    </message>
+    <message>
+        <source>Wave motion</source>
+        <translation>Gibanje zvočnega valovanja</translation>
+    </message>
 </context>
 <context>
     <name>SoundNames</name>
@@ -364,12 +380,24 @@
         <source>Ambient mix</source>
         <translation>Ambientna mešanica</translation>
     </message>
+    <message>
+        <source>Custom sound</source>
+        <translation>Zvok po meri</translation>
+    </message>
 </context>
 <context>
     <name>TimerPage</name>
     <message>
         <source>Timer</source>
         <translation>Časovnik</translation>
+    </message>
+    <message>
+        <source>h</source>
+        <translation>u</translation>
+    </message>
+    <message>
+        <source>min</source>
+        <translation>min</translation>
     </message>
 </context>
 <context>
@@ -384,6 +412,54 @@
     <message>
         <source>Start your sound mix</source>
         <translation>Predvajajte svoj mix</translation>
+    </message>
+</context>
+<context>
+    <name>AudioFilePickerPage</name>
+    <message>
+        <source>Music</source>
+        <translation>Glasba</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Prekliči</translation>
+    </message>
+    <message>
+        <source>Use Folder</source>
+        <translation>Uporabi mapo</translation>
+    </message>
+    <message>
+        <source>No audio files or folders</source>
+        <translation>Ni avdio datotek ali map</translation>
+    </message>
+</context>
+<context>
+    <name>CustomBinauralDrawer</name>
+    <message>
+        <source>Base frequency</source>
+        <translation>Osnovna frekvenca</translation>
+    </message>
+    <message>
+        <source>Beat frequency</source>
+        <translation>Utripna frekvenca</translation>
+    </message>
+</context>
+<context>
+    <name>NoiseWaveDrawer</name>
+    <message>
+        <source>Wave depth</source>
+        <translation>Globina zvočnega valovanja</translation>
+    </message>
+    <message>
+        <source>Wave length</source>
+        <translation>Dolžina zvočnega valovanja</translation>
+    </message>
+</context>
+<context>
+    <name>SoundPickerDrawer</name>
+    <message>
+        <source>No file selected</source>
+        <translation>Nobena datoteka ni izbrana</translation>
     </message>
 </context>
 </TS>
