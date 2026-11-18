@@ -250,7 +250,7 @@
     </message>
     <message>
         <source>Ambient Sound</source>
-        <translation type="unfinished"></translation>
+        <translation>Ambient Sound</translation>
     </message>
 </context>
 <context>
