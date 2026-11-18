@@ -1,6 +1,6 @@
 Name:       harbour-binaural
 Summary:    Binaural
-Version:    0.8.5
+Version:    0.9.0
 Release:    1
 License:    GPL-3.0-or-later
 URL:        https://github.com/molan-git/harbour-binaural

@@ -118,18 +118,20 @@ FullscreenContentPage {
                     rowSpacing: Theme.paddingMedium
 
                     property real labelWidth: Math.max(
-                                                  deltaLabel.implicitWidth,
-                                                  deltaThetaLabel.implicitWidth,
-                                                  thetaLabel.implicitWidth,
-                                                  alphaLabel.implicitWidth,
-                                                  betaLabel.implicitWidth,
-                                                  gammaLabel.implicitWidth
-                                                  )
+                        deltaLabel.implicitWidth,
+                        deltaThetaLabel.implicitWidth,
+                        thetaLabel.implicitWidth,
+                        alphaLabel.implicitWidth,
+                        betaLabel.implicitWidth,
+                        gammaLabel.implicitWidth
+                    )
 
+                    // Delta
                     Label {
                         id: deltaLabel
+
                         width: frequencyGrid.labelWidth
-                        text: SoundNames.label("Delta") + " 2 Hz"
+                        text: "δ " + SoundNames.label("Delta") + " - 2 Hz"
                         color: Theme.secondaryHighlightColor
                         font.pixelSize: Theme.fontSizeSmall
                         wrapMode: Text.NoWrap
@@ -137,16 +139,19 @@ FullscreenContentPage {
 
                     Label {
                         width: frequencyGrid.width - frequencyGrid.labelWidth - frequencyGrid.columnSpacing
+
                         text: qsTr("Deep sleep, rest")
                         color: Theme.primaryColor
                         font.pixelSize: Theme.fontSizeSmall
                         wrapMode: Text.WordWrap
                     }
 
+                    // Delta / Theta
                     Label {
                         id: deltaThetaLabel
+
                         width: frequencyGrid.labelWidth
-                        text: SoundNames.label("Delta/Theta") + " 4 Hz"
+                        text: "δ / θ " + "- 4 Hz"
                         color: Theme.secondaryHighlightColor
                         font.pixelSize: Theme.fontSizeSmall
                         wrapMode: Text.NoWrap
@@ -154,16 +159,19 @@ FullscreenContentPage {
 
                     Label {
                         width: frequencyGrid.width - frequencyGrid.labelWidth - frequencyGrid.columnSpacing
+
                         text: qsTr("Deep relaxation, sleep")
                         color: Theme.primaryColor
                         font.pixelSize: Theme.fontSizeSmall
                         wrapMode: Text.WordWrap
                     }
 
+                    // Theta
                     Label {
                         id: thetaLabel
+
                         width: frequencyGrid.labelWidth
-                        text: SoundNames.label("Theta") + " 6 Hz"
+                        text: "θ " + SoundNames.label("Theta") + " - 6 Hz"
                         color: Theme.secondaryHighlightColor
                         font.pixelSize: Theme.fontSizeSmall
                         wrapMode: Text.NoWrap
@@ -171,16 +179,19 @@ FullscreenContentPage {
 
                     Label {
                         width: frequencyGrid.width - frequencyGrid.labelWidth - frequencyGrid.columnSpacing
+
                         text: qsTr("Meditation and relaxation")
                         color: Theme.primaryColor
                         font.pixelSize: Theme.fontSizeSmall
                         wrapMode: Text.WordWrap
                     }
 
+                    // Alpha
                     Label {
                         id: alphaLabel
+
                         width: frequencyGrid.labelWidth
-                        text: SoundNames.label("Alpha") + " 10 Hz"
+                        text: "α " + SoundNames.label("Alpha") + " - 10 Hz"
                         color: Theme.secondaryHighlightColor
                         font.pixelSize: Theme.fontSizeSmall
                         wrapMode: Text.NoWrap
@@ -188,16 +199,19 @@ FullscreenContentPage {
 
                     Label {
                         width: frequencyGrid.width - frequencyGrid.labelWidth - frequencyGrid.columnSpacing
+
                         text: qsTr("Calm and relaxed wakefulness")
                         color: Theme.primaryColor
                         font.pixelSize: Theme.fontSizeSmall
                         wrapMode: Text.WordWrap
                     }
 
+                    // Beta
                     Label {
                         id: betaLabel
+
                         width: frequencyGrid.labelWidth
-                        text: SoundNames.label("Beta") + " 20 Hz"
+                        text: "β " + SoundNames.label("Beta") + " - 20 Hz"
                         color: Theme.secondaryHighlightColor
                         font.pixelSize: Theme.fontSizeSmall
                         wrapMode: Text.NoWrap
@@ -205,16 +219,19 @@ FullscreenContentPage {
 
                     Label {
                         width: frequencyGrid.width - frequencyGrid.labelWidth - frequencyGrid.columnSpacing
+
                         text: qsTr("Alertness and focus")
                         color: Theme.primaryColor
                         font.pixelSize: Theme.fontSizeSmall
                         wrapMode: Text.WordWrap
                     }
 
+                    // Gamma
                     Label {
                         id: gammaLabel
+
                         width: frequencyGrid.labelWidth
-                        text: SoundNames.label("Gamma") + " 40 Hz"
+                        text: "γ " + SoundNames.label("Gamma") + " - 40 Hz"
                         color: Theme.secondaryHighlightColor
                         font.pixelSize: Theme.fontSizeSmall
                         wrapMode: Text.NoWrap
@@ -222,6 +239,7 @@ FullscreenContentPage {
 
                     Label {
                         width: frequencyGrid.width - frequencyGrid.labelWidth - frequencyGrid.columnSpacing
+
                         text: qsTr("Complex thinking and information processing")
                         color: Theme.primaryColor
                         font.pixelSize: Theme.fontSizeSmall

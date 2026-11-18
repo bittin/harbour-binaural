@@ -22,7 +22,7 @@ CoverBackground {
 
     function formatRemainingTime(seconds) {
         var hours = Math.floor(seconds / 3600)
-        var minutes = Math.floor((seconds % 3600) / 60)
+        var minutes = Math.floor((seconds % 3600)  / 60)
         var secs = seconds % 60
 
         return (hours > 0
@@ -41,8 +41,6 @@ CoverBackground {
         width: parent.width - 2 * Theme.paddingSmall
         height: parent.height * 0.45
 
-        z: 0
-
         // Dim the cover art while the system has stopped the sound.
         opacity: isPlaying || !hasActiveSounds ? 1.0 : 0.6
 
@@ -59,10 +57,7 @@ CoverBackground {
 
             source: "../images/binaural-cover.svg"
 
-            sourceSize: Qt.size(
-                            width * 2,
-                            height * 2
-                            )
+            sourceSize: Qt.size(width * 2, height * 2)
 
             fillMode: Image.PreserveAspectFit
             visible: false
@@ -70,7 +65,6 @@ CoverBackground {
 
         ColorOverlay {
             anchors.fill: coverBackgroundImage
-
             source: coverBackgroundImage
             color: Theme.primaryColor
         }
@@ -81,8 +75,13 @@ CoverBackground {
 
         anchors.top: coverBackgroundIcon.bottom
         anchors.topMargin: -Theme.paddingLarge * 0.8
-        anchors.left: parent.left
-        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: Theme.paddingLarge
+
+        // One horizontal margin for everything below the art.
+        // Cover text never touches the cover edges.
+        x: Theme.paddingLarge
+        width: parent.width - 2 * Theme.paddingLarge
 
         spacing: Theme.paddingSmall
 
@@ -92,8 +91,7 @@ CoverBackground {
 
             visible: !sleepTimerRunning && !hasActiveSounds
 
-            x: Theme.horizontalPageMargin
-            width: parent.width - 2 * Theme.horizontalPageMargin
+            width: parent.width
 
             horizontalAlignment: Text.AlignHCenter
 
@@ -105,51 +103,41 @@ CoverBackground {
         }
 
         // Sleep timer status.
-        Item {
+        Row {
             id: coverSleepTimerRow
 
             visible: sleepTimerRunning
-            width: parent.width
-            height: Math.max(
-                        Theme.iconSizeSmall * 0.8,
-                        coverSleepTimerLabel.implicitHeight)
 
-            Row {
-                anchors.centerIn: parent
-                spacing: Theme.paddingSmall
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: Theme.paddingSmall
 
-                Image {
-                    id: coverSleepTimerIcon
+            Image {
+                id: coverSleepTimerIcon
 
-                    width: Theme.iconSizeSmall * 0.8
-                    height: Theme.iconSizeSmall * 0.8
+                width: Theme.iconSizeSmall * 0.8
+                height: Theme.iconSizeSmall * 0.8
 
-                    anchors.verticalCenter: coverSleepTimerLabel.verticalCenter
-                    anchors.verticalCenterOffset: Theme.paddingSmall / 3
+                anchors.verticalCenter: coverSleepTimerLabel.verticalCenter
+                anchors.verticalCenterOffset: Theme.paddingSmall / 3
 
-                    source: "image://theme/icon-s-timer?" +
-                            (sleepTimerPaused
-                             ? Theme.secondaryColor
-                             : Theme.primaryColor)
+                source: "image://theme/icon-s-timer?" +
+                        (sleepTimerPaused
+                         ? Theme.secondaryColor
+                         : Theme.primaryColor)
 
-                    sourceSize: Qt.size(
-                                    width,
-                                    height
-                                    )
-                }
+                sourceSize: Qt.size(width, height)
+            }
 
-                Label {
-                    id: coverSleepTimerLabel
+            Label {
+                id: coverSleepTimerLabel
 
-                    color: sleepTimerPaused
-                           ? Theme.secondaryColor
-                           : Theme.primaryColor
+                color: sleepTimerPaused
+                       ? Theme.secondaryColor
+                       : Theme.primaryColor
 
-                    font.pixelSize: Theme.fontSizeSmall
+                font.pixelSize: Theme.fontSizeSmall
 
-                    text: formatRemainingTime
-                          (sleepTimerRemainingSeconds)
-                }
+                text: formatRemainingTime(sleepTimerRemainingSeconds)
             }
         }
 
@@ -157,6 +145,8 @@ CoverBackground {
         // One ambience shows its name; multiple ambiences show "Ambient mix".
         Label {
             id: coverSoundNames
+
+            visible: hasActiveSounds
 
             width: parent.width
 
@@ -170,7 +160,18 @@ CoverBackground {
             font.pixelSize: Theme.fontSizeSmall
             wrapMode: Text.WordWrap
 
+            // Never let a long mix fill the whole cover:
+            // defined maximum lines, rest elided.
+            maximumLineCount: 3
+            elide: Text.ElideRight
+
             text: mainState ? mainState.mixLabel : ""
+        }
+
+        // Push labels to the bottom of the cover, away from the art.
+        Item {
+            width: parent.width
+            height: Theme.paddingLarge
         }
     }
 

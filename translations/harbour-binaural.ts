@@ -218,7 +218,7 @@
     </message>
     <message>
         <source>Deselect all sounds</source>
-        <translation>Deselect all sound</translation>
+        <translation>Deselect all sounds</translation>
     </message>
     <message>
         <source>Timer</source>
@@ -230,27 +230,27 @@
     </message>
     <message>
         <source>To be used with</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Colored Noise</source>
-        <translation>Colored Noise</translation>
-    </message>
-    <message>
-        <source>Ambient Sound</source>
-        <translation>Ambient Sound</translation>
-    </message>
-    <message>
-        <source>Choose ambient sounds</source>
-        <translation>Choose ambient sounds</translation>
+        <translation>To be used with</translation>
     </message>
     <message>
         <source>Custom frequencies</source>
         <translation>Custom frequencies</translation>
     </message>
     <message>
+        <source>Colored Noise</source>
+        <translation>Colored Noise</translation>
+    </message>
+    <message>
         <source>Wave motion</source>
         <translation>Wave motion</translation>
+    </message>
+    <message>
+        <source>Ambient sounds</source>
+        <translation>Ambient sounds</translation>
+    </message>
+    <message>
+        <source>Ambient Sound</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -368,13 +368,6 @@
     <message>
         <source>Custom sound</source>
         <translation>Custom sound</translation>
-    </message>
-</context>
-<context>
-    <name>SoundPickerDrawer</name>
-    <message>
-        <source>No file selected</source>
-        <translation>No file selected</translation>
     </message>
 </context>
 <context>

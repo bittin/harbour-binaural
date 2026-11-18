@@ -3,10 +3,11 @@ import Sailfish.Silica 1.0
 import QtGraphicalEffects 1.0
 import Qt.labs.folderlistmodel 2.1
 
-SilicaFlickable {
+ActionDrawer {
     id: page
 
     property var audioEngine: null
+    property bool pausedMode: false
 
     property url selectedFile: ""
     property string selectedFileName: ""
@@ -20,15 +21,6 @@ SilicaFlickable {
     property int previousFolderCount: -1
     property int stableFolderCountTicks: 0
     property int folderWaitTicks: 0
-
-    signal closeRequested()
-
-    width: parent ? parent.width : Screen.width
-    height: Math.min(contentColumn.height + Theme.paddingLarge,
-                     Screen.height * 0.8)
-
-    contentHeight: contentColumn.height + Theme.paddingLarge
-    clip: true
 
     Component.onCompleted: {
         if (!audioEngine)
@@ -63,7 +55,7 @@ SilicaFlickable {
 
     function handleFileSelected(fileUrl, fileName) {
         selectedFile = fileUrl
-        selectedFileName = fileName.replace(/\.[^\.]+$/, "")
+        selectedFileName = fileName.replace(/\.[^.]+$/, "")
 
         selectedFolder = ""
         selectedFolderName = ""
@@ -75,7 +67,9 @@ SilicaFlickable {
             audioEngine.stopCustomSound()
             audioEngine.customSoundSource = fileUrl
             audioEngine.customSoundName = selectedFileName
-            audioEngine.playCustomSound()
+
+            if (!page.pausedMode)
+                audioEngine.playCustomSound()
         }
     }
 
@@ -165,17 +159,15 @@ SilicaFlickable {
         console.log("Folder playback: starting playlist with",
                     files.length, "tracks")
 
+        var shouldRemainPaused = page.pausedMode
+
         audioEngine.startCustomSoundPlaylist(files, loopFolder)
+
+        if (shouldRemainPaused)
+            audioEngine.pauseCustomSound()
 
         selectedFile = files[0].url
         selectedFileName = files[0].name
-    }
-
-    Rectangle {
-        anchors.fill: parent
-        color: Theme.rgba(
-                   Theme.highlightBackgroundColor,
-                   Theme.highlightBackgroundOpacity * 0.35)
     }
 
     Column {
@@ -183,53 +175,6 @@ SilicaFlickable {
 
         width: parent.width
         spacing: Theme.paddingMedium
-
-        // Drawer handle: tap or swipe down to close
-        Item {
-            width: parent.width
-            height: Theme.itemSizeExtraSmall
-
-            Rectangle {
-                anchors.centerIn: parent
-
-                width: Theme.itemSizeExtraSmall * 2
-                height: Theme.paddingSmall
-                radius: Theme.paddingSmall
-
-                color: handleMouseArea.pressed
-                       ? Theme.secondaryHighlightColor
-                       : Theme.secondaryColor
-
-                opacity: 0.6
-            }
-
-            MouseArea {
-                id: handleMouseArea
-
-                anchors.fill: parent
-
-                property real startY: 0
-                property real startX: 0
-
-                onPressed: {
-                    startY = mouse.y
-                    startX = mouse.x
-                }
-
-                onClicked: page.closeRequested()
-
-                onReleased: {
-                    var deltaY = mouse.y - startY
-                    var deltaX = mouse.x - startX
-
-                    if (deltaY > Theme.itemSizeSmall
-                            && Math.abs(deltaY) > Math.abs(deltaX)) {
-
-                        page.closeRequested()
-                    }
-                }
-            }
-        }
 
         // Selected folder and current track information
         Item {
@@ -270,9 +215,7 @@ SilicaFlickable {
 
                 text: selectedFolderName !== ""
                       ? selectedFolderName
-                      : (selectedFileName !== ""
-                         ? selectedFileName
-                         : qsTr("No file selected"))
+                      : selectedFileName
 
                 wrapMode: Text.Wrap
                 color: Theme.highlightColor
@@ -511,27 +454,18 @@ SilicaFlickable {
             }
         }
 
-        // Custom Sound Volume Slider
-        Item {
+        // Custom Sound Volume Slider + Loop/Crossfade switches
+        Column {
             id: customSoundControls
 
             width: parent.width
-            height: customSoundVolumeSlider.height
-                    + customSoundVolumeIcon.height
-                    - Theme.paddingLarge
-                    + Theme.paddingMedium
-                    + switchesRow.height
+            spacing: Theme.paddingMedium
 
-            Slider {
-                id: customSoundVolumeSlider
+            VolumeSliderRow {
+                id: customSoundVolumeRow
 
-                anchors.left: parent.left
-                anchors.leftMargin: Theme.horizontalPageMargin
-                anchors.right: parent.right
-                anchors.rightMargin: Theme.horizontalPageMargin
-
-                minimumValue: 0
-                maximumValue: 100
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 value: page.audioEngine
                        ? page.audioEngine.customSoundVolume
@@ -540,25 +474,10 @@ SilicaFlickable {
                 enabled: page.audioEngine
                          && page.audioEngine.customSoundSource.toString() !== ""
 
-                opacity: enabled ? 1.0 : 0.5
-
                 onValueChanged: {
                     if (page.audioEngine)
                         page.audioEngine.customSoundVolume = value
                 }
-            }
-
-            // Volume icon below the slider
-            VolumeIcon {
-                id: customSoundVolumeIcon
-                value: customSoundVolumeSlider.value
-                anchors.top: customSoundVolumeSlider.bottom
-                anchors.topMargin: -Theme.paddingLarge
-                anchors.horizontalCenter: customSoundVolumeSlider.horizontalCenter
-                anchors.horizontalCenterOffset: Theme.paddingSmall
-                opacity: page.audioEngine
-                         && page.audioEngine.customSoundSource.toString() !== ""
-                         ? 1.0 : 0.5
             }
 
             // Loop & Crossfade switches
@@ -684,6 +603,4 @@ SilicaFlickable {
             "*.3gp", "*.3GP"
         ]
     }
-
-    VerticalScrollDecorator {}
 }

@@ -91,33 +91,14 @@ ActionDrawer {
     }
 
     // Ambient Sound Volume Slider
-    Item {
-        width: parent.width
-        height: ambienceVolumeSlider.height + Theme.iconSizeSmall
+    // Ambient Sound Volume Slider
+    VolumeSliderRow {
+        width: parent.width * 0.9
+        anchors.horizontalCenter: parent.horizontalCenter
 
-        Slider {
-            id: ambienceVolumeSlider
-            width: parent.width * 0.9
-            anchors.horizontalCenter: parent.horizontalCenter
+        enabled: ambienceDrawer.activeAmbiences.length > 0
 
-            minimumValue: 0
-            maximumValue: 100
-            value: 50
-
-            enabled: ambienceDrawer.activeAmbiences.length > 0
-            opacity: enabled ? 1.0 : 0.5
-
-            onValueChanged:
-                ambienceDrawer.ambienceVolumeChanged(value)
-        }
-
-        VolumeIcon {
-            id: ambienceVolumeIcon
-            value: ambienceVolumeSlider.value
-            anchors.top: ambienceVolumeSlider.bottom
-            anchors.topMargin: -Theme.paddingLarge
-            anchors.horizontalCenter: ambienceVolumeSlider.horizontalCenter
-            opacity: ambienceDrawer.activeAmbiences.length > 0 ? 1.0 : 0.5
-        }
+        onValueChanged:
+            ambienceDrawer.ambienceVolumeChanged(value)
     }
 }

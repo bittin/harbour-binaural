@@ -214,42 +214,42 @@
     <name>MainPage</name>
     <message>
         <source>About</source>
-        <translation>À propos</translation>
+        <translation type="unfinished">À propos</translation>
     </message>
     <message>
         <source>Deselect all sounds</source>
-        <translation>Désélectionner tous les sons</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Timer</source>
-        <translation>Minuterie</translation>
+        <translation type="unfinished">Minuterie</translation>
     </message>
     <message>
         <source>Binaural Beats</source>
-        <translation>Battements binauraux</translation>
+        <translation type="unfinished">Battements binauraux</translation>
     </message>
     <message>
         <source>To be used with</source>
-        <translation>À utiliser avec</translation>
-    </message>
-    <message>
-        <source>Colored Noise</source>
-        <translation>Bruit coloré</translation>
-    </message>
-    <message>
-        <source>Ambient Sound</source>
-        <translation>Son d’ambiance</translation>
-    </message>
-    <message>
-        <source>Choose ambient sounds</source>
-        <translation>Choisir sons d&apos;ambiance</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Custom frequencies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <source>Colored Noise</source>
+        <translation type="unfinished">Bruit coloré</translation>
+    </message>
+    <message>
         <source>Wave motion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ambient Sound</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ambient sounds</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -367,13 +367,6 @@
     </message>
     <message>
         <source>Custom sound</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>SoundPickerDrawer</name>
-    <message>
-        <source>No file selected</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
